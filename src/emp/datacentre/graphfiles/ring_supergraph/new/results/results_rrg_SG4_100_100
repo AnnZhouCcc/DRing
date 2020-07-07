@@ -1,0 +1,80 @@
+24 480
+1) make: NOMAKE
+2) make: NOMAKE
+3) make: NOMAKE
+4) make: NOMAKE
+5) make: NOMAKE
+6) make: NOMAKE
+7) make: NOMAKE
+8) make: NOMAKE
+9) make: NOMAKE
+10) make: NOMAKE
+11) make: NOMAKE
+12) make: NOMAKE
+13) make: NOMAKE
+1) 0.0837185 0.0325708
+count: 1
+14) make: NOMAKE
+2) 0.0856379 0.037261
+count: 2
+15) make: NOMAKE
+16) make: NOMAKE
+17) make: NOMAKE
+3) 0.0887996 0.0411696
+count: 3
+4) 0.0863271 0.0380427
+count: 4
+18) make: NOMAKE
+5) 0.0850829 0.0351765
+count: 5
+19) make: NOMAKE
+6) 0.0812101 0.0343948
+count: 6
+20) make: NOMAKE
+21) make: NOMAKE
+7) 0.0875382 0.038564
+count: 7
+22) make: NOMAKE
+8) 0.084247 0.0380427
+count: 8
+23) make: NOMAKE
+9) 0.0829486 0.0338738
+count: 9
+24) make: NOMAKE
+10) 0.0811189 0.037261
+count: 10
+25) make: NOMAKE
+11) 0.0842154 0.034916
+count: 11
+12) 0.0880387 0.0375217
+count: 12
+13) 0.0892092 0.038564
+count: 13
+14) 0.0788829 0.0315575
+count: 14
+15) 0.0781471 0.039085
+count: 15
+16) 0.0772429 0.0307469
+count: 16
+17) 0.0778097 0.0346554
+count: 17
+18) 0.0845505 0.0396062
+count: 18
+19) 0.0833029 0.0351765
+count: 19
+20) 0.0845693 0.0333525
+count: 20
+21) 0.0811949 0.0341342
+count: 21
+23) 0.0780814 0.0380427
+count: 22
+22) 0.0888092 0.0377823
+count: 23
+24) 0.0909884 0.040909
+count: 24
+25) 0.0862231 0.037261
+count: 25
+Avg throughput ( rrg_new_24_32_1 ): 0.0839158
+Avg throughput 2 ( rrg_new_24_32_1 ): 0.0839158
+10ile throughput ( rrg_new_24_32_1 ): 0.0363867
+Avg Link Usage ( rrg_new_24_32_1 ): 0

@@ -1,0 +1,45 @@
+72 1440
+1) make: NOMAKE
+2) make: NOMAKE
+3) make: NOMAKE
+4) make: NOMAKE
+5) make: NOMAKE
+6) make: NOMAKE
+7) make: NOMAKE
+8) make: NOMAKE
+9) make: NOMAKE
+10) make: NOMAKE
+3) 0
+3) 0 0
+count: 1
+1) 0
+1) 0 0
+count: 2
+2) 0
+2) 0 0
+count: 3
+5) 0
+5) 0 0
+count: 4
+4) 0
+4) 0 0
+count: 5
+7) 0
+7) 0 0
+count: 6
+9) 0
+9) 0 0
+count: 7
+6) 0
+6) 0 0
+count: 8
+10) 0.0590169
+10) 0.0590169 0.0133144
+count: 9
+8) 0.0539536
+8) 0.0539536 0.0142437
+count: 10
+Avg throughput ( ring_new_72_32_1 ): 0.011297
+Avg throughput 2 ( ring_new_72_32_1 ): 0.011297
+10ile throughput ( ring_new_72_32_1 ): 0.00275581
+Avg Link Usage ( ring_new_72_32_1 ): 0

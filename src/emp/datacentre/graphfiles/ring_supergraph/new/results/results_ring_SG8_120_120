@@ -1,0 +1,45 @@
+48 960
+1) make: NOMAKE
+2) make: NOMAKE
+3) make: NOMAKE
+4) make: NOMAKE
+5) make: NOMAKE
+6) make: NOMAKE
+7) make: NOMAKE
+8) make: NOMAKE
+9) make: NOMAKE
+10) make: NOMAKE
+2) 0.050712
+2) 0.050712 0.0182834
+count: 1
+1) 0.0538825
+1) 0.0538825 0.0225839
+count: 2
+3) 0.0451725
+3) 0.0451725 0.0127887
+count: 3
+4) 0.0569057
+4) 0.0569057 0.0242655
+count: 4
+6) 0.0515062
+6) 0.0515062 0.0211603
+count: 5
+5) 0.0548854
+5) 0.0548854 0.0264855
+count: 6
+9) 0.0486852
+9) 0.0486852 0.0160324
+count: 7
+8) 0.0502636
+8) 0.0502636 0.018166
+count: 8
+7) 0.0547395
+7) 0.0547395 0.0223472
+count: 9
+10) 0.0531125
+10) 0.0531125 0.0204993
+count: 10
+Avg throughput ( ring_new_48_32_1 ): 0.0519865
+Avg throughput 2 ( ring_new_48_32_1 ): 0.0519865
+10ile throughput ( ring_new_48_32_1 ): 0.0202612
+Avg Link Usage ( ring_new_48_32_1 ): 0

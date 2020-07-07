@@ -1,0 +1,105 @@
+72 1440
+1) make: NOMAKE
+2) make: NOMAKE
+3) make: NOMAKE
+4) make: NOMAKE
+5) make: NOMAKE
+6) make: NOMAKE
+7) make: NOMAKE
+8) make: NOMAKE
+9) make: NOMAKE
+10) make: NOMAKE
+11) make: NOMAKE
+12) make: NOMAKE
+13) make: NOMAKE
+14) make: NOMAKE
+15) make: NOMAKE
+16) make: NOMAKE
+17) make: NOMAKE
+18) make: NOMAKE
+19) make: NOMAKE
+20) make: NOMAKE
+21) make: NOMAKE
+22) make: NOMAKE
+1) 0.0315424
+1) 0.0315424 0.0138538
+count: 1
+23) make: NOMAKE
+24) make: NOMAKE
+25) make: NOMAKE
+2) 0
+2) 0 0
+4) 0.0304439
+4) 0.0304439 0.0112732
+count: 3
+count: 3
+3) 0
+3) 0 0
+count: 4
+7) 0
+7) 0 0
+count: 5
+6) 0.0310752
+6) 0.0310752 0.01499
+count: 6
+8) 0
+8) 0 0
+count: 7
+9) 0
+9) 0 0
+count: 8
+10) 0
+10) 0 0
+count: 9
+5) 0.0308012
+5) 0.0308012 0.0151708
+count: 10
+12) 0.0282572
+12) 0.0282572 0.0112539
+count: 11
+11) 0
+11) 0 0
+count: 12
+15) 0.029816
+15) 0.029816 0.0125765
+count: 13
+17) 0
+17) 0 0
+count: 14
+16) 0
+16) 0 0
+count: 15
+24) 0.0285273
+24) 0.0285273 0.00936233
+count: 16
+25) 0.0317264
+25) 0.0317264 0.0129215
+count: 17
+14) 0.0304966
+14) 0.0304966 0.00910383
+count: 18
+13) 0.0272682
+13) 0.0272682 0.0107238
+count: 19
+18) 0.0310508
+18) 0.0310508 0.0140566
+count: 20
+23) 0.0220949
+23) 0.0220949 0.00835239
+count: 21
+19) 0.0301137
+19) 0.0301137 0.0139831
+count: 22
+22) 0.0312165
+22) 0.0312165 0.0139873
+count: 23
+21) 0.030852
+21) 0.030852 0.0154691
+count: 24
+20) 0.0284872
+20) 0.0284872 0.008643
+count: 25
+Avg throughput ( ring_new_72_32_1 ): 0.0189508
+Avg throughput 2 ( ring_new_72_32_1 ): 0.0189508
+10ile throughput ( ring_new_72_32_1 ): 0.00782885
+Avg Link Usage ( ring_new_72_32_1 ): 0
