@@ -1,14 +1,12 @@
-# opera-sim
-Packet-level simulation code to model Opera and other networks from the 2020 NSDI paper "Expanding across time to deliver bandwidth efficiency and low latency"
+# DRing
+Packet-level simulation for 2020 HotNets paper "Spineless Data centers". Adapted from opera-sim "https://github.com/TritonNetworking/opera-sim"
 
 ## Requirements:
 
-- Matlab files: Matlab 2018b or newer (may work with older Matlab versions or with GNU Octave, but not tested)
 - C++ files: g++-7 compiler
 
 ## Description:
 
-- The /FigureX directories contain example Matlab scripts to generate traffic and post-process simulation data as well as execution scripts for running simulations.
 - The /src directory contains the packet simulator source code. There is a separate simulator for each network type (e.g. Clos, expander, and Opera). The packet simulator is an extension of the htsim NDP simulator (https://github.com/nets-cs-pub-ro/NDP/tree/master/sim)
 
 ## Build instructions:
