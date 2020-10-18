@@ -19,7 +19,7 @@
 #include "BhandariTopKDisjointPathsAlg.h"
 
 
-const FIND_PATH_ALGORITHM find_path_alg = KDISJOINT; //SHORTEST3; // FIRST_HOP_INDIRECTION; //KDISJOINT; //ECMP; //KSHORT;
+const FIND_PATH_ALGORITHM find_path_alg = SHORTEST2; // FIRST_HOP_INDIRECTION; //KDISJOINT; //ECMP; //KSHORT;
 
 const double LAMBDA = 10000000; //0.5; //INF
 
@@ -477,7 +477,7 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
     	    return pair<vector<double>*, vector<route_t*>*>(pathweights, paths);
           //return paths;
       }
-      else if(find_path_alg == SHORTEST3){
+      else if(find_path_alg == SHORTEST2){
 
 			//return all shortest paths	 
 			vector<vector<BaseVertex* > > shortest_paths;

@@ -20,7 +20,7 @@ enum FIND_PATH_ALGORITHM
     ECMP,
     ECMP_DAG,
     FIRST_HOP_INDIRECTION,
-    SHORTEST3,
+    SHORTEST2,
 };
 
 // Hardcoding number of switches, ports for now
