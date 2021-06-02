@@ -19,7 +19,7 @@
 #include "BhandariTopKDisjointPathsAlg.h"
 
 
-const FIND_PATH_ALGORITHM find_path_alg = SHORTEST2; // FIRST_HOP_INDIRECTION; //KDISJOINT; //ECMP; //KSHORT;
+const FIND_PATH_ALGORITHM find_path_alg = FIRST_HOP_INDIRECTION; // FIRST_HOP_INDIRECTION; //KDISJOINT; //ECMP; //KSHORT; //SHORTEST2;
 
 const double LAMBDA = 10000000; //0.5; //INF
 
