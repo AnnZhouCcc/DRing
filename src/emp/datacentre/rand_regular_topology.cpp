@@ -19,7 +19,7 @@
 #include "BhandariTopKDisjointPathsAlg.h"
 
 
-const FIND_PATH_ALGORITHM find_path_alg = FIRST_HOP_INDIRECTION; // FIRST_HOP_INDIRECTION; //KDISJOINT; //ECMP; //KSHORT; //SHORTEST2;
+const FIND_PATH_ALGORITHM find_path_alg = SHORTEST3; // FIRST_HOP_INDIRECTION; //KDISJOINT; //ECMP; //KSHORT; //SHORTEST2; //SHORTEST3;
 
 const double LAMBDA = 10000000; //0.5; //INF
 
@@ -501,6 +501,99 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
 						shortest_paths.push_back(shortest_path);
 					}
 					else if (path_till_now.size() <= 1){
+                        bool new_hop = true;
+                        for (BaseVertex* path_vertex: path_till_now){
+                            new_hop = new_hop and (path_vertex->getID() != next_hop->getID());
+                        }
+                        if (new_hop){
+                            vector<BaseVertex*> shortest_path_till_now(path_till_now);
+                            shortest_path_till_now.push_back(next_hop);
+                            shortest_paths_till_now.push(shortest_path_till_now);
+                        }
+					}
+                    //evaluate this case only for shortest paths
+					else if(shortestPathLen[src_sw][dest_sw] == (path_till_now.size() - 1)
+                                                              + shortestPathLen[last_vertex->getID()][dest_sw] &&
+                            shortestPathLen[last_vertex->getID()][dest_sw] == 1 + shortestPathLen[next_hop->getID()][dest_sw]){
+                        vector<BaseVertex*> shortest_path_till_now(path_till_now);
+						shortest_path_till_now.push_back(next_hop);
+						shortest_paths_till_now.push(shortest_path_till_now);
+					}
+				}
+			}
+
+			int i=0;
+			//printf("[%d --> %d] dist: %d, numpaths: %d \n", src_sw, dest_sw, shortestPathLen[src_sw][dest_sw], numpaths);
+			while(i < shortest_paths.size()){
+				// Ankit: Checking if YenAlgo gives anything
+				//cout << "SHORTEST_PATH-ALGO gave some paths" << endl;
+
+				vector<BaseVertex*> pathIHave = shortest_paths[i];
+
+				//	if (shortestLen == -1) shortestLen = pathIHave.size();
+				//	if (pathIHave.size() > shortestLen + 1) break;
+
+				Queue* pqueue = new Queue(speedFromPktps(HOST_NIC), memFromPkt(FEEDER_BUFFER), *eventlist, NULL);
+				pqueue->setName("PQueue_" + ntoa(src) + "_" + ntoa(dest));
+
+				routeout = new route_t();
+				routeout->push_back(pqueue);
+
+				// First hop = svr to sw
+				routeout->push_back(queues_svr_sw[src_sw][ConvertHostToSwitchPort(src)]);
+				routeout->push_back(pipes_svr_sw[src_sw][ConvertHostToSwitchPort(src)]);
+
+				// Ankit: Print path given by All Shortest paths
+				//cout << "SHORTEST PATH NEW = ";
+				for (unsigned int hop = 1; hop < pathIHave.size(); hop++) {
+					int fr = pathIHave[hop-1]->getID();
+					int to = pathIHave[hop]->getID();
+
+					//cout << fr << " -> " << to << " -> ";
+					routeout->push_back(queues_sw_sw[fr][to]);
+					//cout << "(Converted = " << queues_sw_sw[fr][to]->str() << ")";
+					routeout->push_back(pipes_sw_sw[fr][to]);
+				}
+
+
+				//cout << endl;
+				//cout << "(Add final = " << dest << "(" << dest_sw << ") : "<< ConvertHostToSwitchPort(dest) <<" : "<<queues_sw_svr[dest_sw][ConvertHostToSwitchPort(dest)]<<endl;
+				routeout->push_back(queues_sw_svr[dest_sw][ConvertHostToSwitchPort(dest)]);
+				routeout->push_back(pipes_sw_svr[dest_sw][ConvertHostToSwitchPort(dest)]);
+
+				paths->push_back(routeout);
+				//cout << "CHECK-NOT-NULL AT DIFFERENT SWITCH" << endl;
+				check_non_null(routeout);
+				++i;                                                                                                           
+			}
+			pathcache[pair<int, int>(src, dest)] = pair<vector<double>*, vector<route_t*>*> (pathweights, paths);
+			return pair<vector<double>*, vector<route_t*>*>(pathweights, paths);
+			//return paths;
+      }
+      else if(find_path_alg == SHORTEST3){
+
+			//return all shortest paths	 
+			vector<vector<BaseVertex* > > shortest_paths;
+			queue<vector<BaseVertex*> > shortest_paths_till_now;
+
+			vector<BaseVertex*> path_till_now;
+			path_till_now.push_back(myGraph->get_vertex(src_sw));
+			shortest_paths_till_now.push(path_till_now);
+
+			while(!shortest_paths_till_now.empty()){
+				vector<BaseVertex*> path_till_now = shortest_paths_till_now.front();
+				shortest_paths_till_now.pop();
+				BaseVertex* last_vertex = path_till_now.back();
+				set<BaseVertex*> possible_next_hops;
+				myGraph->get_adjacent_vertices(last_vertex, possible_next_hops);
+				for(BaseVertex* next_hop: possible_next_hops){
+					if(next_hop == myGraph->get_vertex(dest_sw)){
+						//found a shortest path!
+						vector<BaseVertex*> shortest_path(path_till_now);
+						shortest_path.push_back(next_hop);
+						shortest_paths.push_back(shortest_path);
+					}
+					else if (path_till_now.size() <= 2){ // for shortest-union(3)
                         bool new_hop = true;
                         for (BaseVertex* path_vertex: path_till_now){
                             new_hop = new_hop and (path_vertex->getID() != next_hop->getID());

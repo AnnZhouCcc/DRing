@@ -1,13 +1,14 @@
 #!/bin/bash
-# USAGE: ./run.sh [topology type] [# subflows] [total # ports] [# paths] [topologyfile] [nservers] [nclusters] [oversubscription] [make? MAKE: NOMAKE] [TM_Matrix:PERM/SAMPLED_PERM/STRIDE/STGD_PERM/HOT_SPOT/MANY_TO_MANY/RANDOM/MAX_WT/RACK_TO_RACK/RACK_PERM/ALL_TO_ALL/FEW_TO_SOME/ALL_TO_FEW/FILE/UNIFORM] [param:optional] [paramo:optional] [seed:optional] [suffix: optional] 
+# USAGE: ./run.sh [topology type] [# subflows] [total # ports] [# paths] [topologyfile] [nservers] [nclusters] [oversubscription] [make? MAKE: NOMAKE] [TM_Matrix:PERM/SAMPLED_PERM/STRIDE/STGD_PERM/HOT_SPOT/MANY_TO_MANY/RANDOM/MAX_WT/RACK_TO_RACK/RACK_PERM/ALL_TO_ALL/FEW_TO_SOME/ALL_TO_FEW/FILE/UNIFORM] [multiplier] [param:optional] [paramo:optional] [seed:optional] [suffix: optional] 
 
 #rm -rf main.o fattree leafspine rrg
 
 PARTITION=FALSE
-PARAM=${11}
-PARAMO=${12}
-SEED=${13}
-SUFFIX=${14}
+MULT=${11}
+PARAM=${12}
+PARAMO=${13}
+SEED=${14}
+SUFFIX=${15}
 if [[ $1 == "FAT" ]]; then
     NHOST=`expr $3 \* $3 \* $3 / 4`
     NSW=`expr 5 \* $3 \* $3 / 4`
@@ -22,7 +23,7 @@ if [[ $1 == "FAT" ]]; then
     tempResultFile=fat_output_$2_$3_$NHOST_$NSW_$9_${10}_${PARAM2}_${BASHPID}
     tempLogFile=fat_pathlog_$2_$3_$NHOST_$NSW_$9_${10}_${PARAM2}_${BASHPID}
     echo $tempResultFile
-    ./fattree_${SUFFIX} -o ${tempLogFile} -sub $2 -TMatrix ${10}  -param ${PARAM} -paramo ${PARAMO} | tee $tempResultFile
+    ./fattree_${SUFFIX} -o ${tempLogFile} -sub $2 -TMatrix ${10} -mult ${MULT}  -param ${PARAM} -paramo ${PARAMO} | tee $tempResultFile
     #cat fat_output | grep Throughput | awk -F " " '{thr[$5]=$2} END{for(sid in thr) print thr[sid]}' | awk -v nhost="$NHOST" '{sum+=$1} END{print sum/nhost/61}'
     #echo $tempResultFile
     #cat $tempResultFile | grep "Throughput" | awk -F " " '{thr[$7 " " $5]=$2} END{for(sid in thr) {split(sid,arr," "); print arr[1] " " thr[sid];}}'  | sort -n -k1 | awk -v nhost="$NHOST" '{sum[$1]+=$2} END{for(s in sum) print s,sum[s]/nhost/61}' | sort -n 
@@ -72,7 +73,7 @@ if [[ $1 == "LEAFSPINE" ]]; then
     tempResultFile=leafspine_output_$2_$3_$NHOST_$NSW_$9_${10}_${PARAM2}_${BASHPID}
     tempLogFile=leafspine_pathlog_$2_$3_$NHOST_$NSW_$9_${10}_${PARAM2}_${BASHPID}
     echo $tempResultFile
-    ./leafspine_${SUFFIX} -o ${tempLogFile} -sub $2 -TMatrix ${10}  -param ${PARAM} -paramo ${PARAMO} | tee $tempResultFile
+    ./leafspine_${SUFFIX} -o ${tempLogFile} -sub $2 -TMatrix ${10} -mult ${MULT}  -param ${PARAM} -paramo ${PARAMO} | tee $tempResultFile
     #cat leafspine_output | grep Throughput | awk -F " " '{thr[$5]=$2} END{for(sid in thr) print thr[sid]}' | awk -v nhost="$NHOST" '{sum+=$1} END{print sum/nhost/61}'
     #echo $tempResultFile
     #cat $tempResultFile | grep "Throughput" | awk -F " " '{thr[$7 " " $5]=$2} END{for(sid in thr) {split(sid,arr," "); print arr[1] " " thr[sid];}}'  | sort -n -k1 | awk -v nhost="$NHOST" '{sum[$1]+=$2} END{for(s in sum) print s,sum[s]/nhost/61}' | sort -n 
@@ -139,7 +140,7 @@ if [[ $1 == "RRG" ]]; then
     echo $tempResultFile
     echo ${PARAM}
     echo ${PARAMO}
-    ./rrg_$SUFFIX -o ${tempLogFile} -sub $2 -TMatrix ${TMatrix} -param ${PARAM} -paramo ${PARAMO} -topo $5 -seed ${SEED} | tee $tempResultFile
+    ./rrg_$SUFFIX -o ${tempLogFile} -sub $2 -TMatrix ${TMatrix} -mult ${MULT} -param ${PARAM} -paramo ${PARAMO} -topo $5 -seed ${SEED} | tee $tempResultFile
     #cat rrg_output | grep Throughput | awk -F " " '{thr[$7][$5]=$2} END{for(i=1; i<=10; i++) for(sid in thr[i]) print i,thr[i][sid]}' | awk -v nhost="$NHOST" -F " " '{sum[$1]+=$2} END{for(s in sum) print sum[s]/nhost/61}'
     tput=`cat $tempResultFile | grep Throughput | awk -F " " '{thr[$7 " " $5]=$2} END{for(sid in thr) {split(sid,arr," "); print arr[1] " " thr[sid];}}'  | sort -n -k1 | awk -v nhost="$NHOST" '{sum[$1]+=$2} END{for(s in sum) print s,sum[s]/nhost/61}' | sort -n | awk ' END { print } ' | awk '{ sum += $2 } END { if (NR > 0) print sum / NR }'`
     tput2=`cat $tempResultFile | grep Throughput | awk -F " " '{thr[$7 " " $5]=$2} END{for(sid in thr) {split(sid,arr," "); flow[arr[2]]+=thr[sid];cnt[arr[2]]+=1;}; for(fl in flow) {print fl " " flow[fl]/cnt[fl]/61 " " cnt[fl]};}'  | sort -n -k1 | awk -v nhost="$NHOST" '{ sum += $2 } END { print sum/nhost }'`

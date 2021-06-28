@@ -32,6 +32,9 @@
 #define PRINT_PATHS 0
 #define PERIODIC 0
 
+// Parameters for average flow size experiments
+#define LARGE_FLOWSIZE true
+#define FLOWSIZE_MULT 3
 
 uint32_t RTT = 2; // us
 int ssthresh = 43; //65 KB
@@ -72,7 +75,9 @@ int main(int argc, char **argv) {
     int algo = COUPLED_EPSILON;
     double epsilon = 1;
     int param, paramo = 0;
+    int multiplier = 0;
     string paramstring, paramstringo;
+    string multiplierstring;
     stringstream filename(ios_base::out);
     string rfile;
     string partitionsfile;
@@ -97,12 +102,18 @@ int main(int argc, char **argv) {
       }
       cout << "Using Connection Matrix: "<<conn_matrix<<endl;
 
+      if (argc>i&&!strcmp(argv[i],"-mult")){
+          multiplierstring = argv[i+1];
+          multiplier = atoi(argv[i+1]);
+          i+=2;
+      }
+      cout << "Multiplier=" << multiplier << endl;
 
-     if (argc>i&&!strcmp(argv[i],"-param")){
-         paramstring = argv[i+1];
-         param = atoi(argv[i+1]);
-         i+=2;
-     }
+      if (argc>i&&!strcmp(argv[i],"-param")){
+          paramstring = argv[i+1];
+          param = atoi(argv[i+1]);
+          i+=2;
+      }
       cout << "Using subflow count " << subflow_count <<endl;
 
       if (argc>i&&!strcmp(argv[i],"-paramo")){
@@ -125,7 +136,6 @@ int main(int argc, char **argv) {
           i+=2;
       }
       cout << "Using seed: " << seed << endl;
-
 
       if (argc>i&&!strcmp(argv[i],"-partitions")){
           partitionsfile = argv[i+1];
@@ -217,10 +227,10 @@ int main(int argc, char **argv) {
         conns->setAlltoAll(top);
     }
     else if(conn_matrix == "RACK_TO_RACK"){
-        conns->setRacktoRackFlows(top, param, paramo);
+        conns->setRacktoRackFlows(top, param, paramo, multiplier);
     }
     else if(conn_matrix == "FEW_TO_SOME"){
-        conns->setFewtoSomeFlows(top, param, paramo);
+        conns->setFewtoSomeFlows(top, param, paramo, multiplier);
     }
     else if(conn_matrix == "UNIFORM"){
         conns->setUniform(param);
@@ -230,7 +240,7 @@ int main(int argc, char **argv) {
         conns->setRandomFlows(connxs);
     }
     else if(conn_matrix == "FILE"){
-        conns->setFlowsFromFile(top, paramstring);
+        conns->setFlowsFromFile(top, paramstring, multiplier);
     }
     else{
         cout<<"conn_matrix: "<<conn_matrix<<" not supported. Supported options are: "<<endl;
@@ -278,7 +288,12 @@ int main(int argc, char **argv) {
         tcpSrc = new TcpSrc(NULL, NULL, eventlist);
         tcpSnk = new TcpSink();
         tcpSrc->set_ssthresh(ssthresh*Packet::data_packet_size());
-        tcpSrc->set_flowsize(flow.bytes);
+
+        #if LARGE_FLOWSIZE
+            tcpSrc->set_flowsize(flow.bytes * FLOWSIZE_MULT);
+        #else
+            tcpSrc->set_flowsize(flow.bytes);
+        #endif
 
         unsigned int choice = 0;
         choice = rand()%net_paths[flow.src][flow.dst]->size();
@@ -291,10 +306,10 @@ int main(int argc, char **argv) {
             exit(1);
         }
 
-#if PRINT_PATHS
-        paths << "Route from "<< ntoa(src) << " to " << ntoa(dest) << "  (" << choice << ") -> " ;
-        print_path(paths,net_paths[src][dest]->at(choice));
-#endif
+        #if PRINT_PATHS
+                paths << "Route from "<< ntoa(src) << " to " << ntoa(dest) << "  (" << choice << ") -> " ;
+                print_path(paths,net_paths[src][dest]->at(choice));
+        #endif
 
         //last entry is path length
         tcpSrc->setName("tcp_src_" + ntoa(flow.src) + "_" + ntoa(flow.dst) + "_" + 
@@ -315,7 +330,14 @@ int main(int argc, char **argv) {
         routein = new route_t(*(net_paths[flow.dst][flow.src]->at(rchoice)));
         routein->push_back(tcpSrc);
 
-        tcpSrc->connect(*routeout, *routein, *tcpSnk, timeFromMs(flow.start_time_ms));
+        #if LARGE_FLOWSIZE
+            int shouldSendFlow = rand()%FLOWSIZE_MULT;
+            if (shouldSendFlow == 0) {
+                tcpSrc->connect(*routeout, *routein, *tcpSnk, timeFromMs(flow.start_time_ms));
+            }
+        #else
+            tcpSrc->connect(*routeout, *routein, *tcpSnk, timeFromMs(flow.start_time_ms));
+        #endif
         //sinkLogger.monitorSink(tcpSnk);
     }
 
