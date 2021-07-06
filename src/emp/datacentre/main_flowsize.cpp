@@ -33,8 +33,8 @@
 #define PERIODIC 0
 
 // Parameters for average flow size experiments
-#define LARGE_FLOWSIZE true
-#define FLOWSIZE_MULT 3
+#define LARGE_FLOWSIZE false
+#define FLOWSIZE_MULT 0
 
 uint32_t RTT = 2; // us
 int ssthresh = 43; //65 KB
@@ -52,6 +52,11 @@ const double SIMTIME = 101;
 EventList eventlist;
 
 Logfile* lg;
+
+uint64_t total_path_lengths = 0;
+uint64_t total_available_paths = 0;
+uint64_t total_available_first_hops = 0;
+extern uint64_t total_packet_bytes;
 
 void exit_error(char* progr) {
     cout << "Usage " << progr << " [UNCOUPLED(DEFAULT)|COUPLED_INC|FULLY_COUPLED|COUPLED_EPSILON] [epsilon][COUPLED_SCALABLE_TCP" << endl;
@@ -75,13 +80,14 @@ int main(int argc, char **argv) {
     int algo = COUPLED_EPSILON;
     double epsilon = 1;
     int param, paramo = 0;
-    int multiplier = 0;
+    int multiplier, korn = 0;
     string paramstring, paramstringo;
-    string multiplierstring;
+    string multiplierstring, kornstring;
     stringstream filename(ios_base::out);
     string rfile;
     string partitionsfile;
     string conn_matrix;
+    string routing;
     if (argc > 1) {
       int i = 1;
       if (!strcmp(argv[1],"-o")){
@@ -108,6 +114,19 @@ int main(int argc, char **argv) {
           i+=2;
       }
       cout << "Multiplier=" << multiplier << endl;
+
+      if (argc>i&&!strcmp(argv[i],"-r")){
+          routing = argv[i+1];
+          i+=2;
+      }
+      cout << "Using Routing: "<<routing<<endl;
+      
+      if (argc>i&&!strcmp(argv[i],"-k")){
+          kornstring = argv[i+1];
+          korn = atoi(argv[i+1]);
+          i+=2;
+      }
+      cout << "k or n = " << korn << endl;     
 
       if (argc>i&&!strcmp(argv[i],"-param")){
           paramstring = argv[i+1];
@@ -192,7 +211,7 @@ int main(int argc, char **argv) {
 //< Ankit added
 #ifdef RAND_REGULAR
     //= "../../../rand_topologies/rand_" + ntoa(NSW) + "_" + ntoa(R) + ".txt";
-    RandRegularTopology* top = new RandRegularTopology(&logfile, &eventlist, rfile, RANDOM);
+    RandRegularTopology* top = new RandRegularTopology(&logfile, &eventlist, rfile, RANDOM, routing, korn);
 #endif
 //>
 
@@ -275,6 +294,27 @@ int main(int argc, char **argv) {
             net_paths[flow.dst][flow.src] = top->get_paths(flow.dst, flow.src).second;
         }
 
+        size_t num_available_paths = net_paths[flow.src][flow.dst]->size();
+        total_available_paths += num_available_paths;
+        // cout << "**********temporary printing***********" <<  endl;
+        // route_t *temp_route0 = new route_t(*(net_paths[flow.src][flow.dst]->at(0)));
+        // for (vector<PacketSink*>::const_iterator it = temp_route0->begin(); it != temp_route0->end(); ++it) {
+        //     cout << (*it)->nodename() << " ";
+        // }
+        // cout << endl;
+        // route_t *temp_route1 = new route_t(*(net_paths[flow.src][flow.dst]->at(1)));
+        // for (vector<PacketSink*>::const_iterator it = temp_route1->begin(); it != temp_route1->end(); ++it) {
+        //     cout << (*it)->nodename() << " ";
+        // }
+        // cout << endl;
+        set<PacketSink *> first_hops_till_now;
+        for (unsigned int i=0; i<(unsigned int)num_available_paths; i++) {
+            route_t *this_route = new route_t(*(net_paths[flow.src][flow.dst]->at(i)));
+            PacketSink *this_first_hop = this_route->at(3); // Queue inherits from PacketSink
+            first_hops_till_now.insert(this_first_hop);
+        }
+        total_available_first_hops += first_hops_till_now.size();
+
         if (flowID%1000==1){
             cout << "How many paths? = " << net_paths[flow.src][flow.dst]->size() << endl;
             for (unsigned int k = 0; k < net_paths[flow.src][flow.dst]->size(); k++) {
@@ -325,6 +365,8 @@ int main(int argc, char **argv) {
         routeout = new route_t(*(net_paths[flow.src][flow.dst]->at(choice)));
         routeout->push_back(tcpSnk);
 
+        total_path_lengths += net_paths[flow.src][flow.dst]->at(choice)->size()/2 - 2;
+
         assert (net_paths[flow.dst][flow.src]->size() > 0);
         int rchoice = rand()%net_paths[flow.dst][flow.src]->size();
         routein = new route_t(*(net_paths[flow.dst][flow.src]->at(rchoice)));
@@ -351,8 +393,10 @@ int main(int argc, char **argv) {
     logfile.write("# rtt =" + ntoa(rtt));
 
     // GO!
+    cout << "topology  " << total_path_lengths << " " << total_available_paths << " " << total_available_first_hops << endl;
     cout << "starting simulation " << endl;
     while (eventlist.doNextEvent()) {}
+    cout << "end  " << total_packet_bytes << " " << total_path_lengths << " " << total_available_paths << " " << total_available_first_hops << endl;
 }
 
 string ntoa(double n) {

@@ -5,6 +5,9 @@
 #include <iostream>
 
 #define KILL_THRESHOLD 5
+
+uint64_t total_packet_bytes = 0;
+
 ////////////////////////////////////////////////////////////////
 //  TCP SOURCE
 ////////////////////////////////////////////////////////////////
@@ -191,10 +194,10 @@ TcpSrc::receivePacket(Packet& pkt)
         // original:
         //cout << "Flow " << nodename() << " finished at " << timeAsMs(eventlist().now()) << endl;
 
-        // FCT output for processing: (src dst bytes fct_ms timestarted_ms)
+        // FCT output for processing: (bytes fct_ms timestarted_ms packets_sent)
         _finished = true;
         cout << "FCT " << " " << _flow_size <<
-            " " << timeAsMs(eventlist().now() - _start_time) << " " << timeAsMs(_start_time) << endl;
+            " " << timeAsMs(eventlist().now() - _start_time) << " " << timeAsMs(_start_time) << " " << _packets_sent << endl;
     }
   
     if (seqno > _last_acked) { // a brand new ack
@@ -474,6 +477,7 @@ TcpSrc::send_packets() {
     
 	_highest_sent += _mss;  //XX beware wrapping
 	_packets_sent += _mss;
+	total_packet_bytes += _mss;
 
 	p->sendOn();
 
@@ -529,6 +533,7 @@ TcpSrc::retransmit_packet() {
     p->sendOn();
 
     _packets_sent += _mss;
+	total_packet_bytes += _mss;
 
     if(_RFC2988_RTO_timeout == timeInf) {// RFC2988 5.1
 	_RFC2988_RTO_timeout = eventlist().now() + _rto;

@@ -5,10 +5,12 @@
 
 PARTITION=FALSE
 MULT=${11}
-PARAM=${12}
-PARAMO=${13}
-SEED=${14}
-SUFFIX=${15}
+ROUTING=${12}
+KorN=${13}
+PARAM=${14}
+PARAMO=${15}
+SEED=${16}
+SUFFIX=${17}
 if [[ $1 == "FAT" ]]; then
     NHOST=`expr $3 \* $3 \* $3 / 4`
     NSW=`expr 5 \* $3 \* $3 / 4`
@@ -73,7 +75,7 @@ if [[ $1 == "LEAFSPINE" ]]; then
     tempResultFile=leafspine_output_$2_$3_$NHOST_$NSW_$9_${10}_${PARAM2}_${BASHPID}
     tempLogFile=leafspine_pathlog_$2_$3_$NHOST_$NSW_$9_${10}_${PARAM2}_${BASHPID}
     echo $tempResultFile
-    ./leafspine_${SUFFIX} -o ${tempLogFile} -sub $2 -TMatrix ${10} -mult ${MULT}  -param ${PARAM} -paramo ${PARAMO} | tee $tempResultFile
+    ./leafspine_${SUFFIX} -o ${tempLogFile} -sub $2 -TMatrix ${10} -mult ${MULT} -r ${ROUTING} -k ${KorN} -param ${PARAM} -paramo ${PARAMO} | tee $tempResultFile
     #cat leafspine_output | grep Throughput | awk -F " " '{thr[$5]=$2} END{for(sid in thr) print thr[sid]}' | awk -v nhost="$NHOST" '{sum+=$1} END{print sum/nhost/61}'
     #echo $tempResultFile
     #cat $tempResultFile | grep "Throughput" | awk -F " " '{thr[$7 " " $5]=$2} END{for(sid in thr) {split(sid,arr," "); print arr[1] " " thr[sid];}}'  | sort -n -k1 | awk -v nhost="$NHOST" '{sum[$1]+=$2} END{for(s in sum) print s,sum[s]/nhost/61}' | sort -n 
@@ -100,7 +102,7 @@ if [[ $1 == "LEAFSPINE" ]]; then
     echo "10ile_throughput $tput_10ile"
     echo "avg_link_usage ${avg_link_usage}"
     #echo "avg_throughput $tput" > $tempResultFile
-    rm $tempResultFile
+    # rm $tempResultFile
     rm $tputVsPathLenFile ${tempFlowDistFile}
     rm -rf ${tempFlowTputFile}
     rm -rf ${link_bw_usage_file} ${tempLogFile}
@@ -135,12 +137,12 @@ if [[ $1 == "RRG" ]]; then
 	cp rrg rrg_$SUFFIX
     fi
     PARAM2=`echo ${PARAM}| sed -e 's/\//$/g'`
-    tempResultFile=$5_$1_$2_$3_$4_$6_$7_$9_${10}_${PARAM2}_${SUFFIX}_rrg_output_${BASHPID}
-    tempLogFile=$5_$1_$2_$3_$4_$6_$7_$9_${10}_${PARAM2}_${SUFFIX}_rrg_pathlog_${BASHPID}
+    tempResultFile=$5_$1_$2_$3_$4_$6_$7_$9_${10}_${PARAM2}_${SUFFIX}_rrg_output_${BASHPID}_${ROUTING}_${KorN}_${MULT}
+    tempLogFile=$5_$1_$2_$3_$4_$6_$7_$9_${10}_${PARAM2}_${SUFFIX}_rrg_pathlog_${BASHPID}_${ROUTING}_${KorN}_${MULT}
     echo $tempResultFile
     echo ${PARAM}
     echo ${PARAMO}
-    ./rrg_$SUFFIX -o ${tempLogFile} -sub $2 -TMatrix ${TMatrix} -mult ${MULT} -param ${PARAM} -paramo ${PARAMO} -topo $5 -seed ${SEED} | tee $tempResultFile
+    ./rrg_$SUFFIX -o ${tempLogFile} -sub $2 -TMatrix ${TMatrix} -mult ${MULT} -r ${ROUTING} -k ${KorN} -param ${PARAM} -paramo ${PARAMO} -topo $5 -seed ${SEED} | tee $tempResultFile
     #cat rrg_output | grep Throughput | awk -F " " '{thr[$7][$5]=$2} END{for(i=1; i<=10; i++) for(sid in thr[i]) print i,thr[i][sid]}' | awk -v nhost="$NHOST" -F " " '{sum[$1]+=$2} END{for(s in sum) print sum[s]/nhost/61}'
     tput=`cat $tempResultFile | grep Throughput | awk -F " " '{thr[$7 " " $5]=$2} END{for(sid in thr) {split(sid,arr," "); print arr[1] " " thr[sid];}}'  | sort -n -k1 | awk -v nhost="$NHOST" '{sum[$1]+=$2} END{for(s in sum) print s,sum[s]/nhost/61}' | sort -n | awk ' END { print } ' | awk '{ sum += $2 } END { if (NR > 0) print sum / NR }'`
     tput2=`cat $tempResultFile | grep Throughput | awk -F " " '{thr[$7 " " $5]=$2} END{for(sid in thr) {split(sid,arr," "); flow[arr[2]]+=thr[sid];cnt[arr[2]]+=1;}; for(fl in flow) {print fl " " flow[fl]/cnt[fl]/61 " " cnt[fl]};}'  | sort -n -k1 | awk -v nhost="$NHOST" '{ sum += $2 } END { print sum/nhost }'`
@@ -167,7 +169,7 @@ if [[ $1 == "RRG" ]]; then
     echo "10ile_throughput $tput_10ile"
     echo "avg_link_usage ${avg_link_usage}"
     echo "temporary result file ${tempResultFile}"
-    rm -rf ${tempResultFile}
+    # rm -rf ${tempResultFile}
     rm -rf ${link_bw_usage_file} ${tempFlowDistFile} 
     rm -rf ${tputVsPathLenFile}
     rm -rf ${tempFlowTputFile}

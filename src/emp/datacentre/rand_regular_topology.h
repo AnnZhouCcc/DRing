@@ -21,7 +21,7 @@ enum FIND_PATH_ALGORITHM
     ECMP_DAG,
     FIRST_HOP_INDIRECTION,
     SHORTEST2,
-    SHORTEST3,
+    SHORTESTN,
 };
 
 // Hardcoding number of switches, ports for now
@@ -46,8 +46,11 @@ class RandRegularTopology: public Topology{
   Queue * queues_svr_sw[NSW][SVRPORTS];
 
   Logfile* logfile;
+
+  FIND_PATH_ALGORITHM find_path_alg;
+  int korn;
   
-  RandRegularTopology(Logfile* log,EventList* ev, string graphFile, queue_type qt=RANDOM);
+  RandRegularTopology(Logfile* log,EventList* ev, string graphFile, queue_type qt=RANDOM, string alg="ecmp", int k=0);
 
   void init_network();
   virtual pair<vector<double>*, vector<route_t*>*> get_paths(int src, int dest);

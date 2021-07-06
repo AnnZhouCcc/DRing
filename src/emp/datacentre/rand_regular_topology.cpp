@@ -19,7 +19,8 @@
 #include "BhandariTopKDisjointPathsAlg.h"
 
 
-const FIND_PATH_ALGORITHM find_path_alg = SHORTEST3; // FIRST_HOP_INDIRECTION; //KDISJOINT; //ECMP; //KSHORT; //SHORTEST2; //SHORTEST3;
+FIND_PATH_ALGORITHM find_path_alg = ECMP; // FIRST_HOP_INDIRECTION; //KDISJOINT; //ECMP; //KSHORT; //SHORTEST2; //SHORTESTN;
+int korn = 0;
 
 const double LAMBDA = 10000000; //0.5; //INF
 
@@ -30,7 +31,7 @@ string itoa(uint64_t n);
 
 extern int N;
 
-RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string graphFile, queue_type qt){
+RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string graphFile, queue_type qt, string alg, int k){
   logfile = lg;
   eventlist = ev;
   qtype = qt;
@@ -88,7 +89,18 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
   //compute all pair shortest paths
   floydWarshall();
 
-
+	if (alg == "fhi") {
+		find_path_alg = FIRST_HOP_INDIRECTION; 
+	} else if (alg == "kdisjoint") {
+		find_path_alg = KDISJOINT; 
+	} else if (alg == "ecmp") {
+		find_path_alg = ECMP;
+	} else if (alg == "kshort") {
+		find_path_alg = KSHORT;
+	} else if (alg == "su") {
+		find_path_alg = SHORTESTN; //SHORTEST2 is not used.
+	}
+	korn = k;
 }
 
 void RandRegularTopology::init_network(){
@@ -338,11 +350,13 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
 
           int i=0;
           int shortestLen = -1;
-          int numpaths = NUMPATHS;
-          if(shortestPathLen[src_sw][dest_sw] == 1) numpaths = 6;
-          else if(shortestPathLen[src_sw][dest_sw] == 2) numpaths = 6;
-          else if(shortestPathLen[src_sw][dest_sw] == 3) numpaths = 6;
-          else if(shortestPathLen[src_sw][dest_sw] == 4) numpaths = 6;
+        //   int numpaths = NUMPATHS;
+		//   int numpaths_adjust = k;
+		  int numpaths = korn;
+        //   if(shortestPathLen[src_sw][dest_sw] == 1) numpaths = numpaths_adjust;
+        //   else if(shortestPathLen[src_sw][dest_sw] == 2) numpaths = numpaths_adjust;
+        //   else if(shortestPathLen[src_sw][dest_sw] == 3) numpaths = numpaths_adjust;
+        //   else if(shortestPathLen[src_sw][dest_sw] == 4) numpaths = numpaths_adjust;
           //printf("[%d --> %d] dist: %d, numpaths: %d \n", src_sw, dest_sw, shortestPathLen[src_sw][dest_sw], numpaths);
           while(yenAlg.has_next() && i < numpaths){
               // Ankit: Checking if YenAlgo gives anything
@@ -417,10 +431,11 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
           int shortestLen = -1;
           vector<BasePath*> pathsIHave;
           int numpaths = NUMPATHS;
-          if(shortestPathLen[src_sw][dest_sw] == 1) numpaths = 8;
-          else if(shortestPathLen[src_sw][dest_sw] == 2) numpaths = 8;
-          else if(shortestPathLen[src_sw][dest_sw] == 3) numpaths = 8;
-          else if(shortestPathLen[src_sw][dest_sw] == 4) numpaths = 8;
+		  int numpaths_adjust = 8;
+          if(shortestPathLen[src_sw][dest_sw] == 1) numpaths = numpaths_adjust;
+          else if(shortestPathLen[src_sw][dest_sw] == 2) numpaths = numpaths_adjust;
+          else if(shortestPathLen[src_sw][dest_sw] == 3) numpaths = numpaths_adjust;
+          else if(shortestPathLen[src_sw][dest_sw] == 4) numpaths = numpaths_adjust;
           //printf("[%d --> %d] dist: %d, numpaths: %d \n", src_sw, dest_sw, shortestPathLen[src_sw][dest_sw], numpaths);
           BhandariAlg.KDisjointPaths(numpaths, pathsIHave);
           for(int i=0; i<pathsIHave.size(); i++){
@@ -570,7 +585,7 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
 			return pair<vector<double>*, vector<route_t*>*>(pathweights, paths);
 			//return paths;
       }
-      else if(find_path_alg == SHORTEST3){
+      else if(find_path_alg == SHORTESTN){
 
 			//return all shortest paths	 
 			vector<vector<BaseVertex* > > shortest_paths;
@@ -593,7 +608,7 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
 						shortest_path.push_back(next_hop);
 						shortest_paths.push_back(shortest_path);
 					}
-					else if (path_till_now.size() <= 2){ // for shortest-union(3)
+					else if (path_till_now.size() <= (korn-1)){ // n-1 for shortest-union(n)
                         bool new_hop = true;
                         for (BaseVertex* path_vertex: path_till_now){
                             new_hop = new_hop and (path_vertex->getID() != next_hop->getID());
