@@ -1,6 +1,6 @@
-routing=su
-k=3
-date=705
+routing=ecmp
+k=0
+date=713
 lan=894784
 run_fb_tms(){
     mult=1
@@ -93,9 +93,9 @@ run_r2r_tms(){
     # for mult in {7..11};
     # do
     k=0
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/double_ring/instance1_80_64.edgelist 2988 1 1 ${MAKE} RACK_TO_RACK ${mult} ${routing} ${k} ${C} ${S} 3 dring_${routing}_80_64_1 | grep "FCT" > fct_results_${date}/dring_${routing}_${k}_${tm}_${date}_inst${inst}_ii${mult}_${lan} &
-    sleep 30
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} RACK_TO_RACK ${mult} ${routing} ${k} ${C} ${S} 3 rrg_${routing}_80_64_1 | grep "FCT" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_inst${inst}_ii${mult}_${lan} &
+    # time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/double_ring/instance1_80_64.edgelist 2988 1 1 ${MAKE} RACK_TO_RACK ${mult} ${routing} ${k} ${C} ${S} 3 dring_${routing}_80_64_1 | grep "FCT" > fct_results_${date}/dring_${routing}_${k}_${tm}_${date}_inst${inst}_ii${mult}_${lan} &
+    # sleep 30
+    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} RACK_TO_RACK ${mult} ${routing} ${k} ${C} ${S} 3 rrg_${routing}_80_64_1 | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_inst${inst}_ii${mult}_${lan} &
     # sleep 30
     # time ./run.sh LEAFSPINE 1 64 16 null 3072 1 1 ${MAKE} RACK_TO_RACK ${mult} ${C} ${S} 3 ls_flowsize_80_64_1 | grep "FCT" > fct_results_${date}/ls_${tm}_${date}_inst${inst}_ii${mult}_${lan} &
     wait
@@ -103,8 +103,8 @@ run_r2r_tms(){
 }
 
 
-# run_r2r_tms
-run_cs_skewed
+run_r2r_tms
+# run_cs_skewed
 # run_a2a
 # run_fb_tms_rp
 # run_fb_tms

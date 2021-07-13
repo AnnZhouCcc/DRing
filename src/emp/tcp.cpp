@@ -194,10 +194,10 @@ TcpSrc::receivePacket(Packet& pkt)
         // original:
         //cout << "Flow " << nodename() << " finished at " << timeAsMs(eventlist().now()) << endl;
 
-        // FCT output for processing: (bytes fct_ms timestarted_ms packets_sent)
+        // FCT output for processing: (bytes fct_ms timestarted_ms packets_sent total_packet_bytes)
         _finished = true;
         cout << "FCT " << " " << _flow_size <<
-            " " << timeAsMs(eventlist().now() - _start_time) << " " << timeAsMs(_start_time) << " " << _packets_sent << endl;
+            " " << timeAsMs(eventlist().now() - _start_time) << " " << timeAsMs(_start_time) << " " << _packets_sent << " " << total_packet_bytes << endl;
     }
   
     if (seqno > _last_acked) { // a brand new ack

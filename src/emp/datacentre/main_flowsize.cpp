@@ -56,7 +56,7 @@ Logfile* lg;
 uint64_t total_path_lengths = 0;
 uint64_t total_available_paths = 0;
 uint64_t total_available_first_hops = 0;
-extern uint64_t total_packet_bytes;
+// extern uint64_t total_packet_bytes;
 
 void exit_error(char* progr) {
     cout << "Usage " << progr << " [UNCOUPLED(DEFAULT)|COUPLED_INC|FULLY_COUPLED|COUPLED_EPSILON] [epsilon][COUPLED_SCALABLE_TCP" << endl;
@@ -396,7 +396,7 @@ int main(int argc, char **argv) {
     cout << "topology  " << total_path_lengths << " " << total_available_paths << " " << total_available_first_hops << endl;
     cout << "starting simulation " << endl;
     while (eventlist.doNextEvent()) {}
-    cout << "end  " << total_packet_bytes << " " << total_path_lengths << " " << total_available_paths << " " << total_available_first_hops << endl;
+    // cout << "end  " << total_packet_bytes << " " << total_path_lengths << " " << total_available_paths << " " << total_available_first_hops << endl;
 }
 
 string ntoa(double n) {
