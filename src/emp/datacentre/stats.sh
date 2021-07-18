@@ -2,7 +2,8 @@
 #                     "dring_s2_a2a_16" "rrg_s2_a2a_16"
 #                     "dring_s2_cs_skewed_768_192_ann" "rrg_s2_cs_skewed_768_192_ann")
 # prefix="fct_results/"
-dir="./fct_results_713/*"
+dir="./fct_results_715v2/*"
+re=".*(fb|a2a).*"
 run_fct(){
     echo -e "\nAVERAGE"
     for FILE in ${dir}; do
@@ -10,7 +11,11 @@ run_fct(){
     #     FILE="${prefix}${FILE}"
         if ! [ -d "$FILE" ]; then
             FILENAME="${FILE##*/}"
-            tail -n +4 $FILE | awk -v filename=$FILENAME '{ sum += $3 } END { avg = sum/NR } END { print filename," ",avg }'
+	    if [[ $FILENAME =~ $re ]]; then
+                tail -n +2 $FILE | awk -v filename=$FILENAME '{ sum += $3 } END { NR == 0 ? avg=0 : avg = sum/NR } END { print filename," ",avg }'
+	    else
+                tail -n +4 $FILE | awk -v filename=$FILENAME '{ sum += $3 } END { NR == 0 ? avg=0 : avg = sum/NR } END { print filename," ",avg }'
+	    fi
         fi
     done
 
@@ -20,7 +25,11 @@ run_fct(){
     #     FILE="${prefix}${FILE}"
         if ! [ -d "$FILE" ]; then
             FILENAME="${FILE##*/}"
-            tail -n +4 $FILE | sort -k3 | awk -v filename=$FILENAME '{nums[NR] = $3} END {median = (NR%2==0) ? (nums[NR/2]+nums[(NR/2)+1]) / 2 : nums[int(NR/2) + 1]} END {print filename," ",median}'
+	    if [[ $FILENAME =~ $re ]]; then
+                tail -n +2 $FILE | sort -k3 | awk -v filename=$FILENAME '{nums[NR] = $3} END {median = (NR%2==0) ? (nums[NR/2]+nums[(NR/2)+1]) / 2 : nums[int(NR/2) + 1]} END {print filename," ",median}'
+	    else
+                tail -n +4 $FILE | sort -k3 | awk -v filename=$FILENAME '{nums[NR] = $3} END {median = (NR%2==0) ? (nums[NR/2]+nums[(NR/2)+1]) / 2 : nums[int(NR/2) + 1]} END {print filename," ",median}'
+	    fi
         fi
     done
 
@@ -30,7 +39,11 @@ run_fct(){
     #     FILE="${prefix}${FILE}"
         if ! [ -d "$FILE" ]; then
             FILENAME="${FILE##*/}"
-            tail -n +4 $FILE | sort -k3 | awk -v filename=$FILENAME '{nums[NR] = $3} END {n99 = nums[int(NR*0.99)]} END {print filename," ",n99}'
+	    if [[ $FILENAME =~ $re ]]; then
+                tail -n +2 $FILE | sort -k3 | awk -v filename=$FILENAME '{nums[NR] = $3} END {n99 = nums[int(NR*0.99)]} END {print filename," ",n99}'
+	    else
+                tail -n +4 $FILE | sort -k3 | awk -v filename=$FILENAME '{nums[NR] = $3} END {n99 = nums[int(NR*0.99)]} END {print filename," ",n99}'
+	    fi
         fi
     done
 }
@@ -43,7 +56,11 @@ run_flow_size(){
     #     FILE="${prefix}${FILE}"
         if ! [ -d "$FILE" ]; then
             FILENAME="${FILE##*/}"
-            tail -n +4 $FILE | awk -v filename=$FILENAME '{sum += $2} {actual = $6} END {avg = sum/NR} END { print filename," ",sum," ",NR," ",avg, " ", actual}'
+	    if [[ $FILENAME =~ $re ]]; then
+                tail -n +2 $FILE | awk -v filename=$FILENAME '{sum += $2} {actual = $6} END { NR == 0 ? avg = 0 : avg = sum/NR } END { print filename," ",sum," ",NR," ",avg, " ", actual}'
+	    else
+                tail -n +4 $FILE | awk -v filename=$FILENAME '{sum += $2} {actual = $6} END { NR == 0 ? avg = 0 : avg = sum/NR } END { print filename," ",sum," ",NR," ",avg, " ", actual}'
+	    fi
         fi
     done
 }
@@ -56,7 +73,11 @@ run_topology(){
     #     FILE="${prefix}${FILE}"
         if ! [ -d "$FILE" ]; then
             FILENAME="${FILE##*/}"
-            cat $FILE | awk -v filename=$FILENAME -f stats_topology.awk
+	    if [[ $FILENAME =~ $re ]]; then
+                cat $FILE | awk -v filename=$FILENAME -f stats_fb_topology.awk
+            else
+	 	cat $FILE | awk -v filename=$FILENAME -f stats_topology.awk
+	    fi
         fi
     done
 }
@@ -115,7 +136,10 @@ run_test(){
     #     FILE="${prefix}${FILE}"
         if ! [ -d "$FILE" ]; then
             FILENAME="${FILE##*/}"
-            tail -n +4 $FILE | sort -k3 | awk -v filename=$FILENAME -f stats_median.awk
+            # tail -n +4 $FILE | sort -k3 | awk -v filename=$FILENAME -f stats_median.awk
+	    if [[ $FILENAME =~ $re ]]; then
+		echo ${FILENAME}
+	    fi
         fi
     done
 }

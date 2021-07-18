@@ -430,12 +430,13 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
           int i=0;
           int shortestLen = -1;
           vector<BasePath*> pathsIHave;
-          int numpaths = NUMPATHS;
-		  int numpaths_adjust = 8;
-          if(shortestPathLen[src_sw][dest_sw] == 1) numpaths = numpaths_adjust;
-          else if(shortestPathLen[src_sw][dest_sw] == 2) numpaths = numpaths_adjust;
-          else if(shortestPathLen[src_sw][dest_sw] == 3) numpaths = numpaths_adjust;
-          else if(shortestPathLen[src_sw][dest_sw] == 4) numpaths = numpaths_adjust;
+	  int numpaths = korn;
+//          int numpaths = NUMPATHS;
+//		  int numpaths_adjust = 8;
+//          if(shortestPathLen[src_sw][dest_sw] == 1) numpaths = numpaths_adjust;
+//          else if(shortestPathLen[src_sw][dest_sw] == 2) numpaths = numpaths_adjust;
+//          else if(shortestPathLen[src_sw][dest_sw] == 3) numpaths = numpaths_adjust;
+//          else if(shortestPathLen[src_sw][dest_sw] == 4) numpaths = numpaths_adjust;
           //printf("[%d --> %d] dist: %d, numpaths: %d \n", src_sw, dest_sw, shortestPathLen[src_sw][dest_sw], numpaths);
           BhandariAlg.KDisjointPaths(numpaths, pathsIHave);
           for(int i=0; i<pathsIHave.size(); i++){
