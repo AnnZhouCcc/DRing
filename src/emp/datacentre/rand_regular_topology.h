@@ -49,7 +49,8 @@ class RandRegularTopology: public Topology{
 
   FIND_PATH_ALGORITHM find_path_alg;
   int korn;
-  
+  vector<route_t*>*** net_paths_rack_based;
+
   RandRegularTopology(Logfile* log,EventList* ev, string graphFile, queue_type qt=RANDOM, string alg="ecmp", int k=0);
 
   void init_network();

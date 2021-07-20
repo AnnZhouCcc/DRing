@@ -307,13 +307,13 @@ int main(int argc, char **argv) {
         //     cout << (*it)->nodename() << " ";
         // }
         // cout << endl;
-        set<PacketSink *> first_hops_till_now;
+        set<PacketSink *> *first_hops_till_now = new set<PacketSink *>();
         for (unsigned int i=0; i<(unsigned int)num_available_paths; i++) {
             route_t *this_route = new route_t(*(net_paths[flow.src][flow.dst]->at(i)));
             PacketSink *this_first_hop = this_route->at(3); // Queue inherits from PacketSink
-            first_hops_till_now.insert(this_first_hop);
+            first_hops_till_now->insert(this_first_hop);
         }
-        total_available_first_hops += first_hops_till_now.size();
+        total_available_first_hops += first_hops_till_now->size();
 
         if (flowID%1000==1){
             cout << "How many paths? = " << net_paths[flow.src][flow.dst]->size() << endl;
