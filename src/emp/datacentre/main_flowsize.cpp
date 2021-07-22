@@ -35,6 +35,7 @@
 // Parameters for average flow size experiments
 #define LARGE_FLOWSIZE false
 #define FLOWSIZE_MULT 0
+#define DEBUG_MODE false
 
 uint32_t RTT = 2; // us
 int ssthresh = 43; //65 KB
@@ -63,7 +64,7 @@ void exit_error(char* progr) {
     exit(1);
 }
 
-void print_path(std::ofstream &paths,route_t* rt){
+void print_path(std::ofstream paths,route_t* rt){
   for (unsigned int i=1;i<rt->size()-1;i+=2){
     RandomQueue* q = (RandomQueue*)rt->at(i);
     if (q!=NULL)
@@ -72,6 +73,17 @@ void print_path(std::ofstream &paths,route_t* rt){
       paths << "NULL ";
   }
   paths<<endl;
+}
+
+void print_path(route_t* rt){
+  for (unsigned int i=1;i<rt->size()-1;i+=2){
+    RandomQueue* q = (RandomQueue*)rt->at(i);
+    if (q!=NULL)
+      cout << q->str() << " ";
+    else 
+      cout << "NULL ";
+  }
+  cout<<endl;
 }
 
 int main(int argc, char **argv) {
@@ -286,14 +298,27 @@ int main(int argc, char **argv) {
                  << flow.bytes << " start_time_ms " << flow.start_time_ms << endl;
 
         if (!net_paths[flow.src][flow.dst]){
-            //cout << "Getting paths from topo" << endl;	
-            net_paths[flow.src][flow.dst] = top->get_paths(flow.dst, flow.src).second;
+#if DEBUG_MODE
+            cout << "Getting paths from topo src->dst: flowID = " << flowID << endl;	
+#endif
+            net_paths[flow.src][flow.dst] = top->get_paths(flow.src, flow.dst).second;
+	    if (net_paths[flow.src][flow.dst]->size() == 0) {
+		cout << "**Warning: net_paths[flow.src][flow.dst] has size 0; flow.src is " << flow.src << ", flow.dst is " << flow.dst << endl;
+	    }
         }
         if (!net_paths[flow.dst][flow.src]){
-            //cout << "Getting paths from topo" << endl;	
+#if DEBUG_MODE
+            cout << "Getting paths from topo dst->src: flowID = " << flowID << endl;	
+#endif
             net_paths[flow.dst][flow.src] = top->get_paths(flow.dst, flow.src).second;
+	    if (net_paths[flow.dst][flow.src]->size() == 0) {
+		cout << "**Warning: net_paths[flow.dst][flow.src] has size 0; flow.src is " << flow.src << ", flow.dst is " << flow.dst << endl;
+	    }
         }
 
+#if DEBUG_MODE
+	cout << "after get_paths: flowID = " << flowID << endl;
+#endif
         size_t num_available_paths = net_paths[flow.src][flow.dst]->size();
         total_available_paths += num_available_paths;
         // cout << "**********temporary printing***********" <<  endl;
@@ -307,6 +332,10 @@ int main(int argc, char **argv) {
         //     cout << (*it)->nodename() << " ";
         // }
         // cout << endl;
+
+#if DEBUG_MODE
+	cout << "in between calculating path info: flowID = " << flowID << endl;
+#endif
         set<PacketSink *> *first_hops_till_now = new set<PacketSink *>();
         for (unsigned int i=0; i<(unsigned int)num_available_paths; i++) {
             route_t *this_route = new route_t(*(net_paths[flow.src][flow.dst]->at(i)));
@@ -324,6 +353,9 @@ int main(int argc, char **argv) {
             }
         }
 
+#if DEBUG_MODE
+	cout << "before tcp: flowID = " << flowID << endl;
+#endif
         assert (subflow_count == 1);
         tcpSrc = new TcpSrc(NULL, NULL, eventlist);
         tcpSnk = new TcpSink();
@@ -335,9 +367,26 @@ int main(int argc, char **argv) {
             tcpSrc->set_flowsize(flow.bytes);
         #endif
 
+        assert (net_paths[flow.src][flow.dst]->size() > 0);
+	/*
+	if (net_paths[flow.src][flow.dst]->size() <= 0) {
+		cout << "**debug info** src->dst: " << net_paths[flow.src][flow.dst]->size() << endl;
+		exit(1);
+	}
+	*/
+#if DEBUG_MODE
+	cout << "before randomly taking paths: flowID = " << flowID << endl;
+#endif
         unsigned int choice = 0;
         choice = rand()%net_paths[flow.src][flow.dst]->size();
-        //cout<<choice<<" : "; print_path(cout, net_paths[src][dest]->at(choice));
+        // cout<<choice<<" : " << print_path(net_paths[flow.src][flow.dst]->at(choice));
+#if DEBUG_MODE
+	cout << "**debug info** routeout: ";
+	for (unsigned int i=0; i<net_paths[flow.src][flow.dst]->at(choice)->size(); i++) {
+		cout << net_paths[flow.src][flow.dst]->at(choice)->at(i)->nodename();
+	}
+	cout << endl;
+#endif 
 
         // Ankit: Which path out of available paths is chosen
         //cout << "Choice "<<choice<<" out of "<<net_paths[src][dest]->size();
@@ -368,9 +417,23 @@ int main(int argc, char **argv) {
         total_path_lengths += net_paths[flow.src][flow.dst]->at(choice)->size()/2 - 2;
 
         assert (net_paths[flow.dst][flow.src]->size() > 0);
+	/*
+	if (net_paths[flow.dst][flow.src]->size() <= 0) {
+		cout << "**debug info** dst->src: " << net_paths[flow.dst][flow.src]->size() << endl;
+		exit(1);
+	}
+	*/
         int rchoice = rand()%net_paths[flow.dst][flow.src]->size();
+        // cout<<rchoice<<"(r): " << print_path(net_paths[flow.dst][flow.src]->at(rchoice));
         routein = new route_t(*(net_paths[flow.dst][flow.src]->at(rchoice)));
         routein->push_back(tcpSrc);
+#if DEBUG_MODE
+	cout << "**debug info** routein: ";
+	for (unsigned int i=0; i<net_paths[flow.dst][flow.src]->at(choice)->size(); i++) {
+		cout << net_paths[flow.dst][flow.src]->at(choice)->at(i)->nodename();
+	}
+	cout << endl; 
+#endif
 
         #if LARGE_FLOWSIZE
             int shouldSendFlow = rand()%FLOWSIZE_MULT;

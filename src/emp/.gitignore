@@ -7,3 +7,7 @@ datacentre/graphfiles/ring_supergraph/double_ring/*_rrg_output_*
 datacentre/graphfiles/ring_supergraph/double_ring/*_rrg_pathlog_*
 datacentre/graphfiles/ring_supergraph/rrg/*_rrg_output_*
 datacentre/graphfiles/ring_supergraph/rrg/*_rrg_pathlog_*
+datacentre/rrg
+datacentre/rrg_*
+datacentre/leafspine_ls_*
+datacentre/leafspine_pathlog_*

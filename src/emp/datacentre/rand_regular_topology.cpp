@@ -18,6 +18,7 @@
 #include "YenTopKShortestPathsAlg.h"
 #include "BhandariTopKDisjointPathsAlg.h"
 
+#define IS_DEBUG_ON false
 
 FIND_PATH_ALGORITHM find_path_alg = ECMP; // FIRST_HOP_INDIRECTION; //KDISJOINT; //ECMP; //KSHORT; //SHORTEST2; //SHORTESTN;
 int korn = 0;
@@ -337,6 +338,11 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
 
   int src_sw = ConvertHostToSwitch(src);
   int dest_sw = ConvertHostToSwitch(dest);
+
+#if IS_DEBUG_ON
+  cout << "**debug info** src switch: " << src_sw << endl;
+  cout << "**debug info** dest switch: " << dest_sw << endl;
+#endif
 
   // Ankit: Testing if our numbering of switches/servers and topology construction is causing issues
   //cout << " From Switch " << src_sw << " to switch " << dest_sw << endl;
@@ -1066,9 +1072,16 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
 			// return pair<vector<double>*, vector<route_t*>*>(pathweights, paths);
       }
 
+	}
+
+#if IS_DEBUG_MODE
+	cout << "Attaching head and tail: paths size = " << paths_no_head_tail->size() << endl;
+#endif
 	  for (unsigned int i=0; i<paths_no_head_tail->size(); i++) {
 		  path = paths_no_head_tail->at(i);
-
+#if IS_DEBUG_MODE
+		cout << "get a path from paths_no_head_tail: path size = " << path->size() << endl;
+#endif
 		  Queue* pqueue = new Queue(speedFromPktps(HOST_NIC), memFromPkt(FEEDER_BUFFER), *eventlist, NULL);
 		  pqueue->setName("PQueue_" + ntoa(src) + "_" + ntoa(dest));
 		  path->push_front(pipes_svr_sw[src_sw][ConvertHostToSwitchPort(src)]);
@@ -1077,11 +1090,16 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
 
 		  path->push_back(queues_sw_svr[dest_sw][ConvertHostToSwitchPort(dest)]);
 		  path->push_back(pipes_sw_svr[dest_sw][ConvertHostToSwitchPort(dest)]);
-
+#if IS_DEBUG_MODE
+		cout << "after attaching: paths size = " << paths->size() << ", path size = " << path->size() << endl;
+#endif
 		  paths->push_back(path);
 		  check_non_null(path);
 	  }
-	}
+
+#if IS_DEBUG_MODE
+	cout << "right before returning" << endl;
+#endif
 	return pair<vector<double>*, vector<route_t*>*>(pathweights, paths);
   }
 }
