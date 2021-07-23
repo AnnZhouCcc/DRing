@@ -30,6 +30,14 @@ LeafSpineTopology::LeafSpineTopology(Logfile* lg, EventList* ev, queue_type qt){
   srand ( time(NULL));
 
   init_network();
+
+  net_paths_rack_based = new vector<route_t*>**[NSW];
+  for (int i=0;i<NSW;i++){
+  	net_paths_rack_based[i] = new vector<route_t*>*[NSW];
+  	for (int j = 0;j<NSW;j++){
+  		net_paths_rack_based[i][j] = NULL;
+  	}
+  }
 }
 
 void LeafSpineTopology::init_network(){
@@ -167,38 +175,39 @@ pair<vector<double>*, vector<route_t*>*> LeafSpineTopology::get_paths(int src, i
   route_t* routeout;
 
   if (HOST_TOR_SWITCH(src)==HOST_TOR_SWITCH(dest)){
-    Queue* pqueue = new Queue(speedFromPktps(HOST_NIC), memFromPkt(FEEDER_BUFFER), *eventlist, NULL);
-    pqueue->setName("PQueue_" + ntoa(src) + "_" + ntoa(dest));
-    logfile->writeName(*pqueue);
+    // Queue* pqueue = new Queue(speedFromPktps(HOST_NIC), memFromPkt(FEEDER_BUFFER), *eventlist, NULL);
+    // pqueue->setName("PQueue_" + ntoa(src) + "_" + ntoa(dest));
+    // logfile->writeName(*pqueue);
   
     routeout = new route_t();
-    routeout->push_back(pqueue);
+    // routeout->push_back(pqueue);
 
-    routeout->push_back(queues_ns_nlp[src][HOST_TOR_SWITCH(src)]);
-    routeout->push_back(pipes_ns_nlp[src][HOST_TOR_SWITCH(src)]);
+    // routeout->push_back(queues_ns_nlp[src][HOST_TOR_SWITCH(src)]);
+    // routeout->push_back(pipes_ns_nlp[src][HOST_TOR_SWITCH(src)]);
 
-    routeout->push_back(queues_nlp_ns[HOST_TOR_SWITCH(dest)][dest]);
-    routeout->push_back(pipes_nlp_ns[HOST_TOR_SWITCH(dest)][dest]);
+    // routeout->push_back(queues_nlp_ns[HOST_TOR_SWITCH(dest)][dest]);
+    // routeout->push_back(pipes_nlp_ns[HOST_TOR_SWITCH(dest)][dest]);
 
     paths->push_back(routeout);
+    net_paths_rack_based[HOST_TOR_SWITCH(src)][HOST_TOR_SWITCH(dest)] = paths;
 
-    check_non_null(routeout);
-    return pair<vector<double>*, vector<route_t*>*>(weights, paths);
+    // check_non_null(routeout);
+    // return pair<vector<double>*, vector<route_t*>*>(weights, paths);
   }
   else{
 
     //there are NSP paths between the source and the destination
     for (int upper = 0;upper < NSP; upper++){
       //upper is nup
-      Queue* pqueue = new Queue(speedFromPktps(HOST_NIC), memFromPkt(FEEDER_BUFFER), *eventlist, NULL);
-      pqueue->setName("PQueue_" + ntoa(src) + "_" + ntoa(dest));
-      logfile->writeName(*pqueue);
+      // Queue* pqueue = new Queue(speedFromPktps(HOST_NIC), memFromPkt(FEEDER_BUFFER), *eventlist, NULL);
+      // pqueue->setName("PQueue_" + ntoa(src) + "_" + ntoa(dest));
+      // logfile->writeName(*pqueue);
       
       routeout = new route_t();
-      routeout->push_back(pqueue);
+      // routeout->push_back(pqueue);
       
-      routeout->push_back(queues_ns_nlp[src][HOST_TOR_SWITCH(src)]);
-      routeout->push_back(pipes_ns_nlp[src][HOST_TOR_SWITCH(src)]);
+      // routeout->push_back(queues_ns_nlp[src][HOST_TOR_SWITCH(src)]);
+      // routeout->push_back(pipes_ns_nlp[src][HOST_TOR_SWITCH(src)]);
 
       routeout->push_back(queues_nlp_nup[HOST_TOR_SWITCH(src)][upper]);
       routeout->push_back(pipes_nlp_nup[HOST_TOR_SWITCH(src)][upper]);
@@ -206,15 +215,67 @@ pair<vector<double>*, vector<route_t*>*> LeafSpineTopology::get_paths(int src, i
       routeout->push_back(queues_nup_nlp[upper][HOST_TOR_SWITCH(dest)]);
       routeout->push_back(pipes_nup_nlp[upper][HOST_TOR_SWITCH(dest)]);
       
-      routeout->push_back(queues_nlp_ns[HOST_TOR_SWITCH(dest)][dest]);
-      routeout->push_back(pipes_nlp_ns[HOST_TOR_SWITCH(dest)][dest]);
+      // routeout->push_back(queues_nlp_ns[HOST_TOR_SWITCH(dest)][dest]);
+      // routeout->push_back(pipes_nlp_ns[HOST_TOR_SWITCH(dest)][dest]);
       
       paths->push_back(routeout);
       check_non_null(routeout);
+      net_paths_rack_based[HOST_TOR_SWITCH(src)][HOST_TOR_SWITCH(dest)] = paths;
     }
-    return pair<vector<double>*, vector<route_t*>*>(weights, paths);
     //return paths;
   }
+  return pair<vector<double>*, vector<route_t*>*>(weights, paths);
+}
+
+route_t *LeafSpineTopology::attach_head_tail(int src, int dst, bool is_same_switch, int rand_choice) {
+        int src_sw = ConvertHostToRack(src);
+        int dst_sw = ConvertHostToRack(dst);
+	route_t *this_route = new route_t(*(net_paths_rack_based[src_sw][dst_sw]->at(rand_choice)));
+
+        if (is_same_switch) {
+                assert(rand_choice == 0);
+                assert(this_route->size() == 0);
+
+		Queue* pqueue = new Queue(speedFromPktps(HOST_NIC), memFromPkt(FEEDER_BUFFER), *eventlist, NULL);
+		pqueue->setName("PQueue_" + ntoa(src) + "_" + ntoa(dst));
+		logfile->writeName(*pqueue);
+
+		this_route->push_back(pqueue);
+		this_route->push_back(queues_ns_nlp[src][HOST_TOR_SWITCH(src)]);
+		this_route->push_back(pipes_ns_nlp[src][HOST_TOR_SWITCH(src)]);
+
+		this_route->push_back(queues_nlp_ns[HOST_TOR_SWITCH(dst)][dst]);
+		this_route->push_back(pipes_nlp_ns[HOST_TOR_SWITCH(dst)][dst]);
+	} else {
+		assert(this_route->size() > 0);
+
+		Queue* pqueue = new Queue(speedFromPktps(HOST_NIC), memFromPkt(FEEDER_BUFFER), *eventlist, NULL);
+		pqueue->setName("PQueue_" + ntoa(src) + "_" + ntoa(dst));
+		logfile->writeName(*pqueue);
+		this_route->push_front(pipes_ns_nlp[src][HOST_TOR_SWITCH(src)]);
+		this_route->push_front(queues_ns_nlp[src][HOST_TOR_SWITCH(src)]);
+		this_route->push_front(pqueue);
+
+		this_route->push_back(queues_nlp_ns[HOST_TOR_SWITCH(dst)][dst]);
+		this_route->push_back(pipes_nlp_ns[HOST_TOR_SWITCH(dst)][dst]);
+	}
+	return this_route;
+}
+
+void LeafSpineTopology::delete_net_paths_rack_based() {
+        for (int i=0; i<NSW; i++) {
+                for (int j=0; j<NSW; j++) {
+                        if (net_paths_rack_based[i][j]) {
+                        for (auto p : (*net_paths_rack_based[     i][j])) {
+                                delete p;
+                        }
+                        net_paths_rack_based[i][j]->clear();
+                        delete net_paths_rack_based[i][j];
+                        }
+                }
+                delete [] net_paths_rack_based[i];
+        }
+	delete [] net_paths_rack_based;
 }
 
 void LeafSpineTopology::count_queue(Queue* queue){

@@ -319,18 +319,16 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
 //   if(pathcache.find(pair<int, int>(src, dest)) != pathcache.end())
 //     return pathcache[pair<int, int>(src, dest)];
 
-  vector<route_t*>* paths = new vector<route_t*>();
+  // vector<route_t*>* paths = new vector<route_t*>();
   vector<double>* pathweights = NULL;
 
   route_t* routeout;
-  route_t* path;
-  vector<route_t*>* paths_no_head_tail;
+  // route_t* path;
+  // vector<route_t*>* paths_no_head_tail;
+  vector<route_t*>* paths_rack_based = new vector<route_t*>();
 
   //for(int z=0; z<NHOST; z++)
   //      cout << "Host " << z << " Connect to switch " << ConvertHostToSwitch(z) << endl;
-
- 
-
 
   // Put Yen algorithm's src-dest shortest paths in routeout
 
@@ -349,32 +347,34 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
 
   //< If same switch then only path through switch
   if (src_sw == dest_sw){
-    Queue* pqueue = new Queue(speedFromPktps(HOST_NIC), memFromPkt(FEEDER_BUFFER), *eventlist, NULL);
-    pqueue->setName("PQueue_" + ntoa(src) + "_" + ntoa(dest));
+    // Queue* pqueue = new Queue(speedFromPktps(HOST_NIC), memFromPkt(FEEDER_BUFFER), *eventlist, NULL);
+    // pqueue->setName("PQueue_" + ntoa(src) + "_" + ntoa(dest));
   
     routeout = new route_t();
-    routeout->push_back(pqueue);
+    // routeout->push_back(pqueue);
 
-    routeout->push_back(queues_svr_sw[src_sw][ConvertHostToSwitchPort(src)]);
-    routeout->push_back(pipes_svr_sw[src_sw][ConvertHostToSwitchPort(src)]);
+    // routeout->push_back(queues_svr_sw[src_sw][ConvertHostToSwitchPort(src)]);
+    // routeout->push_back(pipes_svr_sw[src_sw][ConvertHostToSwitchPort(src)]);
 
-    routeout->push_back(queues_sw_svr[dest_sw][ConvertHostToSwitchPort(dest)]);
-    routeout->push_back(pipes_sw_svr[dest_sw][ConvertHostToSwitchPort(dest)]);
+    // routeout->push_back(queues_sw_svr[dest_sw][ConvertHostToSwitchPort(dest)]);
+    // routeout->push_back(pipes_sw_svr[dest_sw][ConvertHostToSwitchPort(dest)]);
 
-    paths->push_back(routeout);
+    paths_rack_based->push_back(routeout);
+    net_paths_rack_based[src_sw][dest_sw] = paths_rack_based;
 
     //cout << "CHECK-NOT-NULL AT SAME SWITCH SERVERS" << endl;
-    check_non_null(routeout);
-    return pair<vector<double>*, vector<route_t*>*>(pathweights, paths);
+    // check_non_null(routeout);
+    // return pair<vector<double>*, vector<route_t*>*>(pathweights, paths);
   }
   //>
 
   else { 
-	if (net_paths_rack_based[src_sw][dest_sw]) {
-		paths_no_head_tail = copy_path(net_paths_rack_based[src_sw][dest_sw]);
-	}
-	else {
-		vector<route_t*>* paths_rack_based = new vector<route_t*>();
+	// if (net_paths_rack_based[src_sw][dest_sw]) {
+	//	paths_no_head_tail = copy_path(net_paths_rack_based[src_sw][dest_sw]);
+	// }
+	// else {
+		// vector<route_t*>* paths_rack_based = new vector<route_t*>();
+	assert(!net_paths_rack_based[src_sw][dest_sw]);
       if(find_path_alg == KSHORT){
           // Use the shortest path algo to set this stuff up
           YenTopKShortestPathsAlg yenAlg(myGraph, myGraph->get_vertex(src_sw), myGraph->get_vertex(dest_sw));
@@ -451,9 +451,9 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
 
           yenAlg.clear();
 
-		  assert(!net_paths_rack_based[src_sw][dest_sw]);
+		  // assert(!net_paths_rack_based[src_sw][dest_sw]);
 		  net_paths_rack_based[src_sw][dest_sw] = paths_rack_based;
-		  paths_no_head_tail = copy_path(paths_rack_based);
+		  // paths_no_head_tail = copy_path(paths_rack_based);
 
         //   pathcache[pair<int, int>(src, dest)] = pair<vector<double>*, vector<route_t*>*> (pathweights, paths);
     	//   return pair<vector<double>*, vector<route_t*>*>(pathweights, paths);
@@ -526,9 +526,9 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
 
           BhandariAlg.clear();
 
-		  assert(!net_paths_rack_based[src_sw][dest_sw]);
+		  // assert(!net_paths_rack_based[src_sw][dest_sw]);
 		  net_paths_rack_based[src_sw][dest_sw] = paths_rack_based;
-		  paths_no_head_tail = copy_path(paths_rack_based);
+		  // paths_no_head_tail = copy_path(paths_rack_based);
 
         //   pathcache[pair<int, int>(src, dest)] = pair<vector<double>*, vector<route_t*>*> (pathweights, paths);
     	//     return pair<vector<double>*, vector<route_t*>*>(pathweights, paths);
@@ -624,9 +624,9 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
 				++i;                                                                                                           
 			}
 
-			assert(!net_paths_rack_based[src_sw][dest_sw]);
+			// assert(!net_paths_rack_based[src_sw][dest_sw]);
 		  	net_paths_rack_based[src_sw][dest_sw] = paths_rack_based;
-		  	paths_no_head_tail = copy_path(paths_rack_based);
+		  	// paths_no_head_tail = copy_path(paths_rack_based);
 
 			// pathcache[pair<int, int>(src, dest)] = pair<vector<double>*, vector<route_t*>*> (pathweights, paths);
 			// return pair<vector<double>*, vector<route_t*>*>(pathweights, paths);
@@ -722,9 +722,9 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
 				++i;                                                                                                           
 			}
 
-			assert(!net_paths_rack_based[src_sw][dest_sw]);
+			// assert(!net_paths_rack_based[src_sw][dest_sw]);
 		  	net_paths_rack_based[src_sw][dest_sw] = paths_rack_based;
-		  	paths_no_head_tail = copy_path(paths_rack_based);
+		  	// paths_no_head_tail = copy_path(paths_rack_based);
 
 			// pathcache[pair<int, int>(src, dest)] = pair<vector<double>*, vector<route_t*>*> (pathweights, paths);
 			// return pair<vector<double>*, vector<route_t*>*>(pathweights, paths);
@@ -829,9 +829,9 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
 				++i;                                                                                                           
 			}
 
-			assert(!net_paths_rack_based[src_sw][dest_sw]);
+			// assert(!net_paths_rack_based[src_sw][dest_sw]);
 		  	net_paths_rack_based[src_sw][dest_sw] = paths_rack_based;
-		  	paths_no_head_tail = copy_path(paths_rack_based);
+		  	// paths_no_head_tail = copy_path(paths_rack_based);
 
 			// pathcache[pair<int, int>(src, dest)] = pair<vector<double>*, vector<route_t*>*> (pathweights, paths);
 			// return pair<vector<double>*, vector<route_t*>*>(pathweights, paths);
@@ -913,9 +913,9 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
 				++i;                                                                                                           
 			}
 
-			assert(!net_paths_rack_based[src_sw][dest_sw]);
+			// assert(!net_paths_rack_based[src_sw][dest_sw]);
 		  	net_paths_rack_based[src_sw][dest_sw] = paths_rack_based;
-		  	paths_no_head_tail = copy_path(paths_rack_based);
+		  	// paths_no_head_tail = copy_path(paths_rack_based);
 
 			// pathcache[pair<int, int>(src, dest)] = pair<vector<double>*, vector<route_t*>*> (pathweights, paths);
 			// return pair<vector<double>*, vector<route_t*>*>(pathweights, paths);
@@ -1064,16 +1064,16 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
 				++i;                                                                                                           
 			}
 
-		  	assert(!net_paths_rack_based[src_sw][dest_sw]);
+		  	// assert(!net_paths_rack_based[src_sw][dest_sw]);
 		  	net_paths_rack_based[src_sw][dest_sw] = paths_rack_based;
-		 	paths_no_head_tail = copy_path(paths_rack_based);
+		 	// paths_no_head_tail = copy_path(paths_rack_based);
 
 			// pathcache[pair<int, int>(src, dest)] = pair<vector<double>*, vector<route_t*>*> (pathweights, paths);
 			// return pair<vector<double>*, vector<route_t*>*>(pathweights, paths);
       }
 
-	}
-
+	// }
+/*
 #if IS_DEBUG_MODE
 	cout << "Attaching head and tail: paths size = " << paths_no_head_tail->size() << endl;
 #endif
@@ -1100,8 +1100,71 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
 #if IS_DEBUG_MODE
 	cout << "right before returning" << endl;
 #endif
-	return pair<vector<double>*, vector<route_t*>*>(pathweights, paths);
+*/
   }
+	return pair<vector<double>*, vector<route_t*>*>(pathweights, paths_rack_based);
+}
+
+route_t *RandRegularTopology::attach_head_tail(int src, int dst, bool is_same_switch, int rand_choice) {
+#if IS_DEBUG_ON
+	cout << "attach_head_tail: src = " << src << ", dst = " << dst << ", is_same_switch?" << is_same_switch << ", rand_choice = " << rand_choice << endl;
+#endif
+	int src_sw = ConvertHostToSwitch(src);
+	int dst_sw = ConvertHostToSwitch(dst);
+#if IS_DEBUG_ON
+	cout << "src_sw = " << src_sw << ",dst_sw = " << dst_sw << endl;
+#endif
+	route_t *this_route = new route_t(*(net_paths_rack_based[src_sw][dst_sw]->at(rand_choice)));
+
+	if (is_same_switch) {
+		assert(rand_choice == 0);
+		assert(this_route->size() == 0);
+
+		Queue* pqueue = new Queue(speedFromPktps(HOST_NIC), memFromPkt(FEEDER_BUFFER), *eventlist, NULL);
+    	  	pqueue->setName("PQueue_" + ntoa(src) + "_" + ntoa(dst));
+		this_route->push_back(pqueue);
+ 		this_route->push_back(queues_svr_sw[src_sw][ConvertHostToSwitchPort(src)]);
+ 		this_route->push_back(pipes_svr_sw[src_sw][ConvertHostToSwitchPort(src)]);
+ 
+ 		this_route->push_back(queues_sw_svr[dst_sw][ConvertHostToSwitchPort(dst)]);
+		this_route->push_back(pipes_sw_svr[dst_sw][ConvertHostToSwitchPort(dst)]);
+	} else {
+		assert(this_route->size() > 0);
+		Queue* pqueue = new Queue(speedFromPktps(HOST_NIC), memFromPkt(FEEDER_BUFFER), *eventlist, NULL);
+                pqueue->setName("PQueue_" + ntoa(src) + "_" + ntoa(dst));
+                this_route->push_front(pipes_svr_sw[src_sw][ConvertHostToSwitchPort(src)]);
+                this_route->push_front(queues_svr_sw[src_sw][ConvertHostToSwitchPort(src)]);
+                this_route->push_front(pqueue);
+ 
+                this_route->push_back(queues_sw_svr[dst_sw][ConvertHostToSwitchPort(dst)]);
+                this_route->push_back(pipes_sw_svr[dst_sw][ConvertHostToSwitchPort(dst)]); 
+	}
+#if IS_DEBUG_ON
+	cout << "head and tail attached" << endl;
+#endif
+	return this_route;
+}
+
+void RandRegularTopology::delete_net_paths_rack_based() {
+#if IS_DEBUG_ON
+	cout << "delete_net_paths_rack_based" << endl;
+#endif
+	for (int i=0; i<NSW; i++) {
+		for (int j=0; j<NSW; j++) {
+			if (net_paths_rack_based[i][j]) {
+			for (auto p : (*net_paths_rack_based[     i][j])) {
+				delete p;
+			}
+			net_paths_rack_based[i][j]->clear();
+			delete net_paths_rack_based[i][j];
+			}
+		}
+		delete [] net_paths_rack_based[i];
+	}	
+#if IS_DEBUG_ON
+	cout << "done deleting" << endl;
+#endif 
+	delete [] net_paths_rack_based;
 }
 
 void RandRegularTopology::floydWarshall(){

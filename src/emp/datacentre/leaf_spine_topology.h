@@ -39,6 +39,8 @@ class LeafSpineTopology: public Topology{
 
   Logfile* logfile;
   
+  vector<route_t *>***net_paths_rack_based;
+
   LeafSpineTopology(Logfile* log,EventList* ev, queue_type qt);
 
   void init_network();
@@ -51,6 +53,8 @@ class LeafSpineTopology: public Topology{
   vector<int>* get_neighbours(int src) { return NULL;};  
   int ConvertHostToRack(int host) { return HOST_TOR_SWITCH(host);};
   pair<vector<int>, vector<int> > getcsRacks(int clients, int servers);
+  route_t *attach_head_tail(int src, int dst, bool is_same_switch, int rand_choice);
+  void delete_net_paths_rack_based();
  private:
   map<Queue*,int> _link_usage;
   int find_lp_switch(Queue* queue);
