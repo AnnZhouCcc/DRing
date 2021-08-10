@@ -94,9 +94,9 @@ int main(int argc, char **argv) {
     int algo = COUPLED_EPSILON;
     double epsilon = 1;
     int param, paramo = 0;
-    int multiplier, korn = 0;
+    int multiplier, numerator, denominator, korn = 0;
     string paramstring, paramstringo;
-    string multiplierstring, kornstring;
+    string multiplierstring, numeratorstring, denominatorstring, kornstring;
     stringstream filename(ios_base::out);
     string rfile;
     string partitionsfile;
@@ -129,6 +129,20 @@ int main(int argc, char **argv) {
           i+=2;
       }
       cout << "Multiplier=" << multiplier << endl;
+
+      if (argc>i&&!strcmp(argv[i],"-numerator")){
+          numeratorstring = argv[i+1];
+          numerator = atoi(argv[i+1]);
+          i+=2;
+      }
+      cout << "Numerator=" << numerator << endl;
+
+      if (argc>i&&!strcmp(argv[i],"-denominator")){
+          denominatorstring = argv[i+1];
+          denominator = atoi(argv[i+1]);
+          i+=2;
+      }
+      cout << "Denominator=" << denominator << endl;
 
       if (argc>i&&!strcmp(argv[i],"-r")){
           routing = argv[i+1];
@@ -263,10 +277,10 @@ int main(int argc, char **argv) {
         conns->setAlltoAll(top);
     }
     else if(conn_matrix == "RACK_TO_RACK"){
-        conns->setRacktoRackFlows(top, param, paramo, multiplier);
+        conns->setRacktoRackFlows(top, param, paramo, multiplier, numerator, denominator);
     }
     else if(conn_matrix == "FEW_TO_SOME"){
-        conns->setFewtoSomeFlows(top, param, paramo, multiplier);
+        conns->setFewtoSomeFlows(top, param, paramo, multiplier, numerator, denominator);
     }
     else if(conn_matrix == "UNIFORM"){
         conns->setUniform(param);
@@ -276,7 +290,7 @@ int main(int argc, char **argv) {
         conns->setRandomFlows(connxs);
     }
     else if(conn_matrix == "FILE"){
-        conns->setFlowsFromFile(top, paramstring, multiplier);
+        conns->setFlowsFromFile(top, paramstring, multiplier, numerator, denominator);
     }
     else{
         cout<<"conn_matrix: "<<conn_matrix<<" not supported. Supported options are: "<<endl;

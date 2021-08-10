@@ -56,10 +56,10 @@ class ConnectionMatrix{
 
   /* For flow sizes */
   vector<Flow> flows;
-  void setFlowsFromFile(Topology* top, string filename, int multiplier);
+  void setFlowsFromFile(Topology* top, string filename, int multiplier, int numerator, int denominator);
   void setFlowsFromFile2(Topology* top, string filename, int multiplier);
-  void setFewtoSomeFlows(Topology* top, int nmasters, int nclients, int multiplier);
-  void setRacktoRackFlows(Topology* top, int nmasters, int nclients, int multiplier);
+  void setFewtoSomeFlows(Topology* top, int nmasters, int nclients, int multiplier, int numerator, int denominator);
+  void setRacktoRackFlows(Topology* top, int nmasters, int nclients, int multiplier, int numerator, int denominator);
   int genFlowBytes();
   /* For generating pareto dist. via exp dist. */
   int mean_bytes = 100.0 * 1024;

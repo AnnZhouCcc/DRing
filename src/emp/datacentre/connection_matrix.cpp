@@ -370,7 +370,7 @@ void ConnectionMatrix::setFewtoSome(Topology *top, int nmasters, int nclients){
 
 
 
-void ConnectionMatrix::setRacktoRackFlows(Topology *top, int nmasters, int nclients, int multiplier){
+void ConnectionMatrix::setRacktoRackFlows(Topology *top, int nmasters, int nclients, int multiplier, int numerator, int denominator){
   cout<<"Rack to rack: "<<nmasters<<" , "<<nclients<<endl;
   int mss = Packet::data_packet_size();
   cout << " mss " << mss << endl;
@@ -431,6 +431,7 @@ void ConnectionMatrix::setRacktoRackFlows(Topology *top, int nmasters, int nclie
         }
       }
       cout<<endl;
+
       for (int ii=0; ii<multiplier; ii++){
       // for (int ii=0; ii<4; ii++){
           for(int master: mastersvrs){
@@ -448,11 +449,31 @@ void ConnectionMatrix::setRacktoRackFlows(Topology *top, int nmasters, int nclie
             }
           }
       }
+
+      if (denominator > 0) {
+          for(int master: mastersvrs){
+            for(int client: clientsvrs){
+	        int should_add = rand()%denominator;
+		if (should_add < numerator) {
+                    int bytes = genFlowBytes();
+                    // ignore flows > 100 MB
+                    while (bytes > 10 * 1024 * 1024){
+                        bytes = genFlowBytes();
+                    }
+                    //bytes = 2 * 1024 * 1024;
+                    bytes = mss * ((bytes+mss-1)/mss);
+                    double simtime_ms = 49.0;
+                    double start_time_ms = base_start_ms + drand() * simtime_ms;
+                    flows.push_back(Flow(master, client, bytes, start_time_ms));
+		}
+	    }
+	  }
+      }
   }
 }
 
 
-void ConnectionMatrix::setFewtoSomeFlows(Topology *top, int nmasters, int nclients, int multiplier){
+void ConnectionMatrix::setFewtoSomeFlows(Topology *top, int nmasters, int nclients, int multiplier, int numerator, int denominator){
   cout<<"Few to some: "<<nmasters<<" , "<<nclients<<endl;
   int mss = Packet::data_packet_size();
   cout << " mss " << mss << endl;
@@ -531,6 +552,26 @@ void ConnectionMatrix::setFewtoSomeFlows(Topology *top, int nmasters, int nclien
                   flows.push_back(Flow(master, client, bytes, start_time_ms));
               }
           }
+      }
+
+      if (denominator > 0) {
+          for(int master: mastersvrs){
+            for(int client: clientsvrs){
+	        int should_add = rand()%denominator;
+		if (should_add < numerator) {
+                    int bytes = genFlowBytes();
+                    // ignore flows > 100 MB
+                    while (bytes > 10 * 1024 * 1024){
+                        bytes = genFlowBytes();
+                    }
+                    //bytes = 2 * 1024 * 1024;
+                    bytes = mss * ((bytes+mss-1)/mss);
+                    double simtime_ms = 196.0;
+                    double start_time_ms = base_start_ms + drand() * simtime_ms;
+                    flows.push_back(Flow(master, client, bytes, start_time_ms));
+		}
+	    }
+	  }
       }
   }
 }
@@ -741,7 +782,7 @@ void ConnectionMatrix::setRacktoRack(Topology *top, int nracks){
 }
 
 
-void ConnectionMatrix::setFlowsFromFile(Topology* top, string filename, int multiplier){
+void ConnectionMatrix::setFlowsFromFile(Topology* top, string filename, int multiplier, int numerator, int denominator) {
   int nflows = 0; 
   int mss = Packet::data_packet_size();
   cout << " mss " << mss << endl;
@@ -762,18 +803,39 @@ void ConnectionMatrix::setFlowsFromFile(Topology* top, string filename, int mult
         ss >> from >> to >> bytes >> start_time_ms;
         bytes = mss * ((bytes+mss-1)/mss);
         if (from >= N or to >= N) continue;
-        temp_flows.push_back(Flow(from, to, bytes, start_time_ms));
-        nflows++;
+        if (multiplier > 0) {
+            temp_flows.push_back(Flow(from, to, bytes, start_time_ms));
+            nflows++;
+        } else if (multiplier == 0) {
+	    int should_add = rand()%denominator;
+	    if (should_add < numerator) {
+                temp_flows.push_back(Flow(from, to, bytes, start_time_ms));
+                nflows++;
+	    }
+	}
     }
     TMFile.close();
   }
   flows = temp_flows;
+
   // adding more flows if multiplier > 1
   for (int ii=1; ii<multiplier; ii++) {
     for (int j=0; j<temp_flows.size(); j++) {
       Flow temp = temp_flows[j];
       flows.push_back(Flow(temp.src, temp.dst, temp.bytes, temp.start_time_ms));
       nflows++;
+    }
+  }
+
+  // adding more flows if denominator > 0
+  if (multiplier > 0 && denominator > 0) {
+    for (int j=0; j<temp_flows.size(); j++) {
+      int should_add = rand()%denominator;
+      if (should_add < numerator) {
+        Flow temp = temp_flows[j];
+        flows.push_back(Flow(temp.src, temp.dst, temp.bytes, temp.start_time_ms));
+        nflows++;
+      }
     }
   }
   cout<<"Nflows: "<<nflows<<endl;
