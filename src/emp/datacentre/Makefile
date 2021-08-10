@@ -14,7 +14,7 @@ GRBLIB=/home/annzhou/gurobi912/linux64/lib
 LIB=-L.. -L${GRBLIB}
 #-Lksp
 
-all:	fattree rrg leafspine
+all:	fattree rrg leafspine computestore
 
 #Leaf spine
 leafspine: main_flowsize.o ../libhtsim.a leaf_spine_topology.o connection_matrix.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o
@@ -27,8 +27,17 @@ fattree: main_flowsize.o  ../libhtsim.a fat_tree_topology.o connection_matrix.o 
 rrg: main_flowsize.o  ../libhtsim.a connection_matrix.o rand_regular_topology.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o
 	$(CC) $(INCLUDE) $(CFLAGS)  main_flowsize.o connection_matrix.o rand_regular_topology.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o $(LIB) -lhtsim -lgurobi_g++5.2 -lgurobi91 -o rrg
 
+computestore: main_compute.o  ../libhtsim.a compute_store.o connection_matrix.o rand_regular_topology.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o
+	$(CC) $(INCLUDE) $(CFLAGS)  main_compute.o compute_store.o connection_matrix.o rand_regular_topology.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o $(LIB) -lhtsim -lgurobi_g++5.2 -lgurobi91 -o computestore
+
 main_flowsize.o: main_flowsize.cpp main.h
 	$(CC) $(INCLUDE) $(CFLAGS) -c main_flowsize.cpp 
+
+main_compute.o: main_compute.cpp main.h
+	$(CC) $(INCLUDE) $(CFLAGS) -c main_compute.cpp 
+
+compute_store.o: compute_store.cpp compute_store.h main.h
+	$(CC) $(INCLUDE) $(CFLAGS) -c compute_store.cpp
 
 connection_matrix.o: connection_matrix.cpp main.h 
 	$(CC) $(INCLUDE) $(CFLAGS) -c connection_matrix.cpp 
@@ -55,4 +64,4 @@ BhandariTopKDisjointPathsAlg.o: BhandariTopKDisjointPathsAlg.cpp BhandariTopKDis
 	$(CC) $(INCLUDE) $(CFLAGS) -c BhandariTopKDisjointPathsAlg.cpp
 
 clean:	
-	rm *.o htsim_dc rrg fattree leafspine
+	rm *.o htsim_dc rrg fattree leafspine computestore
