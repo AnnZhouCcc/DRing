@@ -12,8 +12,8 @@
 }
 END { 
     num = NR-key;
-    avg_path_lengths = total_path_lengths/num;
-    avg_available_paths = total_available_paths/num;
-    avg_available_first_hops = total_available_first_hops/num;
+    avg_path_lengths = num>0 ? total_path_lengths/num : 0;
+    avg_available_paths = num>0 ? total_available_paths/num : 0;
+    avg_available_first_hops = num>0 ? total_available_first_hops/num : 0;
     print filename," ",total_path_lengths," ",avg_path_lengths," ",total_available_paths," ",avg_available_paths," ",total_available_first_hops," ",avg_available_first_hops;
 }
