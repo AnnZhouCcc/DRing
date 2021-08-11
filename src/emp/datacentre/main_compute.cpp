@@ -9,9 +9,9 @@ int main(int argc, char **argv) {
     // store->storeRackBasedTM();
     store->getRackBasedNetPath();
     store->checkRackBasedNetPath(5);
-    store->getNetLinkNNetCount();
+    store->getNetLinkNetSumNetCount();
     store->checkNetLink(5);
-    store->checkNetCount(5);
+    store->checkNetSumNetCount(5);
     store->deleteMatrices();  
 }
 

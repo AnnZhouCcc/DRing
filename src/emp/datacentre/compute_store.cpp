@@ -45,12 +45,21 @@ ComputeStore::ComputeStore() {
 		}
 	} 
 
-    // Initialize net_count to NULL
-    net_count = new pair<int, int>*[NSW];
+    // Initialize net_count to 0
+    net_count = new int*[NSW];
 	for (int i=0;i<NSW;i++){
-		net_count[i] = new pair<int, int>[NSW];
+		net_count[i] = new int[NSW];
 		for (int j = 0;j<NSW;j++){
-			net_count[i][j] = NULL;
+			net_count[i][j] = 0;
+		}
+	}
+
+    // Initialize net_sum to 0
+    net_sum = new int*[NSW];
+	for (int i=0;i<NSW;i++){
+		net_sum[i] = new int[NSW];
+		for (int j = 0;j<NSW;j++){
+			net_sum[i][j] = 0;
 		}
 	}
 }
@@ -229,6 +238,12 @@ void ComputeStore::deleteMatrices() {
 	    delete [] net_count[i];
     }	
     delete [] net_count;
+
+    cout << "delete net_sum" << endl;
+    for (int i=0; i<NSW; i++) {
+	    delete [] net_sum[i];
+    }	
+    delete [] net_sum;
 }
 
 void ComputeStore::deleteTM() {
@@ -240,7 +255,7 @@ void ComputeStore::deleteTM() {
 }
 
 pair<int, int> ComputeStore::extractSwitchID(string nodename) {
-    cout << "extractSwitchID: " << nodename << endl;
+    // cout << "extractSwitchID: " << nodename << endl;
     int src_sw, dst_sw, src_sw_back_start_index;
     int last_index = nodename.length()-1;
     char dst_sw_second_char = nodename[last_index];
@@ -261,7 +276,7 @@ pair<int, int> ComputeStore::extractSwitchID(string nodename) {
     } else {
         src_sw = stoi(nodename.substr(src_sw_back_start_index-1, 2));
     }
-    cout << "src_sw = " << src_sw << ", dst_sw = " << dst_sw << endl;
+    // cout << "src_sw = " << src_sw << ", dst_sw = " << dst_sw << endl;
     return pair<int, int>(src_sw, dst_sw);
 }
 
@@ -269,16 +284,17 @@ int ComputeStore::getLinkID(string nodename) {
     int src_sw = extractSwitchID(nodename).first;
     int dst_sw = extractSwitchID(nodename).second;
     int linkID = src_sw * NSW + dst_sw;
-    cout << "link ID = " << linkID << endl;
+    // cout << "link ID = " << linkID << endl;
     return linkID;
 }
 
-void ComputeStore::getNetLinkNNetCount() {
+void ComputeStore::getNetLinkNetSumNetCount() {
     int count, sum, linkID;
     string nodename;
     for (int i=0; i<NSW; i++) {
         for (int j=0; j<NSW; j++) {
             count = net_path[i][j]->size();
+	    if (count == 1 && net_path[i][j]->at(0)->size() == 0) count = 0;
             sum = 0;
             for (int k=0; k<count; k++) {
                 sum += (net_path[i][j]->at(k)->size())/2;
@@ -288,7 +304,8 @@ void ComputeStore::getNetLinkNNetCount() {
                     net_link[i][j][linkID] += 1.0/(double)count;
                 }
             }
-            net_count[i][j] = pair<int, int>(sum, count);
+            net_count[i][j] = count;
+	    net_sum[i][j] = sum;
         }
     }
 }
@@ -309,12 +326,12 @@ void ComputeStore::checkNetLink(int limit) {
     file.close();
 }
 
-void ComputeStore::checkNetCount(int limit) {
+void ComputeStore::checkNetSumNetCount(int limit) {
     ofstream file;
-    file.open("net_count.txt");
+    file.open("net_sum_net_count.txt");
     for (int src_row=0; src_row<limit; src_row++) {
         for (int dst_column=0; dst_column<limit; dst_column++) {
-            file << src_row << "\t" << dst_column << "\t" << net_count[src_row][dst_column].first << "\t" << net_count[src_row][dst_column].second << "\n";
+            file << src_row << "\t" << dst_column << "\t" << net_sum[src_row][dst_column] << "\t" << net_count[src_row][dst_column] << "\n";
         }
         file << "\n";
     }
