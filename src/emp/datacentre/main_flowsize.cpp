@@ -332,7 +332,8 @@ int main(int argc, char **argv) {
 #if DEBUG_MODE
             cout << "Getting paths from topo src->dst: flowID = " << flowID << endl;	
 #endif
-            available_paths_out = top->get_paths(flow.src, flow.dst).second;
+            // available_paths_out = top->get_paths(flow.src, flow.dst).second;
+            available_paths_out = top->get_paths(src_sw, dst_sw).second;
 	    assert(net_paths[src_sw][dst_sw] != NULL);
         } else {
 	    available_paths_out = net_paths[src_sw][dst_sw];
@@ -341,7 +342,8 @@ int main(int argc, char **argv) {
 #if DEBUG_MODE
             cout << "Getting paths from topo dst->src: flowID = " << flowID << endl;	
 #endif
-            available_paths_in = top->get_paths(flow.dst, flow.src).second;
+            // available_paths_in = top->get_paths(flow.dst, flow.src).second;
+            available_paths_in = top->get_paths(dst_sw, src_sw).second;
 	    assert(net_paths[dst_sw][src_sw]);
         } else {
 	    available_paths_in = net_paths[dst_sw][src_sw];

@@ -17,6 +17,8 @@ class ComputeStore {
         void storeRackBasedTM();
         void getRackBasedNetPath();
         void checkRackBasedNetPath(int limit);
+	void deleteNetPath();
+	void deleteTM();
     
     private:
         int** TM;

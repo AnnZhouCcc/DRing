@@ -334,8 +334,10 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
 
   //cout << "HERETO " << HETERO << " NHOST " << NHOST << " NSW " << NSW << " SVRPORTS " << SVRPORTS << endl;
 
-  int src_sw = ConvertHostToSwitch(src);
-  int dest_sw = ConvertHostToSwitch(dest);
+  // int src_sw = ConvertHostToSwitch(src);
+  // int dest_sw = ConvertHostToSwitch(dest);
+  int src_sw = src;
+  int dest_sw = dest;
 
 #if IS_DEBUG_ON
   cout << "**debug info** src switch: " << src_sw << endl;

@@ -9,6 +9,7 @@ int main(int argc, char **argv) {
     // store->storeRackBasedTM();
     store->getRackBasedNetPath();
     store->checkRackBasedNetPath(5);
+    store->deleteNetPath();    
 }
 
 string ntoa(double n) {
