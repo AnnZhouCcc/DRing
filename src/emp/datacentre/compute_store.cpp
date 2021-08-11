@@ -4,6 +4,12 @@
 #include "compute_store.h"
 #include "network.h"
 #include "main.h"
+#include "rand_regular_topology.h"
+#include "clock.h"
+
+const double SIMTIME = 101;
+EventList eventlist;
+Logfile* lg;
 
 ComputeStore::ComputeStore() {
     // Initialize TM to all 0 entries
@@ -12,6 +18,15 @@ ComputeStore::ComputeStore() {
 		TM[i] = new int[NSW];
 		for (int j = 0;j<NSW;j++){
 			TM[i][j] = 0;
+		}
+	}
+
+    // Initialize net_path to NULL
+    net_path = new vector<route_t*>**[NSW];
+	for (int i=0;i<NSW;i++){
+		net_path[i] = new vector<route_t*>*[NSW];
+		for (int j = 0;j<NSW;j++){
+			net_path[i][j] = NULL;
 		}
 	}
 }
@@ -89,5 +104,51 @@ void ComputeStore::storeRackBasedTM() {
     for (int i=0; i<NSW; i++) {
         file << i << "\t";
     }
+    file.close();
+}
+
+void ComputeStore::getRackBasedNetPath() {
+    eventlist.setEndtime(timeFromSec(SIMTIME));
+    Clock c(timeFromSec(50 / 100.), eventlist);
+    stringstream filename(ios_base::out);
+    Logfile logfile(filename.str(), eventlist);
+    cout << "logfile: " << filename.str() << endl;
+    string rfile = "graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist";
+    cout << "topology file: " << rfile << endl;
+    string routing = "ecmp";
+    cout << "routing: " << routing << endl;
+    int korn = 0;
+    cout << "korn = " << korn << endl;
+
+    RandRegularTopology* top = new RandRegularTopology(&logfile, &eventlist, rfile, RANDOM, routing, korn);
+    vector<route_t*>* available_paths_raw;
+    vector<route_t*>* available_paths_cleaned = new vector<route_t*>();
+    for (int i=0; i<NSW; i++) {
+        int src_host = 19 + int(38.4 * i);
+        assert (convertHostToSwitch(src_host) == i);
+        for (int j=0; j<NSW; j++) {
+            int dst_host = 19 + int(38.4 * j);
+            assert (convertHostToSwitch(dst_host) == j);
+            
+            available_paths_raw = top->get_paths(src_host, dst_host).second;
+            int num_available_paths = available_paths_raw->size();
+            if (num_available_paths == 0) assert(i == j);
+            for (int k=1; k<num_available_paths; k=k+2) {
+                available_paths_cleaned->push_back(available_paths_raw->at(k));
+            }
+            net_path[i][j] = available_paths_cleaned;
+        }
+    }
+}
+
+void ComputeStore::checkRackBasedNetPath(int limit) {
+    ofstream file;
+    file.open("net_path.txt");
+    for (int src_row=0; src_row<limit; src_row++) {
+        for (int dst_column=0; dst_column<limit; dst_column++) {
+            file << src_row << "\t" << dst_column << "\t" << net_path[src_row][dst_column] << "\t";
+        }
+    }
+    file << "\n";
     file.close();
 }

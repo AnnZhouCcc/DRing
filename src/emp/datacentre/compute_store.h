@@ -15,9 +15,12 @@ class ComputeStore {
         int convertHostToSwitch(int host);
         void getRackBasedTM(string filename);
         void storeRackBasedTM();
+        void getRackBasedNetPath();
+        void checkRackBasedNetPath(int limit);
     
     private:
         int** TM;
+        vector<route_t*>*** net_path;
 
 };
 
