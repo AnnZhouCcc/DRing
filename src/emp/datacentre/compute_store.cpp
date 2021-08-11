@@ -73,7 +73,7 @@ void ComputeStore::getRackBasedTM(string filename) {
 
 void ComputeStore::storeRackBasedTM() {
     ofstream file;
-    file.open("tm.data");
+    file.open("tm.txt");
     int src_row_id, dst_column_id;
     int* row;
     for (int count=0; count<NSW; count++) {
