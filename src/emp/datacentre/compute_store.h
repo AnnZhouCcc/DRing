@@ -22,6 +22,12 @@ class ComputeStore {
         void getNetLinkNetSumNetCount();
         void checkNetLink(int limit);
         void checkNetSumNetCount(int limit);
+        void computeD();
+        void computeT();
+        void deleteComputations();
+        double computePlen();
+        int computeNe(int e);
+        void outputD();
     
     private:
         int** TM;
@@ -29,6 +35,10 @@ class ComputeStore {
         double*** net_link;
         int** net_sum;
         int** net_count;
+        double* D;
+        double*** T;
+        double plen;
+        int Ne;
 
         pair<int, int> extractSwitchID(string nodename);
         int getLinkID(string nodename);

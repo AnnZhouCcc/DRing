@@ -62,6 +62,24 @@ ComputeStore::ComputeStore() {
 			net_sum[i][j] = 0;
 		}
 	}
+
+    // Initialize D to 0
+    D = new double[LINKSIZE];
+    for (int i=0; i<LINKSIZE; i++) {
+        D[i] = 0;
+    }
+
+    // Initialize T to 0
+    T = new double**[NSW];
+	for (int i=0;i<NSW;i++){
+		T[i] = new double*[NSW];
+		for (int j = 0;j<NSW;j++){
+            T[i][j] = new double[LINKSIZE];
+            for (int k=0; k<LINKSIZE; k++) {
+                T[i][j][k] = 0;
+            }
+		}
+	}
 }
 
 // Copied from connection_matrix.cpp
@@ -334,6 +352,93 @@ void ComputeStore::checkNetSumNetCount(int limit) {
             file << src_row << "\t" << dst_column << "\t" << net_sum[src_row][dst_column] << "\t" << net_count[src_row][dst_column] << "\n";
         }
         file << "\n";
+    }
+    file.close();
+}
+
+void ComputeStore::computeD() {
+    for (int i=0; i<NSW; i++) {
+        for (int j=0; j<NSW; j++) {
+            for (int k=0; k<LINKSIZE; k++) {
+                if (net_link[i][j][k] > 0) {
+                    D[k] += (net_link[i][j][k] * TM[i][j]);
+                }
+            }
+        }
+    }
+}
+
+void ComputeStore::computeT() {
+    for (int i=0; i<NSW; i++) {
+        for (int j=0; j<NSW; j++) {
+            for (int k=0; k<LINKSIZE; k++) {
+                T[i][j][k] = (net_link[i][j][k] * TM[i][j] / D[k]);
+            }
+        }
+    }
+}
+
+double ComputeStore::computePlen() {
+    int sum = 0, count = 0;
+    for (int i=0; i<NSW; i++) {
+        for (int j=0; j<NSW; j++) {
+            if (TM[i][j] > 0) {
+                sum += net_sum[i][j];
+                count += net_count[i][j];
+            }
+        }
+    }
+    return (double)sum/(double)count;
+}
+
+int ComputeStore::computeNe(int e) {
+    double* links = new double[LINKSIZE];
+    for (int k=0; k<LINKSIZE; k++) {
+        links[k] = 0;
+    }
+    int old_prob, new_prob;
+    for (int i=0; i<NSW; i++) {
+        for (int j=0; j<NSW; j++) {
+            if (TM[i][j]) {
+                for (int k=0; k<LINKSIZE; k++) {
+                    old_prob = links[k];
+                    new_prob = net_link[i][j][k];
+                    if (new_prob > old_prob) {
+                        links[k] = new_prob;
+                    }
+                }
+            }
+        }
+    }
+    int count = 0;
+    for (int k=0; k<LINKSIZE; k++) {
+        if (links[k] > e) {
+            count++;
+        }
+    }
+    delete links;
+    return count;
+}
+
+void ComputeStore::deleteComputations() {
+    cout << "delete D" << endl;
+    delete [] D;
+
+    cout << "delete T" << endl;
+    for (int i=0; i<NSW; i++) {
+        for (int j=0; j<NSW; j++) {
+            delete [] T[i][j];
+        }
+	    delete [] T[i];
+    }	
+    delete [] T;
+}
+
+void ComputeStore::outputD() {
+    ofstream file;
+    file.open("D_rrg_ecmp.txt");
+    for (int i=0; i<NSW; i++) {
+        file << D[i] << "\t";
     }
     file.close();
 }
