@@ -17,13 +17,21 @@ class ComputeStore {
         void storeRackBasedTM();
         void getRackBasedNetPath();
         void checkRackBasedNetPath(int limit);
-	void deleteNetPath();
-	void deleteTM();
+	    void deleteMatrices();
+	    void deleteTM();
+        pair<int, int> extractSwitchID(string nodename);
+        void getNetLinkNNetCount();
+        void checkNetLink(int limit);
+        void checkNetCount(int limit);
     
     private:
         int** TM;
         vector<route_t*>*** net_path;
+        double*** net_link;
+        pair<int, int>** net_count;
 
+        pair<int, int> extractSwitchID(string nodename);
+        int getLinkID(string nodename);
 };
 
 #endif

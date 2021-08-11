@@ -8,6 +8,8 @@
 #include "clock.h"
 #include "loggers.h"
 
+#define LINKSIZE (NSW-1) * NSW + (NSW-1) + 1
+
 const double SIMTIME = 101;
 EventList eventlist;
 Logfile* lg;
@@ -28,6 +30,27 @@ ComputeStore::ComputeStore() {
 		net_path[i] = new vector<route_t*>*[NSW];
 		for (int j = 0;j<NSW;j++){
 			net_path[i][j] = NULL;
+		}
+	}
+
+    // Initialize net_link to 0
+    net_link = new double**[NSW];
+	for (int i=0;i<NSW;i++){
+		net_link[i] = new double*[NSW];
+		for (int j = 0;j<NSW;j++){
+            net_link[i][j] = new double[LINKSIZE];
+            for (int k=0; k<LINKSIZE; k++) {
+                net_link[i][j][k] = 0;
+            }
+		}
+	} 
+
+    // Initialize net_count to NULL
+    net_count = new pair<int, int>*[NSW];
+	for (int i=0;i<NSW;i++){
+		net_count[i] = new pair<int, int>[NSW];
+		for (int j = 0;j<NSW;j++){
+			net_count[i][j] = NULL;
 		}
 	}
 }
@@ -176,7 +199,7 @@ void ComputeStore::checkRackBasedNetPath(int limit) {
     file.close();
 }
 
-void ComputeStore::deleteNetPath() {
+void ComputeStore::deleteMatrices() {
     cout << "delete net_path" << endl;
     for (int i=0; i<NSW; i++) {
 	for (int j=0; j<NSW; j++) {
@@ -191,6 +214,21 @@ void ComputeStore::deleteNetPath() {
 	delete [] net_path[i];
     }	
     delete [] net_path;
+
+    cout << "delete net_link" << endl;
+    for (int i=0; i<NSW; i++) {
+        for (int j=0; j<NSW; j++) {
+            delete []net_link[i][j];
+        }
+	    delete [] net_link[i];
+    }	
+    delete [] net_link;
+
+    cout << "delete net_count" << endl;
+    for (int i=0; i<NSW; i++) {
+	    delete [] net_count[i];
+    }	
+    delete [] net_count;
 }
 
 void ComputeStore::deleteTM() {
@@ -201,3 +239,84 @@ void ComputeStore::deleteTM() {
     delete [] net_path;
 }
 
+pair<int, int> ComputeStore::extractSwitchID(string nodename) {
+    cout << "extractSwitchID: " << nodename << endl;
+    int src_sw, dst_sw, src_sw_back_start_index;
+    int last_index = nodename.length()-1;
+    char dst_sw_second_char = nodename[last_index];
+    char dst_sw_first_char = nodename[last_index-1];
+    if (dst_sw_first_char == '_') {
+        string dst_sw_str(1, dst_sw_second_char);
+        dst_sw = stoi(dst_sw_str);
+        src_sw_back_start_index = last_index-5;
+    } else {
+        dst_sw = stoi(nodename.substr(last_index-1, 2));
+        src_sw_back_start_index = last_index-6;
+    }
+    char src_sw_second_char = nodename[src_sw_back_start_index];
+    char src_sw_first_char = nodename[src_sw_back_start_index-1];
+    if (src_sw_first_char == '_') {
+        string src_sw_str(1, src_sw_second_char);
+        src_sw = stoi(src_sw_str);
+    } else {
+        src_sw = stoi(nodename.substr(src_sw_back_start_index-1, 2));
+    }
+    cout << "src_sw = " << src_sw << ", dst_sw = " << dst_sw << endl;
+    return pair<int, int>(src_sw, dst_sw);
+}
+
+int ComputeStore::getLinkID(string nodename) {
+    int src_sw = extractSwitchID(nodename).first;
+    int dst_sw = extractSwitchID(nodename).second;
+    int linkID = src_sw * NSW + dst_sw;
+    cout << "link ID = " << linkID << endl;
+    return linkID;
+}
+
+void ComputeStore::getNetLinkNNetCount() {
+    int count, sum, linkID;
+    string nodename;
+    for (int i=0; i<NSW; i++) {
+        for (int j=0; j<NSW; j++) {
+            count = net_path[i][j]->size();
+            sum = 0;
+            for (int k=0; k<count; k++) {
+                sum += (net_path[i][j]->at(k)->size())/2;
+                for (int l=0; l<net_path[i][j]->at(k)->size(); l=l+2) {
+                    nodename = net_path[i][j]->at(k)->at(l)->nodename();
+                    linkID = getLinkID(nodename);
+                    net_link[i][j][linkID] += 1.0/(double)count;
+                }
+            }
+            net_count[i][j] = pair<int, int>(sum, count);
+        }
+    }
+}
+
+void ComputeStore::checkNetLink(int limit) {
+    ofstream file;
+    file.open("net_link.txt");
+    for (int src_row=0; src_row<limit; src_row++) {
+        for (int dst_column=0; dst_column<limit; dst_column++) {
+            file << src_row << "\t" << dst_column << "\n";
+            for (int link_id=0; link_id<2*limit; link_id++) {
+                file << net_link[src_row][dst_column][link_id] << " "; 
+            }
+        	file << "\n";
+        }
+        file << "\n";
+    }
+    file.close();
+}
+
+void ComputeStore::checkNetCount(int limit) {
+    ofstream file;
+    file.open("net_count.txt");
+    for (int src_row=0; src_row<limit; src_row++) {
+        for (int dst_column=0; dst_column<limit; dst_column++) {
+            file << src_row << "\t" << dst_column << "\t" << net_count[src_row][dst_column].first << "\t" << net_count[src_row][dst_column].second << "\n";
+        }
+        file << "\n";
+    }
+    file.close();
+}

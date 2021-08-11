@@ -9,7 +9,10 @@ int main(int argc, char **argv) {
     // store->storeRackBasedTM();
     store->getRackBasedNetPath();
     store->checkRackBasedNetPath(5);
-    store->deleteNetPath();    
+    store->getNetLinkNNetCount();
+    store->checkNetLink(5);
+    store->checkNetCount(5);
+    store->deleteMatrices();  
 }
 
 string ntoa(double n) {
