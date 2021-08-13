@@ -80,6 +80,20 @@ ComputeStore::ComputeStore() {
             }
 		}
 	}
+
+    // Initialize R_all/out/in_traffic to 0
+    R_all_traffic = new int[NSW];
+    for (int i=0; i<NSW; i++) {
+        R_all_traffic[i] = 0;
+    } 
+    R_out_traffic = new int[NSW];
+    for (int i=0; i<NSW; i++) {
+        R_out_traffic[i] = 0;
+    }
+    R_in_traffic = new int[NSW];
+    for (int i=0; i<NSW; i++) {
+        R_in_traffic[i] = 0;
+    } 
 }
 
 // Copied from connection_matrix.cpp
@@ -440,6 +454,11 @@ void ComputeStore::deleteComputations() {
 	    delete [] T[i];
     }	
     delete [] T;
+
+    cout << "delete R_all/out/in_traffic" << endl;
+    delete [] R_all_traffic;
+    delete [] R_out_traffic;
+    delete [] R_in_traffic;
 }
 
 void ComputeStore::storeD() {
@@ -556,4 +575,53 @@ void ComputeStore::checkValidity() {
             }
         }
     }
+}
+
+void ComputeStore::computeR() {
+    // Compute R_all_traffic
+    int sum, k;
+    for (int a=0; a<NSW; a++) {
+        sum = 0;
+        for (int b=0; b<NSW; b++) {
+            k = a*NSW+b;
+            sum += D[k]; // D[k] here can be 0
+            k = b*NSW+a;
+            sum += D[k]; // D[k] here can be 0
+        }
+        R_all_traffic[a] = sum/2;
+    }
+
+    // Compute R_out_traffic
+    int out_sum;
+    for (int j=0; j<NSW; j++) {
+        out_sum = 0;
+        for (int i=0; i<NSW; i++) {
+            out_sum += TM[i][j];
+        }
+        R_out_traffic[j] = out_sum;
+    }
+
+    // Compute R_in_traffic
+    int in_sum;
+    for (int i=0; i<NSW; i++) {
+        in_sum = 0;
+        for (int j=0; j<NSW; j++) {
+            in_sum += TM[i][j];
+        }
+        R_in_traffic[i] = in_sum;
+    }
+}
+
+void ComputeStore::storeR() {
+    ofstream file;
+    file.open("R_rrg_ecmp.txt");
+    file << "switch\tout\tin\tcombined";
+    double out, in, combined;
+    for (int a=0; a<NSW; a++) {
+        out = R_out_traffic[a]/R_all_traffic[a];
+        in = R_in_traffic[a]/R_all_traffic[a];
+        combined = out+in;
+        file << out << "\t" << in << "\t" << combined;
+    }
+    file.close();    
 }

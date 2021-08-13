@@ -29,6 +29,8 @@ class ComputeStore {
         int computeNe(double e);
         void storeD();
         void checkValidity();
+        void computeR();
+        void storeR();
     
     private:
         int** TM;
@@ -40,6 +42,9 @@ class ComputeStore {
         double*** T;
         double plen;
         int Ne;
+        int* R_all_traffic;
+        int* R_out_traffic;
+        int* R_in_traffic;
 
         pair<int, int> extractSwitchID(string nodename);
         int getLinkID(string nodename);
