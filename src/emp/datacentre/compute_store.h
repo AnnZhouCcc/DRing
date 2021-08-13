@@ -26,7 +26,7 @@ class ComputeStore {
         void computeT();
         void deleteComputations();
         double computePlen();
-        int computeNe(int e);
+        int computeNe(double e);
         void outputD();
     
     private:

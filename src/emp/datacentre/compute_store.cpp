@@ -139,7 +139,7 @@ void ComputeStore::getRackBasedTM(string filename) {
 
 void ComputeStore::storeRackBasedTM() {
     ofstream file;
-    file.open("tm.txt");
+    file.open("fb_skewed_tm.txt");
     int src_row_id, dst_column_id;
     int* row;
     for (int count=0; count<NSW; count++) {
@@ -172,9 +172,9 @@ void ComputeStore::getRackBasedNetPath() {
     cout << "logfile: " << filename.str() << endl;
     string rfile = "graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist";
     cout << "topology file: " << rfile << endl;
-    string routing = "ecmp";
+    string routing = "kshort";
     cout << "routing: " << routing << endl;
-    int korn = 0;
+    int korn = 16;
     cout << "korn = " << korn << endl;
 
     RandRegularTopology* top = new RandRegularTopology(&logfile, &eventlist, rfile, RANDOM, routing, korn);
@@ -326,6 +326,15 @@ void ComputeStore::getNetLinkNetSumNetCount() {
 	    net_sum[i][j] = sum;
         }
     }
+
+    // Check net_link
+    for (int i=0; i<NSW; i++) {
+	for (int j=0; j<NSW; j++) {
+	    for (int k=0; k<LINKSIZE; k++) {
+		assert(net_link[i][j][k] >= 0.0);
+	    }
+	}
+    }
 }
 
 void ComputeStore::checkNetLink(int limit) {
@@ -357,14 +366,20 @@ void ComputeStore::checkNetSumNetCount(int limit) {
 }
 
 void ComputeStore::computeD() {
+    cout << "compute D: LINKSIZE = " << LINKSIZE << endl;
     for (int i=0; i<NSW; i++) {
         for (int j=0; j<NSW; j++) {
             for (int k=0; k<LINKSIZE; k++) {
                 if (net_link[i][j][k] > 0) {
-                    D[k] += (net_link[i][j][k] * TM[i][j]);
+                    D[k] += (net_link[i][j][k] * (double)TM[i][j]);
                 }
             }
         }
+    }
+
+    // Check D
+    for (int k=0; k<LINKSIZE; k++) {
+	assert(D[k] >= 0.0);
     }
 }
 
@@ -372,14 +387,29 @@ void ComputeStore::computeT() {
     for (int i=0; i<NSW; i++) {
         for (int j=0; j<NSW; j++) {
             for (int k=0; k<LINKSIZE; k++) {
-                T[i][j][k] = (net_link[i][j][k] * TM[i][j] / D[k]);
+                T[i][j][k] = (net_link[i][j][k] / D[k] * (double)TM[i][j]);
+		if (T[i][j][k] < 0.0) {
+		    cout << "**Overflow!**" << endl;
+		    cout << net_link[i][j][k] << " " << (double)TM[i]    [j] / D[k] << endl;
+		    cout << i << " " << j << " " << k << endl; 
+		}
             }
         }
+    }
+
+    // Check T
+    for (int i=0; i<NSW; i++) {
+	for (int j=0; j<NSW; j++) {
+	    for (int k=0; k<LINKSIZE; k++) {
+		if (T[i][j][k] < 0.0) cout << "!!" << endl;
+		// assert(T[i][j][k] >= 0.0);
+	    }
+	}
     }
 }
 
 double ComputeStore::computePlen() {
-    int sum = 0, count = 0;
+    int64_t sum = 0, count = 0;
     for (int i=0; i<NSW; i++) {
         for (int j=0; j<NSW; j++) {
             if (TM[i][j] > 0) {
@@ -391,7 +421,7 @@ double ComputeStore::computePlen() {
     return (double)sum/(double)count;
 }
 
-int ComputeStore::computeNe(int e) {
+int ComputeStore::computeNe(double e) {
     double* links = new double[LINKSIZE];
     for (int k=0; k<LINKSIZE; k++) {
         links[k] = 0;
@@ -399,10 +429,12 @@ int ComputeStore::computeNe(int e) {
     int old_prob, new_prob;
     for (int i=0; i<NSW; i++) {
         for (int j=0; j<NSW; j++) {
-            if (TM[i][j]) {
+            if (TM[i][j] > 0) {
                 for (int k=0; k<LINKSIZE; k++) {
                     old_prob = links[k];
                     new_prob = net_link[i][j][k];
+		    assert(old_prob >= 0.0);
+		    assert(new_prob >= 0.0);
                     if (new_prob > old_prob) {
                         links[k] = new_prob;
                     }
@@ -436,8 +468,8 @@ void ComputeStore::deleteComputations() {
 
 void ComputeStore::outputD() {
     ofstream file;
-    file.open("D_rrg_ecmp.txt");
-    for (int i=0; i<NSW; i++) {
+    file.open("D_rrg_16short.txt");
+    for (int i=0; i<LINKSIZE; i++) {
         file << D[i] << "\t";
     }
     file.close();
