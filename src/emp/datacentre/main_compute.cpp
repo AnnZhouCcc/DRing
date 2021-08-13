@@ -11,11 +11,12 @@ int main(int argc, char **argv) {
     store->getRackBasedNetPath();
     // store->checkRackBasedNetPath(5);
     store->getNetLinkNetSumNetCount();
-    store->checkNetLink(5);
+    // store->storeNetLink(5);
     // store->checkNetSumNetCount(5);
     store->computeD();
-    store->outputD();
+    store->storeD();
     store->computeT();
+    store->checkValidity();
     double plen = store->computePlen();
     double e = 0.01;
     int ne = store->computeNe(e);

@@ -16,18 +16,19 @@ class ComputeStore {
         void getRackBasedTM(string filename);
         void storeRackBasedTM();
         void getRackBasedNetPath();
-        void checkRackBasedNetPath(int limit);
+        void storeRackBasedNetPath(int limit);
         void deleteMatrices();
 	void deleteTM();
         void getNetLinkNetSumNetCount();
-        void checkNetLink(int limit);
-        void checkNetSumNetCount(int limit);
+        void storeNetLink(int limit);
+        void storeNetSumNetCount(int limit);
         void computeD();
         void computeT();
         void deleteComputations();
         double computePlen();
         int computeNe(double e);
-        void outputD();
+        void storeD();
+        void checkValidity();
     
     private:
         int** TM;

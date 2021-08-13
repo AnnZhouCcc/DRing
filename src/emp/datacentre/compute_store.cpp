@@ -206,7 +206,7 @@ void ComputeStore::getRackBasedNetPath() {
     }
 }
 
-void ComputeStore::checkRackBasedNetPath(int limit) {
+void ComputeStore::storeRackBasedNetPath(int limit) {
     ofstream file;
     file.open("net_path.txt");
     for (int src_row=0; src_row<limit; src_row++) {
@@ -337,7 +337,7 @@ void ComputeStore::getNetLinkNetSumNetCount() {
     }
 }
 
-void ComputeStore::checkNetLink(int limit) {
+void ComputeStore::storeNetLink(int limit) {
     ofstream file;
     file.open("net_link.txt");
     for (int src_row=0; src_row<limit; src_row++) {
@@ -353,7 +353,7 @@ void ComputeStore::checkNetLink(int limit) {
     file.close();
 }
 
-void ComputeStore::checkNetSumNetCount(int limit) {
+void ComputeStore::storeNetSumNetCount(int limit) {
     ofstream file;
     file.open("net_sum_net_count.txt");
     for (int src_row=0; src_row<limit; src_row++) {
@@ -376,11 +376,6 @@ void ComputeStore::computeD() {
             }
         }
     }
-
-    // Check D
-    for (int k=0; k<LINKSIZE; k++) {
-	assert(D[k] >= 0.0);
-    }
 }
 
 void ComputeStore::computeT() {
@@ -395,16 +390,6 @@ void ComputeStore::computeT() {
 		}
             }
         }
-    }
-
-    // Check T
-    for (int i=0; i<NSW; i++) {
-	for (int j=0; j<NSW; j++) {
-	    for (int k=0; k<LINKSIZE; k++) {
-		if (T[i][j][k] < 0.0) cout << "!!" << endl;
-		// assert(T[i][j][k] >= 0.0);
-	    }
-	}
     }
 }
 
@@ -466,11 +451,122 @@ void ComputeStore::deleteComputations() {
     delete [] T;
 }
 
-void ComputeStore::outputD() {
+void ComputeStore::storeD() {
     ofstream file;
     file.open("D_rrg_16short.txt");
     for (int i=0; i<LINKSIZE; i++) {
         file << D[i] << "\t";
     }
     file.close();
+}
+
+void ComputeStore::checkValidity() {
+    cout << "Check validity NetPath" << endl;
+    route_t * route;
+    int num_items;
+    int src_id, dst_id;
+    for (int i=0; i<NSW; i++) {
+        for (int j=0; j<NSW; j++) {
+            for (int k=0; k<net_path[i][j]->size(); k++) {
+                route = net_path[i][j]->at(k);
+                num_items = route->size();
+                src_id = extractSwitchID(route->at(0)->nodename()).first;
+                dst_id = extractSwitchID(route->at(num_items-2)->nodename()).second;
+                if (src_id != i) {
+                    cout << "**Error found**" << endl;
+                    cout << "src_id != i in net_path" << endl;
+                    cout << "src_id = " << src_id << ", i = " << i << endl; 
+                    cout << "j = " << j << ", k = " << k << endl;
+                    cout << "**End**" << endl;
+                }
+                if (dst_id != j) {
+                    cout << "**Error found**" << endl;
+                    cout << "dst_id != j in net_path" << endl;
+                    cout << "dst_id = " << dst_id << ", j = " << j << endl; 
+                    cout << "i = " << i << ", k = " << k << endl;
+                    cout << "**End**" << endl;
+                }
+            }
+        }
+    }
+
+    cout << "Check validity NetLink" << endl;
+    for (int i=0; i<NSW; i++) {
+        for (int j=0; j<NSW; j++) {
+            for (int k=0; k<LINKSIZE; j++) {
+                if (net_link[i][j][k] > 0 && i*NSW+j != k) {
+                    cout << "**Error found**" << endl;
+                    cout << "net_link[i][j][k] > 0 && i*NSW+j != k" << endl;
+                    cout << "net_link[i][j][k] = " << net_link[i][j][k] << ", i = " << i << ", j = " << j << ", k = " << k << endl; 
+                    cout << "**End**" << endl;                    
+                }
+                if (net_link[i][j][k] < 0) {
+                    cout << "**Error found**" << endl;
+                    cout << "net_link[i][j][k] < 0" << endl;
+                    cout << "net_link[i][j][k] = " << net_link[i][j][k] << ", i = " << i << ", j = " << j << ", k = " << k << endl; 
+                    cout << "**End**" << endl; 
+                }
+            }
+        }
+    }
+
+    cout << "Check validity NetSum" << endl;
+    for (int i=0; i<NSW; i++) {
+        for (int j=0; j<NSW; j++) {
+                if (net_sum[i][j] < 0) {
+                    cout << "**Error found**" << endl;
+                    cout << "net_sum[i][j] < 0" << endl;
+                    cout << "net_sum[i][j] = " << net_sum[i][j] << ", i = " << i << ", j = " << j << endl; 
+                    cout << "**End**" << endl; 
+                }
+                if (net_sum[i][j] == 0 && net_path[i][j]->at(0)->size() != 0) {
+                    cout << "**Error found**" << endl;
+                    cout << "net_sum[i][j] == 0 && net_path[i][j]->at(0)->size() != 0" << endl;
+                    cout << "net_sum[i][j] = " << net_sum[i][j] << ", i = " << i << ", j = " << j << ", net_path[i][j]->at(0)->size() = " << net_path[i][j]->at(0)->size() << endl; 
+                    cout << "**End**" << endl; 
+                }
+        }
+    }
+
+    cout << "Check validity NetCount" << endl;
+    for (int i=0; i<NSW; i++) {
+        for (int j=0; j<NSW; j++) {
+                if (net_count[i][j] < 0) {
+                    cout << "**Error found**" << endl;
+                    cout << "net_count[i][j] < 0" << endl;
+                    cout << "net_count[i][j] = " << net_count[i][j] << ", i = " << i << ", j = " << j << endl; 
+                    cout << "**End**" << endl; 
+                }
+                if (net_count[i][j] == 0 && net_path[i][j]->at(0)->size() != 0) {
+                    cout << "**Error found**" << endl;
+                    cout << "net_count[i][j] == 0 && net_path[i][j]->at(0)->size() != 0" << endl;
+                    cout << "net_count[i][j] = " << net_count[i][j] << ", i = " << i << ", j = " << j << ", net_path[i][j]->at(0)->size() = " << net_path[i][j]->at(0)->size() << endl; 
+                    cout << "**End**" << endl; 
+                }
+        }
+    }
+
+    cout << "Check validity D" << endl;
+    for (int k=0; k<LINKSIZE; k++) {
+	    if (D[k] < 0) {
+            cout << "**Error found**" << endl;
+            cout << "D[k] < 0" << endl;
+            cout << "k = " << k << ", D[k] = " << D[k] << endl;
+            cout << "**End**" << endl;
+        }       
+    }
+
+    cout << "Check validity T" << endl;
+    for (int i=0; i<NSW; i++) {
+        for (int j=0; j<NSW; j++) {
+            for (int k=0; k<LINKSIZE; k++) {
+                if (T[i][j][k] < 0) {
+                    cout << "**Error found**" << endl;
+                    cout << "T[i][j][k] < 0" << endl;
+                    cout << "T[i][j][k] = " << T[i][j][k] << "i = " << i << ", j = " << j << ", k = " << k << endl;
+                    cout << "**End**" << endl;
+                }
+            }
+        }
+    }
 }
