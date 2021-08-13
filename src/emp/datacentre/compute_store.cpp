@@ -172,9 +172,9 @@ void ComputeStore::getRackBasedNetPath() {
     cout << "logfile: " << filename.str() << endl;
     string rfile = "graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist";
     cout << "topology file: " << rfile << endl;
-    string routing = "kshort";
+    string routing = "ecmp";
     cout << "routing: " << routing << endl;
-    int korn = 16;
+    int korn = 0;
     cout << "korn = " << korn << endl;
 
     RandRegularTopology* top = new RandRegularTopology(&logfile, &eventlist, rfile, RANDOM, routing, korn);
@@ -326,15 +326,6 @@ void ComputeStore::getNetLinkNetSumNetCount() {
 	    net_sum[i][j] = sum;
         }
     }
-
-    // Check net_link
-    for (int i=0; i<NSW; i++) {
-	for (int j=0; j<NSW; j++) {
-	    for (int k=0; k<LINKSIZE; k++) {
-		assert(net_link[i][j][k] >= 0.0);
-	    }
-	}
-    }
 }
 
 void ComputeStore::storeNetLink(int limit) {
@@ -453,7 +444,7 @@ void ComputeStore::deleteComputations() {
 
 void ComputeStore::storeD() {
     ofstream file;
-    file.open("D_rrg_16short.txt");
+    file.open("D_rrg_ecmp.txt");
     for (int i=0; i<LINKSIZE; i++) {
         file << D[i] << "\t";
     }
@@ -470,6 +461,7 @@ void ComputeStore::checkValidity() {
             for (int k=0; k<net_path[i][j]->size(); k++) {
                 route = net_path[i][j]->at(k);
                 num_items = route->size();
+                if (num_items > 0) {
                 src_id = extractSwitchID(route->at(0)->nodename()).first;
                 dst_id = extractSwitchID(route->at(num_items-2)->nodename()).second;
                 if (src_id != i) {
@@ -486,6 +478,7 @@ void ComputeStore::checkValidity() {
                     cout << "i = " << i << ", k = " << k << endl;
                     cout << "**End**" << endl;
                 }
+                }
             }
         }
     }
@@ -493,13 +486,7 @@ void ComputeStore::checkValidity() {
     cout << "Check validity NetLink" << endl;
     for (int i=0; i<NSW; i++) {
         for (int j=0; j<NSW; j++) {
-            for (int k=0; k<LINKSIZE; j++) {
-                if (net_link[i][j][k] > 0 && i*NSW+j != k) {
-                    cout << "**Error found**" << endl;
-                    cout << "net_link[i][j][k] > 0 && i*NSW+j != k" << endl;
-                    cout << "net_link[i][j][k] = " << net_link[i][j][k] << ", i = " << i << ", j = " << j << ", k = " << k << endl; 
-                    cout << "**End**" << endl;                    
-                }
+            for (int k=0; k<LINKSIZE; k++) {
                 if (net_link[i][j][k] < 0) {
                     cout << "**Error found**" << endl;
                     cout << "net_link[i][j][k] < 0" << endl;
