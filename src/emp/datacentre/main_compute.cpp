@@ -22,7 +22,8 @@ int main(int argc, char **argv) {
     int ne = store->computeNe(e);
     cout << "plen = " << plen << ", ne = " << ne << " (e = " << e << ")" << endl;
     store->computeR();
-    store->storeR();
+    // store->storeR();
+    store->storeW(5);
     store->deleteComputations();
     store->deleteMatrices();  
 }

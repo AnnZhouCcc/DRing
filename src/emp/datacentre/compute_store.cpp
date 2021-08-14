@@ -1,6 +1,8 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <queue>
+#include <vector>
 #include "compute_store.h"
 #include "network.h"
 #include "main.h"
@@ -94,6 +96,15 @@ ComputeStore::ComputeStore() {
     for (int i=0; i<NSW; i++) {
         R_in_traffic[i] = 0;
     } 
+
+    // Initialize W to all 0
+    W = new double*[NSW];
+	for (int i=0;i<NSW;i++){
+		W[i] = new double[NSW];
+		for (int j = 0;j<NSW;j++){
+			W[i][j] = 0;
+		}
+	}
 }
 
 // Copied from connection_matrix.cpp
@@ -281,9 +292,9 @@ void ComputeStore::deleteMatrices() {
 void ComputeStore::deleteTM() {
     cout << "delete TM" << endl;
     for (int i=0; i<NSW; i++) {
-	delete [] net_path[i];
+	delete [] TM[i];
     }	
-    delete [] net_path;
+    delete [] TM;
 }
 
 pair<int, int> ComputeStore::extractSwitchID(string nodename) {
@@ -459,6 +470,12 @@ void ComputeStore::deleteComputations() {
     delete [] R_all_traffic;
     delete [] R_out_traffic;
     delete [] R_in_traffic;
+
+    cout << "delete W" << endl;
+    for (int i=0; i<NSW; i++) {
+	    delete [] W[i];
+    }	
+    delete [] W;
 }
 
 void ComputeStore::storeD() {
@@ -623,4 +640,81 @@ void ComputeStore::storeR() {
         file << a << "\t" << transit << "\t" << combined << "\n";
     }
     file.close();    
+}
+
+bool D_comparator(pair<int,double>D1, pair<int,double>D2) {
+    return D1.second > D2.second;
+}
+
+void ComputeStore::storeW(int limit) {
+    priority_queue<pair<int,double>, vector< pair<int,double> >, function< bool(pair<int,double>, pair<int,double>)> > pq(D_comparator);
+    for (int k=0; k<LINKSIZE; k++) {
+        if (D[k] > 0) {
+            pair<int,double> pr (k, D[k]);
+            pq.push(pr);
+        }
+    }
+
+    vector< pair<int,double> > max {};
+    pair<int,double> max_pr;
+    for (int a=0; a<limit; a++) {
+        max_pr = pq.top();
+        max.push_back(max_pr);
+        pq.pop();
+    }
+
+    int linkID;
+    double demand;
+    for (int a=0; a<limit; a++) {
+        linkID = max.at(a).first;
+        demand = max.at(a).second;
+        int src = linkID/NSW;
+        int dst = linkID%NSW;
+
+        // Set W back to all 0
+        for (int i=0;i<NSW;i++){
+            for (int j = 0;j<NSW;j++){
+                W[i][j] = 0;
+            }
+        }
+
+        for (int i=0; i<NSW; i++) {
+            for (int j=0; j<NSW; j++) {
+                int count = net_count[i][j];
+                for (int k=0; k<count; k++) {
+                    for (int l=0; l<net_path[i][j]->at(k)->size(); l++) {
+                        string hop_name = net_path[i][j]->at(k)->at(l)->nodename();
+                        int hop_src = extractSwitchID(hop_name).first;
+                        int hop_dst = extractSwitchID(hop_name).second;
+
+                        if (src == hop_src && dst == hop_dst) {
+                            W[i][j] += (1.0/count) * TM[i][j];
+                        }
+                    }
+                }
+            }
+        }
+
+        // Print out W
+        ofstream file;
+        string filename = "W_" + to_string(a) + "_rrg_ecmp.txt";
+        file.open(filename);
+        file << "Link source switch: " << src << ", destination switch: " << dst << ", total demand on the link = " << demand;
+        int src_row_id, dst_column_id;
+        double* row;
+        for (int count=0; count<NSW; count++) {
+            src_row_id = NSW - count - 1;
+            row = W[src_row_id];
+            file << src_row_id << "\t";
+            for (int dst_column_id=0; dst_column_id<NSW; dst_column_id++) {
+                file << row[dst_column_id] << "\t";
+            }
+            file << "\n";
+        }
+        file << "\t";
+        for (int i=0; i<NSW; i++) {
+            file << i << "\t";
+        }
+        file.close();
+    }
 }

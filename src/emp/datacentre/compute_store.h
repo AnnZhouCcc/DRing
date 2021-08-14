@@ -31,6 +31,7 @@ class ComputeStore {
         void checkValidity();
         void computeR();
         void storeR();
+        void storeW(int limit);
     
     private:
         int** TM;
@@ -45,6 +46,7 @@ class ComputeStore {
         int* R_all_traffic;
         int* R_out_traffic;
         int* R_in_traffic;
+        double** W;
 
         pair<int, int> extractSwitchID(string nodename);
         int getLinkID(string nodename);
