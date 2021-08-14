@@ -588,7 +588,7 @@ void ComputeStore::computeR() {
             k = b*NSW+a;
             sum += D[k]; // D[k] here can be 0
         }
-        R_all_traffic[a] = sum/2;
+        R_all_traffic[a] = sum;
     }
 
     // Compute R_out_traffic
@@ -598,7 +598,7 @@ void ComputeStore::computeR() {
         for (int i=0; i<NSW; i++) {
             out_sum += TM[i][j];
         }
-        R_out_traffic[j] = out_sum;
+        R_in_traffic[j] = out_sum;
     }
 
     // Compute R_in_traffic
@@ -608,20 +608,19 @@ void ComputeStore::computeR() {
         for (int j=0; j<NSW; j++) {
             in_sum += TM[i][j];
         }
-        R_in_traffic[i] = in_sum;
+        R_out_traffic[i] = in_sum;
     }
 }
 
 void ComputeStore::storeR() {
     ofstream file;
     file.open("R_rrg_ecmp.txt");
-    file << "switch\tout\tin\tcombined";
-    double out, in, combined;
+    file << "switch\ttransit\tcombined\n";
+    int transit, combined;
     for (int a=0; a<NSW; a++) {
-        out = R_out_traffic[a]/R_all_traffic[a];
-        in = R_in_traffic[a]/R_all_traffic[a];
-        combined = out+in;
-        file << out << "\t" << in << "\t" << combined;
+        transit = (R_all_traffic[a]-R_out_traffic[a]-R_in_traffic[a])/2;
+        combined = R_out_traffic[a] + R_in_traffic[a];
+        file << a << "\t" << transit << "\t" << combined << "\n";
     }
     file.close();    
 }
