@@ -38,8 +38,6 @@ class ComputeStore {
         void storeW(int limit);
         void computeIndex();
         void deletePathIndex();
-        void computeRxIndex();
-        void storeRxIndex();
         void storeIndex();
         void computeNStoreRxIndexWithStats();
         void computeNStoreSWithStats();
