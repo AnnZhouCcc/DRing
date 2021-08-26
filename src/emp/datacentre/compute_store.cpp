@@ -105,6 +105,59 @@ ComputeStore::ComputeStore() {
 			W[i][j] = 0;
 		}
 	}
+
+    // Initialize first_hop_index to all 0 entries
+    first_hop_index = new double*[NSW];
+	for (int i=0;i<NSW;i++){
+		first_hop_index[i] = new double[NSW];
+		for (int j = 0;j<NSW;j++){
+			first_hop_index[i][j] = 0;
+		}
+	}
+
+    // Initialize non_first_hop_index to all 0 entries
+    non_first_hop_index = new double*[NSW];
+	for (int i=0;i<NSW;i++){
+		non_first_hop_index[i] = new double[NSW];
+		for (int j = 0;j<NSW;j++){
+			non_first_hop_index[i][j] = 0;
+		}
+	}
+
+    // Initialize more_than_one_hop_net_count to all 0 entries
+    more_than_one_hop_net_count = new int*[NSW];
+	for (int i=0;i<NSW;i++){
+		more_than_one_hop_net_count[i] = new int[NSW];
+		for (int j = 0;j<NSW;j++){
+			more_than_one_hop_net_count[i][j] = 0;
+		}
+	}
+
+    // Initialize RxIndex to 0
+    RxIndex = new double[NSW];
+    for (int i=0; i<NSW; i++) {
+        RxIndex[i] = 0;
+    } 
+
+    // Initialize S to 0
+    S = new double[NSW];
+    for (int i=0; i<NSW; i++) {
+        S[i] = 0;
+    } 
+
+    // Initialize percentage to all 0 entries
+    percentage = new double*[NSW];
+	for (int i=0;i<NSW;i++){
+		percentage[i] = new double[NSW];
+		for (int j = 0;j<NSW;j++){
+			percentage[i][j] = 0;
+		}
+	}
+}
+
+void ComputeStore::setRoutingScheme(string routing_, int korn_) {
+    routing = routing_;
+    korn = korn_;
 }
 
 // Copied from connection_matrix.cpp
@@ -197,9 +250,9 @@ void ComputeStore::getRackBasedNetPath() {
     cout << "logfile: " << filename.str() << endl;
     string rfile = "graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist";
     cout << "topology file: " << rfile << endl;
-    string routing = "ecmp";
+    // string routing = "ecmp";
     cout << "routing: " << routing << endl;
-    int korn = 0;
+    // int korn = 0;
     cout << "korn = " << korn << endl;
 
     RandRegularTopology* top = new RandRegularTopology(&logfile, &eventlist, rfile, RANDOM, routing, korn);
@@ -480,7 +533,8 @@ void ComputeStore::deleteComputations() {
 
 void ComputeStore::storeD() {
     ofstream file;
-    file.open("D_rrg_ecmp.txt");
+    string filename = "D_rrg_" + routing + to_string(korn) + ".txt";
+    file.open(filename);
     for (int i=0; i<LINKSIZE; i++) {
         file << D[i] << "\t";
     }
@@ -608,36 +662,38 @@ void ComputeStore::computeR() {
         R_all_traffic[a] = sum;
     }
 
-    // Compute R_out_traffic
-    int out_sum;
-    for (int j=0; j<NSW; j++) {
-        out_sum = 0;
-        for (int i=0; i<NSW; i++) {
-            out_sum += TM[i][j];
-        }
-        R_in_traffic[j] = out_sum;
-    }
-
     // Compute R_in_traffic
     int in_sum;
-    for (int i=0; i<NSW; i++) {
+    for (int j=0; j<NSW; j++) {
         in_sum = 0;
-        for (int j=0; j<NSW; j++) {
-            in_sum += TM[i][j];
+        for (int i=0; i<NSW; i++) {
+            if (i!=j) in_sum += TM[i][j];
         }
-        R_out_traffic[i] = in_sum;
+        R_in_traffic[j] = in_sum;
+    }
+
+    // Compute R_out_traffic
+    int out_sum;
+    for (int i=0; i<NSW; i++) {
+        out_sum = 0;
+        for (int j=0; j<NSW; j++) {
+            if (i!=j) out_sum += TM[i][j];
+        }
+        R_out_traffic[i] = out_sum;
     }
 }
 
 void ComputeStore::storeR() {
     ofstream file;
-    file.open("R_rrg_ecmp.txt");
-    file << "switch\ttransit\tcombined\n";
+    string filename = "R_rrg_" + routing + to_string(korn) + ".txt";
+    file.open(filename);
+    file << "switch\tall\tin\tout\ttransit(w in)\ttransit(no in; half)\n";
     int transit, combined;
     for (int a=0; a<NSW; a++) {
-        transit = (R_all_traffic[a]-R_out_traffic[a]-R_in_traffic[a])/2;
-        combined = R_out_traffic[a] + R_in_traffic[a];
-        file << a << "\t" << transit << "\t" << combined << "\n";
+        file << a << "\t" << R_all_traffic[a] << "\t";
+        file << R_in_traffic[a] << "\t" << R_out_traffic[a] << "\t";
+        file << R_all_traffic[a]-R_out_traffic[a] << "\t";
+        file << (R_all_traffic[a]-R_out_traffic[a]-R_in_traffic[a])/2 << "\n";
     }
     file.close();    
 }
@@ -697,7 +753,7 @@ void ComputeStore::storeW(int limit) {
 
         // Print out W
         ofstream file;
-        string filename = "W_" + to_string(a) + "_rrg_ecmp.txt";
+        string filename = "W_" + to_string(a) + "_rrg_" + routing + to_string(korn) + ".txt";
         file.open(filename);
         file << "Link source switch: " << src << ", destination switch: " << dst << ", total demand on the link = " << demand;
         int src_row_id, dst_column_id;
@@ -717,4 +773,690 @@ void ComputeStore::storeW(int limit) {
         }
         file.close();
     }
+}
+
+void ComputeStore::computeIndex() {
+    // for (int i=0; i<NSW; i++) {
+    //     for (int j=0; j<NSW; j++) {
+    //         vector<route_t *> *available_paths = net_path[i][j];
+    //         map<int, int> id_weight_map;
+    //         for (int i=0; i<available_paths->size(); i++) {
+    //             route_t *path = available_paths->at(i);
+    //             for (int j=0; j<path->size(); j=j+2) {
+    //                 string nodename = path->at(j)->nodename();
+    //                 int link_id = getLinkID(nodename);
+    //                 if (id_weight_map.find(link_id) == id_weight_map.end()) {
+    //                     // Not found, create new entry
+    //                     id_weight_map[link_id] = 1;
+    //                 } else {
+    //                     id_weight_map[link_id] += 1;
+    //                 }
+    //             }
+    //         }
+    //         int sum = 0;
+    //         for (auto entry : id_weight_map) {
+    //             int weight = entry.second;
+    //             sum += (weight * weight);
+    //         }
+    //         int count = net_count[i][j];
+    //         if (count == 0) {
+    //             index[i][j] = 0;
+    //         } else {
+    //             index[i][j] = ((double)sum / (count * count));
+    //         }
+    //     }
+    // }
+
+    // for (int i=0; i<NSW; i++) {
+    //     for (int j=0; j<NSW; j++) {
+    //         vector<route_t *> *available_paths = net_path[i][j];
+    //         map<int, int> first_hop_id_weight_map;
+    //         map<int, int> non_first_hop_id_weight_map;
+    //         int more_than_one_hop_count = 0;
+    //         for (int i=0; i<available_paths->size(); i++) {
+    //             if (available_paths->at(i)->size() > 0) {
+    //                 // Only consider the first hop
+    //                 string nodename = available_paths->at(i)->at(0)->nodename();
+    //                 int link_id = getLinkID(nodename);
+    //                 if (first_hop_id_weight_map.find(link_id) == first_hop_id_weight_map.end()) {
+    //                     // Not found, create new entry
+    //                     first_hop_id_weight_map[link_id] = 1;
+    //                 } else {
+    //                     first_hop_id_weight_map[link_id] += 1;
+    //                 }
+    //             }
+    //             if (available_paths->at(i)->size() > 2) {
+    //                 more_than_one_hop_count++;
+    //             }
+    //             for (int j=2; j<available_paths->at(i)->size(); j=j+2) {
+    //                 string nodename = available_paths->at(i)->at(j)->nodename();
+    //                 int link_id = getLinkID(nodename);
+    //                 if (non_first_hop_id_weight_map.find(link_id) == non_first_hop_id_weight_map.end()) {
+    //                     // Not found, create new entry
+    //                     non_first_hop_id_weight_map[link_id] = 1;
+    //                 } else {
+    //                     non_first_hop_id_weight_map[link_id] += 1;
+    //                 }
+    //             }
+    //         }
+    //         more_than_one_hop_net_count[i][j] = more_than_one_hop_count;
+
+    //         int sum = 0;
+    //         for (auto entry : first_hop_id_weight_map) {
+    //             int weight = entry.second;
+    //             sum += (weight * weight);
+    //         }
+    //         int count = net_count[i][j];
+    //         if (count == 0) {
+    //             first_hop_index[i][j] = 0;
+    //         } else {
+    //             first_hop_index[i][j] = ((double)sum / (count * count));
+    //         }
+
+    //         int non_first_hop_sum = 0;
+    //         for (auto entry : non_first_hop_id_weight_map) {
+    //             int weight = entry.second;
+    //             non_first_hop_sum += (weight * weight);
+    //         }
+    //         if (more_than_one_hop_count == 0) {
+    //             non_first_hop_index[i][j] = 0;
+    //         } else {
+    //             non_first_hop_index[i][j] = ((double)non_first_hop_sum / (more_than_one_hop_count * more_than_one_hop_count));
+    //         }
+    //     }
+    // }
+
+    for (int i=0; i<NSW; i++) {
+        for (int j=0; j<NSW; j++) {
+            vector<route_t *> *available_paths = net_path[i][j];
+            map<int, int> first_hop_id_weight_map;
+            int more_than_one_hop_count = 0;
+            for (int i=0; i<available_paths->size(); i++) {
+                if (available_paths->at(i)->size() > 0) {
+                    // Only consider the first hop
+                    string nodename = available_paths->at(i)->at(0)->nodename();
+                    int link_id = getLinkID(nodename);
+                    if (first_hop_id_weight_map.find(link_id) == first_hop_id_weight_map.end()) {
+                        // Not found, create new entry
+                        first_hop_id_weight_map[link_id] = 1;
+                    } else {
+                        first_hop_id_weight_map[link_id] += 1;
+                    }
+                }
+                if (available_paths->at(i)->size() > 2) {
+                    more_than_one_hop_count++;
+                }
+            }
+            more_than_one_hop_net_count[i][j] = more_than_one_hop_count;
+
+            int sum = 0;
+            for (auto entry : first_hop_id_weight_map) {
+                int weight = entry.second;
+                sum += (weight * weight);
+            }
+            int count = net_count[i][j];
+            if (count == 0) {
+                first_hop_index[i][j] = 0;
+            } else {
+                first_hop_index[i][j] = ((double)sum / (count * count));
+            }
+
+            if (more_than_one_hop_count > 0) {
+                PathGraph *graph = new PathGraph(i, j, this);
+                non_first_hop_index[i][j] = graph->computeIndex();
+                delete graph;
+            } else {
+                non_first_hop_index[i][j] = 0;
+            }
+        }
+    }
+}
+
+void ComputeStore::deletePathIndex() {
+    cout << "delete first_hop_index" << endl;
+    for (int i=0; i<NSW; i++) {
+	    delete [] first_hop_index[i];
+    }	
+    delete [] first_hop_index;
+
+    cout << "delete non_first_hop_index" << endl;
+    for (int i=0; i<NSW; i++) {
+	    delete [] non_first_hop_index[i];
+    }	
+    delete [] non_first_hop_index;
+
+    cout << "delete RxIndex" << endl;
+    delete [] RxIndex;
+
+    cout << "delete more_than_one_hop_net_count" << endl;
+    for (int i=0; i<NSW; i++) {
+	    delete [] more_than_one_hop_net_count[i];
+    }	
+    delete [] more_than_one_hop_net_count;  
+
+    cout << "delete S" << endl;
+    delete [] S;  
+
+    cout << "delete percentage" << endl;
+    for (int i=0; i<NSW; i++) {
+	    delete [] percentage[i];
+    }	
+    delete [] percentage;
+}
+
+void ComputeStore::computeRxIndex() {
+    // for (int a=0; a<NSW; a++) {
+    //     int transit_traffic = R_all_traffic[a] - R_in_traffic[a] - R_out_traffic[a]; // This is twice the transit traffic.
+    //     double demand = 0;
+    //     double sum_path_index = 0;
+    //     for (int i=0; i<NSW; i++) {
+    //         for (int j=0; j<NSW; j++) {
+    //             if (i != j && i!=a && j!=a) {
+    //                 sum_path_index += index[i][j];
+    //             }
+    //         }
+    //     }
+    //     int count_path_index = (NSW-1) * (NSW-1);
+    //     double average_path_index = sum_path_index/count_path_index;
+    //     demand += transit_traffic * average_path_index;
+
+    //     double sum_out_index = 0;
+    //     for (int j=0; j<NSW; j++) {
+    //         if (a!=j) {
+    //             sum_out_index += index[a][j];
+    //         }
+    //     }
+    //     double average_out_index = sum_out_index/(NSW-1);
+    //     demand += R_out_traffic[a] * average_out_index;
+
+    //     double sum_in_index = 0;
+    //     for (int i=0; i<NSW; i++) {
+    //         if (a!=i) {
+    //             sum_in_index += index[i][a];
+    //         }
+    //     }
+    //     double average_in_index = sum_in_index/(NSW-1);
+    //     demand += R_in_traffic[a] * average_in_index;
+
+    //     RxIndex[a] = demand;
+    // }
+}
+
+void ComputeStore::storeRxIndex() {
+    ofstream file;
+    string filename = "RxIndex_rrg_" + routing + to_string(korn) + ".txt";
+    file.open(filename);
+    file << "switch\tRxIndex\n";
+    for (int a=0; a<NSW; a++) {
+        file << a << "\t" << RxIndex[a] << "\n";
+    }
+    file.close();    
+}
+
+void ComputeStore::computeNStoreRxIndexWithStats() {
+//     double* average_path_index_arr = new double[NSW];
+//     double* average_out_index_arr = new double[NSW];
+//     double* average_in_index_arr = new double[NSW];
+// 	for (int i=0;i<NSW;i++){
+//         average_path_index_arr[i] = 0;
+//         average_out_index_arr[i] = 0;
+//         average_in_index_arr[i] = 0;
+// 	}
+
+//     for (int a=0; a<NSW; a++) {
+//         int transit_traffic = R_all_traffic[a] - R_in_traffic[a] - R_out_traffic[a]; // This is twice the transit traffic.
+//         double demand = 0;
+//         double sum_path_index = 0;
+//         for (int i=0; i<NSW; i++) {
+//             for (int j=0; j<NSW; j++) {
+//                 if (i != j && i!=a && j!=a) {
+//                     sum_path_index += index[i][j];
+//                 }
+//             }
+//         }
+//         int count_path_index = (NSW-1) * (NSW-1);
+//         double average_path_index = sum_path_index/count_path_index;
+//         demand += transit_traffic * average_path_index;
+//         average_path_index_arr[a] = average_path_index;
+
+//         double sum_out_index = 0;
+//         for (int j=0; j<NSW; j++) {
+//             if (a!=j) {
+//                 sum_out_index += index[a][j];
+//             }
+//         }
+//         double average_out_index = sum_out_index/(NSW-1);
+//         demand += R_out_traffic[a] * average_out_index;
+//         average_out_index_arr[a] = average_out_index;
+
+//         double sum_in_index = 0;
+//         for (int i=0; i<NSW; i++) {
+//             if (a!=i) {
+//                 sum_in_index += index[i][a];
+//             }
+//         }
+//         double average_in_index = sum_in_index/(NSW-1);
+//         demand += R_in_traffic[a] * average_in_index;
+//         average_in_index_arr[a] = average_in_index;
+
+//         RxIndex[a] = demand;
+//     }
+
+//     ofstream file;
+//     string filename = "RxIndexWithStats_rrg_" + routing + to_string(korn) + ".txt";
+//     file.open(filename);
+//     file << "switch\tRxIndex\ttransit\tindex\tout\tindex\tin\tindex\n";
+//     for (int a=0; a<NSW; a++) {
+//         file << a << "\t" << RxIndex[a] << "\t";
+//         file << (R_all_traffic[a]-R_out_traffic[a]-R_in_traffic[a]) << "\t" << average_path_index_arr[a] << "\t";
+//         file << R_out_traffic[a] << "\t" << average_out_index_arr[a] << "\t";
+//         file << R_in_traffic[a] << "\t" << average_in_index_arr[a] << "\n";
+//     }
+//     file.close(); 
+
+//     delete average_path_index_arr;
+//     delete average_out_index_arr;
+//     delete average_in_index_arr;
+
+    double* average_out_index_arr = new double[NSW];
+    double* average_transit_index_arr = new double[NSW];
+	for (int i=0;i<NSW;i++){
+        average_out_index_arr[i] = 0;
+        average_transit_index_arr[i] = 0;
+	}
+
+    for (int a=0; a<NSW; a++) {
+        double demand = 0;
+        int transit_traffic = (R_all_traffic[a] - R_out_traffic[a]);
+        double sum_transit_index = 0;
+        int count_transit_index = 0;
+        for (int i=0; i<NSW; i++) {
+            for (int j=0; j<NSW; j++) {
+                if (i != j && i!=a && j!=a) {
+                    sum_transit_index += non_first_hop_index[i][j];
+                    if (non_first_hop_index[i][j] > 0) {
+                        count_transit_index++;
+                    }
+                }
+            }
+        }
+        double average_transit_index = sum_transit_index/count_transit_index;
+        demand += transit_traffic * average_transit_index;
+        average_transit_index_arr[a] = average_transit_index;
+
+        double sum_out_index = 0;
+        for (int j=0; j<NSW; j++) {
+            if (a!=j) {
+                sum_out_index += first_hop_index[a][j];
+            }
+        }
+        double average_out_index = sum_out_index/(NSW-1);
+        demand += R_out_traffic[a] * average_out_index;
+        average_out_index_arr[a] = average_out_index;
+
+        RxIndex[a] = demand;
+    }
+
+    ofstream file;
+    string filename = "RxIndexWithStats_rrg_" + routing + to_string(korn) + ".txt";
+    file.open(filename);
+    file << "switch\tRxIndex\ttransit_traffic\ttransit_index\tout_traffic\tout_index\n";
+    for (int a=0; a<NSW; a++) {
+        file << a << "\t" << RxIndex[a] << "\t";
+        file << (R_all_traffic[a]-R_out_traffic[a]) << "\t" << average_transit_index_arr[a] << "\t";
+        file << R_out_traffic[a] << "\t" << average_out_index_arr[a] << "\n";
+    }
+    file.close(); 
+
+    delete average_out_index_arr;
+    delete average_transit_index_arr;
+}
+
+void ComputeStore::storeIndex() {
+    ofstream file;
+    string filename = "index_rrg_" + routing + to_string(korn) + ".txt";
+    file.open(filename);
+    for (int i=0; i<NSW; i++) {
+        for (int j=0; j<NSW; j++) {
+            file << first_hop_index[i][j] << "\n";
+        }
+    }
+    file.close();    
+}
+
+void ComputeStore::computeNStoreSWithStats() {
+    cout << "**computeNStoreSWithStats**" << endl;
+    // Compute total TM.
+    total_TM = 0;
+    for (int i=0; i<NSW; i++) {
+        for (int j=0; j<NSW; j++) {
+            total_TM += TM[i][j];
+        }
+    }
+    cout << "total_TM = " << total_TM << endl;
+
+    // Compute average path length.
+    int64_t sum = 0, count = 0;
+    for (int i=0; i<NSW; i++) {
+        for (int j=0; j<NSW; j++) {
+            sum += net_sum[i][j];
+            count += net_count[i][j];
+        }
+    }
+    average_path_length = (double)sum/(double)count;
+    cout << "average_path_length = " << average_path_length << endl;
+
+    // Compute the percentage of traffic that requires transit i.e. has length >1.
+    double total_percentage = 0;
+    int percentage_count = 0;
+    for (int i=0; i<NSW; i++) {
+        for (int j=0; j<NSW; j++) {
+            vector<route_t *> *available_paths = net_path[i][j];
+            int more_than_one_hop_count = 0;
+            for (int i=0; i<available_paths->size(); i++) {
+                route_t *path = available_paths->at(i); 
+                if (path->size() > 2) more_than_one_hop_count++;
+            }      
+            if (net_count[i][j] > 0) {
+                percentage_count++;
+                percentage[i][j] = (double)more_than_one_hop_count / net_count[i][j];
+                total_percentage += percentage[i][j];
+            } else {
+                percentage[i][j] = 0;
+            }   
+        }
+    }
+    percentage_traffic_requiring_transit = total_percentage / percentage_count;
+    cout << "percentage_traffic_requiring_transit = " << percentage_traffic_requiring_transit << endl;
+
+    // Compute S
+    double* average_non_first_hop_index = new double[NSW];
+    double* average_first_hop_index = new double[NSW];
+    int* out_traffic_per_rack = new int[NSW];
+	for (int i=0;i<NSW;i++){
+        average_non_first_hop_index[i] = 0;
+        average_first_hop_index[i] = 0;
+        out_traffic_per_rack[i] = 0;
+	}
+    
+    for (int a=0; a<NSW; a++) {
+        double non_first_hop_sum = 0;
+        int non_first_hop_count = 0;
+        for (int i=0; i<NSW; i++) {
+            for (int j=0; j<NSW; j++) {
+                if (i != j && i!=a && j!=a) {
+                    non_first_hop_sum+= non_first_hop_index[i][j];
+                    if (non_first_hop_index[i][j] > 0) non_first_hop_count++;
+                }
+            }
+        }
+        average_non_first_hop_index[a] = non_first_hop_sum / non_first_hop_count;
+
+        double first_hop_sum = 0;
+        int out_traffic = 0;
+        for (int j=0; j<NSW; j++) {
+            if (a!=j) {
+                first_hop_sum += first_hop_index[a][j];
+                out_traffic += TM[a][j];
+            }
+        }
+        average_first_hop_index[a] = first_hop_sum / (NSW-1);
+        out_traffic_per_rack[a] = out_traffic;
+    }
+
+    for (int a=0; a<NSW; a++) {
+        double overall_congestion = total_TM*average_path_length*percentage_traffic_requiring_transit*average_non_first_hop_index[a]/NSW;
+        double own_traffic = out_traffic_per_rack[a] * average_first_hop_index[a];
+        S[a] = overall_congestion + own_traffic;
+    }
+
+    // Write S
+    ofstream file;
+    string filename = "SWithStats_rrg_" + routing + to_string(korn) + ".txt";
+    file.open(filename);
+    file << "switch\tS\taverage_non_first_hop_index\tout_traffic_per_rack\taverage_first_hop_index\n";
+    for (int a=0; a<NSW; a++) {
+        file << a << "\t" << S[a] << "\t";
+        file << average_non_first_hop_index[a] << "\t";
+        file << out_traffic_per_rack[a] << "\t" << average_first_hop_index[a] << "\n";
+    }
+    file.close(); 
+
+    delete average_non_first_hop_index;
+    delete average_first_hop_index;
+    delete out_traffic_per_rack;
+}
+
+PathNode::PathNode() {
+    load = 0;
+}
+
+PathEdge::PathEdge() {
+    load = 0;
+    weight = 0;
+    visited = false;
+}
+
+PathGraph::PathGraph(int src, int dst, ComputeStore *computestore) {
+    // cout << "Initializing PathGraph" << endl;
+    store = computestore;
+    available_paths = store->net_path[src][dst];
+    graph_src_id = src;
+    graph_dst_id = dst;
+
+    // Construct graph
+    // cout << "Constructing graph" << endl;
+    for (int i=0; i<available_paths->size(); i++) {
+        // cout << "Working on path " << i << "..." << endl;
+        route_t *path = available_paths->at(i);
+        for (int j=0; j<path->size(); j=j+2) {
+            string nodename = path->at(j)->nodename();
+            // cout << "Working with node " << nodename;
+            int link_id = store->getLinkID(nodename);
+            int src_id = store->extractSwitchID(nodename).first;
+            int dst_id = store->extractSwitchID(nodename).second;
+            // cout << "with link_id=" << link_id << ", src_id=" << src_id << ", dst_id=" << dst_id << endl;
+            PathEdge *edge;
+            PathNode *src_node;
+            PathNode *dst_node;
+            if (id_edge_map.find(link_id) == id_edge_map.end()) {
+                edge = new PathEdge();
+                edge->id = link_id;
+                edge->weight = 1;
+                id_edge_map[link_id] = edge;
+                route_edge_map[nodename] = edge;
+                if (id_node_map.find(src_id) == id_node_map.end()) {
+                    src_node = new PathNode();
+                    src_node->id = src_id;
+                    src_node->outgoing_edges.push_back(edge);
+                    id_node_map[src_id] = src_node;
+                } else {
+                    src_node = id_node_map[src_id];
+                    src_node->outgoing_edges.push_back(edge);
+                }
+                if (id_node_map.find(dst_id) == id_node_map.end()) {
+                    dst_node = new PathNode();
+                    dst_node->id = dst_id;
+                    dst_node->incoming_edges.push_back(edge);
+                    id_node_map[dst_id] = dst_node;
+                } else {
+                    dst_node = id_node_map[dst_id];
+                    dst_node->incoming_edges.push_back(edge);
+                }
+                edge->from = src_node;
+                edge->to = dst_node;
+            } else {
+                edge = id_edge_map[link_id];
+                edge->weight += 1;
+            }
+        }
+    }
+}
+
+double PathGraph::computeIndex() {
+    // cout << "PathGraph computeIndex" << endl;
+    double sum = 0;
+    int length = 0;
+    for (int i=0; i<available_paths->size(); i++) {
+        route_t *path = available_paths->at(i);
+        if (path->size() > 2) {
+            length += (path->size()-2)/2;
+            for (int j=2; j<path->size(); j=j+2) {
+                string nodename = path->at(j)->nodename();
+                PathEdge *edge = route_edge_map[nodename]; 
+                sum += (edge->weight)*(edge->weight);
+            }
+        }
+    }
+    // cout << "Have looked through all paths" << endl;
+    int more_than_one_hop = store->more_than_one_hop_net_count[graph_src_id][graph_dst_id];
+    // cout << "Cannot access store?" << endl;
+    // cout << "more_than_one_hop = " << more_than_one_hop << endl;
+    if (more_than_one_hop > 0) {
+        int all_hops = store->net_count[graph_src_id][graph_dst_id];
+        double ind = (sum / (more_than_one_hop * all_hops));
+        double average_length = length / (double)more_than_one_hop;
+        // cout << "average_length = " << average_length << endl;
+        ind = ind / average_length;
+        index = ind;
+        return ind;
+    } else {
+        index = 0;
+        return 0;
+    }
+    // cout << "PathGraph computeIndex end" << endl;
+}
+
+// void PathGraph::computeIndex(int source_load) {
+//     PathNode *graph_src_node = id_node_map[graph_src_id];
+//     graph_src_node->load = source_load;
+//     int total_edge_weights = 0;
+//     for (int i=0; i<graph_src_node->outgoing_edges.size(); i++) {
+//         PathEdge *edge = (PathEdge *)graph_src_node->outgoing_edges.at(i);
+//         total_edge_weights += edge->weight;
+//     }
+//     double one = source_load / (double)total_edge_weights;
+
+//     PathEdge *edge;
+//     for (auto entry : id_edge_map) {
+//         edge = entry.second;
+//         edge->load = edge->weight * one;
+//     }
+
+//     double sum = 0;
+//     int count = available_paths->size();
+//     for (int i=0; i<count; i++) {
+//         route_t *path = available_paths->at(i);
+//         for (int j=0; j<path->size(); j=j+2) {
+//             sum += route_edge_map[path->at(j)->nodename()]->load;
+//         }
+//     }
+//     index = sum / count;
+// }
+
+// void PathGraph::computeIndex(int source_load) {
+//     PathNode *graph_src_node = id_node_map[graph_src_id];
+//     graph_src_node->load = source_load;
+//     queue<PathNode *> to_visit;
+//     // Update for the graph source node separately
+//     int total_edge_weights = 0;
+//     for (int i=0; i<graph_src_node->outgoing_edges.size(); i++) {
+//         PathEdge *edge = (PathEdge *)graph_src_node->outgoing_edges.at(i);
+//         total_edge_weights += edge->weight;
+//     }
+//     for (int i=0; i<graph_src_node->outgoing_edges.size(); i++) {
+//         PathEdge *edge = (PathEdge *)graph_src_node->outgoing_edges.at(i);
+//         edge->load = source_load * (edge->weight / (double)total_edge_weights);
+//         edge->visited = true;
+//         to_visit.push(edge->to);
+//     }
+//     // Update all other nodes with a process similar to BFS
+//     while (!to_visit.empty()) {
+//         PathNode *node = to_visit.front();
+//         // Calculate load for node
+//         for (int i=0; i<node->incoming_edges.size(); i++) {
+//             PathEdge *edge = (PathEdge *)node->incoming_edges.at(i);
+//             if (edge->visited) {
+//                 node->load += edge->load;
+//             } else {
+//                 node->load = 0;
+//                 break;
+//             }
+//         }
+//         // Calculate load for the outgoing edges
+//         if (node->load > 0) {
+//             total_edge_weights = 0;
+//             for (int i=0; i<node->outgoing_edges.size(); i++) {
+//                 PathEdge *edge = (PathEdge *)node->outgoing_edges.at(i);
+//                 total_edge_weights += edge->weight;
+//             }
+//             for (int i=0; i<node->outgoing_edges.size(); i++) {
+//                 PathEdge *edge = (PathEdge *)node->outgoing_edges.at(i);
+//                 edge->load = node->load * (edge->weight / (double)total_edge_weights);
+//                 edge->visited = true;
+//                 to_visit.push(edge->to);
+//             }
+//         }
+//         to_visit.pop();
+//     }
+// }
+
+void PathGraph::printNetPath() {
+    cout << "**Printing NetPath**" << endl;
+    for (int i=0; i<available_paths->size(); i++) {
+        cout << i << ": ";
+        route_t *path = available_paths->at(i);
+        for (int j=0; j<path->size(); j=j+2) {
+            cout << path->at(j)->nodename() << " ";
+        }
+        cout << endl;
+    }
+
+}
+
+void PathGraph::printGraph() {
+    cout << "**Printing graph**" << endl;
+    cout << "graph_src_id = " << graph_src_id << ", graph_dst_id = " << graph_dst_id << endl;
+    cout << "Nodes: " << endl;
+    int node_id;
+    PathNode *node;
+    for (auto entry : id_node_map) {
+        node_id = entry.first;
+        node = entry.second;
+        cout << "id=" << node_id << ": " << endl;
+        cout << "\tincoming edges: " << endl;
+        for (int i=0; i<node->incoming_edges.size(); i++) {
+            cout << "\t\tid=" << node->incoming_edges.at(i)->id << ", load=" << node->incoming_edges.at(i)->load << endl;
+        }
+        cout << endl;
+        cout << "\toutgoing edges: " << endl;
+        for (int i=0; i<node->outgoing_edges.size(); i++) {
+            cout << "\t\tid=" << node->outgoing_edges.at(i)->id << ", load=" << node->outgoing_edges.at(i)->load << endl;
+        }
+        cout << endl;
+    }
+
+    cout << "Edges: " << endl;
+    int edge_id;
+    PathEdge *edge;
+    for (auto entry : id_edge_map) {
+        edge_id = entry.first;
+        edge = entry.second;
+        cout << "\tid=" << edge_id << ": ";
+        cout << "from node " << edge->from->id << " to node " << edge->to->id;
+        cout << ", weight=" << edge->weight;
+        cout << ", load=" << edge->load;
+        cout << ", visited=" << edge->visited << endl;
+    }
+
+    // cout << "route_edge_map: " << endl;
+    // string route_name;
+    // PathEdge *_edge;
+    // for (auto entry : route_edge_map) {
+    //     route_name= entry.first;
+    //     _edge = entry.second;
+    //     cout << "route name is " << route_name << ", ";
+    //     cout << "edge from node " << edge->from->id << " to node " << edge->to->id;
+    //     cout << ", id=" << edge->id << endl;
+    // }    
 }
