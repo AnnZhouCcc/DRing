@@ -3,6 +3,7 @@
 #include <iostream>
 #include <queue>
 #include <vector>
+#include <functional>
 #include "compute_store.h"
 #include "network.h"
 #include "main.h"
@@ -15,6 +16,18 @@
 const double SIMTIME = 101;
 EventList eventlist;
 Logfile* lg;
+
+string ntoa(double n) {
+    stringstream s;
+    s << n;
+    return s.str();
+}
+
+string itoa(uint64_t n) {
+    stringstream s;
+    s << n;
+    return s.str();
+}
 
 ComputeStore::ComputeStore() {
     // Initialize TM to all 0 entries
@@ -164,7 +177,7 @@ void ComputeStore::getRackBasedTM(string filename) {
 
 void ComputeStore::storeRackBasedTM() {
     ofstream file;
-    file.open("fb_skewed_tm.txt");
+    file.open("fb_uniform_tm.txt");
     int src_row_id, dst_column_id;
     int* row;
     for (int count=0; count<NSW; count++) {
@@ -197,7 +210,7 @@ void ComputeStore::getRackBasedNetPath() {
     cout << "logfile: " << filename.str() << endl;
     string rfile = "graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist";
     cout << "topology file: " << rfile << endl;
-    string routing = "ecmp";
+    string routing = "fhi";
     cout << "routing: " << routing << endl;
     int korn = 0;
     cout << "korn = " << korn << endl;
@@ -480,7 +493,7 @@ void ComputeStore::deleteComputations() {
 
 void ComputeStore::storeD() {
     ofstream file;
-    file.open("D_rrg_ecmp.txt");
+    file.open("D_rrg_fhi.txt");
     for (int i=0; i<LINKSIZE; i++) {
         file << D[i] << "\t";
     }
@@ -631,7 +644,7 @@ void ComputeStore::computeR() {
 
 void ComputeStore::storeR() {
     ofstream file;
-    file.open("R_rrg_ecmp.txt");
+    file.open("R_rrg_fhi.txt");
     file << "switch\ttransit\tcombined\n";
     int transit, combined;
     for (int a=0; a<NSW; a++) {
@@ -642,25 +655,29 @@ void ComputeStore::storeR() {
     file.close();    
 }
 
-bool D_comparator(pair<int,double>D1, pair<int,double>D2) {
+bool D_max_comparator(pair<int,double>D1, pair<int,double>D2) {
+    return D1.second < D2.second;
+}
+
+bool D_min_comparator(pair<int,double>D1, pair<int,double>D2) {
     return D1.second > D2.second;
 }
 
 void ComputeStore::storeW(int limit) {
-    priority_queue<pair<int,double>, vector< pair<int,double> >, function< bool(pair<int,double>, pair<int,double>)> > pq(D_comparator);
+    priority_queue<pair<int,double>, vector< pair<int,double> >, function< bool(pair<int,double>, pair<int,double>)> > pq_max(D_max_comparator);
     for (int k=0; k<LINKSIZE; k++) {
         if (D[k] > 0) {
             pair<int,double> pr (k, D[k]);
-            pq.push(pr);
+            pq_max.push(pr);
         }
     }
 
     vector< pair<int,double> > max {};
     pair<int,double> max_pr;
     for (int a=0; a<limit; a++) {
-        max_pr = pq.top();
+        max_pr = pq_max.top();
         max.push_back(max_pr);
-        pq.pop();
+        pq_max.pop();
     }
 
     int linkID;
@@ -682,7 +699,7 @@ void ComputeStore::storeW(int limit) {
             for (int j=0; j<NSW; j++) {
                 int count = net_count[i][j];
                 for (int k=0; k<count; k++) {
-                    for (int l=0; l<net_path[i][j]->at(k)->size(); l++) {
+                    for (int l=0; l<net_path[i][j]->at(k)->size(); l=l+2) {
                         string hop_name = net_path[i][j]->at(k)->at(l)->nodename();
                         int hop_src = extractSwitchID(hop_name).first;
                         int hop_dst = extractSwitchID(hop_name).second;
@@ -697,9 +714,78 @@ void ComputeStore::storeW(int limit) {
 
         // Print out W
         ofstream file;
-        string filename = "W_" + to_string(a) + "_rrg_ecmp.txt";
+        string filename = "W_max_" + itoa(a) + "_rrg_fhi.txt";
         file.open(filename);
-        file << "Link source switch: " << src << ", destination switch: " << dst << ", total demand on the link = " << demand;
+        file << "Link source switch: " << src << ", destination switch: " << dst << ", total demand on the link = " << demand << "\n";
+        int src_row_id, dst_column_id;
+        double* row;
+        for (int count=0; count<NSW; count++) {
+            src_row_id = NSW - count - 1;
+            row = W[src_row_id];
+            file << src_row_id << "\t";
+            for (int dst_column_id=0; dst_column_id<NSW; dst_column_id++) {
+                file << row[dst_column_id] << "\t";
+            }
+            file << "\n";
+        }
+        file << "\t";
+        for (int i=0; i<NSW; i++) {
+            file << i << "\t";
+        }
+        file.close();
+    }
+
+    priority_queue<pair<int,double>, vector< pair<int,double> >, function< bool(pair<int,double>, pair<int,double>)> > pq_min(D_min_comparator);
+    for (int k=0; k<LINKSIZE; k++) {
+        if (D[k] > 0) {
+            pair<int,double> pr (k, D[k]);
+            pq_min.push(pr);
+        }
+    }
+
+    vector< pair<int,double> > min {};
+    pair<int,double> min_pr;
+    for (int a=0; a<limit; a++) {
+        min_pr = pq_min.top();
+        min.push_back(min_pr);
+        pq_min.pop();
+    }
+
+    for (int a=0; a<limit; a++) {
+        linkID = min.at(a).first;
+        demand = min.at(a).second;
+        int src = linkID/NSW;
+        int dst = linkID%NSW;
+
+        // Set W back to all 0
+        for (int i=0;i<NSW;i++){
+            for (int j = 0;j<NSW;j++){
+                W[i][j] = 0;
+            }
+        }
+
+        for (int i=0; i<NSW; i++) {
+            for (int j=0; j<NSW; j++) {
+                int count = net_count[i][j];
+                for (int k=0; k<count; k++) {
+                    for (int l=0; l<net_path[i][j]->at(k)->size(); l=l+2) {
+                        string hop_name = net_path[i][j]->at(k)->at(l)->nodename();
+                        int hop_src = extractSwitchID(hop_name).first;
+                        int hop_dst = extractSwitchID(hop_name).second;
+
+                        if (src == hop_src && dst == hop_dst) {
+                            W[i][j] += (1.0/count) * TM[i][j];
+                        }
+                    }
+                }
+            }
+        }
+
+        // Print out W
+        ofstream file;
+        string filename = "W_min_" + itoa(a) + "_rrg_fhi.txt";
+        file.open(filename);
+        file << "Link source switch: " << src << ", destination switch: " << dst << ", total demand on the link = " << demand << "\n";
         int src_row_id, dst_column_id;
         double* row;
         for (int count=0; count<NSW; count++) {
