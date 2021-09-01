@@ -174,7 +174,9 @@ pair<vector<double>*, vector<route_t*>*> LeafSpineTopology::get_paths(int src, i
 
   route_t* routeout;
 
-  if (HOST_TOR_SWITCH(src)==HOST_TOR_SWITCH(dest)){
+  int src_sw = src;
+  int dest_sw = dest;
+  if (src_sw == dest_sw){
     // Queue* pqueue = new Queue(speedFromPktps(HOST_NIC), memFromPkt(FEEDER_BUFFER), *eventlist, NULL);
     // pqueue->setName("PQueue_" + ntoa(src) + "_" + ntoa(dest));
     // logfile->writeName(*pqueue);
@@ -189,7 +191,7 @@ pair<vector<double>*, vector<route_t*>*> LeafSpineTopology::get_paths(int src, i
     // routeout->push_back(pipes_nlp_ns[HOST_TOR_SWITCH(dest)][dest]);
 
     paths->push_back(routeout);
-    net_paths_rack_based[HOST_TOR_SWITCH(src)][HOST_TOR_SWITCH(dest)] = paths;
+    net_paths_rack_based[src_sw][dest_sw] = paths;
 
     // check_non_null(routeout);
     // return pair<vector<double>*, vector<route_t*>*>(weights, paths);
@@ -209,18 +211,18 @@ pair<vector<double>*, vector<route_t*>*> LeafSpineTopology::get_paths(int src, i
       // routeout->push_back(queues_ns_nlp[src][HOST_TOR_SWITCH(src)]);
       // routeout->push_back(pipes_ns_nlp[src][HOST_TOR_SWITCH(src)]);
 
-      routeout->push_back(queues_nlp_nup[HOST_TOR_SWITCH(src)][upper]);
-      routeout->push_back(pipes_nlp_nup[HOST_TOR_SWITCH(src)][upper]);
+      routeout->push_back(queues_nlp_nup[src_sw][upper]);
+      routeout->push_back(pipes_nlp_nup[src_sw][upper]);
 
-      routeout->push_back(queues_nup_nlp[upper][HOST_TOR_SWITCH(dest)]);
-      routeout->push_back(pipes_nup_nlp[upper][HOST_TOR_SWITCH(dest)]);
+      routeout->push_back(queues_nup_nlp[upper][dest_sw]);
+      routeout->push_back(pipes_nup_nlp[upper][dest_sw]);
       
       // routeout->push_back(queues_nlp_ns[HOST_TOR_SWITCH(dest)][dest]);
       // routeout->push_back(pipes_nlp_ns[HOST_TOR_SWITCH(dest)][dest]);
       
       paths->push_back(routeout);
       check_non_null(routeout);
-      net_paths_rack_based[HOST_TOR_SWITCH(src)][HOST_TOR_SWITCH(dest)] = paths;
+      net_paths_rack_based[src_sw][dest_sw] = paths;
     }
     //return paths;
   }

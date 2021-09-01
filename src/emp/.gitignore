@@ -5,6 +5,7 @@ datacentre/fct_results*/
 datacentre/leafspine_output_*
 datacentre/graphfiles/ring_supergraph/double_ring/*_rrg_output_*
 datacentre/graphfiles/ring_supergraph/double_ring/*_rrg_pathlog_*
+datacentre/graphfiles/ring_supergraph/double_ring/instance1_80_64.edgelist_*
 datacentre/graphfiles/ring_supergraph/rrg/*_rrg_output_*
 datacentre/graphfiles/ring_supergraph/rrg/*_rrg_pathlog_*
 datacentre/rrg
