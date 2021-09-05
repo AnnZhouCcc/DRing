@@ -15,18 +15,18 @@ class ComputeStore {
         vector<route_t*>*** net_path;
 
         ComputeStore();
-        void setRoutingScheme(string routing_, int korn_);
+        void setRoutingScheme(string routing_, int korn_, string traffic_, string topology_);
         int convertHostToSwitch(int host);
         void getRackBasedTM(string filename);
         void storeRackBasedTM();
-        void getRackBasedNetPath();
+        void getRackBasedNetPath(string rfile);
         void storeRackBasedNetPath(int limit);
         void deleteMatrices();
 	void deleteTM();
         void getNetLinkNetSumNetCount();
         void storeNetLink(int limit);
         void storeNetSumNetCount(int limit);
-        void computeD();
+        void computeDNLinkTransitRateNRackBasedTraffic();
         void computeT();
         void deleteComputations();
         double computePlen();
@@ -41,12 +41,30 @@ class ComputeStore {
         void storeIndex();
         void computeNStoreRxIndexWithStats();
         void computeNStoreSWithStats();
+
+        void computeDflow();
+        void printDflow();
+        void printDflowWithLinks();
+        // void printDwithTraffic();
+
+        void computeLoadDistribution(int threshold, int upperbound);
+        void computeNPrintLinkPopularity(int lower1, int upper1, int lower2, int upper2, bool bidirectional);
+        void printRackBasedTraffic();
+        void computeNPrintLinkPopularitySingleRow(int targetRack);
+        void computeNPrintLinkPopularityGeneral();
+        void computeNPrintLinkPopularitySuperLink();
+        void computeNPrintRackPopularity();
     
     private:
         string routing;
         int korn;
-        int** TM;
+        string traffic;
+        string topology;
+        uint64_t** TM;
         double*** net_link;
+        double** link_transit_rate;
+        double** link_transit_traffic;
+        double** link_popularity;
         int** net_sum;
         int** more_than_one_hop_net_count;
         int** net_count;
@@ -54,21 +72,27 @@ class ComputeStore {
         double*** T;
         double plen;
         int Ne;
-        int* R_all_traffic;
-        int* R_out_traffic;
-        int* R_in_traffic;
+        uint64_t* R_all_traffic;
+        uint64_t* R_out_traffic;
+        uint64_t* R_in_traffic;
         double** W;
         double** first_hop_index;
         double** non_first_hop_index;
         double* RxIndex;
-        int total_TM;
+        uint64_t total_TM;
         double average_path_length;
         double** percentage;
         double percentage_traffic_requiring_transit;
         double* S;
 
+        double** Dflow;
+        route_t*** DflowWithLinks;
+        double* rackBasedTraffic;
+
         pair<int, int> extractSwitchID(string nodename);
         int getLinkID(string nodename);
+        int getSrcIDfromLinkID(int linkID);
+        int getDstIDfromLinkID(int linkID);
 
     friend class PathGraph;
 };

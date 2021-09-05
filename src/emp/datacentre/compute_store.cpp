@@ -31,9 +31,9 @@ string itoa(uint64_t n) {
 
 ComputeStore::ComputeStore() {
     // Initialize TM to all 0 entries
-    TM = new int*[NSW];
+    TM = new uint64_t*[NSW];
 	for (int i=0;i<NSW;i++){
-		TM[i] = new int[NSW];
+		TM[i] = new uint64_t[NSW];
 		for (int j = 0;j<NSW;j++){
 			TM[i][j] = 0;
 		}
@@ -97,15 +97,15 @@ ComputeStore::ComputeStore() {
 	}
 
     // Initialize R_all/out/in_traffic to 0
-    R_all_traffic = new int[NSW];
+    R_all_traffic = new uint64_t[NSW];
     for (int i=0; i<NSW; i++) {
         R_all_traffic[i] = 0;
     } 
-    R_out_traffic = new int[NSW];
+    R_out_traffic = new uint64_t[NSW];
     for (int i=0; i<NSW; i++) {
         R_out_traffic[i] = 0;
     }
-    R_in_traffic = new int[NSW];
+    R_in_traffic = new uint64_t[NSW];
     for (int i=0; i<NSW; i++) {
         R_in_traffic[i] = 0;
     } 
@@ -166,11 +166,64 @@ ComputeStore::ComputeStore() {
 			percentage[i][j] = 0;
 		}
 	}
+
+    // Initialize Dflow to 0
+    Dflow = new double*[NSW];
+	for (int i=0;i<NSW;i++){
+		Dflow[i] = new double[NSW];
+		for (int j = 0;j<NSW;j++){
+			Dflow[i][j] = 0;
+		}
+	}
+
+    // Initialize DflowWithLinks to NULL
+    DflowWithLinks = new route_t**[NSW];
+	for (int i=0;i<NSW;i++){
+		DflowWithLinks[i] = new route_t*[NSW];
+		for (int j = 0;j<NSW;j++){
+			DflowWithLinks[i][j] = NULL;
+		}
+	}
+
+    // Initialize link_transit_rate to 0
+    link_transit_rate = new double*[NSW];
+	for (int i=0;i<NSW;i++){
+		link_transit_rate[i] = new double[NSW];
+		for (int j = 0;j<NSW;j++){
+			link_transit_rate[i][j] = 0;
+		}
+	}
+
+    // Initialize link_transit_traffic to 0
+    link_transit_traffic = new double*[NSW];
+	for (int i=0;i<NSW;i++){
+		link_transit_traffic[i] = new double[NSW];
+		for (int j = 0;j<NSW;j++){
+			link_transit_traffic[i][j] = 0;
+		}
+	}
+
+    // Initialize link_popularity to 0
+    link_popularity = new double*[NSW];
+	for (int i=0;i<NSW;i++){
+		link_popularity[i] = new double[NSW];
+		for (int j = 0;j<NSW;j++){
+			link_popularity[i][j] = 0;
+		}
+	}
+
+    // Initialize rackBasedTraffic to 0
+    rackBasedTraffic = new double[NSW];
+	for (int i=0;i<NSW;i++){
+		rackBasedTraffic[i] = 0;
+	}
 }
 
-void ComputeStore::setRoutingScheme(string routing_, int korn_) {
+void ComputeStore::setRoutingScheme(string routing_, int korn_, string traffic_, string topology_) {
     routing = routing_;
     korn = korn_;
+    traffic = traffic_;
+    topology = topology_;
 }
 
 // Copied from connection_matrix.cpp
@@ -212,7 +265,8 @@ void ComputeStore::getRackBasedTM(string filename) {
             //Whitespace line
             if (line.find_first_not_of(' ') == string::npos) break;
             stringstream ss(line);
-            int from, to, bytes;
+            int from, to;
+            uint64_t bytes;
             double start_time_ms;
             ss >> from >> to >> bytes >> start_time_ms;
             nflows++;
@@ -230,9 +284,11 @@ void ComputeStore::getRackBasedTM(string filename) {
 
 void ComputeStore::storeRackBasedTM() {
     ofstream file;
-    file.open("fb_uniform_tm.txt");
+    string dir = traffic + "/";
+    string filename = dir + traffic + "_tm_" + topology + ".txt";
+    file.open(filename);
     int src_row_id, dst_column_id;
-    int* row;
+    uint64_t* row;
     for (int count=0; count<NSW; count++) {
         src_row_id = NSW - count - 1;
         row = TM[src_row_id];
@@ -249,7 +305,7 @@ void ComputeStore::storeRackBasedTM() {
     file.close();
 }
 
-void ComputeStore::getRackBasedNetPath() {
+void ComputeStore::getRackBasedNetPath(string rfile) {
     eventlist.setEndtime(timeFromSec(SIMTIME));
     Clock c(timeFromSec(50 / 100.), eventlist);
     stringstream filename("logfile");
@@ -261,11 +317,8 @@ void ComputeStore::getRackBasedNetPath() {
     TcpLoggerSimple logTcp;
     logfile.addLogger(logTcp);
     cout << "logfile: " << filename.str() << endl;
-    string rfile = "graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist";
     cout << "topology file: " << rfile << endl;
-    string routing = "ecmp";
     cout << "routing: " << routing << endl;
-    int korn = 0;
     cout << "korn = " << korn << endl;
 
     RandRegularTopology* top = new RandRegularTopology(&logfile, &eventlist, rfile, RANDOM, routing, korn);
@@ -335,6 +388,27 @@ void ComputeStore::deleteMatrices() {
 	    delete [] net_sum[i];
     }	
     delete [] net_sum;
+
+    cout << "delete link_transit_rate" << endl;
+    for (int i=0; i<NSW; i++) {
+	    delete [] link_transit_rate[i];
+    }	
+    delete [] link_transit_rate;
+
+    cout << "delete link_transit_traffic" << endl;
+    for (int i=0; i<NSW; i++) {
+	    delete [] link_transit_traffic[i];
+    }	
+    delete [] link_transit_traffic;
+
+    cout << "delete link_popularity" << endl;
+    for (int i=0; i<NSW; i++) {
+	    delete [] link_popularity[i];
+    }	
+    delete [] link_popularity;
+
+    cout << "delete rackBasedTraffic" << endl;	
+    delete [] rackBasedTraffic;
 }
 
 void ComputeStore::deleteTM() {
@@ -377,6 +451,14 @@ int ComputeStore::getLinkID(string nodename) {
     int linkID = src_sw * NSW + dst_sw;
     // cout << "link ID = " << linkID << endl;
     return linkID;
+}
+
+int ComputeStore::getSrcIDfromLinkID(int linkID) {
+    return linkID/NSW;
+}
+
+int ComputeStore::getDstIDfromLinkID(int linkID) {
+    return linkID%NSW;
 }
 
 void ComputeStore::getNetLinkNetSumNetCount() {
@@ -429,17 +511,43 @@ void ComputeStore::storeNetSumNetCount(int limit) {
     file.close();
 }
 
-void ComputeStore::computeD() {
-    cout << "compute D: LINKSIZE = " << LINKSIZE << endl;
+void ComputeStore::computeDNLinkTransitRateNRackBasedTraffic() {
+    double** own_traffic = new double*[NSW];
+	for (int i=0;i<NSW;i++){
+		own_traffic[i] = new double[NSW];
+		for (int j = 0;j<NSW;j++){
+			own_traffic[i][j] = 0;
+		}
+	}
+
     for (int i=0; i<NSW; i++) {
         for (int j=0; j<NSW; j++) {
             for (int k=0; k<LINKSIZE; k++) {
                 if (net_link[i][j][k] > 0) {
                     D[k] += (net_link[i][j][k] * (double)TM[i][j]);
+                    int link_src = getSrcIDfromLinkID(k);
+                    int link_dst = getDstIDfromLinkID(k);
+                    if (i==link_src || j==link_dst) {
+                        own_traffic[link_src][link_dst] += (net_link[i][j][k] * (double)TM[i][j]);
+                    }
+                    rackBasedTraffic[link_src] += net_link[i][j][k] * (double)TM[i][j];
+                    rackBasedTraffic[link_dst] += net_link[i][j][k] * (double)TM[i][j];
                 }
             }
         }
     }
+
+    for (int i=0; i<NSW; i++) {
+        for (int j=0; j<NSW; j++) {
+            link_transit_traffic[i][j] = D[i*NSW+j] - own_traffic[i][j];
+            link_transit_rate[i][j] = (D[i*NSW+j] - own_traffic[i][j]) / D[i*NSW+j];
+        }
+    }
+
+    for (int i=0; i<NSW; i++) {
+	    delete [] own_traffic[i];
+    }	
+    delete [] own_traffic;
 }
 
 void ComputeStore::computeT() {
@@ -475,7 +583,7 @@ int ComputeStore::computeNe(double e) {
     for (int k=0; k<LINKSIZE; k++) {
         links[k] = 0;
     }
-    int old_prob, new_prob;
+    double old_prob, new_prob;
     for (int i=0; i<NSW; i++) {
         for (int j=0; j<NSW; j++) {
             if (TM[i][j] > 0) {
@@ -524,14 +632,35 @@ void ComputeStore::deleteComputations() {
 	    delete [] W[i];
     }	
     delete [] W;
+
+    cout << "delete Dflow" << endl;
+    for (int i=0; i<NSW; i++) {
+	    delete [] Dflow[i];
+    }	
+    delete [] Dflow;
+
+    cout << "delete DflowWithLinks" << endl;
+    for (int i=0; i<NSW; i++) {
+        // for (int j=0; j<NSW; j++) {
+        //     if (DflowWithLinks[i][j] != NULL) delete DflowWithLinks[i][j];
+        // }
+        delete [] DflowWithLinks[i];
+    }	
+    delete [] DflowWithLinks;
 }
 
 void ComputeStore::storeD() {
     ofstream file;
-    string filename = "D_rrg_" + routing + to_string(korn) + ".txt";
+    string dir = traffic + "/";
+    string filename = dir + traffic + "_D_" + topology + "_" + routing + to_string(korn) + ".txt";
     file.open(filename);
+    file << "D\tlink src\tlink dst\ttransit traffic\ttransit rate\n";
     for (int i=0; i<LINKSIZE; i++) {
-        file << D[i] << "\t";
+        if (D[i] > 0) {
+            int link_src = getSrcIDfromLinkID(i);
+            int link_dst = getDstIDfromLinkID(i);
+            file << D[i] << "\t" << link_src << "\t" << link_dst << "\t" << link_transit_traffic[link_src][link_dst] << "\t" << link_transit_rate[link_src][link_dst] << "\n";
+        }
     }
     file.close();
 }
@@ -645,7 +774,7 @@ void ComputeStore::checkValidity() {
 
 void ComputeStore::computeR() {
     // Compute R_all_traffic
-    int sum, k;
+    uint64_t sum, k;
     for (int a=0; a<NSW; a++) {
         sum = 0;
         for (int b=0; b<NSW; b++) {
@@ -658,7 +787,7 @@ void ComputeStore::computeR() {
     }
 
     // Compute R_in_traffic
-    int in_sum;
+    uint64_t in_sum;
     for (int j=0; j<NSW; j++) {
         in_sum = 0;
         for (int i=0; i<NSW; i++) {
@@ -668,7 +797,7 @@ void ComputeStore::computeR() {
     }
 
     // Compute R_out_traffic
-    int out_sum;
+    uint64_t out_sum;
     for (int i=0; i<NSW; i++) {
         out_sum = 0;
         for (int j=0; j<NSW; j++) {
@@ -680,7 +809,8 @@ void ComputeStore::computeR() {
 
 void ComputeStore::storeR() {
     ofstream file;
-    string filename = "R_rrg_" + routing + to_string(korn) + ".txt";
+    string dir = traffic + "/";
+    string filename = dir + traffic + "_R_" + topology + "_" + routing + to_string(korn) + ".txt";
     file.open(filename);
     file << "switch\tall\tin\tout\ttransit(w in)\ttransit(no in; half)\n";
     int transit, combined;
@@ -752,7 +882,8 @@ void ComputeStore::storeW(int limit) {
 
         // Print out W
         ofstream file;
-        string filename = "W_max_" + itoa(a) + "_rrg_fhi.txt";
+        string dir = traffic + "/";
+        string filename = dir + traffic + "_W_max_" + to_string(a) + "_" + topology + "_" + routing + to_string(korn) + ".txt";
         file.open(filename);
         file << "Link source switch: " << src << ", destination switch: " << dst << ", total demand on the link = " << demand << "\n";
         int src_row_id, dst_column_id;
@@ -821,7 +952,8 @@ void ComputeStore::storeW(int limit) {
 
         // Print out W
         ofstream file;
-        string filename = "W_" + to_string(a) + "_rrg_" + routing + to_string(korn) + ".txt";
+        string dir = traffic + "/";
+        string filename = dir + traffic + "_W_" + to_string(a) + "_" + topology + "_" + routing + to_string(korn) + ".txt";
         file.open(filename);
         file << "Link source switch: " << src << ", destination switch: " << dst << ", total demand on the link = " << demand << "\n";
         int src_row_id, dst_column_id;
@@ -867,7 +999,7 @@ void ComputeStore::computeIndex() {
             }
             more_than_one_hop_net_count[i][j] = more_than_one_hop_count;
 
-            int sum = 0;
+            uint64_t sum = 0;
             for (auto entry : first_hop_id_weight_map) {
                 int weight = entry.second;
                 sum += (weight * weight);
@@ -932,7 +1064,7 @@ void ComputeStore::computeNStoreRxIndexWithStats() {
 
     for (int a=0; a<NSW; a++) {
         double demand = 0;
-        int transit_traffic = (R_all_traffic[a] - R_out_traffic[a]);
+        uint64_t transit_traffic = (R_all_traffic[a] - R_out_traffic[a]);
         double sum_transit_index = 0;
         int count_transit_index = 0;
         for (int i=0; i<NSW; i++) {
@@ -963,7 +1095,8 @@ void ComputeStore::computeNStoreRxIndexWithStats() {
     }
 
     ofstream file;
-    string filename = "RxIndexWithStats_rrg_" + routing + to_string(korn) + ".txt";
+    string dir = traffic + "/";
+    string filename = dir + traffic + "_RxIndexWithStats_" + topology + "_" + routing + to_string(korn) + ".txt";
     file.open(filename);
     file << "switch\tRxIndex\ttransit_traffic\ttransit_index\tout_traffic\tout_index\n";
     for (int a=0; a<NSW; a++) {
@@ -979,7 +1112,8 @@ void ComputeStore::computeNStoreRxIndexWithStats() {
 
 void ComputeStore::storeIndex() {
     ofstream file;
-    string filename = "index_rrg_" + routing + to_string(korn) + ".txt";
+    string dir = traffic + "/";
+    string filename = dir + traffic + "_index_" + topology + "_" + routing + to_string(korn) + ".txt";
     file.open(filename);
     for (int i=0; i<NSW; i++) {
         for (int j=0; j<NSW; j++) {
@@ -1037,7 +1171,7 @@ void ComputeStore::computeNStoreSWithStats() {
     // Compute S
     double* average_non_first_hop_index = new double[NSW];
     double* average_first_hop_index = new double[NSW];
-    int* out_traffic_per_rack = new int[NSW];
+    uint64_t* out_traffic_per_rack = new uint64_t[NSW];
 	for (int i=0;i<NSW;i++){
         average_non_first_hop_index[i] = 0;
         average_first_hop_index[i] = 0;
@@ -1058,7 +1192,7 @@ void ComputeStore::computeNStoreSWithStats() {
         average_non_first_hop_index[a] = non_first_hop_sum / non_first_hop_count;
 
         double first_hop_sum = 0;
-        int out_traffic = 0;
+        uint64_t out_traffic = 0;
         for (int j=0; j<NSW; j++) {
             if (a!=j) {
                 first_hop_sum += first_hop_index[a][j];
@@ -1077,7 +1211,8 @@ void ComputeStore::computeNStoreSWithStats() {
 
     // Write S
     ofstream file;
-    string filename = "SWithStats_rrg_" + routing + to_string(korn) + ".txt";
+    string dir = traffic + "/";
+    string filename = dir + traffic + "_SWithStats_" + topology + "_" + routing + to_string(korn) + ".txt";
     file.open(filename);
     file << "switch\tS\taverage_non_first_hop_index\tout_traffic_per_rack\taverage_first_hop_index\n";
     for (int a=0; a<NSW; a++) {
@@ -1090,6 +1225,633 @@ void ComputeStore::computeNStoreSWithStats() {
     delete average_non_first_hop_index;
     delete average_first_hop_index;
     delete out_traffic_per_rack;
+}
+
+void ComputeStore::computeDflow() {
+    for (int i=0; i<NSW; i++) {
+        for (int j=0; j<NSW; j++) {
+            if (i != j && TM[i][j] > 0) {
+                int max_src_dst_pair = 0;
+                route_t *max_route;
+                for (int k=0; k<net_path[i][j]->size(); k++) {
+                    route_t *path = net_path[i][j]->at(k);
+                    int sum_path = 0;
+                    for (int h=0; h<path->size(); h=h+2) {
+                        string nodename = path->at(h)->nodename();
+                        int link_id = getLinkID(nodename);
+                        sum_path += D[link_id];
+                    }
+                    if (sum_path > max_src_dst_pair) {
+                        max_src_dst_pair = sum_path;
+                        max_route = path;
+                    }
+                }
+                Dflow[i][j] = max_src_dst_pair;
+                DflowWithLinks[i][j] = max_route;
+            }
+        }
+    }
+}
+
+void ComputeStore::printDflow() {
+    ofstream file;
+    string dir = traffic + "/";
+    string filename = dir + traffic + "_Dflow_" + topology + "_" + routing + to_string(korn) + ".txt";
+    file.open(filename);
+    int src_row_id, dst_column_id;
+    double* row;
+    for (int count=0; count<NSW; count++) {
+        src_row_id = NSW - count - 1;
+        row = Dflow[src_row_id];
+        file << src_row_id << "\t";
+        for (int dst_column_id=0; dst_column_id<NSW; dst_column_id++) {
+            file << row[dst_column_id] << "\t";
+        }
+        file << "\n";
+    }
+    file << "\t";
+    for (int i=0; i<NSW; i++) {
+        file << i << "\t";
+    }
+    file.close();
+}
+
+void ComputeStore::printDflowWithLinks() {
+    ofstream file;
+    string dir = traffic + "/";
+    string filename = dir + traffic + "_DflowWithLinks_" + topology + "_" + routing + to_string(korn) + ".txt";
+    file.open(filename);
+    int src_row_id, dst_column_id;
+    route_t** row;
+    for (int count=0; count<NSW; count++) {
+        src_row_id = NSW - count - 1;
+        row = DflowWithLinks[src_row_id];
+        // cout << "src_row_id = " << src_row_id << endl;
+        file << src_row_id << "\t";
+        route_t *path;
+        for (int dst_column_id=0; dst_column_id<NSW; dst_column_id++) {
+            // cout << "dst_column_id = " << dst_column_id << endl;
+            if (dst_column_id == src_row_id) {
+                file << "\t";
+            } else {
+                path = row[dst_column_id];
+                if (path == NULL || path->size()==0) {
+                    file << "\t";
+                } else {
+                    file << "(";
+                    for (int i=0; i<path->size(); i=i+2) {
+                        // cout << "i = " << i << endl;
+                        // cout << "path->size() = " << path->size() << endl;
+                        string linkname = path->at(i)->nodename();
+                        // cout << "linkname = " << linkname << endl;
+                        file << extractSwitchID(linkname).first << "-" << extractSwitchID(linkname).second << " ";
+                    }
+                    // cout << "out of i" << endl;
+                    file << ")\t";
+                }
+            }
+        }
+        // cout << "out of column" << endl;
+        file << "\n";
+    }
+    // cout << "out of row" << endl;
+    file << "\t";
+    for (int i=0; i<NSW; i++) {
+        file << i << "\t";
+    }
+    file.close();
+}
+
+// void ComputeStore::printDwithTraffic() {
+//     ofstream file;
+//     string dir = traffic + "/";
+//     string filename = dir + traffic + "_DwithTraffic_rrg_" + routing + to_string(korn) + ".txt";
+//     file.open(filename);
+//     file << "D\tlink src\tlink dst\ttransit rate\tload\tprobability\tlxd\n";
+//     for (int i=0; i<LINKSIZE; i++) {
+//         if (D[i] > 0) {
+//             int link_src = getSrcIDfromLinkID(i);
+//             int link_dst = getDstIDfromLinkID(i);
+//             file << D[i] << "\t" << link_src << "\t" << link_dst << "\t" << link_transit_rate[link_src][link_dst] << "\n";
+
+//             for (int i=0; i<NSW; i++) {
+//                 for (int j=0; j<NSW; j++) {
+//                     for (int k=0; k<LINKSIZE; k++) {
+//                         if (net_link[i][j][k] > 0) {
+//                             file << "\t\t\t\t" << TM[i][j] << "\t" << net_link[i][j][k] << "\t" << net_link[i][j][k] * (double)TM[i][j] << "\n";
+//                         }
+//                     }
+//                 }
+//             }
+//         }
+//     }
+//     file.close();
+// }
+
+void ComputeStore::computeLoadDistribution(int threshold, int upperbound) {
+    double loadDistriA = 0, loadDistriB = 0, loadDistriC1 = 0, loadDistriC2 = 0;
+    int numLinksA = 0, numLinksB = 0, numLinksC1 = 0, numLinksC2 = 0;
+
+    for (int src=0; src<threshold; src++) {
+        for (int dst=0; dst<threshold; dst++) {
+            loadDistriA += D[src*NSW+dst];
+            if (D[src*NSW+dst] > 0) numLinksA++;
+        }
+    }
+
+    for (int src=threshold; src<upperbound; src++) {
+        for (int dst=threshold; dst<upperbound; dst++) {
+            loadDistriB += D[src*NSW+dst];
+            if (D[src*NSW+dst] > 0) numLinksB++;
+        }
+    }
+
+    for (int src=threshold; src<upperbound; src++) {
+        for (int dst=0; dst<threshold; dst++) {
+            loadDistriC1 += D[src*NSW+dst];
+            if (D[src*NSW+dst] > 0) numLinksC1++;
+        }
+    }
+
+    for (int src=0; src<threshold; src++) {
+        for (int dst=threshold; dst<upperbound; dst++) {
+            loadDistriC2 += D[src*NSW+dst];
+            if (D[src*NSW+dst] > 0) numLinksC2++;
+        }
+    }
+
+    cout << "Printing load distribution:" << endl;
+    cout << "A = " << loadDistriA << " with #link = " << numLinksA << endl;
+    cout << "B = " << loadDistriB << " with #link = " << numLinksB << endl;
+    cout << "C1 = " << loadDistriC1 << " with #link = " << numLinksC1 << endl;
+    cout << "C2 = " << loadDistriC2 << " with #link = " << numLinksC2 << endl;
+}
+
+void ComputeStore::computeNPrintLinkPopularity(int lower1, int upper1, int lower2, int upper2, bool bidirectional) {
+    for (int i=lower1; i<upper1; i++) {
+        for (int j=lower2; j<upper2; j++) {
+            int count = net_path[i][j]->size();
+            if (count == 1 && net_path[i][j]->at(0)->size() == 0) count = 0; 
+            for (int k=0; k<count; k++) {
+                for (int l=0; l<net_path[i][j]->at(k)->size(); l=l+2) {
+                    string nodename = net_path[i][j]->at(k)->at(l)->nodename();
+                    int srcID = extractSwitchID(nodename).first;
+                    int dstID = extractSwitchID(nodename).second;
+                    link_popularity[srcID][dstID] += 1.0/(double)count;
+                }
+            }
+        }
+    }
+
+    if (bidirectional) {
+        for (int i=lower2; i<upper2; i++) {
+            for (int j=lower1; j<upper1; j++) {
+                int count = net_path[i][j]->size();
+                if (count == 1 && net_path[i][j]->at(0)->size() == 0) count = 0; 
+                for (int k=0; k<count; k++) {
+                    for (int l=0; l<net_path[i][j]->at(k)->size(); l=l+2) {
+                        string nodename = net_path[i][j]->at(k)->at(l)->nodename();
+                        int srcID = extractSwitchID(nodename).first;
+                        int dstID = extractSwitchID(nodename).second;
+                        link_popularity[srcID][dstID] += 1.0/(double)count;
+                    }
+                }
+            }
+        }
+    }
+
+    ofstream file;
+    string dir = traffic + "/";
+    string filename = dir + traffic + "_linkPopularity_" + topology + "_" + routing + to_string(korn) + ".txt";
+    file.open(filename);
+    file << "link popularity\tlink src\tlink dst\n";
+    for (int i=0; i<NSW; i++) {
+        for (int j=0; j<NSW; j++) {
+            if (link_popularity[i][j] > 0) {
+                file << link_popularity[i][j] << "\t" << i << "\t" << j << "\n";
+            }
+        }
+    }
+    file.close();
+}
+
+void ComputeStore::printRackBasedTraffic() {
+    double* in_traffic = new double[NSW];
+    double* out_traffic = new double[NSW];
+    for (int i=0; i<NSW; i++) {
+        in_traffic[i] = 0;
+        out_traffic[i] = 0;
+    }
+
+    for (int i=0; i<NSW; i++) {
+        for (int j=0; j<NSW; j++) {
+            out_traffic[i] += TM[i][j];
+            in_traffic[j] += TM[i][j];
+        }
+    }
+
+    ofstream file;
+    string dir = traffic + "/";
+    string filename = dir + traffic + "_rackBasedTraffic_" + topology + "_" + routing + to_string(korn) + ".txt";
+    file.open(filename);
+    file << "rackID\ttotal traffic\ttransit traffic\ttransit rate\tout traffic\tin traffic\n";
+    for (int i=0; i<NSW; i++) {
+        double transit_traffic = rackBasedTraffic[i] - in_traffic[i] - out_traffic[i];
+        file << i << "\t" << rackBasedTraffic[i] << "\t" << transit_traffic << "\t" << transit_traffic/rackBasedTraffic[i] << "\t" << out_traffic[i] << "\t" << in_traffic[i] << "\n";
+    }
+    file.close(); 
+
+    delete [] in_traffic;
+    delete [] out_traffic;
+}
+
+// Default: centered on the out traffic, but this does not have to be true
+void ComputeStore::computeNPrintLinkPopularitySingleRow(int targetRack) {
+    double** link_popularity_out = new double*[NSW];
+    double** link_popularity_in = new double*[NSW];
+    double** link_popularity_transit = new double*[NSW];
+	for (int i=0;i<NSW;i++){
+		link_popularity_out[i] = new double[NSW];
+        link_popularity_in[i] = new double[NSW];
+        link_popularity_transit[i] = new double[NSW];
+		for (int j = 0;j<NSW;j++){
+			link_popularity_out[i][j] = 0;
+            link_popularity_in[i][j] = 0;
+            link_popularity_transit[i][j] = 0;
+		}
+	}
+
+    // targetRack -> dst
+    for (int j=0; j<NSW; j++) {
+        int count = net_path[targetRack][j]->size();
+        if (count == 1 && net_path[targetRack][j]->at(0)->size() == 0) count = 0; 
+        for (int k=0; k<count; k++) {
+            for (int l=0; l<net_path[targetRack][j]->at(k)->size(); l=l+2) {
+                string nodename = net_path[targetRack][j]->at(k)->at(l)->nodename();
+                int srcID = extractSwitchID(nodename).first;
+                int dstID = extractSwitchID(nodename).second;
+                link_popularity_out[srcID][dstID] += 1.0/(double)count;
+            }
+        }
+    }
+
+    // src -> targetRack
+    for (int i=0; i<NSW; i++) {
+        int count = net_path[i][targetRack]->size();
+        if (count == 1 && net_path[i][targetRack]->at(0)->size() == 0) count = 0; 
+        for (int k=0; k<count; k++) {
+            for (int l=0; l<net_path[i][targetRack]->at(k)->size(); l=l+2) {
+                string nodename = net_path[i][targetRack]->at(k)->at(l)->nodename();
+                int srcID = extractSwitchID(nodename).first;
+                int dstID = extractSwitchID(nodename).second;
+                link_popularity_in[srcID][dstID] += 1.0/(double)count;
+            }
+        }
+    }
+
+    // src -> targetRack -> dst
+    for (int i=0; i<NSW; i++) {
+        for (int j=0; j<NSW; j++) {
+            if (i != targetRack && j != targetRack) {
+                int count = net_path[i][j]->size();
+                if (count == 1 && net_path[i][j]->at(0)->size() == 0) count = 0; 
+                for (int k=0; k<count; k++) {
+                    for (int l=0; l<net_path[i][j]->at(k)->size(); l=l+2) {
+                        string nodename = net_path[i][j]->at(k)->at(l)->nodename();
+                        int srcID = extractSwitchID(nodename).first;
+                        int dstID = extractSwitchID(nodename).second;
+                        if (srcID == targetRack || dstID == targetRack) {
+                            link_popularity_transit[srcID][dstID] += 1.0/(double)count;
+                        }
+                    }
+                }                
+            }
+        }
+    }
+
+    uint64_t out_traffic = 0, in_traffic = 0, transit_traffic = 0;
+    double in_to_out_TM_ratio = 0, transit_to_out_TM_ratio = 0;
+    for (int i=0; i<NSW; i++) {
+        for (int j=0; j<NSW; j++) {
+            if (i == targetRack && j == targetRack) {
+                // do nothing
+            } else if (i == targetRack) {
+                // targetRack -> dst; out traffic
+                out_traffic += TM[i][j];
+            } else if (j == targetRack) {
+                // src -> targetRack; in traffic
+                in_traffic += TM[i][j];
+            } else {
+                transit_traffic += TM[i][j];
+            }
+        }
+    }
+    in_to_out_TM_ratio = (double)in_traffic / out_traffic;
+    transit_to_out_TM_ratio = (double)transit_traffic / out_traffic;
+
+    cout << "ComputeNPrintLinkPopularitySingleRow:" << endl;
+    cout << "in_traffic/out_traffic = " << in_to_out_TM_ratio << endl;
+    cout << "transit_traffic/out_traffic = " << transit_to_out_TM_ratio << endl;
+
+    ofstream file;
+    string dir = traffic + "/";
+    string filename = dir + traffic + "_singleRowLinkPopularity_" + topology + "_" + routing + to_string(korn) + ".txt";
+    file.open(filename);
+    file << "link popularity\tlink src\tlink dst\tout\tin\tin/out\ttransit\ttransit/out\n";
+    for (int i=0; i<NSW; i++) {
+        for (int j=0; j<NSW; j++) {
+            double pop = link_popularity_out[i][j] + link_popularity_in[i][j]*in_to_out_TM_ratio + link_popularity_transit[i][j]*transit_to_out_TM_ratio;
+            if (pop > 0) {
+                file << pop << "\t" << i << "\t" << j << "\t";
+                file << link_popularity_out[i][j] << "\t";
+                file << link_popularity_in[i][j] << "\t" << in_to_out_TM_ratio << "\t";
+                file << link_popularity_transit[i][j] << "\t" << transit_to_out_TM_ratio << "\n";
+            }
+        }
+    }
+    file.close(); 
+
+    for (int i=0; i<NSW; i++) {
+	    delete [] link_popularity_out[i];
+        delete [] link_popularity_in[i];
+        delete [] link_popularity_transit[i];
+    }	
+    delete [] link_popularity_out;
+    delete [] link_popularity_in;
+    delete [] link_popularity_transit;
+}
+
+void ComputeStore::computeNPrintLinkPopularityGeneral() {
+    double** link_popularity_out = new double*[NSW];
+    double** link_popularity_in = new double*[NSW];
+    double** link_popularity_transit = new double*[NSW];
+	for (int i=0;i<NSW;i++){
+		link_popularity_out[i] = new double[NSW];
+        link_popularity_in[i] = new double[NSW];
+        link_popularity_transit[i] = new double[NSW];
+		for (int j = 0;j<NSW;j++){
+			link_popularity_out[i][j] = 0;
+            link_popularity_in[i][j] = 0;
+            link_popularity_transit[i][j] = 0;
+		}
+	}
+
+    for (int i=0; i<NSW; i++) {
+        for (int j=0; j<NSW; j++) {
+            if (i == j) continue;
+            int count = net_path[i][j]->size();
+            if (count == 1 && net_path[i][j]->at(0)->size() == 0) count = 0; 
+            for (int k=0; k<count; k++) {
+                int size = net_path[i][j]->at(k)->size();
+                for (int l=0; l<size; l=l+2) {
+                    string nodename = net_path[i][j]->at(k)->at(l)->nodename();
+                    int srcID = extractSwitchID(nodename).first;
+                    int dstID = extractSwitchID(nodename).second;
+                    if (l==0) {
+                        assert(srcID == i);
+                        link_popularity_out[srcID][dstID] += 1.0/(double)count;
+                    } else if (l+2>=size) {
+                        assert(dstID == j);
+                        link_popularity_in[srcID][dstID] += 1.0/(double)count;
+                    } else {
+                        link_popularity_transit[srcID][dstID] += 1.0/(double)count;
+                    }
+                }
+            }                
+        }
+    }
+
+    uint64_t* in_traffic = new uint64_t[NSW];
+    uint64_t* out_traffic = new uint64_t[NSW];
+	for (int i=0;i<NSW;i++){
+		in_traffic[i] = 0;
+        out_traffic[i] = 0;
+	}
+    uint64_t sum_traffic = 0;
+    for (int i=0; i<NSW; i++) {
+        for (int j=0; j<NSW; j++) {
+            if (i == j) continue;
+            sum_traffic += TM[i][j];
+            in_traffic[j] += TM[i][j];
+            out_traffic[i] += TM[i][j];
+        }
+    }
+    cout << "sum traffic = " << sum_traffic << endl;
+
+    ofstream file;
+    string dir = traffic + "/";
+    string filename = dir + traffic + "_generalLinkPopularity_" + topology + "_" + routing + to_string(korn) + ".txt";
+    file.open(filename);
+    file << "link popularity\tlink src\tlink dst\tout pop\tout traffic\tin pop\tin traffic\ttransit pop\ttransit/sum traffic\n";
+    for (int i=0; i<NSW; i++) {
+        for (int j=0; j<NSW; j++) {
+            double pop = link_popularity_out[i][j]*(out_traffic[i]/(double)sum_traffic) + link_popularity_in[i][j]*(in_traffic[j]/(double)sum_traffic) + link_popularity_transit[i][j];
+            if (pop > 0) {
+                file << pop << "\t" << i << "\t" << j << "\t";
+                file << link_popularity_out[i][j] << "\t" << out_traffic[i] << "\t";
+                file << link_popularity_in[i][j] << "\t" << in_traffic[j] << "\t";
+                file << link_popularity_transit[i][j] << "\t" << sum_traffic << "\n";
+            }
+        }
+    }
+    file.close(); 
+
+    for (int i=0; i<NSW; i++) {
+	    delete [] link_popularity_out[i];
+        delete [] link_popularity_in[i];
+        delete [] link_popularity_transit[i];
+    }	
+    delete [] link_popularity_out;
+    delete [] link_popularity_in;
+    delete [] link_popularity_transit;   
+    delete [] in_traffic;
+    delete [] out_traffic;
+}
+
+void ComputeStore::computeNPrintRackPopularity() {
+    double** link_popularity_out = new double*[NSW];
+    double** link_popularity_in = new double*[NSW];
+    double** link_popularity_transit = new double*[NSW];
+	for (int i=0;i<NSW;i++){
+		link_popularity_out[i] = new double[NSW];
+        link_popularity_in[i] = new double[NSW];
+        link_popularity_transit[i] = new double[NSW];
+		for (int j = 0;j<NSW;j++){
+			link_popularity_out[i][j] = 0;
+            link_popularity_in[i][j] = 0;
+            link_popularity_transit[i][j] = 0;
+		}
+	}
+
+    for (int i=0; i<NSW; i++) {
+        for (int j=0; j<NSW; j++) {
+            if (i == j) continue;
+            int count = net_path[i][j]->size();
+            if (count == 1 && net_path[i][j]->at(0)->size() == 0) count = 0; 
+            for (int k=0; k<count; k++) {
+                int size = net_path[i][j]->at(k)->size();
+                for (int l=0; l<size; l=l+2) {
+                    string nodename = net_path[i][j]->at(k)->at(l)->nodename();
+                    int srcID = extractSwitchID(nodename).first;
+                    int dstID = extractSwitchID(nodename).second;
+                    if (l==0) {
+                        assert(srcID == i);
+                        link_popularity_out[srcID][dstID] += 1.0/(double)count;
+                    } else if (l+2>=size) {
+                        assert(dstID == j);
+                        link_popularity_in[srcID][dstID] += 1.0/(double)count;
+                    } else {
+                        link_popularity_transit[srcID][dstID] += 1.0/(double)count;
+                    }
+                }
+            }                
+        }
+    }
+
+    double* rack_popularity_out = new double[NSW];
+    double* rack_popularity_in = new double[NSW];
+    double* rack_popularity_transit = new double[NSW];
+	for (int i=0;i<NSW;i++){
+		rack_popularity_out[i] = 0;
+        rack_popularity_in[i] = 0;
+        rack_popularity_transit[i] = 0;
+	}
+    for (int i=0; i<NSW; i++) {
+        for (int j=0; j<NSW; j++) {
+            if (i == j) continue;
+            rack_popularity_out[i] += link_popularity_out[i][j];
+            rack_popularity_in[j] += link_popularity_in[i][j];
+            rack_popularity_transit[j] += (link_popularity_transit[i][j] + link_popularity_transit[j][i]);
+        }
+    } 
+
+    uint64_t* in_traffic = new uint64_t[NSW];
+    uint64_t* out_traffic = new uint64_t[NSW];
+	for (int i=0;i<NSW;i++){
+		in_traffic[i] = 0;
+        out_traffic[i] = 0;
+	}
+    uint64_t sum_traffic = 0;
+    for (int i=0; i<NSW; i++) {
+        for (int j=0; j<NSW; j++) {
+            if (i == j) continue;
+            sum_traffic += TM[i][j];
+            in_traffic[j] += TM[i][j];
+            out_traffic[i] += TM[i][j];
+        }
+    }
+
+    ofstream file;
+    string dir = traffic + "/";
+    string filename = dir + traffic + "_rackPopularity_" + topology + "_" + routing + to_string(korn) + ".txt";
+    file.open(filename);
+    file << "rack popularity\track ID\tout pop\tout traffic\tin pop\tin traffic\ttransit pop\ttransit/sum traffic\n";
+    for (int i=0; i<NSW; i++) {
+        double pop = (rack_popularity_out[i]*out_traffic[i] + rack_popularity_in[i]*in_traffic[i] + rack_popularity_transit[i]*sum_traffic) / sum_traffic;
+        if (pop > 0) {
+            file << pop << "\t" << i << "\t";
+            file << rack_popularity_out[i] << "\t" << out_traffic[i] << "\t";
+            file << rack_popularity_in[i] << "\t" << in_traffic[i] << "\t";
+            file << rack_popularity_transit[i] << "\t" << sum_traffic << "\n";
+        }
+    }
+    file.close(); 
+
+    for (int i=0; i<NSW; i++) {
+	    delete [] link_popularity_out[i];
+        delete [] link_popularity_in[i];
+        delete [] link_popularity_transit[i];
+    }	
+    delete [] link_popularity_out;
+    delete [] link_popularity_in;
+    delete [] link_popularity_transit;   
+    delete [] rack_popularity_out;
+    delete [] rack_popularity_in;
+    delete [] rack_popularity_transit;   
+    delete [] in_traffic;
+    delete [] out_traffic;    
+}
+
+void ComputeStore::computeNPrintLinkPopularitySuperLink() {
+    // type A traffic: 60-64 <=> 0-59 (lesser)
+    // type B traffic: 65-79 <=> 0-59
+    // other traffic: everything else
+    double** type_A_link_popularity = new double*[NSW];
+    double** type_B_link_popularity = new double*[NSW];
+    double** other_link_popularity = new double*[NSW];
+	for (int i=0;i<NSW;i++){
+		type_A_link_popularity[i] = new double[NSW];
+        type_B_link_popularity[i] = new double[NSW];
+        other_link_popularity[i] = new double[NSW];
+		for (int j = 0;j<NSW;j++){
+			type_A_link_popularity[i][j] = 0;
+            type_B_link_popularity[i][j] = 0;
+            other_link_popularity[i][j] = 0;
+		}
+	}
+
+    for (int i=0; i<NSW; i++) {
+        for (int j=0; j<NSW; j++) {
+            int count = net_path[i][j]->size();
+            if (count == 1 && net_path[i][j]->at(0)->size() == 0) count = 0; 
+            for (int k=0; k<count; k++) {
+                for (int l=0; l<net_path[i][j]->at(k)->size(); l=l+2) {
+                    string nodename = net_path[i][j]->at(k)->at(l)->nodename();
+                    int srcID = extractSwitchID(nodename).first;
+                    int dstID = extractSwitchID(nodename).second;
+                    if ((i<62 && 62<=j && j<67) || (j<62 && 62<=i && i<67)) {
+                        type_A_link_popularity[srcID][dstID] += 1.0/(double)count;
+                    } else if ((i<62 && 67<=j && j<80) || (j<62 && 67<=i && i<80)) {
+                        type_B_link_popularity[srcID][dstID] += 1.0/(double)count;
+                    } else {
+                        other_link_popularity[srcID][dstID] += 1.0/(double)count;
+                    }
+                    
+                }
+            }
+        }
+    }
+
+    uint64_t type_A_traffic = 0;
+    uint64_t type_B_traffic = 0;
+    uint64_t other_traffic = 0;
+    for (int i=0; i<NSW; i++) {
+        for (int j=0; j<NSW; j++) {
+            if (i == j) continue;
+            if (((62<=i && i<67) && (j<62)) || ((62<=j && j<67) && (i<62))) {
+                type_A_traffic += TM[i][j];
+            } else if (((67<=i && i<80) && (j<62)) || ((67<=j && j<80) && (i<62))) {
+                type_B_traffic += TM[i][j];
+            } else {
+                other_traffic += TM[i][j];
+            }
+        }
+    }
+
+    ofstream file;
+    string dir = traffic + "/";
+    string filename = dir + traffic + "_superLinkPopularity_" + topology + "_" + routing + to_string(korn) + ".txt";
+    file.open(filename);
+    file << "link popularity\tlink src\tlink dst\ttype A pop\ttype A traffic\ttype B pop\ttype B traffic\tother pop\tother traffic\n";
+    for (int i=0; i<NSW; i++) {
+        for (int j=0; j<NSW; j++) {
+            double pop = type_A_link_popularity[i][j]*(type_A_traffic/type_B_traffic) + type_B_link_popularity[i][j] + other_link_popularity[i][j]*(other_traffic/type_B_traffic);
+            file << pop << "\t" << i << "\t" << j << "\t";
+            file << type_A_link_popularity[i][j] << "\t" << type_A_traffic << "\t";
+            file << type_B_link_popularity[i][j] << "\t" << type_B_traffic << "\t";
+            file << other_link_popularity[i][j] << "\t" << other_traffic << "\n";
+        }
+    }
+    file.close();
+
+    for (int i=0; i<NSW; i++) {
+	    delete [] type_A_link_popularity[i];
+        delete [] type_B_link_popularity[i];
+        delete [] other_link_popularity[i];
+    }	
+    delete [] type_A_link_popularity;
+    delete [] type_B_link_popularity;
+    delete [] other_link_popularity;
 }
 
 PathNode::PathNode() {
