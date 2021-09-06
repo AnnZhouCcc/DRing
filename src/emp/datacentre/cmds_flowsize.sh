@@ -1,75 +1,42 @@
-routing=ecmp
-k=0
-date=805_ecmp_all
-run_leafspine=true
+routing=su
+k=3
+date=831_fbs_rp_10
+run_leafspine=false
 run_fb_tms(){
-    # mult=1
     numerator=0
-    denominator=0
-    for tm in {"skewed","uniform"}; do
-    # tm="skewed"
+    denominator=10
+    # for tm in {"skewed","uniform"}; do
+    tm="uniform"
     tmfile="graphfiles/ring_supergraph/ls_x48_y16_${tm}.data"
     tm=fb_${tm}
-    for mult in 1 2; do
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/double_ring/instance1_80_64.edgelist 2988 1 1 NOMAKE FILE ${mult} ${numerator} ${denominator} ${routing} ${k} ${tmfile} 10 3 dring_${routing}_80_64_1 | grep -e "FCT" -e "topology" > fct_results_${date}/dring_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator} &
-    sleep 5
+    # for mult in 0 1; do
+    mult=2
+    for numerator in {1..8}; do
+    # time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/double_ring/instance1_80_64.edgelist 2988 1 1 NOMAKE FILE ${mult} ${numerator} ${denominator} ${routing} ${k} ${tmfile} 10 3 dring_${routing}_80_64_1 | grep -e "FCT" -e "topology" > fct_results_${date}/dring_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator} &
+    # sleep 5
     time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 NOMAKE FILE ${mult} ${numerator} ${denominator} ${routing} ${k} ${tmfile} 10 3 rrg_${routing}_80_64_1 | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator} &
     if [ "$run_leafspine" = true ]; then
         sleep 5
         time ./run.sh LEAFSPINE 1 64 16 null 3072 1 1 NOMAKE FILE ${mult} ${numerator} ${denominator} ${routing} ${k} ${tmfile} 10 3 ls_flowsize_80_64_1 | grep -e "FCT" -e "topology" > fct_results_${date}/ls_${tm}_${date}_ii${mult}_${numerator}_${denominator} &
     fi
     sleep 5
+    done
     # done
-    done
     wait
-    done
-    for tm in {"skewed","uniform"}; do
-    # tm="skewed"
-    tmfile="graphfiles/ring_supergraph/ls_x48_y16_${tm}.data"
-    tm=fb_${tm}
-    for mult in 3 4; do
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/double_ring/instance1_80_64.edgelist 2988 1 1 NOMAKE FILE ${mult} ${numerator} ${denominator} ${routing} ${k} ${tmfile} 10 3 dring_${routing}_80_64_1 | grep -e "FCT" -e "topology" > fct_results_${date}/dring_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator} &
-    sleep 5
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 NOMAKE FILE ${mult} ${numerator} ${denominator} ${routing} ${k} ${tmfile} 10 3 rrg_${routing}_80_64_1 | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator} &
-    if [ "$run_leafspine" = true ]; then
-        sleep 5
-        time ./run.sh LEAFSPINE 1 64 16 null 3072 1 1 NOMAKE FILE ${mult} ${numerator} ${denominator} ${routing} ${k} ${tmfile} 10 3 ls_flowsize_80_64_1 | grep -e "FCT" -e "topology" > fct_results_${date}/ls_${tm}_${date}_ii${mult}_${numerator}_${denominator} &
-    fi
-    sleep 5
-    # done
-    done
-    wait
-    done
     # done
 }
 
 
 run_fb_tms_rp(){
-    # mult=1
     numerator=0
-    denominator=0
-    for tm in {"skewed","uniform"}; do
-    #tm="skewed"
+    denominator=10
+    # for tm in {"skewed","uniform"}; do
+    tm="skewed"
     tmfile="graphfiles/ring_supergraph/ls_rand_placed_x48_y16_${tm}.data"
     tm=fb_${tm}_rp
-    for mult in 1 2; do
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/double_ring/instance1_80_64.edgelist 2988 1 1 NOMAKE FILE ${mult} ${numerator} ${denominator} ${routing} ${k} ${tmfile} 10 3 dring_${routing}_80_64_1 | grep -e "FCT" -e "topology" > fct_results_${date}/dring_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator} &
-    sleep 5
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 NOMAKE FILE ${mult} ${numerator} ${denominator} ${routing} ${k} ${tmfile} 10 3 rrg_${routing}_80_64_1 | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator} &
-    if [ "$run_leafspine" = true ]; then
-        sleep 5
-        time ./run.sh LEAFSPINE 1 64 16 null 3072 1 1 NOMAKE FILE ${mult} ${numerator} ${denominator} ${routing} ${k} ${tmfile} 10 3 ls_flowsize_80_64_1 | grep -e "FCT" -e "topology" > fct_results_${date}/ls_${tm}_${date}_ii${mult}_${numerator}_${denominator} &
-    fi
-    sleep 5
-    # done
-    done
-    wait
-    done
-    for tm in {"skewed","uniform"}; do
-    #tm="skewed"
-    tmfile="graphfiles/ring_supergraph/ls_rand_placed_x48_y16_${tm}.data"
-    tm=fb_${tm}_rp
-    for mult in 3 4; do
+    # for mult in 0 1; do
+    mult=0
+    for numerator in 2 4 6 8; do
     time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/double_ring/instance1_80_64.edgelist 2988 1 1 NOMAKE FILE ${mult} ${numerator} ${denominator} ${routing} ${k} ${tmfile} 10 3 dring_${routing}_80_64_1 | grep -e "FCT" -e "topology" > fct_results_${date}/dring_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator} &
     sleep 5
     time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 NOMAKE FILE ${mult} ${numerator} ${denominator} ${routing} ${k} ${tmfile} 10 3 rrg_${routing}_80_64_1 | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator} &
@@ -81,7 +48,6 @@ run_fb_tms_rp(){
     done
     # done
     wait
-    done
     # done
 }
 
@@ -178,15 +144,15 @@ run_a2a(){
 
 
 run_r2r_tms(){
-    numerator=0
-    denominator=0
+    numerator=1
+    denominator=10
     tm="r2r"
     C=48
     S=48
-    MAKE=NOMAKE
-    # mult=1
+    MAKE=MAKE
+    mult=0
     inst=50 # need to change manually in code
-    for mult in 4 6; do
+    # for mult in 4 6; do
     time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/double_ring/instance1_80_64.edgelist 2988 1 1 ${MAKE} RACK_TO_RACK ${mult} ${numerator} ${denominator} ${routing} ${k} ${C} ${S} 3 dring_${routing}_80_64_1 | grep -e "FCT" -e "topology" > fct_results_${date}/dring_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator} &
     sleep 30
     time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} RACK_TO_RACK ${mult} ${numerator} ${denominator} ${routing} ${k} ${C} ${S} 3 rrg_${routing}_80_64_1 | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator} &
@@ -195,25 +161,12 @@ run_r2r_tms(){
         time ./run.sh LEAFSPINE 1 64 16 null 3072 1 1 ${MAKE} RACK_TO_RACK ${mult} ${numerator} ${denominator} ${routing} ${k} ${C} ${S} 3 ls_flowsize_80_64_1 | grep -e "FCT" -e "topology" > fct_results_${date}/ls_${tm}_${date}_ii${mult}_${numerator}_${denominator} &
     fi
     sleep 30
-    done
-    wait
-    for mult in 8 10; do
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/double_ring/instance1_80_64.edgelist 2988 1 1 ${MAKE} RACK_TO_RACK ${mult} ${numerator} ${denominator} ${routing} ${k} ${C} ${S} 3 dring_${routing}_80_64_1 | grep -e "FCT" -e "topology" > fct_results_${date}/dring_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator} &
-    sleep 30
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} RACK_TO_RACK ${mult} ${numerator} ${denominator} ${routing} ${k} ${C} ${S} 3 rrg_${routing}_80_64_1 | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator} &
-    if [ "$run_leafspine" = true ]; then
-        sleep 30
-        time ./run.sh LEAFSPINE 1 64 16 null 3072 1 1 ${MAKE} RACK_TO_RACK ${mult} ${numerator} ${denominator} ${routing} ${k} ${C} ${S} 3 ls_flowsize_80_64_1 | grep -e "FCT" -e "topology" > fct_results_${date}/ls_${tm}_${date}_ii${mult}_${numerator}_${denominator} &
-    fi
-    sleep 30
-    done
-    wait
     # done
+    wait
 }
 
-
 run_r2r_tms
-run_cs_skewed
-run_a2a
+# run_cs_skewed
+# run_a2a
 run_fb_tms_rp
-run_fb_tms
+# run_fb_tms
