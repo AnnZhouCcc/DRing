@@ -547,6 +547,114 @@ void ConnectionMatrix::setFewtoSomeFlows(Topology *top, int nmasters, int nclien
                   bytes = mss * ((bytes+mss-1)/mss);
                   // bytes = bytes*3;
                   // bytes = bytes/3;
+                  // AnnC: this part is completely hard coding; should change later
+                  double base_simtime_ms = 196.0;
+                  double multiplier_simtime_ms = nmasters / 768.0;
+                  double simtime_ms = base_simtime_ms * multiplier_simtime_ms;
+                  // AnnC: end of hard coding
+                  double start_time_ms = base_start_ms + drand() * simtime_ms;
+                  flows.push_back(Flow(master, client, bytes, start_time_ms));
+              }
+          }
+      }
+
+      if (denominator > 0) {
+          for(int master: mastersvrs){
+            for(int client: clientsvrs){
+	        int should_add = rand()%denominator;
+		if (should_add < numerator) {
+                    int bytes = genFlowBytes();
+                    // ignore flows > 100 MB
+                    while (bytes > 10 * 1024 * 1024){
+                        bytes = genFlowBytes();
+                    }
+                    //bytes = 2 * 1024 * 1024;
+                    bytes = mss * ((bytes+mss-1)/mss);
+                    double simtime_ms = 196.0;
+                    double start_time_ms = base_start_ms + drand() * simtime_ms;
+                    flows.push_back(Flow(master, client, bytes, start_time_ms));
+		}
+	    }
+	  }
+      }
+  }
+}
+
+
+void ConnectionMatrix::setFewtoSomeFlowsRepeat(Topology *top, int nmasters, int nclients, int multiplier, int numerator, int denominator){
+  cout<<"Few to some: "<<nmasters<<" , "<<nclients<<endl;
+  int mss = Packet::data_packet_size();
+  cout << " mss " << mss << endl;
+  int maxrackid = -1;
+  for(int i=0; i<N; i++){
+	  if(top->ConvertHostToRack(i) == -1){
+			cout<<"ConvertHostToRack not implemented for topology"<<endl;
+			abort();
+	  }
+      maxrackid = max(top->ConvertHostToRack(i), maxrackid);
+  }
+  cout<<"Maxrackid: "<<maxrackid<<endl;
+  bool* switch_covered = new bool[maxrackid];
+
+  int _nmasters = nmasters, _nclients = nclients;
+  for (int inst=0; inst<5; inst++){
+      // Have a gap of 10 sec between every instance
+      double base_start_ms = 1 * 1000.0 * inst;
+      std::fill(switch_covered, switch_covered + maxrackid, false);
+      nmasters = _nmasters;
+      nclients = _nclients;
+
+      vector<int> mastersvrs, clientsvrs;
+      pair<vector<int>, vector<int> > chosenracks = top->getcsRacks(nmasters, nclients);
+
+      int curr=0;
+      cout<<"clientracks: ";
+      while(nmasters>0){
+        //int rack = rand()%maxrackid;
+        //while(switch_covered[rack]) rack = rand()%maxrackid;
+        int rack = chosenracks.first[curr++]; 
+        cout<<rack<<",";
+        switch_covered[rack] = true;
+        for (int i=0;i<N && nmasters>0;i++){
+            int tor = top->ConvertHostToRack(i);
+            if(tor == rack){
+                mastersvrs.push_back(i);
+                nmasters--;
+            }
+        }
+      }
+      cout<<endl;
+      curr=0;
+      cout<<"serverracks: ";
+      while(nclients>0){
+        //int clientrack = rand()%maxrackid;
+        //while(switch_covered[clientrack]) clientrack = rand()%maxrackid;
+        int clientrack = chosenracks.second[curr++]; 
+       cout<<clientrack<<",";
+        switch_covered[clientrack] = true;
+        for (int i=0;i<N && nclients>0;i++){
+            int tor = top->ConvertHostToRack(i);
+            if(tor == clientrack){
+                clientsvrs.push_back(i);
+                nclients--;
+            }
+        }
+      }
+      cout<<endl;
+      // multiplier = multiplier/3;
+      // multiplier = multiplier*3;
+      for (int ii=0; ii<multiplier; ii++){
+          for(int master: mastersvrs){
+              for(int client: clientsvrs){
+                  int bytes = genFlowBytes();
+                  // ignore flows > 100 MB
+                  while (bytes > 10 * 1024 * 1024){
+                      bytes = genFlowBytes();
+                  }
+                  //bytes = 2 * 1024 * 1024;
+                  bytes = mss * ((bytes+mss-1)/mss);
+                  // bytes = bytes*3;
+                  // bytes = bytes/3;
                   double simtime_ms = 196.0;
                   double start_time_ms = base_start_ms + drand() * simtime_ms;
                   flows.push_back(Flow(master, client, bytes, start_time_ms));
@@ -836,45 +944,6 @@ void ConnectionMatrix::setFlowsFromFile(Topology* top, string filename, int mult
         flows.push_back(Flow(temp.src, temp.dst, temp.bytes, temp.start_time_ms));
         nflows++;
       }
-    }
-  }
-  cout<<"Nflows: "<<nflows<<endl;
-}
-
-// is identical to setFlowsFromFile() for now
-void ConnectionMatrix::setFlowsFromFile2(Topology* top, string filename, int multiplier){
-  int nflows = 0; 
-  int mss = Packet::data_packet_size();
-  cout << " mss " << mss << endl;
-  //< read TM from file
-  ifstream TMFile(filename.c_str());
-  string line;
-  line.clear();
-  int currswitch=0;
-  vector<Flow> temp_flows;
-  if (TMFile.is_open()){
-    while(TMFile.good()){
-        getline(TMFile, line);
-        //Whitespace line
-        if (line.find_first_not_of(' ') == string::npos) break;
-        stringstream ss(line);
-        int from, to, bytes;
-        double start_time_ms;
-        ss >> from >> to >> bytes >> start_time_ms;
-        bytes = mss * ((bytes+mss-1)/mss);
-        if (from >= N or to >= N) continue;
-        temp_flows.push_back(Flow(from, to, bytes, start_time_ms));
-        nflows++;
-    }
-    TMFile.close();
-  }
-  flows = temp_flows;
-  // adding more flows if multiplier > 1
-  for (int ii=1; ii<multiplier; ii++) {
-    for (int j=0; j<temp_flows.size(); j++) {
-      Flow temp = temp_flows[j];
-      flows.push_back(Flow(temp.src, temp.dst, temp.bytes, temp.start_time_ms));
-      nflows++;
     }
   }
   cout<<"Nflows: "<<nflows<<endl;

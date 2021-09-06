@@ -260,7 +260,7 @@ int main(int argc, char **argv) {
     //conns->setLocalTraffic(top);
     
     //cout<< "Running sampled A2A with sample rate: "<< (double)param/8000.0 <<endl;
-    assert (conn_matrix == "FILE" or conn_matrix == "FEW_TO_SOME" or conn_matrix == "RANDOM" or conn_matrix == "RACK_TO_RACK");
+    assert (conn_matrix == "FILE" or conn_matrix == "FEW_TO_SOME" or conn_matrix == "FEW_TO_SOME_REPEAT" or conn_matrix == "RANDOM" or conn_matrix == "RACK_TO_RACK");
     if(conn_matrix == "PERM")
         conns->setPermutation();
     else if(conn_matrix == "SAMPLED_PERM"){
@@ -281,6 +281,9 @@ int main(int argc, char **argv) {
     }
     else if(conn_matrix == "FEW_TO_SOME"){
         conns->setFewtoSomeFlows(top, param, paramo, multiplier, numerator, denominator);
+    }
+    else if(conn_matrix == "FEW_TO_SOME_REPEAT"){
+        conns->setFewtoSomeFlowsRepeat(top, param, paramo, multiplier, numerator, denominator);
     }
     else if(conn_matrix == "UNIFORM"){
         conns->setUniform(param);
