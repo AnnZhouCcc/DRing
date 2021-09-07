@@ -1237,6 +1237,7 @@ pair<vector<int>, vector<int> > RandRegularTopology::getcsRacks(int clients, int
    }
 
    if (cCovered < clients or sCovered < servers){
+    cout << "cCovered = " << cCovered << ", sCovered = " << sCovered << endl;
     cout << "Not enough racks for C-S model traffic with C=" << clients << " S=" << servers << endl;
     exit(0);
    }

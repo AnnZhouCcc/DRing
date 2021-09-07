@@ -549,8 +549,9 @@ void ConnectionMatrix::setFewtoSomeFlows(Topology *top, int nmasters, int nclien
                   // bytes = bytes/3;
                   // AnnC: this part is completely hard coding; should change later
                   double base_simtime_ms = 196.0;
-                  double multiplier_simtime_ms = nmasters / 768.0;
+                  double multiplier_simtime_ms = (_nmasters*_nclients) / (768.0*192.0);
                   double simtime_ms = base_simtime_ms * multiplier_simtime_ms;
+                  cout << "multiplier_simtime_ms = " << multiplier_simtime_ms << ", simtime_ms = " << simtime_ms << endl;
                   // AnnC: end of hard coding
                   double start_time_ms = base_start_ms + drand() * simtime_ms;
                   flows.push_back(Flow(master, client, bytes, start_time_ms));
@@ -570,7 +571,13 @@ void ConnectionMatrix::setFewtoSomeFlows(Topology *top, int nmasters, int nclien
                     }
                     //bytes = 2 * 1024 * 1024;
                     bytes = mss * ((bytes+mss-1)/mss);
-                    double simtime_ms = 196.0;
+                    // double simtime_ms = 196.0;
+                  // AnnC: this part is completely hard coding; should change later
+                  double base_simtime_ms = 196.0;
+                  double multiplier_simtime_ms = (_nmasters*_nclients) / (768.0*192.0);
+                  double simtime_ms = base_simtime_ms * multiplier_simtime_ms;
+                  cout << "multiplier_simtime_ms = " << multiplier_simtime_ms << ", simtime_ms = " << simtime_ms << endl;
+                  // AnnC: end of hard coding
                     double start_time_ms = base_start_ms + drand() * simtime_ms;
                     flows.push_back(Flow(master, client, bytes, start_time_ms));
 		}
@@ -655,7 +662,13 @@ void ConnectionMatrix::setFewtoSomeFlowsRepeat(Topology *top, int nmasters, int 
                   bytes = mss * ((bytes+mss-1)/mss);
                   // bytes = bytes*3;
                   // bytes = bytes/3;
-                  double simtime_ms = 196.0;
+                  // double simtime_ms = 196.0;
+                  // AnnC: this part is completely hard coding; should change later
+                  double base_simtime_ms = 196.0;
+                  double multiplier_simtime_ms = (_nmasters*_nclients) / (768.0*192.0);
+                  double simtime_ms = base_simtime_ms * multiplier_simtime_ms;
+                  cout << "multiplier_simtime_ms = " << multiplier_simtime_ms << ", simtime_ms = " << simtime_ms << endl;
+                  // AnnC: end of hard coding
                   double start_time_ms = base_start_ms + drand() * simtime_ms;
                   flows.push_back(Flow(master, client, bytes, start_time_ms));
               }
@@ -674,7 +687,13 @@ void ConnectionMatrix::setFewtoSomeFlowsRepeat(Topology *top, int nmasters, int 
                     }
                     //bytes = 2 * 1024 * 1024;
                     bytes = mss * ((bytes+mss-1)/mss);
-                    double simtime_ms = 196.0;
+                    // double simtime_ms = 196.0;
+                  // AnnC: this part is completely hard coding; should change later
+                  double base_simtime_ms = 196.0;
+                  double multiplier_simtime_ms = (_nmasters*_nclients) / (768.0*192.0);
+                  double simtime_ms = base_simtime_ms * multiplier_simtime_ms;
+                  cout << "multiplier_simtime_ms = " << multiplier_simtime_ms << ", simtime_ms = " << simtime_ms << endl;
+                  // AnnC: end of hard coding
                     double start_time_ms = base_start_ms + drand() * simtime_ms;
                     flows.push_back(Flow(master, client, bytes, start_time_ms));
 		}
