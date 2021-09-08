@@ -260,7 +260,7 @@ int main(int argc, char **argv) {
     //conns->setLocalTraffic(top);
     
     //cout<< "Running sampled A2A with sample rate: "<< (double)param/8000.0 <<endl;
-    assert (conn_matrix == "FILE" or conn_matrix == "FEW_TO_SOME" or conn_matrix == "FEW_TO_SOME_REPEAT" or conn_matrix == "RANDOM" or conn_matrix == "RACK_TO_RACK");
+    assert (conn_matrix == "FILE" or conn_matrix == "FEW_TO_SOME" or conn_matrix == "FEW_TO_SOME_REPEAT" or conn_matrix == "RANDOM" or conn_matrix == "RACK_TO_RACK" or conn_matrix == "MIX");
     if(conn_matrix == "PERM")
         conns->setPermutation();
     else if(conn_matrix == "SAMPLED_PERM"){
@@ -294,6 +294,9 @@ int main(int argc, char **argv) {
     }
     else if(conn_matrix == "FILE"){
         conns->setFlowsFromFile(top, paramstring, multiplier, numerator, denominator);
+    }
+    else if(conn_matrix == "MIX"){
+        conns->setMixFlows(top, multiplier, numerator, denominator);
     }
     else{
         cout<<"conn_matrix: "<<conn_matrix<<" not supported. Supported options are: "<<endl;
