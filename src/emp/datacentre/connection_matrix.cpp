@@ -589,9 +589,9 @@ void ConnectionMatrix::setFewtoSomeFlows(Topology *top, int nmasters, int nclien
 }
 
 
-void ConnectionMatrix::setMixFlows(Topology *top, int multiplier, int numerator, int denominator){
-  int nmasters = 192; // 4 racks, 48 servers per rack
-  int nclients = 192;
+void ConnectionMatrix::setMixFlows(Topology *top, int nracks, int multiplier, int numerator, int denominator){
+  int nmasters = nracks * 48; // 4 racks, 48 servers per rack
+  int nclients = nracks * 48;
   cout<<"Mix: "<<nmasters<<" , "<<nclients<<endl;
   int mss = Packet::data_packet_size();
   cout << " mss " << mss << endl;
@@ -673,7 +673,7 @@ void ConnectionMatrix::setMixFlows(Topology *top, int multiplier, int numerator,
                   bytes2 = mss * ((bytes2+mss-1)/mss);
                   // bytes = bytes*3;
                   // bytes = bytes/3;
-                  double simtime_ms = 196.0;
+                  double simtime_ms = nracks==4 ? 196.0 : 392.0;
                   double start_time_ms = base_start_ms + drand() * simtime_ms;
                   double start_time_ms2 = base_start_ms + drand() * simtime_ms;
                   flows.push_back(Flow(master, client, bytes, start_time_ms));
@@ -699,7 +699,7 @@ void ConnectionMatrix::setMixFlows(Topology *top, int multiplier, int numerator,
                       bytes2 = genFlowBytes();
                   }
                     bytes2 = mss * ((bytes2+mss-1)/mss);
-                    double simtime_ms = 196.0;
+                    double simtime_ms = nracks==4 ? 196.0 : 392.0;
                     double start_time_ms = base_start_ms + drand() * simtime_ms;
                     double start_time_ms2 = base_start_ms + drand() * simtime_ms;
                     flows.push_back(Flow(master, client, bytes, start_time_ms));
@@ -711,7 +711,7 @@ void ConnectionMatrix::setMixFlows(Topology *top, int multiplier, int numerator,
 
   int cnx = 0;
   if (denominator == 0) {
-    cnx = _nmasters * _nclients * 2;
+    cnx = _nmasters * _nclients * 2 * multiplier;
   } else {
     cnx = (int)(_nmasters * _nclients * 2 * (multiplier + (double)numerator/denominator));
   }
@@ -734,7 +734,7 @@ void ConnectionMatrix::setMixFlows(Topology *top, int multiplier, int numerator,
     bytes = mss * ((bytes+mss-1)/mss);
     // bytes = bytes*3;
     // bytes = bytes/3;
-    double simtime_ms = 196.0;
+    double simtime_ms = nracks==4 ? 196.0 : 392.0;
     double start_time_ms = drand() * simtime_ms;
     flows.push_back(Flow(src, dest, bytes, start_time_ms));
   }

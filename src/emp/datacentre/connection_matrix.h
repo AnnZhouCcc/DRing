@@ -60,7 +60,7 @@ class ConnectionMatrix{
   void setFewtoSomeFlows(Topology* top, int nmasters, int nclients, int multiplier, int numerator, int denominator);
   void setFewtoSomeFlowsRepeat(Topology* top, int nmasters, int nclients, int multiplier, int numerator, int denominator);
   void setRacktoRackFlows(Topology* top, int nmasters, int nclients, int multiplier, int numerator, int denominator);
-  void setMixFlows(Topology* top, int multiplier, int numerator, int denominator);
+  void setMixFlows(Topology* top, int nracks, int multiplier, int numerator, int denominator);
   int genFlowBytes();
   /* For generating pareto dist. via exp dist. */
   int mean_bytes = 100.0 * 1024;

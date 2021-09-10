@@ -296,7 +296,7 @@ int main(int argc, char **argv) {
         conns->setFlowsFromFile(top, paramstring, multiplier, numerator, denominator);
     }
     else if(conn_matrix == "MIX"){
-        conns->setMixFlows(top, multiplier, numerator, denominator);
+        conns->setMixFlows(top, param, multiplier, numerator, denominator);
     }
     else{
         cout<<"conn_matrix: "<<conn_matrix<<" not supported. Supported options are: "<<endl;
