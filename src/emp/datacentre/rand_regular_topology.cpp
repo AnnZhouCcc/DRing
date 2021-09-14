@@ -19,6 +19,8 @@
 #include "BhandariTopKDisjointPathsAlg.h"
 
 #define IS_DEBUG_ON false
+#define TEST_MIX false
+#define TEST_TRANSIT true
 
 FIND_PATH_ALGORITHM find_path_alg = ECMP; // FIRST_HOP_INDIRECTION; //KDISJOINT; //ECMP; //KSHORT; //SHORTEST2; //SHORTESTN;
 int korn = 0;
@@ -40,6 +42,32 @@ vector<route_t *> *copy_path(vector<route_t *> *path) {
 		duplicate_path->push_back(duplicate_item);
 	}
 	return duplicate_path;
+}
+
+pair<int, int> extractSwitchID(string nodename) {
+    // cout << "extractSwitchID: " << nodename << endl;
+    int src_sw, dst_sw, src_sw_back_start_index;
+    int last_index = nodename.length()-1;
+    char dst_sw_second_char = nodename[last_index];
+    char dst_sw_first_char = nodename[last_index-1];
+    if (dst_sw_first_char == '_') {
+        string dst_sw_str(1, dst_sw_second_char);
+        dst_sw = stoi(dst_sw_str);
+        src_sw_back_start_index = last_index-5;
+    } else {
+        dst_sw = stoi(nodename.substr(last_index-1, 2)); 
+        src_sw_back_start_index = last_index-6;
+    }    
+    char src_sw_second_char = nodename[src_sw_back_start_index];
+    char src_sw_first_char = nodename[src_sw_back_start_index-1];
+    if (src_sw_first_char == '_') {
+        string src_sw_str(1, src_sw_second_char);
+        src_sw = stoi(src_sw_str);
+    } else {
+        src_sw = stoi(nodename.substr(src_sw_back_start_index-1, 2)); 
+    }    
+    // cout << "src_sw = " << src_sw << ", dst_sw = " << dst_sw << endl;
+    return pair<int, int>(src_sw, dst_sw);
 }
 
 RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string graphFile, queue_type qt, string alg, int k){
@@ -306,6 +334,29 @@ int RandRegularTopology::get_distance(int src, int dest){
 
 
 pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths(int src, int dest){
+#if TEST_MIX
+   // hard-coding for testing mix_4 with mixed RS
+   set<int> dring_servers {4,10,26,33,36,38,41,53,61,65}; 
+   set<int> rrg_servers {3,13,15,18,23,33,49,60,65,71};
+   if (NHOST==2988) {
+      if ((dring_servers.find(src)!=dring_servers.end()) && (dring_servers.find(dest)!=dring_servers.end())) {
+         korn = 32;
+         find_path_alg = KDISJOINT;
+      } else {
+         korn = 3;
+         find_path_alg = SHORTESTN;
+      }
+   } else {
+      assert(NHOST == 3072);
+      if ((rrg_servers.find(src)!=rrg_servers.end()) && (rrg_servers.find(dest)!=rrg_servers.end())) {
+         korn = 3;
+         find_path_alg = SHORTESTN;
+      } else {
+         korn = 32;
+         find_path_alg = KDISJOINT;
+      }
+   }
+#endif
    return get_paths_helper(src, dest, find_path_alg);
 }
 
@@ -315,7 +366,6 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_other_paths(in
 }
 
 pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(int src, int dest, FIND_PATH_ALGORITHM find_path_alg){
-
 //   if(pathcache.find(pair<int, int>(src, dest)) != pathcache.end())
 //     return pathcache[pair<int, int>(src, dest)];
 
@@ -338,6 +388,20 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
   // int dest_sw = ConvertHostToSwitch(dest);
   int src_sw = src;
   int dest_sw = dest;
+
+#if TEST_TRANSIT
+    // hard-coding for testing avoiding transit at heavy racks
+    // mix_4:
+    set<int> dring_servers {4,10,26,33,36,38,41,53,61,65}; 
+    set<int> rrg_servers {3,13,15,18,23,33,49,60,65,71};
+    // fb_skewed:
+    // set<int> dring_servers {67,68,69,70,71,72,73,74,75,76,77,78,79};
+    // set<int> rrg_servers {65,66,67,68,69,70,71,72,73,74,75,76,77,78,79};
+    // mix_4:
+    bool is_heavy_itself = (dring_servers.find(src_sw)!=dring_servers.end()) && (dring_servers.find(dest_sw)!=dring_servers.end());
+    // fb_skewed:
+    // bool is_heavy_itself = (dring_servers.find(src_sw)!=dring_servers.end()&&()) || (dring_servers.find(dest_sw)!=dring_servers.end());
+#endif
 
 #if IS_DEBUG_ON
   cout << "**debug info** src switch: " << src_sw << endl;
@@ -1067,7 +1131,21 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
 			}
 
 		  	// assert(!net_paths_rack_based[src_sw][dest_sw]);
-		  	net_paths_rack_based[src_sw][dest_sw] = paths_rack_based;
+                        // hard-coding for testing avoiding transit at heavy racks
+                        // mix_4:
+                        set<int> dring_servers {4,10,26,33,36,38,41,53,61,65}; 
+                        set<int> rrg_servers {3,13,15,18,23,33,49,60,65,71};
+                        // fb_skewed:
+                        // set<int> dring_servers {67,68,69,70,71,72,73,74,75,76,77,78,79};
+                        // set<int> rrg_servers {65,66,67,68,69,70,71,72,73,74,75,76,77,78,79};
+                        if (NHOST==2988) {
+                            if ((dring_servers.find(src_sw)!=dring_servers.end()) && (dring_servers.find(dest_sw)!=dring_servers.end())) {
+		  	        net_paths_rack_based[src_sw][dest_sw] = paths_rack_based;
+                            } else {
+                                for (int i=0; i<paths_rack_based->size(); i++) {
+                                    route_t *path = paths_rack_based->at(i);
+                                    for (int j=0; j<path->size(); j+=2) {
+                                        
 		 	// paths_no_head_tail = copy_path(paths_rack_based);
 
 			// pathcache[pair<int, int>(src, dest)] = pair<vector<double>*, vector<route_t*>*> (pathweights, paths);
