@@ -365,6 +365,7 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_other_paths(in
    return get_paths_helper(src, dest, KSHORT);
 }
 
+#if TEST_TRANSIT
 pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(int src, int dest, FIND_PATH_ALGORITHM find_path_alg){
 //   if(pathcache.find(pair<int, int>(src, dest)) != pathcache.end())
 //     return pathcache[pair<int, int>(src, dest)];
@@ -389,19 +390,557 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
   int src_sw = src;
   int dest_sw = dest;
 
-#if TEST_TRANSIT
-    // hard-coding for testing avoiding transit at heavy racks
-    // mix_4:
-    set<int> dring_servers {4,10,26,33,36,38,41,53,61,65}; 
-    set<int> rrg_servers {3,13,15,18,23,33,49,60,65,71};
-    // fb_skewed:
-    // set<int> dring_servers {67,68,69,70,71,72,73,74,75,76,77,78,79};
-    // set<int> rrg_servers {65,66,67,68,69,70,71,72,73,74,75,76,77,78,79};
-    // mix_4:
-    bool is_heavy_itself = (dring_servers.find(src_sw)!=dring_servers.end()) && (dring_servers.find(dest_sw)!=dring_servers.end());
-    // fb_skewed:
-    // bool is_heavy_itself = (dring_servers.find(src_sw)!=dring_servers.end()&&()) || (dring_servers.find(dest_sw)!=dring_servers.end());
+  // hard-coding for testing avoiding transit at heavy racks
+  // mix_4:
+  set<int> dring_servers {4,10,26,33,36,38,41,53,61,65}; 
+  set<int> rrg_servers {3,13,15,18,23,33,49,60,65,71};
+  // fb_skewed:
+  // set<int> dring_servers {67,68,69,70,71,72,73,74,75,76,77,78,79};
+  // set<int> rrg_servers {65,66,67,68,69,70,71,72,73,74,75,76,77,78,79};
+  bool is_heavy_pair = false;
+  if (NHOST==2988) {
+	// mix_4:
+	is_heavy_pair = (dring_servers.find(src_sw)!=dring_servers.end()) && (dring_servers.find(dest_sw)!=dring_servers.end());
+	// fb_skewed:
+	// is_heavy_pair = (dring_servers.find(src_sw)!=dring_servers.end()&&(dring_servers.find(dest_sw)==dring_servers.end())) || (dring_servers.find(dest_sw)!=dring_servers.end() && (dring_servers.find(src_sw)==dring_servers.end()));
+  } else {
+	// mix_4:
+	is_heavy_pair = (rrg_servers.find(src_sw)!=rrg_servers.end()) && (rrg_servers.find(dest_sw)!=rrg_servers.end());
+	// fb_skewed:
+	// is_heavy_pair = (rrg_servers.find(src_sw)!=rrg_servers.end()&&(rrg_servers.find(dest_sw)==rrg_servers.end())) || (rrg_servers.find(dest_sw)!=rrg_servers.end() && (rrg_servers.find(src_sw)==rrg_servers.end()));	  
+  }
+
+#if IS_DEBUG_ON
+  cout << "**debug info** src switch: " << src_sw << endl;
+  cout << "**debug info** dest switch: " << dest_sw << endl;
 #endif
+
+  // Ankit: Testing if our numbering of switches/servers and topology construction is causing issues
+  //cout << " From Switch " << src_sw << " to switch " << dest_sw << endl;
+
+  //< If same switch then only path through switch
+  if (src_sw == dest_sw){
+    routeout = new route_t();
+    paths_rack_based->push_back(routeout);
+    net_paths_rack_based[src_sw][dest_sw] = paths_rack_based;
+  }
+  else { 
+	assert(!net_paths_rack_based[src_sw][dest_sw]);
+    if(find_path_alg == KSHORT){
+		YenTopKShortestPathsAlg yenAlg(myGraph, myGraph->get_vertex(src_sw), myGraph->get_vertex(dest_sw));
+
+		int i=0;
+		int shortestLen = -1;
+		int numpaths = korn;
+        while(yenAlg.has_next() && i < numpaths){
+            ++i;                                                                                                           
+			vector<BaseVertex*> pathIHave = yenAlg.next()->m_vtVertexList;
+            routeout = new route_t();
+			static int num_fail = 0;
+			static int total_paths = 0;
+			total_paths++;
+			int intermediate_switch = -1;
+			bool shouldInclude = true;
+			for (unsigned int hop = 1; hop < pathIHave.size(); hop++) {
+				int fr = pathIHave[hop-1]->getID();
+				int to = pathIHave[hop]->getID();
+
+				if(shortestPathLen[src_sw][to] == hop && shortestPathLen[to][dest_sw] == pathIHave.size()-1-hop)
+					intermediate_switch = to;
+
+				if (is_heavy_pair) {
+					routeout->push_back(queues_sw_sw[fr][to]);
+					routeout->push_back(pipes_sw_sw[fr][to]);
+				} else {
+					if (NHOST==2988) {
+						if ((dring_servers.find(fr)!=dring_servers.end()) || (dring_servers.find(to)!=dring_servers.end())) {
+							shouldInclude = false;
+							delete routeout;
+							break;
+						} else {
+							routeout->push_back(queues_sw_sw[fr][to]);
+							routeout->push_back(pipes_sw_sw[fr][to]);
+						}
+					} else {
+						if ((rrg_servers.find(fr)!=rrg_servers.end()) || (rrg_servers.find(to)!=rrg_servers.end())) {
+							shouldInclude = false;
+							delete routeout;
+							break;
+						} else {
+							routeout->push_back(queues_sw_sw[fr][to]);
+							routeout->push_back(pipes_sw_sw[fr][to]);
+						}
+					}
+				}
+			}
+
+			cout<<"Path ["<<src_sw<<"-->"<<dest_sw<<"] Intermediate: ";
+			if(intermediate_switch == -1)
+			{	cout<<"NULL"; num_fail++; }
+			else
+				cout<<intermediate_switch;
+			cout<<"(Failed: "<<num_fail<<"/"<<total_paths<<")"<<endl;
+
+			if (shouldInclude) {
+				paths_rack_based->push_back(routeout);
+			}
+			// check_non_null(routeout);
+        }
+
+        yenAlg.clear();
+		net_paths_rack_based[src_sw][dest_sw] = paths_rack_based;
+    }
+
+    else if(find_path_alg == KDISJOINT){
+        BhandariTopKDisjointPathsAlg BhandariAlg(myGraph, myGraph->get_vertex(src_sw), myGraph->get_vertex(dest_sw));
+        
+		int i=0;
+        int shortestLen = -1;
+        vector<BasePath*> pathsIHave;
+	  	int numpaths = korn;
+        BhandariAlg.KDisjointPaths(numpaths, pathsIHave);
+        for(int i=0; i<pathsIHave.size(); i++){
+            vector<BaseVertex*> pathIHave = pathsIHave[i]->m_vtVertexList;;
+
+            routeout = new route_t();
+			bool shouldInclude = true;
+			for (unsigned int hop = 1; hop < pathIHave.size(); hop++) {
+				int fr = pathIHave[hop-1]->getID();
+				int to = pathIHave[hop]->getID();
+
+				if (is_heavy_pair) {
+					routeout->push_back(queues_sw_sw[fr][to]);
+					routeout->push_back(pipes_sw_sw[fr][to]);
+				} else {
+					if (NHOST==2988) {
+						if ((dring_servers.find(fr)!=dring_servers.end()) || (dring_servers.find(to)!=dring_servers.end())) {
+							shouldInclude = false;
+							delete routeout;
+							break;
+						} else {
+							routeout->push_back(queues_sw_sw[fr][to]);
+							routeout->push_back(pipes_sw_sw[fr][to]);
+						}
+					} else {
+						if ((rrg_servers.find(fr)!=rrg_servers.end()) || (rrg_servers.find(to)!=rrg_servers.end())) {
+							shouldInclude = false;
+							delete routeout;
+							break;
+						} else {
+							routeout->push_back(queues_sw_sw[fr][to]);
+							routeout->push_back(pipes_sw_sw[fr][to]);
+						}
+					}
+				}
+			}
+
+			if (shouldInclude) {
+				paths_rack_based->push_back(routeout);
+			}
+            // check_non_null(routeout);
+		}
+
+		BhandariAlg.clear();
+		net_paths_rack_based[src_sw][dest_sw] = paths_rack_based;
+	}
+	else if(find_path_alg == SHORTEST2){
+		//return all shortest paths	 
+		vector<vector<BaseVertex* > > shortest_paths;
+		queue<vector<BaseVertex*> > shortest_paths_till_now;
+
+		vector<BaseVertex*> path_till_now;
+		path_till_now.push_back(myGraph->get_vertex(src_sw));
+		shortest_paths_till_now.push(path_till_now);
+
+		while(!shortest_paths_till_now.empty()){
+			vector<BaseVertex*> path_till_now = shortest_paths_till_now.front();
+			shortest_paths_till_now.pop();
+			BaseVertex* last_vertex = path_till_now.back();
+			set<BaseVertex*> possible_next_hops;
+			myGraph->get_adjacent_vertices(last_vertex, possible_next_hops);
+			for(BaseVertex* next_hop: possible_next_hops){
+				if(next_hop == myGraph->get_vertex(dest_sw)){
+					//found a shortest path!
+					vector<BaseVertex*> shortest_path(path_till_now);
+					shortest_path.push_back(next_hop);
+					shortest_paths.push_back(shortest_path);
+				}
+				else if (path_till_now.size() <= 1){
+					bool new_hop = true;
+					for (BaseVertex* path_vertex: path_till_now){
+						new_hop = new_hop and (path_vertex->getID() != next_hop->getID());
+					}
+					if (new_hop){
+						vector<BaseVertex*> shortest_path_till_now(path_till_now);
+						shortest_path_till_now.push_back(next_hop);
+						shortest_paths_till_now.push(shortest_path_till_now);
+					}
+				}
+				//evaluate this case only for shortest paths
+				else if(shortestPathLen[src_sw][dest_sw] == (path_till_now.size() - 1)
+															+ shortestPathLen[last_vertex->getID()][dest_sw] &&
+						shortestPathLen[last_vertex->getID()][dest_sw] == 1 + shortestPathLen[next_hop->getID()][dest_sw]){
+					vector<BaseVertex*> shortest_path_till_now(path_till_now);
+					shortest_path_till_now.push_back(next_hop);
+					shortest_paths_till_now.push(shortest_path_till_now);
+				}
+			}
+		}
+
+		int i=0;
+		while(i < shortest_paths.size()){
+			vector<BaseVertex*> pathIHave = shortest_paths[i];
+
+			routeout = new route_t();
+			bool shouldInclude = true;
+			for (unsigned int hop = 1; hop < pathIHave.size(); hop++) {
+				int fr = pathIHave[hop-1]->getID();
+				int to = pathIHave[hop]->getID();
+
+				if (is_heavy_pair) {
+					routeout->push_back(queues_sw_sw[fr][to]);
+					routeout->push_back(pipes_sw_sw[fr][to]);
+				} else {
+					if (NHOST==2988) {
+						if ((dring_servers.find(fr)!=dring_servers.end()) || (dring_servers.find(to)!=dring_servers.end())) {
+							shouldInclude = false;
+							delete routeout;
+							break;
+						} else {
+							routeout->push_back(queues_sw_sw[fr][to]);
+							routeout->push_back(pipes_sw_sw[fr][to]);
+						}
+					} else {
+						if ((rrg_servers.find(fr)!=rrg_servers.end()) || (rrg_servers.find(to)!=rrg_servers.end())) {
+							shouldInclude = false;
+							delete routeout;
+							break;
+						} else {
+							routeout->push_back(queues_sw_sw[fr][to]);
+							routeout->push_back(pipes_sw_sw[fr][to]);
+						}
+					}
+				}
+			}
+
+			if (shouldInclude) {
+				paths_rack_based->push_back(routeout);
+			}
+			// check_non_null(routeout);
+			++i;                                                                                                           
+		}
+
+		net_paths_rack_based[src_sw][dest_sw] = paths_rack_based;
+	}
+	else if(find_path_alg == SHORTESTN){
+		//return all shortest paths	 
+		vector<vector<BaseVertex* > > shortest_paths;
+		queue<vector<BaseVertex*> > shortest_paths_till_now;
+
+		vector<BaseVertex*> path_till_now;
+		path_till_now.push_back(myGraph->get_vertex(src_sw));
+		shortest_paths_till_now.push(path_till_now);
+
+		while(!shortest_paths_till_now.empty()){
+			vector<BaseVertex*> path_till_now = shortest_paths_till_now.front();
+			shortest_paths_till_now.pop();
+			BaseVertex* last_vertex = path_till_now.back();
+			set<BaseVertex*> possible_next_hops;
+			myGraph->get_adjacent_vertices(last_vertex, possible_next_hops);
+			for(BaseVertex* next_hop: possible_next_hops){
+				if(next_hop == myGraph->get_vertex(dest_sw)){
+					//found a shortest path!
+					vector<BaseVertex*> shortest_path(path_till_now);
+					shortest_path.push_back(next_hop);
+					shortest_paths.push_back(shortest_path);
+				}
+				else if (path_till_now.size() <= (korn-1)){ // n-1 for shortest-union(n)
+					bool new_hop = true;
+					for (BaseVertex* path_vertex: path_till_now){
+						new_hop = new_hop and (path_vertex->getID() != next_hop->getID());
+					}
+					if (new_hop){
+						vector<BaseVertex*> shortest_path_till_now(path_till_now);
+						shortest_path_till_now.push_back(next_hop);
+						shortest_paths_till_now.push(shortest_path_till_now);
+					}
+				}
+				//evaluate this case only for shortest paths
+				else if(shortestPathLen[src_sw][dest_sw] == (path_till_now.size() - 1)
+															+ shortestPathLen[last_vertex->getID()][dest_sw] &&
+						shortestPathLen[last_vertex->getID()][dest_sw] == 1 + shortestPathLen[next_hop->getID()][dest_sw]){
+					vector<BaseVertex*> shortest_path_till_now(path_till_now);
+					shortest_path_till_now.push_back(next_hop);
+					shortest_paths_till_now.push(shortest_path_till_now);
+				}
+			}
+		}
+
+		int i=0;
+		while(i < shortest_paths.size()){
+			vector<BaseVertex*> pathIHave = shortest_paths[i];
+
+			routeout = new route_t();
+			bool shouldInclude = true;
+			for (unsigned int hop = 1; hop < pathIHave.size(); hop++) {
+				int fr = pathIHave[hop-1]->getID();
+				int to = pathIHave[hop]->getID();
+
+				if (is_heavy_pair) {
+					routeout->push_back(queues_sw_sw[fr][to]);
+					routeout->push_back(pipes_sw_sw[fr][to]);
+				} else {
+					if (NHOST==2988) {
+						if ((dring_servers.find(fr)!=dring_servers.end()) || (dring_servers.find(to)!=dring_servers.end())) {
+							shouldInclude = false;
+							delete routeout;
+							break;
+						} else {
+							routeout->push_back(queues_sw_sw[fr][to]);
+							routeout->push_back(pipes_sw_sw[fr][to]);
+						}
+					} else {
+						if ((rrg_servers.find(fr)!=rrg_servers.end()) || (rrg_servers.find(to)!=rrg_servers.end())) {
+							shouldInclude = false;
+							delete routeout;
+							break;
+						} else {
+							routeout->push_back(queues_sw_sw[fr][to]);
+							routeout->push_back(pipes_sw_sw[fr][to]);
+						}
+					}
+				}
+			}
+
+			if (shouldInclude) {
+				paths_rack_based->push_back(routeout);
+			}
+			// check_non_null(routeout);
+			++i;                                                                                                           
+		}
+
+		net_paths_rack_based[src_sw][dest_sw] = paths_rack_based;
+	}
+	else if(find_path_alg == FIRST_HOP_INDIRECTION){
+		//return all shortest paths	 
+		vector<vector<BaseVertex* > > shortest_paths;
+		queue<vector<BaseVertex*> > shortest_paths_till_now;
+
+		vector<BaseVertex*> path_till_now;
+		path_till_now.push_back(myGraph->get_vertex(src_sw));
+		set<BaseVertex*> possible_first_hops;
+		myGraph->get_adjacent_vertices(myGraph->get_vertex(src_sw), possible_first_hops);
+
+		for(BaseVertex* next_hop: possible_first_hops){
+			if(next_hop == myGraph->get_vertex(dest_sw)){
+				vector<BaseVertex*> shortest_path(path_till_now);
+				shortest_path.push_back(next_hop);
+				shortest_paths.push_back(shortest_path);
+			}
+			else{ //if(shortestPathLen[next_hop->getID()][dest_sw] <= src_dest_dist){
+				vector<BaseVertex*> shortest_path_till_now(path_till_now);
+				shortest_path_till_now.push_back(next_hop);
+				shortest_paths_till_now.push(shortest_path_till_now);
+			}
+		}
+
+		while(!shortest_paths_till_now.empty()){
+			vector<BaseVertex*> path_till_now = shortest_paths_till_now.front();
+			shortest_paths_till_now.pop();
+			BaseVertex* last_vertex = path_till_now.back();
+			set<BaseVertex*> possible_next_hops;
+			myGraph->get_adjacent_vertices(last_vertex, possible_next_hops);
+			for(BaseVertex* next_hop: possible_next_hops){
+				if(next_hop == myGraph->get_vertex(dest_sw)){
+					//found a shortest path!
+					vector<BaseVertex*> shortest_path(path_till_now);
+					shortest_path.push_back(next_hop);
+					shortest_paths.push_back(shortest_path);
+				}
+				else if(shortestPathLen[last_vertex->getID()][dest_sw] == 1 + shortestPathLen[next_hop->getID()][dest_sw]){
+					vector<BaseVertex*> shortest_path_till_now(path_till_now);
+					shortest_path_till_now.push_back(next_hop);
+					shortest_paths_till_now.push(shortest_path_till_now);
+				}
+			}
+		}
+
+		int i=0;
+		while(i < shortest_paths.size()){
+			vector<BaseVertex*> pathIHave = shortest_paths[i];
+
+			routeout = new route_t();
+			bool shouldInclude = true;
+			for (unsigned int hop = 1; hop < pathIHave.size(); hop++) {
+				int fr = pathIHave[hop-1]->getID();
+				int to = pathIHave[hop]->getID();
+
+				if (is_heavy_pair) {
+					routeout->push_back(queues_sw_sw[fr][to]);
+					routeout->push_back(pipes_sw_sw[fr][to]);
+				} else {
+					if (NHOST==2988) {
+						if ((dring_servers.find(fr)!=dring_servers.end()) || (dring_servers.find(to)!=dring_servers.end())) {
+							shouldInclude = false;
+							delete routeout;
+							break;
+						} else {
+							routeout->push_back(queues_sw_sw[fr][to]);
+							routeout->push_back(pipes_sw_sw[fr][to]);
+						}
+					} else {
+						if ((rrg_servers.find(fr)!=rrg_servers.end()) || (rrg_servers.find(to)!=rrg_servers.end())) {
+							shouldInclude = false;
+							delete routeout;
+							break;
+						} else {
+							routeout->push_back(queues_sw_sw[fr][to]);
+							routeout->push_back(pipes_sw_sw[fr][to]);
+						}
+					}
+				}
+			}
+
+			if (shouldInclude) {
+				paths_rack_based->push_back(routeout);
+			}
+			// check_non_null(routeout);
+			++i;                                                                                                           
+		}
+
+		net_paths_rack_based[src_sw][dest_sw] = paths_rack_based;
+	}
+	else if(find_path_alg == ECMP){
+		//return all shortest paths	 
+		vector<vector<BaseVertex* > > shortest_paths;
+		queue<vector<BaseVertex*> > shortest_paths_till_now;
+
+		vector<BaseVertex*> path_till_now;
+		path_till_now.push_back(myGraph->get_vertex(src_sw));
+		shortest_paths_till_now.push(path_till_now);
+
+		while(!shortest_paths_till_now.empty()){
+			vector<BaseVertex*> path_till_now = shortest_paths_till_now.front();
+			shortest_paths_till_now.pop();
+			BaseVertex* last_vertex = path_till_now.back();
+			set<BaseVertex*> possible_next_hops;
+			myGraph->get_adjacent_vertices(last_vertex, possible_next_hops);
+			for(BaseVertex* next_hop: possible_next_hops){
+				if(next_hop == myGraph->get_vertex(dest_sw)){
+					//found a shortest path!
+					vector<BaseVertex*> shortest_path(path_till_now);
+					shortest_path.push_back(next_hop);
+					shortest_paths.push_back(shortest_path);
+				}
+				else if(shortestPathLen[last_vertex->getID()][dest_sw] == 1 + shortestPathLen[next_hop->getID()][dest_sw]){
+					vector<BaseVertex*> shortest_path_till_now(path_till_now);
+					shortest_path_till_now.push_back(next_hop);
+					shortest_paths_till_now.push(shortest_path_till_now);
+				}
+			}
+		}
+
+		int i=0;
+		while(i < shortest_paths.size()){
+			vector<BaseVertex*> pathIHave = shortest_paths[i];
+
+			routeout = new route_t();
+			bool shouldInclude = true;
+			for (unsigned int hop = 1; hop < pathIHave.size(); hop++) {
+				int fr = pathIHave[hop-1]->getID();
+				int to = pathIHave[hop]->getID();
+
+				if (is_heavy_pair) {
+					routeout->push_back(queues_sw_sw[fr][to]);
+					routeout->push_back(pipes_sw_sw[fr][to]);
+				} else {
+					if (NHOST==2988) {
+						if ((dring_servers.find(fr)!=dring_servers.end()) || (dring_servers.find(to)!=dring_servers.end())) {
+							shouldInclude = false;
+							delete routeout;
+							break;
+						} else {
+							routeout->push_back(queues_sw_sw[fr][to]);
+							routeout->push_back(pipes_sw_sw[fr][to]);
+						}
+					} else {
+						if ((rrg_servers.find(fr)!=rrg_servers.end()) || (rrg_servers.find(to)!=rrg_servers.end())) {
+							shouldInclude = false;
+							delete routeout;
+							break;
+						} else {
+							routeout->push_back(queues_sw_sw[fr][to]);
+							routeout->push_back(pipes_sw_sw[fr][to]);
+						}
+					}
+				}
+			}
+
+			if (shouldInclude) {
+				paths_rack_based->push_back(routeout);
+			}
+			// check_non_null(routeout);
+			++i;                                                                                                           
+		}
+
+		net_paths_rack_based[src_sw][dest_sw] = paths_rack_based;
+    }
+
+/*
+#if IS_DEBUG_MODE
+	cout << "Attaching head and tail: paths size = " << paths_no_head_tail->size() << endl;
+#endif
+	  for (unsigned int i=0; i<paths_no_head_tail->size(); i++) {
+		  path = paths_no_head_tail->at(i);
+#if IS_DEBUG_MODE
+		cout << "get a path from paths_no_head_tail: path size = " << path->size() << endl;
+#endif
+		  Queue* pqueue = new Queue(speedFromPktps(HOST_NIC), memFromPkt(FEEDER_BUFFER), *eventlist, NULL);
+		  pqueue->setName("PQueue_" + ntoa(src) + "_" + ntoa(dest));
+		  path->push_front(pipes_svr_sw[src_sw][ConvertHostToSwitchPort(src)]);
+		  path->push_front(queues_svr_sw[src_sw][ConvertHostToSwitchPort(src)]);
+		  path->push_front(pqueue);
+
+		  path->push_back(queues_sw_svr[dest_sw][ConvertHostToSwitchPort(dest)]);
+		  path->push_back(pipes_sw_svr[dest_sw][ConvertHostToSwitchPort(dest)]);
+#if IS_DEBUG_MODE
+		cout << "after attaching: paths size = " << paths->size() << ", path size = " << path->size() << endl;
+#endif
+		  paths->push_back(path);
+		  check_non_null(path);
+	  }
+
+#if IS_DEBUG_MODE
+	cout << "right before returning" << endl;
+#endif
+*/
+  }
+	return pair<vector<double>*, vector<route_t*>*>(pathweights, paths_rack_based);
+}
+#else
+pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(int src, int dest, FIND_PATH_ALGORITHM find_path_alg){
+//   if(pathcache.find(pair<int, int>(src, dest)) != pathcache.end())
+//     return pathcache[pair<int, int>(src, dest)];
+
+  // vector<route_t*>* paths = new vector<route_t*>();
+  vector<double>* pathweights = NULL;
+
+  route_t* routeout;
+  // route_t* path;
+  // vector<route_t*>* paths_no_head_tail;
+  vector<route_t*>* paths_rack_based = new vector<route_t*>();
+
+  //for(int z=0; z<NHOST; z++)
+  //      cout << "Host " << z << " Connect to switch " << ConvertHostToSwitch(z) << endl;
+
+  // Put Yen algorithm's src-dest shortest paths in routeout
+
+  //cout << "HERETO " << HETERO << " NHOST " << NHOST << " NSW " << NSW << " SVRPORTS " << SVRPORTS << endl;
+
+  // int src_sw = ConvertHostToSwitch(src);
+  // int dest_sw = ConvertHostToSwitch(dest);
+  int src_sw = src;
+  int dest_sw = dest;
 
 #if IS_DEBUG_ON
   cout << "**debug info** src switch: " << src_sw << endl;
@@ -1131,21 +1670,7 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
 			}
 
 		  	// assert(!net_paths_rack_based[src_sw][dest_sw]);
-                        // hard-coding for testing avoiding transit at heavy racks
-                        // mix_4:
-                        set<int> dring_servers {4,10,26,33,36,38,41,53,61,65}; 
-                        set<int> rrg_servers {3,13,15,18,23,33,49,60,65,71};
-                        // fb_skewed:
-                        // set<int> dring_servers {67,68,69,70,71,72,73,74,75,76,77,78,79};
-                        // set<int> rrg_servers {65,66,67,68,69,70,71,72,73,74,75,76,77,78,79};
-                        if (NHOST==2988) {
-                            if ((dring_servers.find(src_sw)!=dring_servers.end()) && (dring_servers.find(dest_sw)!=dring_servers.end())) {
-		  	        net_paths_rack_based[src_sw][dest_sw] = paths_rack_based;
-                            } else {
-                                for (int i=0; i<paths_rack_based->size(); i++) {
-                                    route_t *path = paths_rack_based->at(i);
-                                    for (int j=0; j<path->size(); j+=2) {
-                                        
+		  	net_paths_rack_based[src_sw][dest_sw] = paths_rack_based;
 		 	// paths_no_head_tail = copy_path(paths_rack_based);
 
 			// pathcache[pair<int, int>(src, dest)] = pair<vector<double>*, vector<route_t*>*> (pathweights, paths);
@@ -1184,6 +1709,7 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
   }
 	return pair<vector<double>*, vector<route_t*>*>(pathweights, paths_rack_based);
 }
+#endif
 
 route_t *RandRegularTopology::attach_head_tail(int src, int dst, bool is_same_switch, int rand_choice) {
 #if IS_DEBUG_ON
