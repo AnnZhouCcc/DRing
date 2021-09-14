@@ -5,6 +5,7 @@
 #include <string.h>
 #include <list>
 #include <math.h>
+#include <fstream>
 #include "network.h"
 #include "randomqueue.h"
 #include "pipe.h"
@@ -31,6 +32,7 @@
 // Simulation params
 #define PRINT_PATHS 0
 #define PERIODIC 0
+#define SIMULATION true
 
 // Parameters for average flow size experiments
 #define LARGE_FLOWSIZE false
@@ -87,6 +89,64 @@ void print_path(route_t* rt){
   }
   cout<<endl;
 }
+
+/*
+void store_tm_rrg(ConnectionMatrix *conns, RandRegularTopology* top) {
+    uint64_t** tm = new uint64_t*[NSW];
+    for (int i=0;i<NSW;i++){
+        tm[i] = new uint64_t[NSW];
+        for (int j = 0;j<NSW;j++){
+            tm[i][j] = 0;
+        }
+    }
+
+    ofstream file;
+    if (NHOST == 2988) {
+        file.open("mix_4_tm_raw_dring.txt");
+    } else {
+        assert(NHOST == 3072);
+        file.open("mix_4_tm_raw_rrg.txt");
+    }
+    int src_sw, dst_sw;
+    for (Flow& flow: conns->flows) {
+	src_sw = top->ConvertHostToSwitch(flow.src);
+	dst_sw = top->ConvertHostToSwitch(flow.dst);
+        tm[src_sw][dst_sw] += flow.bytes;
+
+        file << flow.src << " " << flow.dst << " " << flow.bytes << " " << flow.start_time_ms << "\n";
+    }
+    file.close();
+
+    // ofstream file;
+    if (NHOST == 2988) {
+        file.open("mix_4_tm_dring.txt");
+    } else {
+        assert(NHOST == 3072);
+        file.open("mix_4_tm_rrg.txt");
+    }
+    int src_row_id, dst_column_id;
+    uint64_t* row;
+    for (int count=0; count<NSW; count++) {
+        src_row_id = NSW - count - 1;
+        row = tm[src_row_id];
+        file << src_row_id << "\t";
+        for (int dst_column_id=0; dst_column_id<NSW; dst_column_id++) {
+            file << row[dst_column_id] << "\t";
+        }
+        file << "\n";
+    }
+    file << "\t";
+    for (int i=0; i<NSW; i++) {
+        file << i << "\t";
+    }
+    file.close();
+
+    for (int i=0; i<NSW; i++) {
+	delete [] tm[i];
+    }
+    delete [] tm;
+}
+*/
 
 int main(int argc, char **argv) {
     eventlist.setEndtime(timeFromSec(SIMTIME));
@@ -313,6 +373,11 @@ int main(int argc, char **argv) {
     }
     map<int,vector<int>*>::iterator it;
 
+#ifdef RAND_REGULAR
+    // store_tm_rrg(conns, top);
+#endif
+
+#if SIMULATION
     cout << "Starting to produce flow paths" << endl;
     typedef pair<int, int> PII;
     int flowID = 0;
@@ -518,6 +583,7 @@ int main(int argc, char **argv) {
     cout << "starting simulation " << endl;
     while (eventlist.doNextEvent()) {}
     // cout << "end  " << total_packet_bytes << " " << total_path_lengths << " " << total_available_paths << " " << total_available_first_hops << endl;
+#endif
 }
 
 string ntoa(double n) {
