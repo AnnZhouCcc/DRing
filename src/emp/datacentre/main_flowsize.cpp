@@ -102,10 +102,10 @@ void store_tm_rrg(ConnectionMatrix *conns, RandRegularTopology* top) {
 
     ofstream file;
     if (NHOST == 2988) {
-        file.open("mix_4_tm_raw_dring.txt");
+        file.open("r2r_tm_raw_dring.txt");
     } else {
         assert(NHOST == 3072);
-        file.open("mix_4_tm_raw_rrg.txt");
+        file.open("r2r_tm_raw_rrg.txt");
     }
     int src_sw, dst_sw;
     for (Flow& flow: conns->flows) {
@@ -119,10 +119,10 @@ void store_tm_rrg(ConnectionMatrix *conns, RandRegularTopology* top) {
 
     // ofstream file;
     if (NHOST == 2988) {
-        file.open("mix_4_tm_dring.txt");
+        file.open("r2r_tm_dring.txt");
     } else {
         assert(NHOST == 3072);
-        file.open("mix_4_tm_rrg.txt");
+        file.open("r2r_tm_rrg.txt");
     }
     int src_row_id, dst_column_id;
     uint64_t* row;
