@@ -33,11 +33,13 @@
 #define PRINT_PATHS 0
 #define PERIODIC 0
 #define SIMULATION true
+#define CALCULATE_NETPATH false
 
 // Parameters for average flow size experiments
 #define LARGE_FLOWSIZE false
 #define FLOWSIZE_MULT 0
 #define DEBUG_MODE false
+#define PW_DETAIL false
 
 uint32_t RTT = 2; // us
 int ssthresh = 43; //65 KB
@@ -147,6 +149,112 @@ void store_tm_rrg(ConnectionMatrix *conns, RandRegularTopology* top) {
     delete [] tm;
 }
 */
+
+// Copied from compute_store.cpp
+// Another copy in rand_regular_topology.cpp; thus add the suffix "..Copy" to differentiate
+// AnnC: should have a better way to handle
+pair<int, int> extractSwitchIDCopy(string nodename) {
+    int src_sw, dst_sw, src_sw_back_start_index;
+    int last_index = nodename.length()-1;
+
+    char dst_sw_second_char = nodename[last_index];
+    char dst_sw_first_char = nodename[last_index-1];
+    if (dst_sw_first_char == '_') {
+        string dst_sw_str(1, dst_sw_second_char);
+        dst_sw = stoi(dst_sw_str);
+        src_sw_back_start_index = last_index-5;
+    } else {
+        dst_sw = stoi(nodename.substr(last_index-1, 2));
+        src_sw_back_start_index = last_index-6;
+    }
+
+    char src_sw_second_char = nodename[src_sw_back_start_index];
+    char src_sw_first_char = nodename[src_sw_back_start_index-1];
+    if (src_sw_first_char == '_') {
+        string src_sw_str(1, src_sw_second_char);
+        src_sw = stoi(src_sw_str);
+    } else {
+        src_sw = stoi(nodename.substr(src_sw_back_start_index-1, 2));
+    }
+
+    return pair<int, int>(src_sw, dst_sw);
+}
+
+void store_netpath(vector<route_t*>*** net_paths) {
+    cout << "Writing net_path" << endl;
+    ofstream file;
+    if (NHOST == 2988) {
+        file.open("netpath_32short_dring.txt");
+    } else {
+        assert(NHOST == 3072);
+        file.open("netpath_32short_rrg.txt");
+    }
+
+    vector<route_t*>* net_path_a_pair;
+    int num_path, src_sw, dst_sw;
+    string nodename;
+    for (int ssw=0; ssw<NSW; ssw++) {
+        for (int dsw=0; dsw<NSW; dsw++) {       
+            if (ssw == dsw) {
+                file << ssw << " " << dsw << " " << 0 << "\n";
+                continue;
+            }
+            net_path_a_pair = net_paths[ssw][dsw];
+            num_path = net_path_a_pair->size();
+            file << ssw << " " << dsw << " " << num_path << "\n";
+
+            for (int i=0; i<num_path; i++) {
+                for (int j=0; j<net_path_a_pair->at(i)->size(); j=j+2) {
+                    nodename = net_path_a_pair->at(i)->at(j)->nodename();
+                    src_sw = extractSwitchIDCopy(nodename).first;
+                    dst_sw = extractSwitchIDCopy(nodename).second;
+                    cout << nodename << " " << src_sw << " " << dst_sw << endl;
+                    file << " " << src_sw << "->" << dst_sw;
+                }
+                file << "\n";
+            }
+        }
+    }
+
+    file.close();
+}
+
+int choose_a_path(vector< pair<int,double> >* path_weights) {
+    int num_paths = path_weights->size();
+
+    #ifdef PW_DETAIL
+    cout << "num_paths = " << num_paths << endl;
+    #endif
+
+    if (num_paths == 0) {
+        cout << "Error with path weights: num_paths is 0" << endl;
+    } else if (num_paths == 1) {
+        assert(path_weights->at(0).second == 1);
+        return path_weights->at(0).first;
+    } else {
+        double random = (rand()%100)/100.0; // 0-0.99
+
+        #ifdef PW_DETAIL
+        cout << "random = " << random << endl;
+        #endif
+
+        double sum = 0;
+        double prev_sum = 0;
+        for (int i=0; i<num_paths; i++) {
+            prev_sum = sum;
+            sum += path_weights->at(i).second;
+
+            #ifdef PW_DETAIL
+            cout << path_weights->at(i).first << " " << path_weights->at(i).second << " | " << endl;
+            #endif
+
+            if (random<sum && random>=prev_sum) return path_weights->at(i).first;
+            // AnnC: the next line is wrong, but just here for preliminary testing
+            if (random == 0.99) return path_weights->at(i).first;
+        }
+    }
+    return -1;
+}
 
 int main(int argc, char **argv) {
     eventlist.setEndtime(timeFromSec(SIMTIME));
@@ -377,6 +485,49 @@ int main(int argc, char **argv) {
     // store_tm_rrg(conns, top);
 #endif
 
+#ifdef CALCULATE_NETPATH
+/*
+    cout << "Calculating net_path" << endl;
+    int flowID = 0;
+    int src_sw, dst_sw;
+    vector<route_t*>*** net_paths = top->net_paths_rack_based;
+    vector<route_t*>* available_paths_out;
+    vector<route_t*>* available_paths_in;
+    for (Flow& flow: conns->flows) {
+        flowID++;
+        if(flowID%1000==0) {
+            cout << "FLOW: " << flow.src << "(" << top->ConvertHostToRack(flow.src)<<") -> "
+                 << flow.dst << "("<< top->ConvertHostToRack(flow.dst) << ") bytes: "
+                 << flow.bytes << " start_time_ms " << flow.start_time_ms << endl;
+        }
+
+        #if CHOSEN_TOPO == LEAFSPINE
+            src_sw = top->ConvertHostToRack(flow.src);
+            dst_sw = top->ConvertHostToRack(flow.dst);
+        #elif CHOSEN_TOPO == RRG
+            src_sw = top->ConvertHostToSwitch(flow.src);
+            dst_sw = top->ConvertHostToSwitch(flow.dst);
+        #endif
+
+        if (!net_paths[src_sw][dst_sw]){
+            available_paths_out = top->get_paths(src_sw, dst_sw).second;
+	        assert(net_paths[src_sw][dst_sw] != NULL);
+        } else {
+	        available_paths_out = net_paths[src_sw][dst_sw];
+	    }
+
+        if (!net_paths[dst_sw][src_sw]){
+            available_paths_in = top->get_paths(dst_sw, src_sw).second;
+	        assert(net_paths[dst_sw][src_sw]);
+        } else {
+	        available_paths_in = net_paths[dst_sw][src_sw];
+	    }
+    }
+
+    store_netpath(net_paths);
+*/
+#endif
+
 #if SIMULATION
     cout << "Starting to produce flow paths" << endl;
     typedef pair<int, int> PII;
@@ -485,21 +636,34 @@ int main(int argc, char **argv) {
 	cout << "available_paths_out->size() = " << available_paths_out->size() << endl;
 	cout << "available_paths_out->at(0)->size() = " << available_paths_out->at(0)->size() << endl;
 #endif
+#if PW_DETAIL
+	cout << "available_paths_out->size() = " << available_paths_out->size() << endl;
+	cout << "available_paths_out->at(0)->size() = " << available_paths_out->at(0)->size() << endl;
+#endif
+
 	if (available_paths_out->size() == 1 and available_paths_out->at(0)->size() == 0) {
 		routeout = top->attach_head_tail(flow.src, flow.dst, true, 0);
 	} else {
-        unsigned int choice = 0;
-        choice = rand()%available_paths_out->size();
+        // unsigned int choice = 0;
+        // choice = rand()%available_paths_out->size();
         // cout<<choice<<" : " << print_path(net_paths[flow.src][flow.dst]->at(choice));
+
+        int choice = choose_a_path(top->path_weights_rack_based[src_sw][dst_sw]);
+        if (choice < 0) {
+            cout << "Error with path weights: choice < 0" << endl;
+            cout << "src_sw = " << src_sw << ", dst_sw = " << dst_sw << endl;
+            exit(1);
+        }
 
         // Ankit: Which path out of available paths is chosen
         //cout << "Choice "<<choice<<" out of "<<net_paths[src][dest]->size();
         if (choice>=available_paths_out->size()){
-            cout << "Weird path choice " << choice << " out of " << available_paths_out->size();
+            cout << "Weird path choice " << choice << " out of " << available_paths_out->size() << endl;
+            cout << "src_sw = " << src_sw << ", dst_sw = " << dst_sw << endl;
             exit(1);
         }
 	
-	routeout = top->attach_head_tail(flow.src, flow.dst, false, choice);
+	    routeout = top->attach_head_tail(flow.src, flow.dst, false, choice);
 #if DEBUG_MODE
 	cout << "**debug info** routeout: ";
 	for (unsigned int i=0; i<routeout->size(); i++) {
@@ -538,14 +702,31 @@ int main(int argc, char **argv) {
 	cout << "available_paths_in->size() = " << available_paths_in->size() << endl;
 	cout << "available_paths_in->at(0)->size() = " << available_paths_in->at(0)->size() << endl;
 #endif
+#if PW_DETAIL
+	cout << "available_paths_in->size() = " << available_paths_in->size() << endl;
+	cout << "available_paths_in->at(0)->size() = " << available_paths_in->at(0)->size() << endl;
+#endif
+
 	if (available_paths_in->size() == 1 and available_paths_in->at(0)->size() == 0) {
 		routein = top->attach_head_tail(flow.dst, flow.src, true, 0);
 	} else {
-        int rchoice = rand()%available_paths_in->size();
+        // int rchoice = rand()%available_paths_in->size();
+        int rchoice = choose_a_path(top->path_weights_rack_based[dst_sw][src_sw]);
+        if (rchoice < 0) {
+            cout << "Error with path weights: rchoice < 0" << endl;
+            cout << "src_sw = " << src_sw << ", dst_sw = " << dst_sw << endl;
+            exit(1);
+        }
+        if (rchoice>=available_paths_in->size()){
+            cout << "Weird path rchoice " << rchoice << " out of " << available_paths_in->size() << endl;
+            cout << "src_sw = " << src_sw << ", dst_sw = " << dst_sw << endl;
+            exit(1);
+        }
+
         routein = top->attach_head_tail(flow.dst, flow.src, false, rchoice);
 	// cout<<rchoice<<"(r): " << print_path(net_paths[flow.dst][flow.src]->at(rchoice));
         //routein = new route_t(*(net_paths[flow.dst][flow.src]->at(rchoice)));
-        }
+    }
 	routein->push_back(tcpSrc);
 #if DEBUG_MODE
 	cout << "**debug info** routein: ";

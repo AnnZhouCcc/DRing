@@ -20,7 +20,7 @@
 
 #define IS_DEBUG_ON false
 #define TEST_MIX false
-#define TEST_TRANSIT true
+#define TEST_TRANSIT false
 
 FIND_PATH_ALGORITHM find_path_alg = ECMP; // FIRST_HOP_INDIRECTION; //KDISJOINT; //ECMP; //KSHORT; //SHORTEST2; //SHORTESTN;
 int korn = 0;
@@ -148,6 +148,34 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
 			net_paths_rack_based[i][j] = NULL;
 		}
 	}
+
+	// Initialize path_weights_rack_based
+	path_weights_rack_based = new vector < pair<int,double> > **[NSW];
+	for (int i=0; i<NSW; i++) {
+		path_weights_rack_based[i] = new vector < pair<int,double> > *[NSW];
+		for (int j=0; j<NSW; j++) {
+			path_weights_rack_based[i][j] = new vector < pair<int,double> > ();
+		}
+	}
+
+	// Read path weights from file
+	string pathWeightFile = "pathweightfiles/modelVars_ecmp_a2a_2dp.txt";
+	ifstream pwfile(pathWeightFile.c_str());
+    string pwline;
+    if (pwfile.is_open()){
+		while(pwfile.good()){
+			getline(pwfile, pwline);
+			if (pwline.find_first_not_of(' ') == string::npos) break;
+			stringstream ss(pwline);
+			int flowSrc,flowDst,pid,linkSrc,linkDst;
+			double weight;
+			ss >> flowSrc >> flowDst >> pid >> linkSrc >> linkDst >> weight;
+
+			if (flowSrc >= NSW || flowDst >= NSW) cout << "Error with path weights: lowSrc >= NSW || flowDst >= NSW" << endl;
+			path_weights_rack_based[flowSrc][flowDst]->push_back(pair<int,double>(pid,weight));
+		}
+		pwfile.close();
+    }
 }
 
 void RandRegularTopology::init_network(){
@@ -349,11 +377,11 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths(int src,
    } else {
       assert(NHOST == 3072);
       if ((rrg_servers.find(src)!=rrg_servers.end()) && (rrg_servers.find(dest)!=rrg_servers.end())) {
-         korn = 3;
-         find_path_alg = SHORTESTN;
-      } else {
          korn = 32;
          find_path_alg = KDISJOINT;
+      } else {
+         korn = 0;
+         find_path_alg = ECMP;
       }
    }
 #endif
@@ -421,7 +449,7 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
   //< If same switch then only path through switch
   if (src_sw == dest_sw){
     routeout = new route_t();
-	paths_rack_based = = new vector<route_t*>();
+	paths_rack_based = new vector<route_t*>();
     paths_rack_based->push_back(routeout);
     net_paths_rack_based[src_sw][dest_sw] = paths_rack_based;
   }

@@ -5,11 +5,12 @@
 uint32_t RTT = 2;
 
 int main(int argc, char **argv) {
-    string TMfile = "graphfiles/ring_supergraph/ls_x48_y16_skewed.data";
+    // string TMfile = "graphfiles/ring_supergraph/ls_x48_y16_skewed.data";
     // string TMfile = "graphfiles/ring_supergraph/ls_rand_placed_x48_y16_uniform.data";
-    string traffic = "fb_skewed";
-    string routing = "kshort";
-    int korn = 16;
+    string TMfile = "r2r/r2r_tm_raw_rrg.txt";
+    string traffic = "r2r";
+    string routing = "kdisjoint";
+    int korn = 32;
     string topology = "dring"; // need to change run_compute.sh too
     string rfile = "graphfiles/ring_supergraph/double_ring/instance1_80_64.edgelist";
     ComputeStore* store = new ComputeStore();
@@ -21,8 +22,8 @@ int main(int argc, char **argv) {
     store->getNetLinkNetSumNetCount();
     // store->storeNetLink(5);
     // store->checkNetSumNetCount(5);
-    // store->computeDNLinkTransitRateNRackBasedTraffic();
-    // store->storeD();
+    store->computeDNLinkTransitRateNRackBasedTraffic();
+    store->storeD();
     // store->printDwithTraffic();
     // store->computeT();
     // store->checkValidity();
@@ -37,8 +38,8 @@ int main(int argc, char **argv) {
     // store->computeNPrintLinkPopularity(0, 65, 65, 80, true);
     // store->computeNPrintLinkPopularitySingleRow(79);
     // store->computeNPrintLinkPopularityGeneral();
-    store->computeNPrintLinkPopularitySuperLink();
-    // store->printRackBasedTraffic();
+    // store->computeNPrintLinkPopularitySuperLink();
+    store->printRackBasedTraffic();
     // store->computeNPrintRackPopularity();
 
     // store->computeIndex();
@@ -56,9 +57,9 @@ int main(int argc, char **argv) {
     // graph->printNetPath();
     // graph->printGraph();
 
-    // store->computeDflow();
-    // store->printDflow();
-    // store->printDflowWithLinks();
+    store->computeDflow();
+    store->printDflow();
+    store->printDflowWithLinks();
 
     store->deleteComputations();
     store->deletePathIndex();
