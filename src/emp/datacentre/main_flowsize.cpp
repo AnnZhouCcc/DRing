@@ -32,7 +32,7 @@
 // Simulation params
 #define PRINT_PATHS 0
 #define PERIODIC 0
-#define SIMULATION true
+#define SIMULATION false
 #define CALCULATE_NETPATH false
 
 // Parameters for average flow size experiments
