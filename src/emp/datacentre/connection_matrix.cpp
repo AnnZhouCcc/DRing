@@ -388,7 +388,6 @@ void ConnectionMatrix::setRacktoRackFlows(Topology *top, int nmasters, int nclie
 
   int _nmasters = nmasters, _nclients = nclients;
   for (int inst=0; inst<50; inst++){
-  // for (int inst=0; inst<1; inst++){
       // Have a gap of 10 sec between every instance
       double base_start_ms = 1 * 1000.0 * inst;
       std::fill(switch_covered, switch_covered + maxrackid, false);

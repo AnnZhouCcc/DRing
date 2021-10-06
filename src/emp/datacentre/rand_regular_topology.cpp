@@ -364,15 +364,20 @@ int RandRegularTopology::get_distance(int src, int dest){
 pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths(int src, int dest){
 #if TEST_MIX
    // hard-coding for testing mix_4 with mixed RS
-   set<int> dring_servers {4,10,26,33,36,38,41,53,61,65}; 
-   set<int> rrg_servers {3,13,15,18,23,33,49,60,65,71};
+   // mix_4
+   // set<int> dring_servers {4,10,26,33,36,38,41,53,61,65}; 
+   // set<int> rrg_servers {3,13,15,18,23,33,49,60,65,71};
+   // fb_skewed:
+   set<int> dring_servers {67,68,69,70,71,72,73,74,75,76,77,78,79};
+   set<int> rrg_servers {65,66,67,68,69,70,71,72,73,74,75,76,77,78,79};
    if (NHOST==2988) {
-      if ((dring_servers.find(src)!=dring_servers.end()) && (dring_servers.find(dest)!=dring_servers.end())) {
+      // mifx_4: &&; fb_skewed: !=
+      if ((dring_servers.find(src)!=dring_servers.end()) != (dring_servers.find(dest)!=dring_servers.end())) {
          korn = 32;
          find_path_alg = KDISJOINT;
       } else {
-         korn = 3;
-         find_path_alg = SHORTESTN;
+         korn = 0;
+         find_path_alg = ECMP;
       }
    } else {
       assert(NHOST == 3072);
@@ -382,7 +387,6 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths(int src,
       } else {
          korn = 0;
          find_path_alg = ECMP;
-      }
    }
 #endif
    return get_paths_helper(src, dest, find_path_alg);
@@ -420,22 +424,22 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
 
   // hard-coding for testing avoiding transit at heavy racks
   // mix_4:
-  set<int> dring_servers {4,10,26,33,36,38,41,53,61,65}; 
-  set<int> rrg_servers {3,13,15,18,23,33,49,60,65,71};
+  // set<int> dring_servers {4,10,26,33,36,38,41,53,61,65}; 
+  // set<int> rrg_servers {3,13,15,18,23,33,49,60,65,71};
   // fb_skewed:
-  // set<int> dring_servers {67,68,69,70,71,72,73,74,75,76,77,78,79};
-  // set<int> rrg_servers {65,66,67,68,69,70,71,72,73,74,75,76,77,78,79};
+  set<int> dring_servers {67,68,69,70,71,72,73,74,75,76,77,78,79};
+  set<int> rrg_servers {65,66,67,68,69,70,71,72,73,74,75,76,77,78,79};
   bool is_heavy_pair = false;
   if (NHOST==2988) {
 	// mix_4:
-	is_heavy_pair = (dring_servers.find(src_sw)!=dring_servers.end()) && (dring_servers.find(dest_sw)!=dring_servers.end());
+	// is_heavy_pair = (dring_servers.find(src_sw)!=dring_servers.end()) && (dring_servers.find(dest_sw)!=dring_servers.end());
 	// fb_skewed:
-	// is_heavy_pair = (dring_servers.find(src_sw)!=dring_servers.end()&&(dring_servers.find(dest_sw)==dring_servers.end())) || (dring_servers.find(dest_sw)!=dring_servers.end() && (dring_servers.find(src_sw)==dring_servers.end()));
+	is_heavy_pair = (dring_servers.find(src_sw)!=dring_servers.end() != (dring_servers.find(dest_sw)!=dring_servers.end()));
   } else {
 	// mix_4:
-	is_heavy_pair = (rrg_servers.find(src_sw)!=rrg_servers.end()) && (rrg_servers.find(dest_sw)!=rrg_servers.end());
+	// is_heavy_pair = (rrg_servers.find(src_sw)!=rrg_servers.end()) && (rrg_servers.find(dest_sw)!=rrg_servers.end());
 	// fb_skewed:
-	// is_heavy_pair = (rrg_servers.find(src_sw)!=rrg_servers.end()) != (rrg_servers.find(dest_sw)!=rrg_servers.end());	  
+	is_heavy_pair = (rrg_servers.find(src_sw)!=rrg_servers.end()) != (rrg_servers.find(dest_sw)!=rrg_servers.end());	  
   }
 
 #if IS_DEBUG_ON
