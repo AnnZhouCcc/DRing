@@ -149,6 +149,49 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
 		}
 	}
 
+	// Read net paths from file
+	string netPathFile = "netpathfiles/netpath_ecmp_rrg.txt";
+	ifstream npfile(netPathFile.c_str());
+    string npline;
+	// int count = 0;
+    if (npfile.is_open()){
+		while(npfile.good()){
+			getline(npfile, npline);
+			if (npline.find_first_not_of(' ') == string::npos) break;
+			stringstream npss(npline);
+			int flowSrc,flowDst,num_paths;
+			vector<route_t*> *paths_rack_based;
+			if (npline.find_first_of("->") == string::npos) {
+				npss >> flowSrc >> flowDst >> num_paths;
+				// if (count < 20) {
+				// 	cout << "flowSrc = " << flowSrc << ", flowDst = " << flowDst << endl;
+				// 	count++;
+				// }
+				paths_rack_based = new vector<route_t*>();
+				net_paths_rack_based[flowSrc][flowDst] = paths_rack_based;
+			} else {
+				string link;
+				int linkSrc,linkDst;
+				route_t *routeout = new route_t();
+				while (npss >> link) {
+					size_t found = link.find("->");
+					if (found != string::npos) {
+						linkSrc = stoi(link.substr(0,found));
+						linkDst = stoi(link.substr(found+2));
+						// if (count < 20) {
+						// 	cout << "linkSrc = " << linkSrc << ", linkDst = " << linkDst << endl;
+						// 	count++;
+						// }
+						routeout->push_back(queues_sw_sw[linkSrc][linkDst]);
+						routeout->push_back(pipes_sw_sw[linkSrc][linkDst]);
+					}
+				}
+				paths_rack_based->push_back(routeout);
+			}
+		}
+		npfile.close();
+    }
+
 	// Initialize path_weights_rack_based
 	path_weights_rack_based = new vector < pair<int,double> > **[NSW];
 	for (int i=0; i<NSW; i++) {
