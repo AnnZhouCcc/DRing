@@ -30,7 +30,7 @@ run_a2a(){
     denominator=0
     tm="a2a"
     MAKE=NOMAKE 
-    sr=192
+    sr=208
     tm=a2a_${sr}
     # time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/double_ring/instance1_80_64.edgelist 2988 1 1 ${MAKE} RANDOM ${sr} ${numerator} ${denominator} ${routing} ${k} ${sr} 0 3 dring_${routing}_80_64_1 | grep -e "FCT" -e "topology" > fct_results_${date}/dring_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator} &
     # sleep 5

@@ -158,6 +158,15 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
 		}
 	}
 
+	// Initialize path_weights_verification
+	path_weights_verification = new vector < pair<int,int> > **[NSW];
+	for (int i=0; i<NSW; i++) {
+		path_weights_verification[i] = new vector < pair<int,int> > *[NSW];
+		for (int j=0; j<NSW; j++) {
+			path_weights_verification[i][j] = new vector < pair<int,int> > ();
+		}
+	}
+
 	// Read path weights from file
 	string pathWeightFile = "pathweightfiles/modelVars_ecmp_a2a_2dp.txt";
 	ifstream pwfile(pathWeightFile.c_str());
@@ -171,8 +180,9 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
 			double weight;
 			ss >> flowSrc >> flowDst >> pid >> linkSrc >> linkDst >> weight;
 
-			if (flowSrc >= NSW || flowDst >= NSW) cout << "Error with path weights: lowSrc >= NSW || flowDst >= NSW" << endl;
+			if (flowSrc >= NSW || flowDst >= NSW) cout << "Error with path weights: flowSrc >= NSW || flowDst >= NSW" << endl;
 			path_weights_rack_based[flowSrc][flowDst]->push_back(pair<int,double>(pid,weight));
+			path_weights_verification[flowSrc][flowDst]->push_back(pair<int,int>(linkSrc,linkDst));
 		}
 		pwfile.close();
     }
@@ -1734,6 +1744,21 @@ void RandRegularTopology::delete_net_paths_rack_based() {
 	cout << "done deleting" << endl;
 #endif 
 	delete [] net_paths_rack_based;
+
+	for (int i=0; i<NSW; i++) {
+		for (int j=0; j<NSW; j++) {
+			if (path_weights_rack_based[i][j]) {
+			delete path_weights_rack_based[i][j];
+			}
+                        if (path_weights_verification[i][j]) {
+                        delete path_weights_verification[i][j];
+                        }
+		}
+		delete [] path_weights_rack_based[i];
+		delete [] path_weights_verification[i];
+	}	
+	delete [] path_weights_rack_based;
+	delete [] path_weights_verification;
 }
 
 void RandRegularTopology::floydWarshall(){
