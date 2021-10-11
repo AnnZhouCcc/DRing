@@ -1,6 +1,6 @@
 # declare -a new_files=("ls_fb_skewed_802v3_ii2_2_10" "ls_fb_skewed_802v3_ii2_3_10")
 # prefix="./fct_results_802v3/"
-dir="./fct_results_916v3/*"
+dir="./fct_results_106/*"
 # re=".*(fb|a2a).*"
 run_fct(){
     echo -e "\nAVERAGE"

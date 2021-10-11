@@ -159,9 +159,14 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
 			getline(npfile, npline);
 			if (npline.find_first_not_of(' ') == string::npos) break;
 			stringstream npss(npline);
-			int flowSrc,flowDst,num_paths;
+			int flowSrc=-1;
+                        int flowDst,num_paths;
 			vector<route_t*> *paths_rack_based;
 			if (npline.find_first_of("->") == string::npos) {
+                                //if (flowSrc>=0 && net_paths_rack_based[flowSrc][flowDst]->size()==0) {
+                                //    route_t*route = new route_t();
+                                //    net_paths_rack_based[flowSrc][flowDst]->push_back(route);
+                                //}
 				npss >> flowSrc >> flowDst >> num_paths;
 				// if (count < 20) {
 				// 	cout << "flowSrc = " << flowSrc << ", flowDst = " << flowDst << endl;
@@ -1736,12 +1741,12 @@ route_t *RandRegularTopology::attach_head_tail(int src, int dst, bool is_same_sw
 #if IS_DEBUG_ON
 	cout << "src_sw = " << src_sw << ",dst_sw = " << dst_sw << endl;
 #endif
-	route_t *this_route = new route_t(*(net_paths_rack_based[src_sw][dst_sw]->at(rand_choice)));
+        route_t *this_route;
 
 	if (is_same_switch) {
 		assert(rand_choice == 0);
-		assert(this_route->size() == 0);
-
+		//assert(this_route->size() == 0);
+                this_route = new route_t();
 		Queue* pqueue = new Queue(speedFromPktps(HOST_NIC), memFromPkt(FEEDER_BUFFER), *eventlist, NULL);
     	  	pqueue->setName("PQueue_" + ntoa(src) + "_" + ntoa(dst));
 		this_route->push_back(pqueue);
@@ -1751,6 +1756,7 @@ route_t *RandRegularTopology::attach_head_tail(int src, int dst, bool is_same_sw
  		this_route->push_back(queues_sw_svr[dst_sw][ConvertHostToSwitchPort(dst)]);
 		this_route->push_back(pipes_sw_svr[dst_sw][ConvertHostToSwitchPort(dst)]);
 	} else {
+	        this_route = new route_t(*(net_paths_rack_based[src_sw][dst_sw]->at(rand_choice)));
 		assert(this_route->size() > 0);
 		Queue* pqueue = new Queue(speedFromPktps(HOST_NIC), memFromPkt(FEEDER_BUFFER), *eventlist, NULL);
                 pqueue->setName("PQueue_" + ntoa(src) + "_" + ntoa(dst));

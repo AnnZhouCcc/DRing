@@ -32,7 +32,7 @@
 // Simulation params
 #define PRINT_PATHS 0
 #define PERIODIC 0
-#define SIMULATION false
+#define SIMULATION true
 #define CALCULATE_NETPATH false
 
 // Parameters for average flow size experiments
@@ -241,13 +241,13 @@ void verify_path_weights(vector< pair<int,double> >* path_weights, vector< pair<
 }
 
 int choose_a_path(vector< pair<int,double> >* path_weights, vector< pair<int,int> >* verification, vector<route_t*>* net_paths, int src_sw, int dst_sw) {
-    verify_path_weights(path_weights, verification, net_paths, src_sw, dst_sw);
+    // verify_path_weights(path_weights, verification, net_paths, src_sw, dst_sw);
 
     int num_paths = path_weights->size();
 
-    #ifdef PW_DETAIL
+#ifdef PW_DETAIL
     cout << "num_paths = " << num_paths << endl;
-    #endif
+#endif
 
     if (num_paths == 0) {
         cout << "Error with path weights: num_paths is 0" << endl;
@@ -257,9 +257,9 @@ int choose_a_path(vector< pair<int,double> >* path_weights, vector< pair<int,int
     } else {
         double random = (rand()%100)/100.0; // 0-0.99
 
-        #ifdef PW_DETAIL
-        cout << "random = " << random << endl;
-        #endif
+#ifdef PW_DETAIL
+    cout << "random = " << random << endl;
+#endif
 
         double sum = 0;
         double prev_sum = 0;
@@ -267,9 +267,9 @@ int choose_a_path(vector< pair<int,double> >* path_weights, vector< pair<int,int
             prev_sum = sum;
             sum += path_weights->at(i).second;
 
-            #ifdef PW_DETAIL
-            cout << path_weights->at(i).first << " " << path_weights->at(i).second << " | " << endl;
-            #endif
+#ifdef PW_DETAIL
+    cout << path_weights->at(i).first << " " << path_weights->at(i).second << " | " << endl;
+#endif
 
             if (random<sum && random>=prev_sum) return path_weights->at(i).first;
             // AnnC: the next line is wrong, but just here for preliminary testing
@@ -664,7 +664,8 @@ int main(int argc, char **argv) {
 	cout << "available_paths_out->at(0)->size() = " << available_paths_out->at(0)->size() << endl;
 #endif
 
-	if (available_paths_out->size() == 1 and available_paths_out->at(0)->size() == 0) {
+	// if (available_paths_out->size() == 1 and available_paths_out->at(0)->size() == 0) {
+        if (src_sw == dst_sw) {
 		routeout = top->attach_head_tail(flow.src, flow.dst, true, 0);
 	} else {
         // unsigned int choice = 0;
@@ -730,7 +731,8 @@ int main(int argc, char **argv) {
 	cout << "available_paths_in->at(0)->size() = " << available_paths_in->at(0)->size() << endl;
 #endif
 
-	if (available_paths_in->size() == 1 and available_paths_in->at(0)->size() == 0) {
+	// if (available_paths_in->size() == 1 and available_paths_in->at(0)->size() == 0) {
+        if (src_sw == dst_sw) {
 		routein = top->attach_head_tail(flow.dst, flow.src, true, 0);
 	} else {
         // int rchoice = rand()%available_paths_in->size();
