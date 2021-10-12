@@ -12,3 +12,22 @@
 - L32 in `main_storenetpath.cpp`
 2. Run `./run_storenetpath.sh > output`
 3. Run `rm output` afterwards
+
+# Run experiments with fixed path weights
+- Need to run with netpath from file as well
+1. Change:
+- `PATHWEIGHTS`, `pathWeightFile`, `netPathFile` in `rand_regular_topology.cpp`
+- `PATHWEIGHTS` in `main_flowsize.cpp`
+2. Run `./netpath_cmds_flowsize.sh` (or equivalent script)
+
+# Compute statistics
+1. Change:
+- Parameters and function calls in `main_compute.cpp`
+- L7 in `run_compute.cpp`
+2. Run `./run_compute.cpp > output`
+3. Run `rm output` afterwards
+
+# Other experiments that can be run
+1. TEST_MIX -- turn on/off from `rand_regular_topology.cpp`
+2. TEST_TRANSIT -- turn on/off from `rand_regular_topology.cpp`
+3. LARGE_FLOWSIZE (and FLOWSIZE_MULT) -- turn on/off from `main_flowsize.cpp`

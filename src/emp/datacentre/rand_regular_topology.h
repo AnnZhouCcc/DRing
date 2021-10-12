@@ -61,6 +61,7 @@ class RandRegularTopology: public Topology{
   virtual pair<vector<double>*, vector<route_t*>*> get_paths(int src, int dest);
   virtual pair<vector<double>*, vector<route_t*>*> get_other_paths(int src, int dest);
   virtual pair<vector<double>*, vector<route_t*>*> get_paths_helper(int src, int dest, FIND_PATH_ALGORITHM find_path_alg);
+  pair<vector<double>*, vector<route_t*>*> get_paths_helper_test_transit(int src, int dest, FIND_PATH_ALGORITHM find_path_alg);
 
   virtual int get_distance(int src, int dest);
 

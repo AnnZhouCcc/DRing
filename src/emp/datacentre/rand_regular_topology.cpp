@@ -19,8 +19,15 @@
 #include "BhandariTopKDisjointPathsAlg.h"
 
 #define IS_DEBUG_ON false
+
 #define TEST_MIX false
 #define TEST_TRANSIT false
+#define PATHWEIGHTS false
+
+#if PATHWEIGHTS
+	string netPathFile = "netpathfiles/netpath_ecmp_rrg.txt";
+	string pathWeightFile = "pathweightfiles/modelVars_ecmp_a2a_2dp.txt";
+#endif
 
 FIND_PATH_ALGORITHM find_path_alg = ECMP; // FIRST_HOP_INDIRECTION; //KDISJOINT; //ECMP; //KSHORT; //SHORTEST2; //SHORTESTN;
 int korn = 0;
@@ -149,8 +156,8 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
 		}
 	}
 
+#if PATHWEIGHTS
 	// Read net paths from file
-	string netPathFile = "netpathfiles/netpath_ecmp_rrg.txt";
 	ifstream npfile(netPathFile.c_str());
     string npline;
 	// int count = 0;
@@ -216,7 +223,6 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
 	}
 
 	// Read path weights from file
-	string pathWeightFile = "pathweightfiles/modelVars_ecmp_a2a_2dp.txt";
 	ifstream pwfile(pathWeightFile.c_str());
     string pwline;
     if (pwfile.is_open()){
@@ -234,6 +240,7 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
 		}
 		pwfile.close();
     }
+#endif
 }
 
 void RandRegularTopology::init_network(){
@@ -447,16 +454,21 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths(int src,
          find_path_alg = ECMP;
    }
 #endif
+
+#if TEST_TRANSIT
+	return get_paths_helper_test_transit(src, dest, find_path_alg);
+#else
    return get_paths_helper(src, dest, find_path_alg);
+#endif
 }
 
 
 pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_other_paths(int src, int dest){
+	cout << "************Caution: get_other_paths is called.***********" << endl;
    return get_paths_helper(src, dest, KSHORT);
 }
 
-#if TEST_TRANSIT
-pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(int src, int dest, FIND_PATH_ALGORITHM find_path_alg){
+pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper_test_transit(int src, int dest, FIND_PATH_ALGORITHM find_path_alg){
 //   if(pathcache.find(pair<int, int>(src, dest)) != pathcache.end())
 //     return pathcache[pair<int, int>(src, dest)];
 
@@ -938,7 +950,7 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
   }
   return pair<vector<double>*, vector<route_t*>*>(pathweights, paths_rack_based);
 }
-#else
+
 pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(int src, int dest, FIND_PATH_ALGORITHM find_path_alg){
 //   if(pathcache.find(pair<int, int>(src, dest)) != pathcache.end())
 //     return pathcache[pair<int, int>(src, dest)];
@@ -1730,7 +1742,6 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
   }
 	return pair<vector<double>*, vector<route_t*>*>(pathweights, paths_rack_based);
 }
-#endif
 
 route_t *RandRegularTopology::attach_head_tail(int src, int dst, bool is_same_switch, int rand_choice) {
 #if IS_DEBUG_ON
@@ -1794,6 +1805,7 @@ void RandRegularTopology::delete_net_paths_rack_based() {
 #endif 
 	delete [] net_paths_rack_based;
 
+#if PATHWEIGHTS
 	for (int i=0; i<NSW; i++) {
 		for (int j=0; j<NSW; j++) {
 			if (path_weights_rack_based[i][j]) {
@@ -1808,6 +1820,7 @@ void RandRegularTopology::delete_net_paths_rack_based() {
 	}	
 	delete [] path_weights_rack_based;
 	delete [] path_weights_verification;
+#endif
 }
 
 void RandRegularTopology::floydWarshall(){
