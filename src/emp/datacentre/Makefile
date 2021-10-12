@@ -17,7 +17,7 @@ GRBLIB=/Library/gurobi911/mac64/lib
 LIB=-L.. -L${GRBLIB}
 #-Lksp
 
-all:	fattree rrg leafspine computestore storetm
+all:	fattree rrg leafspine computestore storetm storenetpath
 
 #Leaf spine
 leafspine: main_flowsize.o ../libhtsim.a leaf_spine_topology.o connection_matrix.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o
@@ -36,6 +36,9 @@ computestore: main_compute.o  ../libhtsim.a compute_store.o connection_matrix.o 
 storetm: main_storetm.o  ../libhtsim.a connection_matrix.o rand_regular_topology.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o
 	$(CC) $(INCLUDE) $(CFLAGS)  main_storetm.o connection_matrix.o rand_regular_topology.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o $(LIB) -lhtsim -lgurobi_g++4.2 -lgurobi91 -o storetm
 
+storenetpath: main_storenetpath.o  ../libhtsim.a connection_matrix.o rand_regular_topology.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o
+	$(CC) $(INCLUDE) $(CFLAGS)  main_storenetpath.o connection_matrix.o rand_regular_topology.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o $(LIB) -lhtsim -lgurobi_g++4.2 -lgurobi91 -o storenetpath
+
 main_flowsize.o: main_flowsize.cpp main.h
 	$(CC) $(INCLUDE) $(CFLAGS) -c main_flowsize.cpp 
 
@@ -44,6 +47,9 @@ main_compute.o: main_compute.cpp main.h
 
 main_storetm.o: main_storetm.cpp main.h
 	$(CC) $(INCLUDE) $(CFLAGS) -c main_storetm.cpp
+
+main_storenetpath.o: main_storenetpath.cpp main.h
+	$(CC) $(INCLUDE) $(CFLAGS) -c main_storenetpath.cpp
 
 compute_store.o: compute_store.cpp compute_store.h main.h
 	$(CC) $(INCLUDE) $(CFLAGS) -c compute_store.cpp
@@ -73,4 +79,4 @@ BhandariTopKDisjointPathsAlg.o: BhandariTopKDisjointPathsAlg.cpp BhandariTopKDis
 	$(CC) $(INCLUDE) $(CFLAGS) -c BhandariTopKDisjointPathsAlg.cpp
 
 clean:	
-	rm *.o htsim_dc rrg fattree leafspine computestore storetm
+	rm *.o htsim_dc rrg fattree leafspine computestore storetm storenetpath
