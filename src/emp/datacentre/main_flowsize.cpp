@@ -153,8 +153,11 @@ int choose_a_path(vector< pair<int,double> >* path_weights, vector< pair<int,int
     #endif
 
     if (num_paths == 0) {
-        cout << "Error with path weights: num_paths is 0" << endl;
-        cout << "src_sw = " << src_sw << ", dst_sw = " << dst_sw << endl;
+        // cout << "Error with path weights: num_paths is 0" << endl;
+        // cout << "src_sw = " << src_sw << ", dst_sw = " << dst_sw << endl;
+        // AnnC: a temporary fix for the acknowledgement issue
+        cout << "Temporary fix for acknowledgement: src_sw = " << src_sw << ",dst_sw = " << dst_sw << endl;
+        return rand()%net_paths->size();
     } else if (num_paths == 1) {
         assert(path_weights->at(0).second == 1);
         return path_weights->at(0).first;
