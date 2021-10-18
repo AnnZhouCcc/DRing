@@ -1,10 +1,10 @@
 #ifndef TOPOLOGY
 #define TOPOLOGY
 #include <fstream>
-#include "network.h"
-#include "queue.h"
-#include "randomqueue.h"
-#include "ecnqueue.h"
+#include "../network.h"
+#include "../queue.h"
+#include "../randomqueue.h"
+#include "../ecnqueue.h"
 #include "main.h"
 
 #ifndef __QUEUE_TYPE__

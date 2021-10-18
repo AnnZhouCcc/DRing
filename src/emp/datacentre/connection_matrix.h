@@ -2,10 +2,10 @@
 #define connection_matrix
 
 #include "main.h"
-#include "tcp.h"
+#include "../tcp.h"
 #include "topology.h"
-#include "randomqueue.h"
-#include "eventlist.h"
+#include "../randomqueue.h"
+#include "../eventlist.h"
 #include <random>
 #include <list>
 #include <set>

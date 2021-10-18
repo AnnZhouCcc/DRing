@@ -1,4 +1,4 @@
-#include "config.h"
+#include "../config.h"
 #include <sstream>
 #include <strstream>
 #include <iostream>
@@ -6,15 +6,15 @@
 #include <list>
 #include <math.h>
 #include <fstream>
-#include "network.h"
-#include "randomqueue.h"
-#include "pipe.h"
-#include "eventlist.h"
-#include "logfile.h"
-#include "loggers.h"
-#include "clock.h"
-#include "tcp.h"
-#include "dctcp.h"
+#include "../network.h"
+#include "../randomqueue.h"
+#include "../pipe.h"
+#include "../eventlist.h"
+#include "../logfile.h"
+#include "../loggers.h"
+#include "../clock.h"
+#include "../tcp.h"
+#include "../dctcp.h"
 #include "topology.h"
 #include "connection_matrix.h"
 
@@ -38,7 +38,7 @@
 #define FLOWSIZE_MULT 0
 #define DEBUG_MODE false
 #define PW_DETAIL false
-#define PATHWEIGHTS false
+#define PATHWEIGHTS true
 
 uint32_t RTT = 2; // us
 int ssthresh = 43; //65 KB
@@ -154,6 +154,7 @@ int choose_a_path(vector< pair<int,double> >* path_weights, vector< pair<int,int
 
     if (num_paths == 0) {
         cout << "Error with path weights: num_paths is 0" << endl;
+        cout << "src_sw = " << src_sw << ", dst_sw = " << dst_sw << endl;
     } else if (num_paths == 1) {
         assert(path_weights->at(0).second == 1);
         return path_weights->at(0).first;
