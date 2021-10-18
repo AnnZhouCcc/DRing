@@ -741,6 +741,81 @@ void ConnectionMatrix::setMixFlows(Topology *top, int nracks, int multiplier, in
   }
 }
 
+void ConnectionMatrix::setFluidMixFlows(Topology *top, vector<int>* hot_racks, int multiplier, int numerator, int denominator){
+  cout<<"Fluid mix: ";
+  for (int i=0; i<hot_racks->size(); i++) {
+    cout << hot_racks->at(i) << " ";
+  }
+  cout << endl;
+  // AnnC: this is hard-coding; can be more generic
+  int numFlows = 150000;
+  cout << "numFlows = " << numFlows;
+  int mss = Packet::data_packet_size();
+  cout << " mss " << mss << endl;
+
+  for (int inst=0; inst<1; inst++){
+    // Have a gap of 10 sec between every instance
+    double base_start_ms = 1 * 1000.0 * inst;
+
+    set<int> hot_servers;
+    for (int i=0; i<hot_racks->size(); i++) {
+      int rack = hot_racks->at(i);
+      for (int i=0;i<N;i++){
+          int tor = top->ConvertHostToRack(i);
+          if(tor == rack){
+            hot_servers.insert(i);
+          }
+      }
+    }
+
+    int numActualFlows = (int)(numFlows * (numerator/(double)denominator)) + numFlows * multiplier;
+    int numPartFlows = numActualFlows/2;
+    // For among hot racks
+    for (int conn = 0;conn<numPartFlows; conn++) {
+      int src = rand()%N;
+      while (hot_servers.find(src) == hot_servers.end()) {
+        src = rand()%N;
+      }
+      int dest = rand()%N;
+      while (hot_servers.find(dest) == hot_servers.end()) {
+        dest = rand()%N;
+      }
+      int bytes = genFlowBytes();
+      int mss = 1500;
+      // ignore flows > 100 MB
+      while (bytes > 10 * 1024 * 1024){
+          bytes = genFlowBytes();
+      }
+      bytes = mss * ((bytes+mss-1)/mss);
+      double simtime_ms = 196.0;
+      double start_time_ms = base_start_ms + drand() * simtime_ms;
+      flows.push_back(Flow(src, dest, bytes, start_time_ms));
+    }
+
+    // For among non-hot racks
+    for (int conn = 0;conn<numPartFlows; conn++) {
+      int src = rand()%N;
+      while (hot_servers.find(src) != hot_servers.end()) {
+        src = rand()%N;
+      }
+      int dest = rand()%N;
+      while (hot_servers.find(dest) != hot_servers.end()) {
+        dest = rand()%N;
+      }
+      int bytes = genFlowBytes();
+      int mss = 1500;
+      // ignore flows > 100 MB
+      while (bytes > 10 * 1024 * 1024){
+          bytes = genFlowBytes();
+      }
+      bytes = mss * ((bytes+mss-1)/mss);
+      double simtime_ms = 196.0;
+      double start_time_ms = base_start_ms + drand() * simtime_ms;
+      flows.push_back(Flow(src, dest, bytes, start_time_ms));
+    }
+  }
+}
+
 void ConnectionMatrix::setFewtoSomeFlowsRepeat(Topology *top, int nmasters, int nclients, int multiplier, int numerator, int denominator){
   cout<<"Few to some: "<<nmasters<<" , "<<nclients<<endl;
   int mss = Packet::data_packet_size();
