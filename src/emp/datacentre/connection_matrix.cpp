@@ -758,8 +758,8 @@ void ConnectionMatrix::setFluidMixFlows(Topology *top, vector<int>* hot_racks, i
     double base_start_ms = 1 * 1000.0 * inst;
 
     set<int> hot_servers;
-    for (int i=0; i<hot_racks->size(); i++) {
-      int rack = hot_racks->at(i);
+    for (int r=0; r<hot_racks->size(); r++) {
+      int rack = hot_racks->at(r);
       for (int i=0;i<N;i++){
           int tor = top->ConvertHostToRack(i);
           if(tor == rack){
@@ -768,7 +768,7 @@ void ConnectionMatrix::setFluidMixFlows(Topology *top, vector<int>* hot_racks, i
       }
     }
 
-    int numActualFlows = (int)(numFlows * (numerator/(double)denominator)) + numFlows * multiplier;
+    int numActualFlows = denominator==0 ? numFlows*multiplier : (int)(numFlows * (numerator/(double)denominator)) + numFlows * multiplier;
     int numPartFlows = numActualFlows/2;
     // For among hot racks
     for (int conn = 0;conn<numPartFlows; conn++) {
