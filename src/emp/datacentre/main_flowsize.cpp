@@ -143,9 +143,8 @@ void verify_path_weights(vector< pair<int,double> >* path_weights, vector< pair<
 }
 
 int choose_a_path(vector< pair<int,double> >* path_weights, vector< pair<int,int> >* verification, vector<route_t*>* net_paths, int src_sw, int dst_sw) {
-    verify_path_weights(path_weights, verification, net_paths, src_sw, dst_sw);
-
 #if PATHWEIGHTS
+    verify_path_weights(path_weights, verification, net_paths, src_sw, dst_sw);
     int num_paths = path_weights->size();
 
     #if PW_DETAIL
@@ -401,7 +400,8 @@ int main(int argc, char **argv) {
     }
     else if(conn_matrix == "FLUID_MIX"){
         // AnnC: this is hard-coding; should have a more generic way to handle
-        vector<int> hot_racks {7, 14, 25, 28, 73};
+        // vector<int> hot_racks {7, 14, 25, 28, 73};
+        vector<int> hot_racks {7, 14, 24, 25, 28, 34, 46, 58, 68, 73};
         conns->setFluidMixFlows(top, &hot_racks, multiplier, numerator, denominator);
     }
     else{
@@ -462,7 +462,7 @@ int main(int argc, char **argv) {
 	}
 
 #if DEBUG_MODE
-	cout << "after get_paths: flowID = " << flowID << endl;
+	cout << "after get_paths: flowID = " << flowID << ", src_sw = " << src_sw << " dst_sw = " << dst_sw << endl;
 #endif
         size_t num_available_paths = available_paths_out->size();
         total_available_paths += num_available_paths;
