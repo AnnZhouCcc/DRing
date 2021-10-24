@@ -788,7 +788,7 @@ void ConnectionMatrix::setFluidMixFlows(Topology *top, vector<int>* hot_racks, i
       }
       bytes = mss * ((bytes+mss-1)/mss);
       // AnnC: hard-coding
-      double simtime_ms = hot_racks->size()==5 ? 196.0 : 98.0;
+      double simtime_ms = 50.0;
       double start_time_ms = base_start_ms + drand() * simtime_ms;
       flows.push_back(Flow(src, dest, bytes, start_time_ms));
     }
@@ -811,7 +811,7 @@ void ConnectionMatrix::setFluidMixFlows(Topology *top, vector<int>* hot_racks, i
       }
       bytes = mss * ((bytes+mss-1)/mss);
       // AnnC: hard-coding
-      double simtime_ms = hot_racks->size()==5 ? 196.0 : 98.0;
+      double simtime_ms = 50.0;
       double start_time_ms = base_start_ms + drand() * simtime_ms;
       flows.push_back(Flow(src, dest, bytes, start_time_ms));
     }
