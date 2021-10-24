@@ -161,7 +161,8 @@ int choose_a_path(vector< pair<int,double> >* path_weights, vector< pair<int,int
         assert(path_weights->at(0).second == 1);
         return path_weights->at(0).first;
     } else {
-        double random = (rand()%100)/100.0; // 0-0.99
+        // double random = (rand()%100)/100.0; // 0-0.99
+        double random = (rand()%1000)/1000.0; // 0-0.999
 
     #if PW_DETAIL
         cout << "random = " << random << endl;
@@ -178,8 +179,6 @@ int choose_a_path(vector< pair<int,double> >* path_weights, vector< pair<int,int
     #endif
 
             if (random<sum && random>=prev_sum) return path_weights->at(i).first;
-            // AnnC: the next line is wrong, but just here for preliminary testing
-            if (random == 0.99) return path_weights->at(i).first;
         }
     }
     return -1;

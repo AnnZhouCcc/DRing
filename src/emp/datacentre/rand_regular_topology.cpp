@@ -22,11 +22,11 @@
 
 #define TEST_MIX false
 #define TEST_TRANSIT false
-#define PATHWEIGHTS false
+#define PATHWEIGHTS true
 
 #if PATHWEIGHTS
-	string netPathFile = "netpathfiles/netpath_ecmp_rrg.txt";
-	string pathWeightFile = "pathweightfiles/modelVars_ecmp_a2a_2dp.txt";
+	string netPathFile = "netpathfiles/netpath_su2_rrg.txt";
+	string pathWeightFile = "pathweightfiles/modelVars_lp3_su2_0.02_fbs.txt";
 #endif
 
 FIND_PATH_ALGORITHM find_path_alg = ECMP; // FIRST_HOP_INDIRECTION; //KDISJOINT; //ECMP; //KSHORT; //SHORTEST2; //SHORTESTN;
