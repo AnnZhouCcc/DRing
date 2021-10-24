@@ -25,8 +25,8 @@
 #define PATHWEIGHTS true
 
 #if PATHWEIGHTS
-	string netPathFile = "netpathfiles/netpath_su2_rrg.txt";
-	string pathWeightFile = "pathweightfiles/modelVars_lp3_su2_0.02_fbs.txt";
+	string netPathFile = "none";
+	string pathWeightFile = "none";
 #endif
 
 FIND_PATH_ALGORITHM find_path_alg = ECMP; // FIRST_HOP_INDIRECTION; //KDISJOINT; //ECMP; //KSHORT; //SHORTEST2; //SHORTESTN;
@@ -77,7 +77,7 @@ pair<int, int> extractSwitchID(string nodename) {
     return pair<int, int>(src_sw, dst_sw);
 }
 
-RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string graphFile, queue_type qt, string alg, int k){
+RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string graphFile, queue_type qt, string alg, int k, string netpathFile, string pathweightFile){
   logfile = lg;
   eventlist = ev;
   qtype = qt;
@@ -157,6 +157,9 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
 	}
 
 #if PATHWEIGHTS
+	netPathFile = netpathFile;
+	pathWeightFile = pathweightFile;
+
 	// Read net paths from file
 	ifstream npfile(netPathFile.c_str());
     string npline;

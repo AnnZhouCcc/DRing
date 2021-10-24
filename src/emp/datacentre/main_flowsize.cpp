@@ -197,7 +197,7 @@ int main(int argc, char **argv) {
     string paramstring, paramstringo;
     string multiplierstring, numeratorstring, denominatorstring, kornstring;
     stringstream filename(ios_base::out);
-    string rfile;
+    string rfile, npfile, pwfile;
     string partitionsfile;
     string conn_matrix;
     string routing;
@@ -290,6 +290,18 @@ int main(int argc, char **argv) {
       }
       cout << "Partitions File: " << partitionsfile << endl;
 
+      if (argc>i&&!strcmp(argv[i],"-netpath")){
+          npfile = argv[i+1];
+          i+=2;
+      }
+      cout << "Netpath File: " << npfile << endl;
+
+      if (argc>i&&!strcmp(argv[i],"-pathweight")){
+          pwfile = argv[i+1];
+          i+=2;
+      }
+      cout << "Pathweight File: " << pwfile << endl;
+
       if (argc>i){
           exit_error(argv[0]);
       }
@@ -340,7 +352,7 @@ int main(int argc, char **argv) {
 //< Ankit added
 #ifdef RAND_REGULAR
     //= "../../../rand_topologies/rand_" + ntoa(NSW) + "_" + ntoa(R) + ".txt";
-    RandRegularTopology* top = new RandRegularTopology(&logfile, &eventlist, rfile, RANDOM, routing, korn);
+    RandRegularTopology* top = new RandRegularTopology(&logfile, &eventlist, rfile, RANDOM, routing, korn, npfile, pwfile);
 #endif
 //>
 

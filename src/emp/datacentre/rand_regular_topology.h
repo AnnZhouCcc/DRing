@@ -55,7 +55,7 @@ class RandRegularTopology: public Topology{
   vector< pair<int,double> >*** path_weights_rack_based;
   vector< pair<int,int> >*** path_weights_verification;
 
-  RandRegularTopology(Logfile* log,EventList* ev, string graphFile, queue_type qt=RANDOM, string alg="ecmp", int k=0);
+  RandRegularTopology(Logfile* log,EventList* ev, string graphFile, queue_type qt=RANDOM, string alg="ecmp", int k=0, string netpathFile="none", string pathweightFile="none");
 
   void init_network();
   virtual pair<vector<double>*, vector<route_t*>*> get_paths(int src, int dest);
