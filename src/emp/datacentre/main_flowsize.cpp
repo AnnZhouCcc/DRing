@@ -142,7 +142,7 @@ void verify_path_weights(vector< pair<int,double> >* path_weights, vector< pair<
     }
 }
 
-int choose_a_path(vector< pair<int,double> >* path_weights, vector< pair<int,int> >* verification, vector<route_t*>* net_paths, int src_sw, int dst_sw) {
+int choose_a_path(vector< pair<int,double> >* path_weights, vector< pair<int,int> >* verification, vector<route_t*>* net_paths, int src_sw, int dst_sw, int dp) {
 #if PATHWEIGHTS
     verify_path_weights(path_weights, verification, net_paths, src_sw, dst_sw);
     int num_paths = path_weights->size();
@@ -161,10 +161,11 @@ int choose_a_path(vector< pair<int,double> >* path_weights, vector< pair<int,int
         assert(path_weights->at(0).second == 1);
         return path_weights->at(0).first;
     } else {
-        // double random = (rand()%100)/100.0; // 0-0.99
-        double random = (rand()%1000)/1000.0; // 0-0.999
+        double unit = pow(10,dp);
+        double random = (rand()%(int)unit)/unit;
 
     #if PW_DETAIL
+        cout << "unit = " << unit << endl;
         cout << "random = " << random << endl;
     #endif
 
@@ -193,9 +194,9 @@ int main(int argc, char **argv) {
     int algo = COUPLED_EPSILON;
     double epsilon = 1;
     int param, paramo = 0;
-    int multiplier, numerator, denominator, korn = 0;
+    int multiplier, numerator, denominator, korn, dp = 0;
     string paramstring, paramstringo;
-    string multiplierstring, numeratorstring, denominatorstring, kornstring;
+    string multiplierstring, numeratorstring, denominatorstring, kornstring, dpstring;
     stringstream filename(ios_base::out);
     string rfile, npfile, pwfile;
     string partitionsfile;
@@ -301,6 +302,13 @@ int main(int argc, char **argv) {
           i+=2;
       }
       cout << "Pathweight File: " << pwfile << endl;
+
+      if (argc>i&&!strcmp(argv[i],"-dp")){
+          dpstring = argv[i+1];
+          dp = atoi(argv[i+1]);
+          i+=2;
+      }
+      cout << "Dp = " << dp << endl;
 
       if (argc>i){
           exit_error(argv[0]);
@@ -535,11 +543,9 @@ int main(int argc, char **argv) {
 #if DEBUG_MODE
 	cout << "before randomly taking paths: flowID = " << flowID << endl;
 	cout << "available_paths_out->size() = " << available_paths_out->size() << endl;
-	cout << "available_paths_out->at(0)->size() = " << available_paths_out->at(0)->size() << endl;
 #endif
 #if PW_DETAIL
 	cout << "available_paths_out->size() = " << available_paths_out->size() << endl;
-	cout << "available_paths_out->at(0)->size() = " << available_paths_out->at(0)->size() << endl;
 #endif
 
 	// if (available_paths_out->size() == 1 and available_paths_out->at(0)->size() == 0) {
@@ -550,7 +556,7 @@ int main(int argc, char **argv) {
         // choice = rand()%available_paths_out->size();
         // cout<<choice<<" : " << print_path(net_paths[flow.src][flow.dst]->at(choice));
 
-        int choice = choose_a_path(top->path_weights_rack_based[src_sw][dst_sw], top->path_weights_verification[src_sw][dst_sw], net_paths[src_sw][dst_sw], src_sw, dst_sw);
+        int choice = choose_a_path(top->path_weights_rack_based[src_sw][dst_sw], top->path_weights_verification[src_sw][dst_sw], net_paths[src_sw][dst_sw], src_sw, dst_sw, dp);
         if (choice < 0) {
             cout << "Error with path weights: choice < 0" << endl;
             cout << "src_sw = " << src_sw << ", dst_sw = " << dst_sw << endl;
@@ -602,11 +608,9 @@ int main(int argc, char **argv) {
 	*/
 #if DEBUG_MODE
 	cout << "available_paths_in->size() = " << available_paths_in->size() << endl;
-	cout << "available_paths_in->at(0)->size() = " << available_paths_in->at(0)->size() << endl;
 #endif
 #if PW_DETAIL
 	cout << "available_paths_in->size() = " << available_paths_in->size() << endl;
-	cout << "available_paths_in->at(0)->size() = " << available_paths_in->at(0)->size() << endl;
 #endif
 
 	// if (available_paths_in->size() == 1 and available_paths_in->at(0)->size() == 0) {
@@ -614,7 +618,7 @@ int main(int argc, char **argv) {
 		routein = top->attach_head_tail(flow.dst, flow.src, true, 0);
 	} else {
         // int rchoice = rand()%available_paths_in->size();
-        int rchoice = choose_a_path(top->path_weights_rack_based[dst_sw][src_sw], top->path_weights_verification[dst_sw][src_sw], net_paths[dst_sw][src_sw], dst_sw, src_sw);
+        int rchoice = choose_a_path(top->path_weights_rack_based[dst_sw][src_sw], top->path_weights_verification[dst_sw][src_sw], net_paths[dst_sw][src_sw], dst_sw, src_sw, dp);
         if (rchoice < 0) {
             cout << "Error with path weights: rchoice < 0" << endl;
             cout << "src_sw = " << src_sw << ", dst_sw = " << dst_sw << endl;
