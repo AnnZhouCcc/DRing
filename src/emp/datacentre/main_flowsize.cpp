@@ -419,8 +419,20 @@ int main(int argc, char **argv) {
     }
     else if(conn_matrix == "FLUID_MIX"){
         // AnnC: this is hard-coding; should have a more generic way to handle
-        // vector<int> hot_racks {7, 14, 25, 28, 73};
-        vector<int> hot_racks {7, 14, 24, 25, 28, 34, 46, 58, 68, 73};
+        vector<int> hot_racks_5 {7, 14, 25, 28, 73};
+        vector<int> hot_racks_10 {7, 14, 24, 25, 28, 34, 46, 58, 68, 73};
+        vector<int> hot_racks;
+        if (param = 5) {
+            for (int i=0; i<5; i++) {
+                hot_racks.push_back(hot_racks_5.at(i));
+            }
+        } else {
+            assert(param == 10);
+            for (int i=0; i<10; i++) {
+                hot_racks.push_back(hot_racks_10.at(i));
+            }
+        }
+        
         conns->setFluidMixFlows(top, &hot_racks, multiplier, numerator, denominator);
     }
     else{
