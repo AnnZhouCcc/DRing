@@ -1,7 +1,7 @@
 routing=kdisjoint
 k=32
 rstag=32disjoint
-date=1026v4
+date=1026v9
 run_leafspine=false
 
 
@@ -23,39 +23,30 @@ run_make(){
 }
 
 
-run_mix5(){
+run_a2a(){
     numerator=0
     denominator=0
     MAKE=NOMAKE
-    tm="mix5"
+    tm="a2a"
     dp=2
-    name="equal"
-    npfile="none"
-    pwfile="none"
-    for mult in 1 2 3 4; do
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} FLUID_MIX ${mult} ${numerator} ${denominator} ${routing} ${k} 5 0 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${dp}dp_${name} &
+    name="unequal"
+    npfile="netpathfiles/netpath_${rstag}_rrg.txt"
+    pwfile="pathweightfiles/${name}/modelVars_${rstag}_${tm}_${dp}dp.txt"
+    for sr in 224 256; do
+    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} RANDOM ${sr} ${numerator} ${denominator} ${routing} ${k} ${sr} 0 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${sr}_${numerator}_${denominator}_${dp}dp_${name} &
     sleep 5
     done
     wait
-    for mult in 5 6 7 8; do
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} FLUID_MIX ${mult} ${numerator} ${denominator} ${routing} ${k} 5 0 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${dp}dp_${name} &
+    name="resilient"
+    npfile="netpathfiles/netpath_${rstag}_rrg.txt"
+    pwfile="pathweightfiles/${name}/modelVars_lp2_${rstag}_${tm}_${dp}dp.txt"
+    for sr in 128 160 192; do
+    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} RANDOM ${sr} ${numerator} ${denominator} ${routing} ${k} ${sr} 0 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${sr}_${numerator}_${denominator}_${dp}dp_${name} &
     sleep 5
     done
     wait
-}
-
-
-run_mix10(){
-    numerator=0
-    denominator=0
-    MAKE=NOMAKE
-    tm="mix10"
-    dp=2
-    name="equal"
-    npfile="none"
-    pwfile="none"
-    for mult in 1 2 3 4; do
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} FLUID_MIX ${mult} ${numerator} ${denominator} ${routing} ${k} 10 0 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${dp}dp_${name} &
+    for sr in 224 256 288; do
+    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} RANDOM ${sr} ${numerator} ${denominator} ${routing} ${k} ${sr} 0 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${sr}_${numerator}_${denominator}_${dp}dp_${name} &
     sleep 5
     done
     wait
@@ -63,5 +54,4 @@ run_mix10(){
 
 
 run_make
-run_mix5
-run_mix10
+run_a2a
