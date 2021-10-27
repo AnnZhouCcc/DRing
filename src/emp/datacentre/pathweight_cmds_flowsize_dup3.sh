@@ -1,8 +1,7 @@
 routing=ecmp
 k=0
 rstag=ecmp
-date=1026v7
-run_leafspine=false
+date=1027
 
 
 run_make(){
@@ -15,25 +14,47 @@ run_make(){
     inst=50
     mult=0
     dp=2
-    npfile="netpathfiles/netpath_${rstag}_rrg.txt"
-    pwfile="pathweightfiles/unequal/modelVars_${rstag}_${tm}_${dp}dp.txt"
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} RACK_TO_RACK ${mult} ${numerator} ${denominator} ${routing} ${k} ${C} ${S} 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator} &
+    npfile="none"
+    pwfile="none"
+    time ./run.sh LEAFSPINE 1 64 16 null 3072 1 1 ${MAKE} RACK_TO_RACK ${mult} ${numerator} ${denominator} ${routing} ${k} ${C} ${S} 3 ls_flowsize_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/ls_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${dp}dp_${name} &
     sleep 5
     wait
 }
 
 
-run_a2a(){
+run_mix5(){
     numerator=0
     denominator=0
     MAKE=NOMAKE
-    tm="a2a"
+    tm="mix5"
     dp=2
-    name="resilient"
-    npfile="netpathfiles/netpath_${rstag}_rrg.txt"
-    pwfile="pathweightfiles/${name}/modelVars_lp2_${rstag}_${tm}_${dp}dp.txt"
-    for sr in 288 320; do
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} RANDOM ${sr} ${numerator} ${denominator} ${routing} ${k} ${sr} 0 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${sr}_${numerator}_${denominator}_${dp}dp_${name} &
+    name="ls_ecmp_equal"
+    npfile="none"
+    pwfile="none"
+    for mult in 1 2 3 4; do
+    time ./run.sh LEAFSPINE 1 64 16 null 3072 1 1 ${MAKE} FLUID_MIX ${mult} ${numerator} ${denominator} ${routing} ${k} 5 0 3 ls_flowsize_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/ls_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${dp}dp_${name} &
+    sleep 5
+    done
+    wait
+    for mult in 5 6 7 8; do
+    time ./run.sh LEAFSPINE 1 64 16 null 3072 1 1 ${MAKE} FLUID_MIX ${mult} ${numerator} ${denominator} ${routing} ${k} 5 0 3 ls_flowsize_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/ls_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${dp}dp_${name} &
+    sleep 5
+    done
+    wait
+}
+
+
+run_mix10(){
+    numerator=0
+    denominator=0
+    MAKE=NOMAKE
+    tm="mix10"
+    dp=2
+    name="ls_ecmp_equal"
+    npfile="none"
+    pwfile="none"
+    for mult in 1 2 3 4; do
+    time ./run.sh LEAFSPINE 1 64 16 null 3072 1 1 ${MAKE} FLUID_MIX ${mult} ${numerator} ${denominator} ${routing} ${k} 10 0 3 ls_flowsize_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/ls_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${dp}dp_${name} &
     sleep 5
     done
     wait
@@ -41,4 +62,5 @@ run_a2a(){
 
 
 run_make
-run_a2a
+run_mix5
+run_mix10

@@ -38,7 +38,7 @@
 #define FLOWSIZE_MULT 0
 #define DEBUG_MODE false
 #define PW_DETAIL false
-#define PATHWEIGHTS true
+#define PATHWEIGHTS false
 
 uint32_t RTT = 2; // us
 int ssthresh = 43; //65 KB
@@ -418,6 +418,7 @@ int main(int argc, char **argv) {
         conns->setMixFlows(top, param, multiplier, numerator, denominator);
     }
     else if(conn_matrix == "FLUID_MIX"){
+#ifdef RAND_REGULAR
         // AnnC: this is hard-coding; should have a more generic way to handle
         vector<int> hot_racks_5 {7, 14, 25, 28, 73};
         vector<int> hot_racks_10 {7, 14, 24, 25, 28, 34, 46, 58, 68, 73};
@@ -432,8 +433,34 @@ int main(int argc, char **argv) {
                 hot_racks.push_back(hot_racks_10.at(i));
             }
         }
-        
         conns->setFluidMixFlows(top, &hot_racks, multiplier, numerator, denominator);
+#endif
+
+#ifdef LEAF_SPINE
+        vector<int> starts {266,532,950,1064,2799,912,1292,1748,2214,2604};
+        vector<int> ends {303,569,987,1101,2837,949,1329,1785,2252,2642};
+        vector<int> hot_servers;
+        if (param = 5) {
+            for (int i=0; i<5; i++) {
+                int start = starts.at(i);
+                int end = ends.at(i);
+                for (int j=start; j<=end; j++) {
+                    hot_servers.push_back(j);
+                }
+            }
+        } else {
+            assert(param == 10);
+            for (int i=0; i<10; i++) {
+                int start = starts.at(i);
+                int end = ends.at(i);
+                for (int j=start; j<=end; j++) {
+                    hot_servers.push_back(j);
+                }
+            }
+        }
+        conns->setFluidMixFlowsLeafspine(top, &hot_servers, multiplier, numerator, denominator);
+#endif
+
     }
     else{
         cout<<"conn_matrix: "<<conn_matrix<<" not supported. Supported options are: "<<endl;
