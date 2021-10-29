@@ -440,7 +440,7 @@ int main(int argc, char **argv) {
         vector<int> starts {266,532,950,1064,2799,912,1292,1748,2214,2604};
         vector<int> ends {303,569,987,1101,2837,949,1329,1785,2252,2642};
         vector<int> hot_servers;
-        if (param = 5) {
+        if (param == 5) {
             for (int i=0; i<5; i++) {
                 int start = starts.at(i);
                 int end = ends.at(i);
