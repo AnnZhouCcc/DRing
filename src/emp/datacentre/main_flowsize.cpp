@@ -423,7 +423,7 @@ int main(int argc, char **argv) {
         vector<int> hot_racks_5 {7, 14, 25, 28, 73};
         vector<int> hot_racks_10 {7, 14, 24, 25, 28, 34, 46, 58, 68, 73};
         vector<int> hot_racks;
-        if (param = 5) {
+        if (param == 5) {
             for (int i=0; i<5; i++) {
                 hot_racks.push_back(hot_racks_5.at(i));
             }
