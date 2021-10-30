@@ -422,7 +422,7 @@ int main(int argc, char **argv) {
             }
         }
         for (int i=0; i<receiver_starts.size(); i++) {
-            for (int j=receivers_starts.at(i); j<=receiver_ends.at(i); j++) {
+            for (int j=receiver_starts.at(i); j<=receiver_ends.at(i); j++) {
                 receivers.insert(j);
             }
         }
