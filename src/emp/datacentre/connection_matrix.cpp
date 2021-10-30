@@ -647,6 +647,65 @@ void ConnectionMatrix::setFewtoSomeFlows(Topology *top, int nmasters, int nclien
 }
 
 
+void ConnectionMatrix::setFewtoSomeFlowsHardCoding(Topology *top, set<int>* sender_servers, set<int>* receiver_servers, int multiplier, int numerator, int denominator){
+  cout<<"Few to some: " << endl;
+  cout << "Senders: ";
+  for (int s : *sender_servers) {
+    cout << s << ",";
+  }
+  cout << endl;
+  cout << "Receivers: ";
+  for (int r : *receiver_servers) {
+    cout << r << ",";
+  }
+  cout << endl;
+  int mss = Packet::data_packet_size();
+  cout << " mss " << mss << endl;
+
+  for (int inst=0; inst<1; inst++){
+      // Have a gap of 10 sec between every instance
+      double base_start_ms = 1 * 1000.0 * inst;
+
+      for (int ii=0; ii<multiplier; ii++){
+          for(int master: *sender_servers){
+              for(int client: *receiver_servers){
+                  int bytes = genFlowBytes();
+                  // ignore flows > 100 MB
+                  while (bytes > 10 * 1024 * 1024){
+                      bytes = genFlowBytes();
+                  }
+                  //bytes = 2 * 1024 * 1024;
+                  bytes = mss * ((bytes+mss-1)/mss);
+                  double simtime_ms = 196.0;
+                  double start_time_ms = base_start_ms + drand() * simtime_ms;
+                  flows.push_back(Flow(master, client, bytes, start_time_ms));
+              }
+          }
+      }
+
+      if (denominator > 0) {
+          for(int master: *sender_servers){
+            for(int client: *receiver_servers){
+              int should_add = rand()%denominator;
+              if (should_add < numerator) {
+                int bytes = genFlowBytes();
+                // ignore flows > 100 MB
+                while (bytes > 10 * 1024 * 1024){
+                    bytes = genFlowBytes();
+                }
+                //bytes = 2 * 1024 * 1024;
+                bytes = mss * ((bytes+mss-1)/mss);
+                double simtime_ms = 196.0;
+                double start_time_ms = base_start_ms + drand() * simtime_ms;
+                flows.push_back(Flow(master, client, bytes, start_time_ms));
+              }
+	          }
+	        }
+      }
+  }
+}
+
+
 void ConnectionMatrix::setMixFlows(Topology *top, int nracks, int multiplier, int numerator, int denominator){
   int nmasters = nracks * 48; // 4 racks, 48 servers per rack
   int nclients = nracks * 48;
