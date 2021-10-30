@@ -396,7 +396,19 @@ int main(int argc, char **argv) {
         conns->setAlltoAll(top);
     }
     else if(conn_matrix == "RACK_TO_RACK"){
-        conns->setRacktoRackFlows(top, param, paramo, multiplier, numerator, denominator);
+        int sender_start = 1344;
+        int sender_end = 1391;
+        int receiver_start = 2640;
+        int receiver_end = 2687;
+        set<int> senders, receivers;
+        for (int i=sender_start; i<=sender_end; i++) {
+            senders.insert(i);
+        }
+        for (int i=receiver_start; i<=receiver_end; i++) {
+            receivers.insert(i);
+        }
+        conns->setRacktoRackFlowsHardCoding(top, &senders, &receivers, multiplier, numerator, denominator);
+        // conns->setRacktoRackFlows(top, param, paramo, multiplier, numerator, denominator);
     }
     else if(conn_matrix == "FEW_TO_SOME"){
         conns->setFewtoSomeFlows(top, param, paramo, multiplier, numerator, denominator);

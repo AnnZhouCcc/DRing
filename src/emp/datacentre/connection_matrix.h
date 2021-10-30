@@ -60,6 +60,7 @@ class ConnectionMatrix{
   void setFewtoSomeFlows(Topology* top, int nmasters, int nclients, int multiplier, int numerator, int denominator);
   void setFewtoSomeFlowsRepeat(Topology* top, int nmasters, int nclients, int multiplier, int numerator, int denominator);
   void setRacktoRackFlows(Topology* top, int nmasters, int nclients, int multiplier, int numerator, int denominator);
+  void setRacktoRackFlowsHardCoding(Topology* top, set<int>* sender_servers, set<int>* receiver_servers, int multiplier, int numerator, int denominator);
   void setMixFlows(Topology* top, int nracks, int multiplier, int numerator, int denominator);
   void setFluidMixFlows(Topology* top, vector<int>* hot_racks, int multiplier, int numerator, int denominator);
   void setFluidMixFlowsLeafspine(Topology* top, vector<int>* hot_servers, int multiplier, int numerator, int denominator);
