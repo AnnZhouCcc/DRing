@@ -1,8 +1,7 @@
-routing=su
-k=2
-rstag=su2
-date=1026v8
-run_leafspine=false
+routing=kdisjoint
+k=32
+rstag=32disjoint
+date=1030v3
 
 
 run_make(){
@@ -12,38 +11,47 @@ run_make(){
     C=48
     S=48
     MAKE=MAKE
-    inst=50
+    inst=1
     mult=0
     dp=2
-    npfile="netpathfiles/netpath_${rstag}_rrg.txt"
-    pwfile="pathweightfiles/unequal/modelVars_${rstag}_${tm}_${dp}dp.txt"
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} RACK_TO_RACK ${mult} ${numerator} ${denominator} ${routing} ${k} ${C} ${S} 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator} &
-    sleep 5
+    name=
+    npfile="none"
+    pwfile="none"
+    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} RACK_TO_RACK ${mult} ${numerator} ${denominator} ${routing} ${k} ${C} ${S} 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${dp}dp_${name} &
+    sleep 30
     wait
 }
 
 
-run_a2a(){
+run_r2r(){
     numerator=0
     denominator=0
+    tm="r2r"
+    C=48
+    S=48
     MAKE=NOMAKE
-    tm="a2a"
+    inst=10
     dp=2
-    name="resilient"
-    npfile="netpathfiles/netpath_${rstag}_rrg.txt"
-    pwfile="pathweightfiles/${name}/modelVars_lp2_${rstag}_${tm}_${dp}dp.txt"
-    for sr in 224 256; do
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} RANDOM ${sr} ${numerator} ${denominator} ${routing} ${k} ${sr} 0 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${sr}_${numerator}_${denominator}_${dp}dp_${name} &
-    sleep 5
+    name=equal
+    npfile="none"
+    pwfile="none"
+    for mult in 4 8 12 16; do
+    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} RACK_TO_RACK ${mult} ${numerator} ${denominator} ${routing} ${k} ${C} ${S} 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${dp}dp_${name} &
+    sleep 30
     done
     wait
-    for sr in 288 320; do
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} RANDOM ${sr} ${numerator} ${denominator} ${routing} ${k} ${sr} 0 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${sr}_${numerator}_${denominator}_${dp}dp_${name} &
-    sleep 5
+    for mult in 24 28 32; do
+    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} RACK_TO_RACK ${mult} ${numerator} ${denominator} ${routing} ${k} ${C} ${S} 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${dp}dp_${name} &
+    sleep 30
+    done
+    wait
+    for mult in 35 44 48; do
+    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} RACK_TO_RACK ${mult} ${numerator} ${denominator} ${routing} ${k} ${C} ${S} 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${dp}dp_${name} &
+    sleep 30
     done
     wait
 }
 
 
 run_make
-run_a2a
+run_r2r
