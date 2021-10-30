@@ -32,9 +32,9 @@ run_r2r(){
     C=48
     S=48
     MAKE=NOMAKE
-    inst=1
+    inst=10
     dp=2
-    name=equal
+    name=10runs
     npfile="none"
     pwfile="none"
     for mult in 10 20 30 40; do

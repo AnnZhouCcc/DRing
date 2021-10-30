@@ -488,7 +488,7 @@ void ConnectionMatrix::setRacktoRackFlowsHardCoding(Topology *top, set<int>* sen
   int mss = Packet::data_packet_size();
   cout << " mss " << mss << endl;
 
-  for (int inst=0; inst<1; inst++){
+  for (int inst=0; inst<10; inst++){
       // Have a gap of 10 sec between every instance
       double base_start_ms = 1 * 1000.0 * inst;
 
