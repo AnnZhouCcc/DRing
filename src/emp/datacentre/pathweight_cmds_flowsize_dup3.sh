@@ -29,7 +29,7 @@ run_r2r(){
     tm="r2r"
     C=48
     S=48
-    MAKE=MAKE
+    MAKE=NOMAKE
     inst=1
     dp=2
     name=equal
