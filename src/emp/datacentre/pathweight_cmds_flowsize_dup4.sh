@@ -1,7 +1,7 @@
 routing=kdisjoint
 k=32
 rstag=32disjoint
-date=1030v4
+date=1031
 
 
 run_make(){
@@ -23,12 +23,12 @@ run_make(){
 }
 
 
-run_16to4(){
+run_4to16(){
     numerator=0
     denominator=0
     tm="cs_skewed"
-    C=768
-    S=192
+    C=192
+    S=768
     tm=${tm}_${C}_${S}
     MAKE=NOMAKE
     dp=2
@@ -49,4 +49,4 @@ run_16to4(){
 
 
 run_make
-run_16to4
+run_4to16
