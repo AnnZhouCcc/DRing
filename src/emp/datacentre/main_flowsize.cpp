@@ -417,6 +417,19 @@ int main(int argc, char **argv) {
             vector<int> sender_ends {1391,2687,2351,2927,143,1775,575,1967,2495,2159,2303,767,1871,479,1487,2639};
             vector<int> receiver_starts {2496,2016,384,240};
             vector<int> receiver_ends {2543,2063,431,287};
+
+            set<int> senders, receivers;
+            for (int i=0; i<sender_starts.size(); i++) {
+                for (int j=sender_starts.at(i); j<=sender_ends.at(i); j++) {
+                    senders.insert(j);
+                }
+            }
+            for (int i=0; i<receiver_starts.size(); i++) {
+                for (int j=receiver_starts.at(i); j<=receiver_ends.at(i); j++) {
+                    receivers.insert(j);
+                }
+            }
+            conns->setFewtoSomeFlowsHardCoding(top, &senders, &receivers, multiplier, numerator, denominator);
         } else {
             assert(param == 192);
             assert(paramo == 768);
@@ -424,19 +437,20 @@ int main(int argc, char **argv) {
             vector<int> receiver_ends {1391,2687,2351,2927,143,1775,575,1967,2495,2159,2303,767,1871,479,1487,2639};
             vector<int> sender_starts {2496,2016,384,240};
             vector<int> sender_ends {2543,2063,431,287};
-        }
-        set<int> senders, receivers;
-        for (int i=0; i<sender_starts.size(); i++) {
-            for (int j=sender_starts.at(i); j<=sender_ends.at(i); j++) {
-                senders.insert(j);
+
+            set<int> senders, receivers;
+            for (int i=0; i<sender_starts.size(); i++) {
+                for (int j=sender_starts.at(i); j<=sender_ends.at(i); j++) {
+                    senders.insert(j);
+                }
             }
-        }
-        for (int i=0; i<receiver_starts.size(); i++) {
-            for (int j=receiver_starts.at(i); j<=receiver_ends.at(i); j++) {
-                receivers.insert(j);
+            for (int i=0; i<receiver_starts.size(); i++) {
+                for (int j=receiver_starts.at(i); j<=receiver_ends.at(i); j++) {
+                    receivers.insert(j);
+                }
             }
+            conns->setFewtoSomeFlowsHardCoding(top, &senders, &receivers, multiplier, numerator, denominator);
         }
-        conns->setFewtoSomeFlowsHardCoding(top, &senders, &receivers, multiplier, numerator, denominator);
         // conns->setFewtoSomeFlows(top, param, paramo, multiplier, numerator, denominator);
     }
     else if(conn_matrix == "FEW_TO_SOME_REPEAT"){
