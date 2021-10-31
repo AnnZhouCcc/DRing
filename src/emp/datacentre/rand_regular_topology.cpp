@@ -22,7 +22,7 @@
 
 #define TEST_MIX false
 #define TEST_TRANSIT false
-#define PATHWEIGHTS false
+#define PATHWEIGHTS true
 
 #if PATHWEIGHTS
 	string netPathFile = "none";

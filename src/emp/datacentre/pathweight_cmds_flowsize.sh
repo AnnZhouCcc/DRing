@@ -1,8 +1,7 @@
-routing=fhi
+routing=ecmp
 k=0
-rstag=fhi
-date=1026v10
-run_leafspine=false
+rstag=ecmp
+date=1031v8
 
 
 run_make(){
@@ -12,131 +11,189 @@ run_make(){
     C=48
     S=48
     MAKE=MAKE
-    inst=50
+    inst=1
     mult=0
-    dp=2
-    npfile="netpathfiles/netpath_${rstag}_rrg.txt"
-    pwfile="pathweightfiles/unequal/modelVars_${rstag}_${tm}_${dp}dp.txt"
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} RACK_TO_RACK ${mult} ${numerator} ${denominator} ${routing} ${k} ${C} ${S} 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator} &
-    sleep 5
-    wait
-}
 
+    topology=rrg
+    npfile="none"
 
-run_fbu(){
-    numerator=0
-    denominator=0
-    MAKE=NOMAKE
-    tm="fbu"
-    dp=2
-    name="unequal"
-    npfile="netpathfiles/netpath_${rstag}_rrg.txt"
-    pwfile="pathweightfiles/${name}/modelVars_${rstag}_${tm}_${dp}dp.txt"
-    tmfile="graphfiles/ring_supergraph/ls_x48_y16_uniform.data"
-    for mult in 1 2 3; do
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} FILE ${mult} ${numerator} ${denominator} ${routing} ${k} ${tmfile} 10 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${dp}dp_${name} &
-    sleep 5
-    done
-    wait
-    for mult in 4 5 6; do
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} FILE ${mult} ${numerator} ${denominator} ${routing} ${k} ${tmfile} 10 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${dp}dp_${name} &
-    sleep 5
-    done
-    wait
-}
+    name=make
+    dp=0
+    pwfile="none"
+    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} RACK_TO_RACK ${mult} ${numerator} ${denominator} ${routing} ${k} ${C} ${S} 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${dp}dp_${name} &
+    sleep 30
 
+    topology=dring
+    npfile="none"
 
-run_fbs(){
-    numerator=0
-    denominator=0
-    MAKE=NOMAKE
-    tm="fbs"
-    dp=2
-    name="unequal"
-    npfile="netpathfiles/netpath_${rstag}_rrg.txt"
-    pwfile="pathweightfiles/${name}/modelVars_${rstag}_${tm}_${dp}dp.txt"
-    tmfile="graphfiles/ring_supergraph/ls_x48_y16_skewed.data"
-    for mult in 1 2 3; do
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} FILE ${mult} ${numerator} ${denominator} ${routing} ${k} ${tmfile} 10 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${dp}dp_${name} &
-    sleep 5
-    done
-    for mult in 4 5; do
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} FILE ${mult} ${numerator} ${denominator} ${routing} ${k} ${tmfile} 10 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${dp}dp_${name} &
-    sleep 5
-    done
-    wait
-}
-
-
-run_mix5(){
-    numerator=0
-    denominator=0
-    MAKE=NOMAKE
-    tm="mix5"
-    dp=2
-    name="unequal"
-    npfile="netpathfiles/netpath_${rstag}_rrg.txt"
-    pwfile="pathweightfiles/${name}/modelVars_${rstag}_${tm}_${dp}dp.txt"
-    for mult in 1 2 3 4; do
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} FLUID_MIX ${mult} ${numerator} ${denominator} ${routing} ${k} 5 0 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${dp}dp_${name} &
-    sleep 5
-    done
-    wait
-    for mult in 5 6 7 8; do
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} FLUID_MIX ${mult} ${numerator} ${denominator} ${routing} ${k} 5 0 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${dp}dp_${name} &
-    sleep 5
-    done
+    name=make
+    dp=0
+    pwfile="none"
+    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/double_ring/instance1_80_64.edgelist 3072 1 1 ${MAKE} RACK_TO_RACK ${mult} ${numerator} ${denominator} ${routing} ${k} ${C} ${S} 3 dring_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/dring_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${dp}dp_${name} &
+    sleep 30
     wait
 }
 
 
 run_mix10(){
-    numerator=0
-    denominator=0
+    numerator=1
+    denominator=10
     MAKE=NOMAKE
     tm="mix10"
+    mult=0
+
+    topology=rrg
+    npfile="netpathfiles/netpath_${rstag}_${topology}.txt"
+
+    name=unequal
     dp=2
-    name="unequal"
-    npfile="netpathfiles/netpath_${rstag}_rrg.txt"
-    pwfile="pathweightfiles/${name}/modelVars_${rstag}_${tm}_${dp}dp.txt"
-    for mult in 1 2 3; do
+    pwfile="pathweightfiles/${topology}/${name}/modelVars_${rstag}_${tm}_${dp}dp.txt"
     time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} FLUID_MIX ${mult} ${numerator} ${denominator} ${routing} ${k} 10 0 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${dp}dp_${name} &
-    sleep 5
-    done
-    wait
-    for mult in 4 5 6; do
+    sleep 30
+
+    name=resilient
+    dp=2
+    pwfile="pathweightfiles/${topology}/${name}/modelVars_lp2_${rstag}_${tm}_${dp}dp.txt"
     time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} FLUID_MIX ${mult} ${numerator} ${denominator} ${routing} ${k} 10 0 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${dp}dp_${name} &
-    sleep 5
-    done
-    wait
+    sleep 30
 }
 
 
-run_a2a(){
-    numerator=0
-    denominator=0
+run_r2r(){
+    numerator=1
+    denominator=10
+    tm="r2r"
+    C=48
+    S=48
     MAKE=NOMAKE
-    tm="a2a"
+    inst=1
+    mult=0
+
+    topology=rrg
+    npfile="netpathfiles/netpath_${rstag}_${topology}.txt"
+
+    name=unequal
     dp=2
-    name="unequal"
-    npfile="netpathfiles/netpath_${rstag}_rrg.txt"
-    pwfile="pathweightfiles/${name}/modelVars_${rstag}_${tm}_${dp}dp.txt"
-    for sr in 160 192 224; do
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} RANDOM ${sr} ${numerator} ${denominator} ${routing} ${k} ${sr} 0 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${sr}_${numerator}_${denominator}_${dp}dp_${name} &
-    sleep 5
-    done
-    wait
-    for sr in 256 288 320; do
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} RANDOM ${sr} ${numerator} ${denominator} ${routing} ${k} ${sr} 0 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${sr}_${numerator}_${denominator}_${dp}dp_${name} &
-    sleep 5
-    done
-    wait
+    pwfile="pathweightfiles/${topology}/${name}/modelVars_${rstag}_${tm}_${dp}dp.txt"
+    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} RACK_TO_RACK ${mult} ${numerator} ${denominator} ${routing} ${k} ${C} ${S} 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${dp}dp_${name} &
+    sleep 30
+
+    name=resilient
+    dp=6
+    pwfile="pathweightfiles/${topology}/${name}/modelVars_lp2_${rstag}_${tm}_${dp}dp.txt"
+    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} RACK_TO_RACK ${mult} ${numerator} ${denominator} ${routing} ${k} ${C} ${S} 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${dp}dp_${name} &
+    sleep 30
+}
+
+
+run_16to4(){
+    numerator=1
+    denominator=10
+    tm="cs_skewed"
+    C=768
+    S=192
+    tm=${tm}_${C}_${S}
+    MAKE=NOMAKE
+    mult=0
+
+    topology=rrg
+    npfile="netpathfiles/netpath_${rstag}_${topology}.txt"
+
+    name=unequal
+    dp=2
+    pwfile="pathweightfiles/${topology}/${name}/modelVars_${rstag}_${tm}_${dp}dp.txt"
+    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} FEW_TO_SOME ${mult} ${numerator} ${denominator} ${routing} ${k} ${C} ${S} 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${dp}dp_${name} &
+    sleep 30
+
+    name=resilient
+    dp=2
+    pwfile="pathweightfiles/${topology}/${name}/modelVars_lp2_${rstag}_${tm}_${dp}dp.txt"
+    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} FEW_TO_SOME ${mult} ${numerator} ${denominator} ${routing} ${k} ${C} ${S} 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${dp}dp_${name} &
+    sleep 30
+}
+
+
+run_4to16(){
+    numerator=1
+    denominator=10
+    tm="cs_skewed"
+    C=192
+    S=768
+    tm=${tm}_${C}_${S}
+    MAKE=NOMAKE
+    mult=0
+
+    topology=rrg
+    npfile="netpathfiles/netpath_${rstag}_${topology}.txt"
+
+    name=unequal
+    dp=2
+    pwfile="pathweightfiles/${topology}/${name}/modelVars_${rstag}_${tm}_${dp}dp.txt"
+    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} FEW_TO_SOME ${mult} ${numerator} ${denominator} ${routing} ${k} ${C} ${S} 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${dp}dp_${name} &
+    sleep 30
+
+    name=resilient
+    dp=2
+    pwfile="pathweightfiles/${topology}/${name}/modelVars_lp2_${rstag}_${tm}_${dp}dp.txt"
+    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} FEW_TO_SOME ${mult} ${numerator} ${denominator} ${routing} ${k} ${C} ${S} 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${dp}dp_${name} &
+    sleep 30
+}
+
+
+run_fbs(){
+    numerator=1
+    denominator=10
+    MAKE=NOMAKE
+    tm="fbs"
+    tmfile="graphfiles/ring_supergraph/ls_x48_y16_skewed.data"
+    mult=0
+
+    topology=dring
+    npfile="netpathfiles/netpath_${rstag}_${topology}.txt"
+
+    name=unequal
+    dp=2
+    pwfile="pathweightfiles/${topology}/${name}/modelVars_dring_${rstag}_${tm}_${dp}dp.txt"
+    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/double_ring/instance1_80_64.edgelist 3072 1 1 ${MAKE} FILE ${mult} ${numerator} ${denominator} ${routing} ${k} ${tmfile} 10 3 dring_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/dring_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${dp}dp_${name} &
+    sleep 30
+
+    name=resilient
+    dp=2
+    pwfile="pathweightfiles/${topology}/${name}/modelVars_lp2_dring_${rstag}_${tm}_${dp}dp.txt"
+    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/double_ring/instance1_80_64.edgelist 3072 1 1 ${MAKE} FILE ${mult} ${numerator} ${denominator} ${routing} ${k} ${tmfile} 10 3 dring_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/dring_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${dp}dp_${name} &
+    sleep 30
+}
+
+
+run_fbu(){
+    numerator=1
+    denominator=10
+    MAKE=NOMAKE
+    tm="fbu"
+    tmfile="graphfiles/ring_supergraph/ls_x48_y16_uniform.data"
+    mult=0
+
+    topology=dring
+    npfile="netpathfiles/netpath_${rstag}_${topology}.txt"
+
+    name=unequal
+    dp=2
+    pwfile="pathweightfiles/${topology}/${name}/modelVars_dring_${rstag}_${tm}_${dp}dp.txt"
+    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/double_ring/instance1_80_64.edgelist 3072 1 1 ${MAKE} FILE ${mult} ${numerator} ${denominator} ${routing} ${k} ${tmfile} 10 3 dring_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/dring_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${dp}dp_${name} &
+    sleep 30
+
+    name=resilient
+    dp=2
+    pwfile="pathweightfiles/${topology}/${name}/modelVars_lp2_dring_${rstag}_${tm}_${dp}dp.txt"
+    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/double_ring/instance1_80_64.edgelist 3072 1 1 ${MAKE} FILE ${mult} ${numerator} ${denominator} ${routing} ${k} ${tmfile} 10 3 dring_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/dring_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${dp}dp_${name} &
+    sleep 30
 }
 
 
 run_make
-run_fbu
-run_fbs
-run_mix5
 run_mix10
-run_a2a
+run_r2r
+run_16to4
+run_4to16
+run_fbs
+run_fbu
