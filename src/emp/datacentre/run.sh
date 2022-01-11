@@ -174,7 +174,7 @@ if [[ $1 == "RRG" ]]; then
     echo "10ile_throughput $tput_10ile"
     echo "avg_link_usage ${avg_link_usage}"
     echo "temporary result file ${tempResultFile}"
-    rm -rf ${tempResultFile}
+    # rm -rf ${tempResultFile}
     rm -rf ${link_bw_usage_file} ${tempFlowDistFile} 
     rm -rf ${tputVsPathLenFile}
     rm -rf ${tempFlowTputFile}

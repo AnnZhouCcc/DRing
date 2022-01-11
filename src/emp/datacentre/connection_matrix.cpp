@@ -1384,6 +1384,89 @@ void ConnectionMatrix::setFlowsFromFile(Topology* top, string filename, int mult
   cout<<"Nflows: "<<nflows<<endl;
 }
 
+int getOneServerFromRack(int numservers, int numracks, int whichrack) {
+  int quotient = numservers/numracks;
+  int remainder = numservers%numracks;
+  int startserver, numserversfromthisrack;
+  if (whichrack < remainder) {
+    startserver = quotient*whichrack+whichrack;
+    numserversfromthisrack = quotient+1;
+  } else {
+    startserver = quotient*whichrack+remainder;
+    numserversfromthisrack = quotient;
+  }
+  return rand()%numserversfromthisrack + startserver;
+}
+
+void ConnectionMatrix::setFlowsFromFileXHardCoding(Topology* top, string filename, int multiplier, int numerator, int denominator) {
+  // Repurpose numerator and denominator as starttime and endtime for now
+  int start_timeframe = numerator;
+  int end_timeframe = denominator;
+  int numservers = 3072;
+  int numracks = 80;
+
+  int nflows = 0; 
+  int mss = Packet::data_packet_size();
+  cout << " mss " << mss << endl;
+  //< read TM from file
+  ifstream TMFile(filename.c_str());
+  string line;
+  line.clear();
+  int currswitch=0;
+  vector<Flow> temp_flows;
+  if (TMFile.is_open()){
+    while(TMFile.good()){
+        getline(TMFile, line);
+        //Whitespace line
+        if (line.find_first_not_of(' ') == string::npos) break;
+        stringstream ss(line);
+        int fromrack, torack, bytes, start_time_s;
+        ss >> start_time_s >> bytes >> fromrack >> torack;
+        if (start_time_s < start_timeframe) continue;
+        if (start_time_s >= end_timeframe) break; // the traffic data is sorted
+        bytes = mss * ((bytes+mss-1)/mss);
+        int fromserver = getOneServerFromRack(numservers, numracks, fromrack);
+        int toserver = getOneServerFromRack(numservers, numracks, torack);
+        int start_time_ms = start_time_s - rand()%1000; // traffic is aggregated for each second
+        if (fromserver >= numservers or to >= numservers) continue;
+        if (multiplier > 0) {
+            temp_flows.push_back(Flow(fromserver, toserver, bytes, start_time_ms));
+            nflows++;
+        } else if (multiplier == 0) {
+	    int should_add = rand()%denominator;
+	    if (should_add < numerator) {
+                temp_flows.push_back(Flow(from, to, bytes, start_time_ms));
+                nflows++;
+	    }
+	}
+    }
+    TMFile.close();
+  }
+  flows = temp_flows;
+
+  // adding more flows if multiplier > 1
+  for (int ii=1; ii<multiplier; ii++) {
+    for (int j=0; j<temp_flows.size(); j++) {
+      Flow temp = temp_flows[j];
+      flows.push_back(Flow(temp.src, temp.dst, temp.bytes, temp.start_time_ms));
+      nflows++;
+    }
+  }
+
+  // adding more flows if denominator > 0
+  if (multiplier > 0 && denominator > 0) {
+    for (int j=0; j<temp_flows.size(); j++) {
+      int should_add = rand()%denominator;
+      if (should_add < numerator) {
+        Flow temp = temp_flows[j];
+        flows.push_back(Flow(temp.src, temp.dst, temp.bytes, temp.start_time_ms));
+        nflows++;
+      }
+    }
+  }
+  cout<<"Nflows: "<<nflows<<endl;
+}
+
 void ConnectionMatrix::setTrafficFromFile(Topology* top, string filename){
   int nconn = 0; 
   //< read TM from file
