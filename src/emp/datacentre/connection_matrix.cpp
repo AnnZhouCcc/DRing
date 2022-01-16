@@ -1388,12 +1388,12 @@ int getOneServerFromRack(int numservers, int numracks, int whichrack) {
   int quotient = numservers/numracks;
   int remainder = numservers%numracks;
   int startserver, numserversfromthisrack;
-  if (whichrack < remainder) {
-    startserver = quotient*whichrack+whichrack;
-    numserversfromthisrack = quotient+1;
-  } else {
-    startserver = quotient*whichrack+remainder;
+  if (whichrack < (numracks-remainder)) {
+    startserver = quotient*whichrack;
     numserversfromthisrack = quotient;
+  } else {
+    startserver = quotient*whichrack+(whichrack-(numracks-remainder));
+    numserversfromthisrack = quotient+1;
   }
   return rand()%numserversfromthisrack + startserver;
 }
@@ -1402,6 +1402,8 @@ void ConnectionMatrix::setFlowsFromFileXHardCoding(Topology* top, string filenam
   // Repurpose numerator and denominator as starttime and endtime for now
   int start_timeframe = numerator;
   int end_timeframe = denominator;
+  numerator = 0;
+  denominator = 0;
   int numservers = 3072;
   int numracks = 80;
 
@@ -1427,15 +1429,15 @@ void ConnectionMatrix::setFlowsFromFileXHardCoding(Topology* top, string filenam
         bytes = mss * ((bytes+mss-1)/mss);
         int fromserver = getOneServerFromRack(numservers, numracks, fromrack);
         int toserver = getOneServerFromRack(numservers, numracks, torack);
-        int start_time_ms = start_time_s - rand()%1000; // traffic is aggregated for each second
-        if (fromserver >= numservers or to >= numservers) continue;
+        double start_time_ms = ((start_time_s-start_timeframe+1)-(double)rand()/(double)RAND_MAX)/205.0;
+        if (fromserver >= numservers or toserver >= numservers) continue;
         if (multiplier > 0) {
             temp_flows.push_back(Flow(fromserver, toserver, bytes, start_time_ms));
             nflows++;
         } else if (multiplier == 0) {
 	    int should_add = rand()%denominator;
 	    if (should_add < numerator) {
-                temp_flows.push_back(Flow(from, to, bytes, start_time_ms));
+                temp_flows.push_back(Flow(fromserver, toserver, bytes, start_time_ms));
                 nflows++;
 	    }
 	}

@@ -604,7 +604,7 @@ int main(int argc, char **argv) {
         }
         total_available_first_hops += first_hops_till_now->size();
 
-        if (flowID%1000==1){
+        if (flowID%1000==0){
             cout << "How many paths? = " << available_paths_out->size() << endl;
             for (unsigned int k = 0; k < available_paths_out->size(); k++) {
                 //cout << "Length of path " << k << " = "<< (net_paths[flow.src][flow.dst]->at(k)->size() - 5) / 2 << endl;

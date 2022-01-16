@@ -1,7 +1,7 @@
 routing=su
 k=2
 rstag=su2
-date=0112delay
+date=0112paoptimal22
 
 
 run_make(){
@@ -28,15 +28,18 @@ run_clusterb(){
     tmfile="trafficfiles/clusterb_2pods_0_1000"
     topology=rrg
     npfile="netpathfiles/netpath_${rstag}_${topology}.txt"
-    name=delay
+    name=packetadjustedoptimal
     dp=3
-    compute_starttime=3000
-    compute_endtime=6600
-    solve_starttime=7200
-    solve_endtime=10800
+    for t in 21600 25200; do
+    compute_starttime=$t
+    compute_endtime=$(expr $t + 3600)
+    solve_starttime=$t
+    solve_endtime=$(expr $t + 3600)
     pwfile="pathweightfiles/${topology}/${name}/pathweights_${topology}_${rstag}_${tm}_${compute_starttime}_${compute_endtime}_${dp}dp.txt"
-    mult=1
+    mult=2
     time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} FILEX ${mult} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${tmfile} 10 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${solve_starttime}_${solve_endtime}_${dp}dp_${name} &
+    sleep 30
+    done
     wait
 }
 

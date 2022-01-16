@@ -206,6 +206,10 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
 		}
 		npfile.close();
     }
+    else {
+        cout << "Error opening netpathfile: " << netpathFile << endl;
+        exit(0);
+    }
 
 	// Initialize path_weights_rack_based
 	path_weights_rack_based = new vector < pair<int,double> > **[NSW];
@@ -242,6 +246,10 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
 			path_weights_verification[flowSrc][flowDst]->push_back(pair<int,int>(linkSrc,linkDst));
 		}
 		pwfile.close();
+    }
+    else {
+        cout << "Error opening pathweightfile: " << pathweightFile << endl;
+        exit(0);
     }
 #endif
 }
