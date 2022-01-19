@@ -1469,6 +1469,155 @@ void ConnectionMatrix::setFlowsFromFileXHardCoding(Topology* top, string filenam
   cout<<"Nflows: "<<nflows<<endl;
 }
 
+void ConnectionMatrix::setFlowsFromClusterXHardCoding(Topology* top, string cluster, int multiplier, int numerator, int denominator) {
+  // Repurpose numerator and denominator as starttime and endtime for now
+  int start_timeframe = numerator;
+  int end_timeframe = denominator;
+  numerator = 0;
+  denominator = 0;
+  int numservers = 3072;
+  int numracks = 80;
+
+  int nflows = 0; 
+  int mss = Packet::data_packet_size();
+  cout << " mss " << mss << endl;
+
+  // collect all TM files
+  if (cluster.compare("b") != 0) {
+    cout << "An unknown cluster is indicated as input: " << cluster << endl;
+    exit(0);
+  }
+  string TM_file_prefix = "trafficfiles/cluster_b/parsed_data_2pods";
+  string TM_files[] = {"_0_1000","_1000_1500","_1500_2000","_2000_2500","_2500_2900"};
+
+  // calculate traffic for each pair of racks
+  int** traffic_per_rack_pair = new int*[NSW];
+  for (int i=0; i<NSW; i++) {
+    traffic_per_rack_pair[i] = new int[NSW];
+    for (int j=0; j<NSW; j++) {
+      traffic_per_rack_pair[i][j] = 0;
+    }
+  }
+  
+  for (int i=0; i<5; i++) {
+    string filename = TM_file_prefix + TM_files[i];
+    ifstream TMFile(filename.c_str());
+    string line;
+    line.clear();
+    int currswitch=0;
+    if (TMFile.is_open()){
+      while(TMFile.good()){
+        getline(TMFile, line);
+        //Whitespace line
+        if (line.find_first_not_of(' ') == string::npos) break;
+        stringstream ss(line);
+        int fromrack, torack, bytes, start_time_s;
+        ss >> start_time_s >> bytes >> fromrack >> torack;
+        if (start_time_s < start_timeframe) continue;
+        if (start_time_s >= end_timeframe) break; // the traffic data is sorted
+        traffic_per_rack_pair[fromrack][torack] += bytes;
+      }
+      TMFile.close();
+    }
+  }
+
+  // bring up the traffic proportionally
+  int traffic_multiplier = 1;
+  int64_t max_total_bytes = 20000000000;
+  int64_t sum_traffic_per_rack_pair = 0;
+  for (int i=0; i<NSW; i++) {
+    for (int j=0; j<NSW; j++) {
+      if (i==j) continue;
+      sum_traffic_per_rack_pair += traffic_per_rack_pair[i][j];
+    }
+  }
+  double coefficient = sum_traffic_per_rack_pair / (double)max_total_bytes;
+  cout << "coefficient = " << coefficient << endl;
+  for (int i=0; i<NSW; i++) {
+    for (int j=0; j<NSW; j++) {
+      traffic_per_rack_pair[i][j] = int(traffic_per_rack_pair[i][j]/coefficient);
+    }
+  }
+
+  double simtime_ms = 50.0;
+  int mss = 1500;
+  int leftover_traffic_threshold = 200;
+  vector<Flow> temp_flows;
+  vector<Flow> original_flows;
+  for (int i=0; i<NSW; i++) {
+    for (int j=0; j<NSW; j++) {
+      if (i==j) continue;
+      int traffic_cap = traffic_per_rack_pair[i][j];
+      int traffic_till_now = 0;
+      
+      bool have_sufficient_flows = false;
+      while (!have_sufficient_flows) {
+        int bytes = genFlowBytes();
+        // ignore flows > 100 MB
+        while (bytes > 10 * 1024 * 1024){
+            bytes = genFlowBytes();
+        }
+        int bytes_adjusted = mss * ((bytes+mss-1)/mss);
+        if (traffic_till_now + bytes <= traffic_cap) {
+          if (traffic_till_now + bytes == traffic_cap) {
+            have_sufficient_flows = true;
+          }
+          traffic_till_now += bytes;
+          double start_time_ms = drand() * simtime_ms;
+          int fromserver = getOneServerFromRack(numservers, numracks, i);
+          int toserver = getOneServerFromRack(numservers, numracks, j);
+          temp_flows.push_back(Flow(fromserver, toserver, bytes_adjusted, start_time_ms));
+          original_flows.push_back(Flow(fromserver, toserver, bytes, start_time_ms));
+          nflows++;
+        } else {
+          have_sufficient_flows = true;
+        }
+      }
+      if (traffic_cap - traffic_till_now >= leftover_traffic_threshold) {
+        int bytes = traffic_cap - traffic_till_now;
+        int bytes_adjusted = mss * ((bytes+mss-1)/mss);
+        double start_time_ms = drand() * simtime_ms;
+        int fromserver = getOneServerFromRack(numservers, numracks, i);
+        int toserver = getOneServerFromRack(numservers, numracks, j);
+        temp_flows.push_back(Flow(fromserver, toserver, bytes_adjusted, start_time_ms));
+        original_flows.push_back(Flow(fromserver, toserver, bytes, start_time_ms));
+        nflows++;
+      }
+    }
+  }
+  flows = temp_flows;
+
+  // output the flows for debugging purpose
+  string output_filename = "synthetictrafficfiles/cluster_b/generated_flows_" + start_timeframe + "_" + end_timeframe;
+  ofstream outputFile(output_filename);
+  for (Flow flow : original_flows) {
+    outputFile << flow.src << " " << flow.dst << " " << flow.bytes << " " << flow.start_time_ms << "\n";
+  }
+  outputFile.close();
+
+  // adding more flows if multiplier > 1
+  for (int ii=1; ii<multiplier; ii++) {
+    for (int j=0; j<temp_flows.size(); j++) {
+      Flow temp = temp_flows[j];
+      flows.push_back(Flow(temp.src, temp.dst, temp.bytes, temp.start_time_ms));
+      nflows++;
+    }
+  }
+
+  // adding more flows if denominator > 0
+  if (multiplier > 0 && denominator > 0) {
+    for (int j=0; j<temp_flows.size(); j++) {
+      int should_add = rand()%denominator;
+      if (should_add < numerator) {
+        Flow temp = temp_flows[j];
+        flows.push_back(Flow(temp.src, temp.dst, temp.bytes, temp.start_time_ms));
+        nflows++;
+      }
+    }
+  }
+  cout<<"Nflows: "<<nflows<<endl;
+}
+
 void ConnectionMatrix::setTrafficFromFile(Topology* top, string filename){
   int nconn = 0; 
   //< read TM from file
