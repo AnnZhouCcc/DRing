@@ -1540,7 +1540,6 @@ void ConnectionMatrix::setFlowsFromClusterXHardCoding(Topology* top, string clus
   }
 
   double simtime_ms = 50.0;
-  int mss = 1500;
   int leftover_traffic_threshold = 200;
   vector<Flow> temp_flows;
   vector<Flow> original_flows;
@@ -1588,7 +1587,7 @@ void ConnectionMatrix::setFlowsFromClusterXHardCoding(Topology* top, string clus
   flows = temp_flows;
 
   // output the flows for debugging purpose
-  string output_filename = "synthetictrafficfiles/cluster_b/generated_flows_" + start_timeframe + "_" + end_timeframe;
+  string output_filename = "synthetictrafficfiles/cluster_b/generated_flows_" + to_string(start_timeframe) + "_" + to_string(end_timeframe);
   ofstream outputFile(output_filename);
   for (Flow flow : original_flows) {
     outputFile << flow.src << " " << flow.dst << " " << flow.bytes << " " << flow.start_time_ms << "\n";
