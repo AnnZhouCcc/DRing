@@ -1,7 +1,7 @@
 routing=su
 k=2
 rstag=su2
-date=0112paoptimal2
+date=0119
 
 
 run_make(){
@@ -25,46 +25,29 @@ run_make(){
 run_clusterb(){
     MAKE=NOMAKE
     tm="clusterb"
-    tmfile="trafficfiles/clusterb_2pods_0_1000"
+    tmfile="b"
+    mult=3
     topology=rrg
     npfile="netpathfiles/netpath_${rstag}_${topology}.txt"
-    name=packetadjustedoptimal
+    name=delaytm
+    # name=equal
     dp=3
-    for t in 7200 10800; do
-    compute_starttime=$t
-    compute_endtime=$(expr $t + 3600)
-    solve_starttime=$t
-    solve_endtime=$(expr $t + 3600)
-    pwfile="pathweightfiles/${topology}/${name}/pathweights_${topology}_${rstag}_${tm}_${compute_starttime}_${compute_endtime}_${dp}dp.txt"
-    mult=2
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} FILEX ${mult} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${tmfile} 10 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${solve_starttime}_${solve_endtime}_${dp}dp_${name} &
-    sleep 30
-    done
-    wait
-    for t in 14400 18000; do
-    compute_starttime=$t
-    compute_endtime=$(expr $t + 3600)
-    solve_starttime=$t
-    solve_endtime=$(expr $t + 3600)
-    pwfile="pathweightfiles/${topology}/${name}/pathweights_${topology}_${rstag}_${tm}_${compute_starttime}_${compute_endtime}_${dp}dp.txt"
-    mult=2
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} FILEX ${mult} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${tmfile} 10 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${solve_starttime}_${solve_endtime}_${dp}dp_${name} &
-    sleep 30
-    done
-    wait
-    for t in 21600 25200; do
-    compute_starttime=$t
-    compute_endtime=$(expr $t + 3600)
-    solve_starttime=$t
-    solve_endtime=$(expr $t + 3600)
-    pwfile="pathweightfiles/${topology}/${name}/pathweights_${topology}_${rstag}_${tm}_${compute_starttime}_${compute_endtime}_${dp}dp.txt"
-    mult=2
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} FILEX ${mult} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${tmfile} 10 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${solve_starttime}_${solve_endtime}_${dp}dp_${name} &
-    sleep 30
-    done
+    compute_starttime=3600
+    compute_endtime=7200
+    solve_starttime=7200
+    solve_endtime=10800
+    type=lp1
+    pwfile="pathweightfiles/${topology}/${name}/pathweights_${type}_${topology}_${rstag}_${tm}_${compute_starttime}_${compute_endtime}_${dp}dp.txt"
+    # pwfile="pathweightfiles/${topology}/${name}/pathweight_${topology}_${rstag}_${dp}dp.txt"
+    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} CLUSTERX ${mult} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${tmfile} 10 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${solve_starttime}_${solve_endtime}_${dp}dp_${name}_${type} &
+    sleep 5
+    type=lp2
+    pwfile="pathweightfiles/${topology}/${name}/pathweights_${type}_${topology}_${rstag}_${tm}_${compute_starttime}_${compute_endtime}_${dp}dp.txt"
+    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} CLUSTERX ${mult} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${tmfile} 10 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${solve_starttime}_${solve_endtime}_${dp}dp_${name}_${type} &
+    sleep 5
     wait
 }
 
 
-run_make
+# run_make
 run_clusterb
