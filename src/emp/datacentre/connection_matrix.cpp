@@ -1564,7 +1564,7 @@ void ConnectionMatrix::setFlowsFromClusterXHardCoding(Topology* top, string clus
           int toserver = getOneServerFromRack(numservers, numracks, j);
           temp_flows.push_back(Flow(fromserver, toserver, bytes_adjusted, start_time_ms));
           original_flows.push_back(Flow(fromserver, toserver, bytes, start_time_ms));
-          nflows++;
+          // nflows++;
         } else {
           have_sufficient_flows = true;
         }
@@ -1577,7 +1577,7 @@ void ConnectionMatrix::setFlowsFromClusterXHardCoding(Topology* top, string clus
         int toserver = getOneServerFromRack(numservers, numracks, j);
         temp_flows.push_back(Flow(fromserver, toserver, bytes_adjusted, start_time_ms));
         original_flows.push_back(Flow(fromserver, toserver, bytes, start_time_ms));
-        nflows++;
+        // nflows++;
       }
     }
   }
