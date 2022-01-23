@@ -1581,7 +1581,7 @@ void ConnectionMatrix::setFlowsFromClusterXHardCoding(Topology* top, string clus
       }
     }
   }
-  flows = temp_flows;
+  // flows = temp_flows;
 
   // output the flows for debugging purpose
   string output_filename = "synthetictrafficfiles/cluster_b/generated_flows_" + to_string(start_timeframe) + "_" + to_string(end_timeframe);
