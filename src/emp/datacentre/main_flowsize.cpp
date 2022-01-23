@@ -144,7 +144,7 @@ void verify_path_weights(vector< pair<int,double> >* path_weights, vector< pair<
 
 int choose_a_path(vector< pair<int,double> >* path_weights, vector< pair<int,int> >* verification, vector<route_t*>* net_paths, int src_sw, int dst_sw, int dp) {
 #if PATHWEIGHTS
-    verify_path_weights(path_weights, verification, net_paths, src_sw, dst_sw);
+    // verify_path_weights(path_weights, verification, net_paths, src_sw, dst_sw);
     int num_paths = path_weights->size();
 
     #if PW_DETAIL
