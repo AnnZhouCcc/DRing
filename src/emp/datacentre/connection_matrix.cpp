@@ -1591,8 +1591,8 @@ void ConnectionMatrix::setFlowsFromClusterXHardCoding(Topology* top, string clus
   }
   outputFile.close();
 
-  // adding more flows if multiplier > 1
-  for (int ii=1; ii<multiplier; ii++) {
+  // adding more flows if multiplier > 0
+  for (int ii=0; ii<multiplier; ii++) {
     for (int j=0; j<temp_flows.size(); j++) {
       Flow temp = temp_flows[j];
       flows.push_back(Flow(temp.src, temp.dst, temp.bytes, temp.start_time_ms));
@@ -1601,7 +1601,7 @@ void ConnectionMatrix::setFlowsFromClusterXHardCoding(Topology* top, string clus
   }
 
   // adding more flows if denominator > 0
-  if (multiplier > 0 && denominator > 0) {
+  if (denominator > 0) {
     for (int j=0; j<temp_flows.size(); j++) {
       int should_add = rand()%denominator;
       if (should_add < numerator) {
