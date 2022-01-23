@@ -29,8 +29,8 @@ run_clusterb(){
     tm="clusterb"
     tmfile="b"
     mult=0
-    denominator=1
-    numerator=2
+    denominator=2
+    numerator=1
     topology=rrg
     npfile="netpathfiles/netpath_${rstag}_${topology}.txt"
     name=delaytm

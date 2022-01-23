@@ -29,8 +29,8 @@ run_clusterb(){
     tm="clusterb"
     tmfile="b"
     mult=0
-    denominator=1
-    numerator=2
+    denominator=2
+    numerator=1
     topology=rrg
     npfile="netpathfiles/netpath_${rstag}_${topology}.txt"
     name=delaytm
@@ -66,8 +66,8 @@ run_clusterb(){
     wait
 
     mult=1
-    denominator=1
-    numerator=2
+    denominator=2
+    numerator=1
     compute_starttime=3600
     compute_endtime=7200
     solve_starttime=7200
@@ -100,8 +100,8 @@ run_clusterb(){
     wait
 
     mult=2
-    denominator=1
-    numerator=2
+    denominator=2
+    numerator=1
     compute_starttime=3600
     compute_endtime=7200
     solve_starttime=7200
@@ -168,8 +168,8 @@ run_clusterb(){
     wait
 
     mult=3
-    denominator=1
-    numerator=2
+    denominator=2
+    numerator=1
     compute_starttime=3600
     compute_endtime=7200
     solve_starttime=7200
