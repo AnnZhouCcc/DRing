@@ -194,9 +194,9 @@ int main(int argc, char **argv) {
     int algo = COUPLED_EPSILON;
     double epsilon = 1;
     int param, paramo = 0;
-    int multiplier, numerator, denominator, korn, dp = 0;
+    int multiplier, numerator, denominator, solvestart, solveend, korn, dp = 0;
     string paramstring, paramstringo;
-    string multiplierstring, numeratorstring, denominatorstring, kornstring, dpstring;
+    string multiplierstring, numeratorstring, denominatorstring, solvestartstring, solveendstring, kornstring, dpstring;
     stringstream filename(ios_base::out);
     string rfile, npfile, pwfile;
     string partitionsfile;
@@ -243,6 +243,20 @@ int main(int argc, char **argv) {
           i+=2;
       }
       cout << "Denominator=" << denominator << endl;
+
+      if (argc>i&&!strcmp(argv[i],"-solvestart")){
+          solvestartstring = argv[i+1];
+          solvestart = atoi(argv[i+1]);
+          i+=2;
+      }
+      cout << "SolveStart="<<solvestart<<endl;
+
+      if (argc>i&&!strcmp(argv[i],"-solveend")){
+          solveendstring = argv[i+1];
+          solveend = atoi(argv[i+1]);
+          i+=2;
+      }
+      cout << "SolveEnd="<<solveend<<endl;
 
       if (argc>i&&!strcmp(argv[i],"-r")){
           routing = argv[i+1];
@@ -470,7 +484,7 @@ int main(int argc, char **argv) {
         conns->setFlowsFromFileXHardCoding(top, paramstring, multiplier, numerator, denominator);
     }
     else if (conn_matrix == "CLUSTERX") {
-        conns->setFlowsFromClusterXHardCoding(top, paramstring, multiplier, numerator, denominator);
+        conns->setFlowsFromClusterXHardCoding(top, paramstring, multiplier, numerator, denominator, solvestart, solveend);
     }
     else if(conn_matrix == "MIX"){
         conns->setMixFlows(top, param, multiplier, numerator, denominator);

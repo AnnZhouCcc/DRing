@@ -1469,12 +1469,9 @@ void ConnectionMatrix::setFlowsFromFileXHardCoding(Topology* top, string filenam
   cout<<"Nflows: "<<nflows<<endl;
 }
 
-void ConnectionMatrix::setFlowsFromClusterXHardCoding(Topology* top, string cluster, int multiplier, int numerator, int denominator) {
-  // Repurpose numerator and denominator as starttime and endtime for now
-  int start_timeframe = numerator;
-  int end_timeframe = denominator;
-  numerator = 0;
-  denominator = 0;
+void ConnectionMatrix::setFlowsFromClusterXHardCoding(Topology* top, string cluster, int multiplier, int numerator, int denominator, int solvestart, int solveend) {
+  int start_timeframe = solvestart;
+  int end_timeframe = solveend;
   int numservers = 3072;
   int numracks = 80;
 
