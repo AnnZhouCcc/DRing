@@ -1528,7 +1528,8 @@ void ConnectionMatrix::setFlowsFromClusterXHardCoding(Topology* top, string clus
       sum_traffic_per_rack_pair += traffic_per_rack_pair[i][j];
     }
   }
-  double coefficient = sum_traffic_per_rack_pair / (double)max_total_bytes;
+  // double coefficient = sum_traffic_per_rack_pair / (double)max_total_bytes;
+  double coefficient = 1.0/25.0;
   cout << "coefficient = " << coefficient << endl;
   for (int i=0; i<NSW; i++) {
     for (int j=0; j<NSW; j++) {

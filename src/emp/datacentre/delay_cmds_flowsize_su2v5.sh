@@ -1,7 +1,7 @@
 routing=su
 k=2
 rstag=su2
-date=0202su2v3
+date=0202su2v5
 
 
 run_make(){
@@ -35,10 +35,10 @@ run_clusterb(){
     npfile="netpathfiles/netpath_${rstag}_${topology}.txt"
     name=delaytm
     dp=3
-    compute_starttime=31600
-    compute_endtime=35200
-    solve_starttime=35200
-    solve_endtime=35800
+    compute_starttime=32800
+    compute_endtime=36400
+    solve_starttime=36400
+    solve_endtime=37000
     type=lp1
     pwfile="pathweightfiles/${topology}/${name}/pathweights_${type}_${topology}_${rstag}_${tm}_${compute_starttime}_${compute_endtime}_${dp}dp.txt"
     time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} CLUSTERX ${mult} ${numerator} ${denominator} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${tmfile} 10 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${solve_starttime}_${solve_endtime}_${dp}dp_${name}_${type} &
@@ -72,10 +72,10 @@ run_clusterb(){
     npfile="netpathfiles/netpath_${rstag}_${topology}.txt"
     name=delaytm
     dp=3
-    compute_starttime=31600
-    compute_endtime=35200
-    solve_starttime=35200
-    solve_endtime=35800
+    compute_starttime=32800
+    compute_endtime=36400
+    solve_starttime=36400
+    solve_endtime=37000
     type=lp1
     pwfile="pathweightfiles/${topology}/${name}/pathweights_${type}_${topology}_${rstag}_${tm}_${compute_starttime}_${compute_endtime}_${dp}dp.txt"
     time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} CLUSTERX ${mult} ${numerator} ${denominator} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${tmfile} 10 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${solve_starttime}_${solve_endtime}_${dp}dp_${name}_${type} &
@@ -105,10 +105,10 @@ run_clusterb(){
     mult=1
     denominator=2
     numerator=1
-    compute_starttime=31600
-    compute_endtime=35200
-    solve_starttime=35200
-    solve_endtime=35800
+    compute_starttime=32800
+    compute_endtime=36400
+    solve_starttime=36400
+    solve_endtime=37000
     name=delaytm
     type=lp1
     pwfile="pathweightfiles/${topology}/${name}/pathweights_${type}_${topology}_${rstag}_${tm}_${compute_starttime}_${compute_endtime}_${dp}dp.txt"
@@ -139,10 +139,10 @@ run_clusterb(){
     mult=2
     denominator=0
     numerator=0
-    compute_starttime=31600
-    compute_endtime=35200
-    solve_starttime=35200
-    solve_endtime=35800
+    compute_starttime=32800
+    compute_endtime=36400
+    solve_starttime=36400
+    solve_endtime=37000
     name=delaytm
     type=lp1
     pwfile="pathweightfiles/${topology}/${name}/pathweights_${type}_${topology}_${rstag}_${tm}_${compute_starttime}_${compute_endtime}_${dp}dp.txt"
@@ -173,10 +173,10 @@ run_clusterb(){
     mult=2
     denominator=2
     numerator=1
-    compute_starttime=31600
-    compute_endtime=35200
-    solve_starttime=35200
-    solve_endtime=35800
+    compute_starttime=32800
+    compute_endtime=36400
+    solve_starttime=36400
+    solve_endtime=37000
     name=delaytm
     type=lp1
     pwfile="pathweightfiles/${topology}/${name}/pathweights_${type}_${topology}_${rstag}_${tm}_${compute_starttime}_${compute_endtime}_${dp}dp.txt"
@@ -207,10 +207,10 @@ run_clusterb(){
     mult=3
     denominator=0
     numerator=0
-    compute_starttime=31600
-    compute_endtime=35200
-    solve_starttime=35200
-    solve_endtime=35800
+    compute_starttime=32800
+    compute_endtime=36400
+    solve_starttime=36400
+    solve_endtime=37000
     name=delaytm
     type=lp1
     pwfile="pathweightfiles/${topology}/${name}/pathweights_${type}_${topology}_${rstag}_${tm}_${compute_starttime}_${compute_endtime}_${dp}dp.txt"
@@ -242,10 +242,10 @@ run_clusterb(){
     mult=3
     denominator=2
     numerator=1
-    compute_starttime=31600
-    compute_endtime=35200
-    solve_starttime=35200
-    solve_endtime=35800
+    compute_starttime=32800
+    compute_endtime=36400
+    solve_starttime=36400
+    solve_endtime=37000
     name=delaytm
     type=lp1
     pwfile="pathweightfiles/${topology}/${name}/pathweights_${type}_${topology}_${rstag}_${tm}_${compute_starttime}_${compute_endtime}_${dp}dp.txt"
