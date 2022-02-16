@@ -669,7 +669,7 @@ int main(int argc, char **argv) {
         // choice = rand()%available_paths_out->size();
         // cout<<choice<<" : " << print_path(net_paths[flow.src][flow.dst]->at(choice));
 #ifdef RAND_REGULAR
-        int choice = choose_a_path(top->path_weights_rack_based[src_sw][dst_sw], top->path_weights_verification[src_sw][dst_sw], net_paths[src_sw][dst_sw], src_sw, dst_sw, dp);
+        int choice = choose_a_path(top->path_weights_rack_based[src_sw][dst_sw], NULL, net_paths[src_sw][dst_sw], src_sw, dst_sw, dp);
 #endif
 
 #ifdef LEAF_SPINE
@@ -738,7 +738,7 @@ int main(int argc, char **argv) {
 	} else {
         // int rchoice = rand()%available_paths_in->size();
 #ifdef RAND_REGULAR
-        int rchoice = choose_a_path(top->path_weights_rack_based[dst_sw][src_sw], top->path_weights_verification[dst_sw][src_sw], net_paths[dst_sw][src_sw], dst_sw, src_sw, dp);
+        int rchoice = choose_a_path(top->path_weights_rack_based[dst_sw][src_sw], NULL, net_paths[dst_sw][src_sw], dst_sw, src_sw, dp);
 #endif
 
 #ifdef LEAF_SPINE

@@ -1824,15 +1824,15 @@ void RandRegularTopology::delete_net_paths_rack_based() {
 			if (path_weights_rack_based[i][j]) {
 			delete path_weights_rack_based[i][j];
 			}
-                        if (path_weights_verification[i][j]) {
-                        delete path_weights_verification[i][j];
-                        }
+                        // if (path_weights_verification[i][j]) {
+                        // delete path_weights_verification[i][j];
+                        // }
 		}
 		delete [] path_weights_rack_based[i];
-		delete [] path_weights_verification[i];
+		// delete [] path_weights_verification[i];
 	}	
 	delete [] path_weights_rack_based;
-	delete [] path_weights_verification;
+	// delete [] path_weights_verification;
 #endif
 }
 
