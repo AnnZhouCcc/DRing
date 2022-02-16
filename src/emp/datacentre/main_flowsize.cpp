@@ -121,6 +121,7 @@ pair<int, int> extractSwitchIDCopy(string nodename) {
     return pair<int, int>(src_sw, dst_sw);
 }
 
+/*
 void verify_path_weights(vector< pair<int,double> >* path_weights, vector< pair<int,int> >* verification, vector<route_t*>* net_paths, int src_sw, int dst_sw) {
     for (int i=0; i<path_weights->size(); i++) {
         int pid = path_weights->at(i).first;
@@ -141,6 +142,7 @@ void verify_path_weights(vector< pair<int,double> >* path_weights, vector< pair<
         }
     }
 }
+*/
 
 int choose_a_path(vector< pair<int,double> >* path_weights, vector< pair<int,int> >* verification, vector<route_t*>* net_paths, int src_sw, int dst_sw, int dp) {
 #if PATHWEIGHTS

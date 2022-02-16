@@ -145,6 +145,8 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
 		find_path_alg = KSHORT;
 	} else if (alg == "su") {
 		find_path_alg = SHORTESTN; //SHORTEST2 is not used.
+	} else if (alg == "racke") {
+		find_path_alg = RACKE;
 	}
 	korn = k;
 
@@ -221,13 +223,13 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
 	}
 
 	// Initialize path_weights_verification
-	path_weights_verification = new vector < pair<int,int> > **[NSW];
-	for (int i=0; i<NSW; i++) {
-		path_weights_verification[i] = new vector < pair<int,int> > *[NSW];
-		for (int j=0; j<NSW; j++) {
-			path_weights_verification[i][j] = new vector < pair<int,int> > ();
-		}
-	}
+	// path_weights_verification = new vector < pair<int,int> > **[NSW];
+	// for (int i=0; i<NSW; i++) {
+	// 	path_weights_verification[i] = new vector < pair<int,int> > *[NSW];
+	// 	for (int j=0; j<NSW; j++) {
+	// 		path_weights_verification[i][j] = new vector < pair<int,int> > ();
+	// 	}
+	// }
 
 	// Read path weights from file
 	ifstream pwfile(pathWeightFile.c_str());
@@ -243,7 +245,7 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
 
 			if (flowSrc >= NSW || flowDst >= NSW) cout << "Error with path weights: flowSrc >= NSW || flowDst >= NSW" << endl;
 			path_weights_rack_based[flowSrc][flowDst]->push_back(pair<int,double>(pid,weight));
-			path_weights_verification[flowSrc][flowDst]->push_back(pair<int,int>(linkSrc,linkDst));
+			// path_weights_verification[flowSrc][flowDst]->push_back(pair<int,int>(linkSrc,linkDst));
 		}
 		pwfile.close();
     }
