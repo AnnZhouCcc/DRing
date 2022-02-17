@@ -196,8 +196,21 @@ TcpSrc::receivePacket(Packet& pkt)
 
         // FCT output for processing: (bytes fct_ms timestarted_ms packets_sent total_packet_bytes)
         _finished = true;
-        cout << "FCT " << " " << _flow_size <<
-            " " << timeAsMs(eventlist().now() - _start_time) << " " << timeAsMs(_start_time) << " " << _packets_sent << " " << total_packet_bytes << endl;
+		cout << "FCT " << " id=" << get_id() << " " << _flow_size << " " << timeAsMs(eventlist().now() - _start_time) 
+				<< " " << timeAsMs(_start_time) << " " << _packets_sent << " end-of-line" << endl;
+
+		bool is_in_measurement = timeAsMs(_start_time) >= eventlist().measurement_start_ms && timeAsMs(_start_time) < eventlist().measurement_end_ms;
+		if (is_in_measurement) {
+			eventlist().num_flows_finished++;
+		}
+		if (eventlist().num_flows_finished > eventlist().num_flows_threshold) {
+			cout << "Already have " << eventlist().num_flows_threshold << " finished. Program exit." << endl;
+			exit(EXIT_SUCCESS);
+		}
+		if (is_in_measurement) {
+        	cout << "FCT " << get_id() << " " << _flow_size << " " << timeAsMs(eventlist().now() - _start_time) 
+				<< " " << timeAsMs(_start_time) << " " << _packets_sent << endl;
+		}
     }
   
     if (seqno > _last_acked) { // a brand new ack

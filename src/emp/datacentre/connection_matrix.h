@@ -22,6 +22,10 @@ struct Flow{
     src(_src), dst(_dst), bytes(_bytes), start_time_ms(_start_time_ms) {}
 };
 
+// bool compareFlow(Flow f1, Flow f2) {
+//     return (f1.start_time_ms < f2.start_time_ms);
+// }
+
 class ConnectionMatrix{
  public:
   ConnectionMatrix(int );
@@ -47,6 +51,9 @@ class ConnectionMatrix{
   void setTrafficFromFile(Topology *top, string filename);
   void setTrafficFromFile2(Topology *top, string filename);
   void setMaxWeightMatching(Topology *top);
+  void setTestRandomFlows(double simtime_ms);
+  // void sortFlowsByStartTime();
+  int determineNumFlowsThreshold(double measurement_start_ms, double measurement_end_ms);
 
   vector<connection*>* getAllConnections();
   set<pair<int, int> > addExtraConns(int num);
@@ -56,6 +63,7 @@ class ConnectionMatrix{
 
   /* For flow sizes */
   vector<Flow> flows;
+  // vector<Flow> sorted_flows;
   void setFlowsFromFile(Topology* top, string filename, int multiplier, int numerator, int denominator);
   void setFlowsFromFileXHardCoding(Topology* top, string filename, int multiplier, int numerator, int denominator);
   void setFlowsFromClusterXHardCoding(Topology* top, string cluster, int multiplier, int numerator, int denominator, int solvestart, int solveend);

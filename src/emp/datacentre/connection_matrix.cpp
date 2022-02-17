@@ -1798,6 +1798,44 @@ set<pair<int, int> > ConnectionMatrix::addExtraConns(int num){
 	}
 	return extraConns;
 }
+
+void ConnectionMatrix::setTestRandomFlows(double simtime_ms){
+  int cnx = 50;
+  cout<<"Num flows: "<<cnx << endl;
+  for (int conn = 0;conn<cnx; conn++) {
+    int src = rand()%N;
+    int dest = rand()%N;
+    int bytes = genFlowBytes();
+    int mss = 1500;
+    // ignore flows > 100 MB
+    while (bytes > 10 * 1024 * 1024){
+        bytes = genFlowBytes();
+    }
+    //bytes = 2 * 1024 * 1024;
+    bytes = mss * ((bytes+mss-1)/mss);
+    // bytes = bytes*3;
+    // bytes = bytes/3;
+    // double simtime_ms = 0.05;
+    double start_time_ms = drand() * simtime_ms;
+    flows.push_back(Flow(src, dest, bytes, start_time_ms));
+  }
+}
+
+// void ConnectionMatrix::sortFlowsByStartTime() {
+//   sorted_flows = flows;
+//   sort(sorted_flows.begin(), sorted_flows.end(), compareFlow);
+// }
+
+int ConnectionMatrix::determineNumFlowsThreshold(double measurement_start_ms, double measurement_end_ms) {
+  int num_flows = 0;
+  for (Flow& flow: flows){
+    if (flow.start_time_ms >= measurement_start_ms && flow.start_time_ms < measurement_end_ms) {
+      num_flows++;
+    }
+  }
+  return num_flows;
+}
+
 /*
 void ConnectionMatrix::setHotspot(int hosts){
   int is_dest[N],dest,is_done[N];

@@ -38,7 +38,7 @@
 #define FLOWSIZE_MULT 0
 #define DEBUG_MODE false
 #define PW_DETAIL false
-#define PATHWEIGHTS true
+#define PATHWEIGHTS false
 
 uint32_t RTT = 2; // us
 int ssthresh = 43; //65 KB
@@ -194,11 +194,11 @@ int main(int argc, char **argv) {
     eventlist.setEndtime(timeFromSec(SIMTIME));
     Clock c(timeFromSec(50 / 100.), eventlist);
     int algo = COUPLED_EPSILON;
-    double epsilon = 1;
+    double epsilon, simtime_ms = 1;
     int param, paramo = 0;
-    int multiplier, numerator, denominator, solvestart, solveend, korn, dp = 0;
+    int multiplier, numerator, denominator, solvestart, solveend, korn, dp, mstart, mend, stime = 0;
     string paramstring, paramstringo;
-    string multiplierstring, numeratorstring, denominatorstring, solvestartstring, solveendstring, kornstring, dpstring;
+    string multiplierstring, numeratorstring, denominatorstring, solvestartstring, solveendstring, kornstring, dpstring, mstartstring, mendstring, stimestring;
     stringstream filename(ios_base::out);
     string rfile, npfile, pwfile;
     string partitionsfile;
@@ -326,6 +326,32 @@ int main(int argc, char **argv) {
       }
       cout << "Dp = " << dp << endl;
 
+      if (argc>i&&!strcmp(argv[i],"-mstart")){
+          mstartstring = argv[i+1];
+          mstart = atoi(argv[i+1]);
+          i+=2;
+      }
+      cout << "mstart = " << mstart << endl;
+      eventlist.measurement_start_ms = mstart;
+
+      if (argc>i&&!strcmp(argv[i],"-mend")){
+          mendstring = argv[i+1];
+          mend = atoi(argv[i+1]);
+          i+=2;
+      }
+      cout << "mend = " << mend << endl;
+      eventlist.measurement_end_ms = mend;
+
+      if (argc>i&&!strcmp(argv[i],"-stime")){
+          stimestring = argv[i+1];
+          stime = atoi(argv[i+1]);
+          i+=2;
+      }
+      cout << "stime = " << stime << endl;
+      simtime_ms = stime;
+
+      eventlist.num_flows_finished = 0;
+    
       if (argc>i){
           exit_error(argv[0]);
       }
@@ -395,7 +421,9 @@ int main(int argc, char **argv) {
     //conns->setLocalTraffic(top);
     
     //cout<< "Running sampled A2A with sample rate: "<< (double)param/8000.0 <<endl;
-    assert (conn_matrix == "FILE" or conn_matrix == "FILEX" or conn_matrix == "CLUSTERX" or conn_matrix == "FEW_TO_SOME" or conn_matrix == "FEW_TO_SOME_REPEAT" or conn_matrix == "RANDOM" or conn_matrix == "RACK_TO_RACK" or conn_matrix == "MIX" or conn_matrix == "FLUID_MIX");
+    assert (conn_matrix == "FILE" or conn_matrix == "FILEX" or conn_matrix == "CLUSTERX" or conn_matrix == "FEW_TO_SOME" 
+        or conn_matrix == "FEW_TO_SOME_REPEAT" or conn_matrix == "RANDOM" or conn_matrix == "RACK_TO_RACK" or conn_matrix == "MIX" 
+        or conn_matrix == "FLUID_MIX" or conn_matrix == "TEST");
     if(conn_matrix == "PERM")
         conns->setPermutation();
     else if(conn_matrix == "SAMPLED_PERM"){
@@ -536,6 +564,9 @@ int main(int argc, char **argv) {
 #endif
 
     }
+    else if (conn_matrix == "TEST") {
+        conns->setTestRandomFlows(simtime_ms);
+    }
     else{
         cout<<"conn_matrix: "<<conn_matrix<<" not supported. Supported options are: "<<endl;
         cout<<"PERM  //Random Permutation"<<endl;
@@ -550,6 +581,11 @@ int main(int argc, char **argv) {
         return 0;
     }
     map<int,vector<int>*>::iterator it;
+
+    // Determine the number of flows we should wait for in measurement
+    // conns->sortFlowsByStartTime();
+    eventlist.num_flows_threshold = conns->determineNumFlowsThreshold(eventlist.measurement_start_ms, eventlist.measurement_end_ms);
+    cout << "num_flows_threshold = " << eventlist.num_flows_threshold << endl;
 
     cout << "Starting to produce flow paths" << endl;
     typedef pair<int, int> PII;

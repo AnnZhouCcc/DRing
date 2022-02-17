@@ -29,6 +29,12 @@ public:
     void cancelPendingSource(EventSource &src);
     void reschedulePendingSource(EventSource &src, simtime_picosec when);
     inline simtime_picosec now() const {return _lasteventtime;}
+
+    int num_flows_threshold;
+    int num_flows_finished;
+    double measurement_start_ms;
+    double measurement_end_ms;
+
 private:
     simtime_picosec _endtime;
     simtime_picosec _lasteventtime;
