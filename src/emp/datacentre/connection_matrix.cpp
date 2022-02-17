@@ -123,7 +123,7 @@ void ConnectionMatrix::setLocalTraffic(Topology* top){
   }
 }
 
-void ConnectionMatrix::setRandomFlows(int cnx){
+void ConnectionMatrix::setRandomFlows(int cnx, double simtime_ms){
   // cnx = cnx/3;
   // cnx = cnx*3;
   cout<<"Num flows: "<<cnx << endl;
@@ -140,7 +140,7 @@ void ConnectionMatrix::setRandomFlows(int cnx){
     bytes = mss * ((bytes+mss-1)/mss);
     // bytes = bytes*3;
     // bytes = bytes/3;
-    double simtime_ms = 50.0;
+    // double simtime_ms = 50.0;
     double start_time_ms = drand() * simtime_ms;
     flows.push_back(Flow(src, dest, bytes, start_time_ms));
   }
