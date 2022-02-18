@@ -1,7 +1,7 @@
 routing=racke
 k=0
-rstag=racke
-date=0218racke
+rstag=wracke
+date=0218wracke
 
 
 run_make(){
@@ -33,10 +33,10 @@ run_a2a(){
     topology=rrg
     denominator=0
     numerator=0
-    npfile="none"
+    npfile="netpathfiles/netpath_racke_rrg.txt"
     dp=0
     name=test
-    pwfile="none"
+    pwfile="pathweightfiles/rrg/equal/pathweight_rrg_wracke_3dp.txt"
     solve_starttime=0
     solve_endtime=0
     stime=75
@@ -64,10 +64,10 @@ run_4to16(){
     topology=rrg
     denominator=0
     numerator=0
-    npfile="none"
+    npfile="netpathfiles/netpath_racke_rrg.txt"
     dp=0
     name=test
-    pwfile="none"
+    pwfile="pathweightfiles/rrg/equal/pathweight_rrg_wracke_3dp.txt"
     solve_starttime=0
     solve_endtime=0
     stime=200
