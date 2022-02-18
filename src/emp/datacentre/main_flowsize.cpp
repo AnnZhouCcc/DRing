@@ -455,6 +455,7 @@ int main(int argc, char **argv) {
         // conns->setRacktoRackFlows(top, param, paramo, multiplier, numerator, denominator);
     }
     else if(conn_matrix == "FEW_TO_SOME"){
+        /*
         if (param == 768) {
             assert(paramo == 192);
             vector<int> sender_starts {1344,2640,2304,2880,96,1728,528,1920,2448,2112,2256,720,1824,432,1440,2592};
@@ -495,7 +496,8 @@ int main(int argc, char **argv) {
             }
             conns->setFewtoSomeFlowsHardCoding(top, &senders, &receivers, multiplier, numerator, denominator);
         }
-        // conns->setFewtoSomeFlows(top, param, paramo, multiplier, numerator, denominator);
+        */
+        conns->setFewtoSomeFlows(top, param, paramo, multiplier, numerator, denominator, simtime_ms);
     }
     else if(conn_matrix == "FEW_TO_SOME_REPEAT"){
         conns->setFewtoSomeFlowsRepeat(top, param, paramo, multiplier, numerator, denominator);
