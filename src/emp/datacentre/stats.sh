@@ -1,6 +1,8 @@
 # declare -a new_files=("ls_fb_skewed_802v3_ii2_2_10" "ls_fb_skewed_802v3_ii2_3_10")
 # prefix="./fct_results_802v3/"
-dir="./fct_results_106/*"
+dir="./fct_results_0217test/*"
+mstart=0
+mend=20
 # re=".*(fb|a2a).*"
 run_fct(){
     echo -e "\nAVERAGE"
@@ -9,7 +11,7 @@ run_fct(){
     #     FILE="${prefix}${FILE}"
         if ! [ -d "$FILE" ]; then
             FILENAME="${FILE##*/}"
-            cat $FILE | awk -v filename=$FILENAME -f stats_average.awk
+            cat $FILE | awk -v filename=$FILENAME -v mstart=$mstart -v mend=$mend -f stats_average.awk
         fi
     done
 
@@ -19,7 +21,7 @@ run_fct(){
     #     FILE="${prefix}${FILE}"
         if ! [ -d "$FILE" ]; then
             FILENAME="${FILE##*/}"
-            cat $FILE | awk -v filename=$FILENAME -f stats_median.awk
+            cat $FILE | awk -v filename=$FILENAME -v mstart=$mstart -v mend=$mend -f stats_median.awk
         fi
     done
 
@@ -29,7 +31,7 @@ run_fct(){
         FILE="${prefix}${FILE}"
         if ! [ -d "$FILE" ]; then
             FILENAME="${FILE##*/}"
-            cat $FILE | awk -v filename=$FILENAME -f stats_n99.awk
+            cat $FILE | awk -v filename=$FILENAME -v mstart=$mstart -v mend=$mend -f stats_n99.awk
         fi
     done
 
@@ -52,7 +54,7 @@ run_flow_size(){
     #     FILE="${prefix}${FILE}"
         if ! [ -d "$FILE" ]; then
             FILENAME="${FILE##*/}"
-            cat $FILE | awk -v filename=$FILENAME -f stats_flow_size.awk
+            cat $FILE | awk -v filename=$FILENAME -v mstart=$mstart -v mend=$mend -f stats_flow_size.awk
         fi
     done
 }
@@ -138,7 +140,7 @@ run_grep() {
 
 run_fct
 run_flow_size
-run_topology
+# run_topology
 # run_aggregate_stats
 # run_utilization
 # run_comparison_flow_size_utilization

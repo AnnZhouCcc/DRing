@@ -1,17 +1,20 @@
 #!/bin/awk -f
 { 
-    if (NR == 1) {
-        first_word = $1
-        offset = first_word == "topology" ? 1 : 3
+    first_word = $1
+    if (first_word == "topology") {
+        num_line = 0
     }
-    if (NR > offset) {
-	numbers[NR-offset] = $3
+    else {
+        start = $4
+        if (start >= mstart && start < mend) {
+            numbers[num_line] = $3
+            num_line += 1
+        }
     }
 }
 END { 
     asort(numbers)
-    num_line = NR-offset;
     n99_index = int(num_line*0.99);
     n99 = numbers[n99_index]
-    print filename," ",n99;
+    print filename," from",mstart,"to",mend," ",n99;
 }
