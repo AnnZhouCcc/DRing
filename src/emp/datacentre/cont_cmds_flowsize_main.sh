@@ -51,5 +51,32 @@ run_a2a(){
 }
 
 
+run_4to16(){
+    MAKE=NOMAKE
+    tm="4to16"
+    C=768
+    S=192
+    topology=rrg
+    denominator=0
+    numerator=0
+    npfile="none"
+    dp=0
+    name=test
+    pwfile="none"
+    solve_starttime=0
+    solve_endtime=0
+    stime=60
+
+    mstart=15
+    mend=45
+    for mult in 1; do
+    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} FEW_TO_SOME ${mult} ${numerator} ${denominator} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${C} ${S} 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} ${mstart} ${mend} ${stime} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${name}_${mstart}_${mend}_${stime} &
+    sleep 5
+    done
+    wait
+}
+
+
 run_make
-run_a2a
+# run_a2a
+run_4to16
