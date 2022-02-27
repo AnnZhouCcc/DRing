@@ -17,7 +17,7 @@
 }
 END { 
     average = num_line>0 ? sum/num_line : 0
-    total_duration = mend-mestart
+    total_duration = mend-mstart
     traffic_per_time = sum/total_duration
     flow_start_per_time = num_line/total_duration
     traffic_duration_per_time = sum_duration/total_duration
