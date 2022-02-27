@@ -7,7 +7,8 @@
 #include <limits.h>
 #include <fstream>
 #include "../tcppacket.h"
-#include <bits/stdc++.h>
+// #include <bits/stdc++.h>
+#include <stdc++.h>
 #include <math.h>
 #include <random>
 #include <iostream>
@@ -647,7 +648,7 @@ void ConnectionMatrix::setFewtoSomeFlows(Topology *top, int nmasters, int nclien
 }
 
 
-void ConnectionMatrix::setFewtoSomeFlowsHardCoding(Topology *top, set<int>* sender_servers, set<int>* receiver_servers, int multiplier, int numerator, int denominator){
+void ConnectionMatrix::setFewtoSomeFlowsHardCoding(Topology *top, set<int>* sender_servers, set<int>* receiver_servers, int multiplier, int numerator, int denominator, double simtime_ms){
   cout<<"Few to some: " << endl;
   cout << "Senders: ";
   for (int s : *sender_servers) {
@@ -676,7 +677,7 @@ void ConnectionMatrix::setFewtoSomeFlowsHardCoding(Topology *top, set<int>* send
                   }
                   //bytes = 2 * 1024 * 1024;
                   bytes = mss * ((bytes+mss-1)/mss);
-                  double simtime_ms = 196.0;
+                  // double simtime_ms = 196.0;
                   double start_time_ms = base_start_ms + drand() * simtime_ms;
                   flows.push_back(Flow(master, client, bytes, start_time_ms));
               }
@@ -695,7 +696,7 @@ void ConnectionMatrix::setFewtoSomeFlowsHardCoding(Topology *top, set<int>* send
                 }
                 //bytes = 2 * 1024 * 1024;
                 bytes = mss * ((bytes+mss-1)/mss);
-                double simtime_ms = 196.0;
+                // double simtime_ms = 196.0;
                 double start_time_ms = base_start_ms + drand() * simtime_ms;
                 flows.push_back(Flow(master, client, bytes, start_time_ms));
               }
