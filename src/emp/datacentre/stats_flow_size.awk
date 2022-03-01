@@ -21,6 +21,5 @@ END {
     traffic_per_time = sum/total_duration
     flow_start_per_time = num_line/total_duration
     traffic_duration_per_time = sum_duration/total_duration
-    print filename," from",mstart,"to",mend," ",num_line," ",sum," ",average;
-    print filename," flow start per time=",flow_start_per_time,", traffic per time=",traffic_per_time,", traffic x duration per time=",traffic_duration_per_time;
+    print filename," from",mstart,"to",mend," ",total_duration," ",num_line," ",sum," ",average," ",flow_start_per_time," ",traffic_per_time," ",traffic_duration_per_time
 }
