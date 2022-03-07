@@ -5,7 +5,7 @@ dir="./fct_results_0227m6/*"
 mend=350
 
 for mstart in 0; do
-    echo -e "\nAVERAGE FCT | MEDIAN FCT/SIZE | N99 FCT/SIZE | MAX FCT/SIZE"
+    echo -e "\nAVERAGE | MEDIAN | N99 | MAX"
     for FILE in ${dir}; do
     # for FILE in "${new_files[@]}"; do
     #     FILE="${prefix}${FILE}"
