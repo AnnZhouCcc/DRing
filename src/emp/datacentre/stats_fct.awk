@@ -30,5 +30,7 @@ END {
     }
     n99_index = int(num_line*0.99)
     n99 = numbers[n99_index]
-    print filename," from",mstart,"to",mend," ",average," ",median," ",n99," ",max
+    n95_index = int(num_line*0.95)
+    n95 = numbers[n95_index]
+    print filename," from",mstart,"to",mend," ",average," ",median," ",n95," ",n99," ",max
 }
