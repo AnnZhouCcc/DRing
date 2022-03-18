@@ -1,6 +1,6 @@
-FILE="./fct_results_0227m18/rrg_ecmp_0_4to16_0227long1_ii18_0_0_long1_0_1051_1050"
+FILE="./fct_results_0311fct/fct_6"
 mstart=0
-mend=350
-n95=30.43174
+mend=300
+n95=50
 
 cat $FILE | awk -v mstart=$mstart -v mend=$mend -v n95=$n95 -f stats_rank2.awk
