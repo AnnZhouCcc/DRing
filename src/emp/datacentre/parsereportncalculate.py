@@ -1,15 +1,15 @@
 import csv
 import re
 
-targetsrcsw = 25
+targetsrcsw = 36
 targetdstsw = 52
-mstart = 50
-mend = 300
+mstart = 0
+mend = 350
 n99fct = 26.693
 
 sizesum = 0
 sizecount = 0
-with open("output",'r') as fd:
+with open("fct_results_0311report/report_2",'r') as fd:
     rd = csv.reader(fd, delimiter=" ", quotechar='"')
     # isqueue = False
     shouldqueue = False
@@ -25,9 +25,10 @@ with open("output",'r') as fd:
                 print("*****Error: shouldqueue is not cleared")
                 exit()
 
-            this_fct = int(row[2])
-            this_start = int(row[3])
+            this_fct = float(row[2])
+            this_start = float(row[3])
             if mstart<=this_start and this_start<mend and this_fct>n99fct:
+                print("this_start="+str(this_start)+",this_fct="+str(this_fct))
                 shouldqueue = True
                 size = int(row[1])
 
@@ -47,7 +48,8 @@ with open("output",'r') as fd:
                 if matched[0] == 'SW' and matched[2] == 'SW':
                     srcsw = int(matched[1])
                     dstsw = int(matched[3])
-                    if srcsw == targetsrcsw and dstsw == targetdstsw:
+                    print("srcsw="+str(srcsw)+",dstsw="+str(dstsw))
+                    if srcsw not in [25,36,37,70] and dstsw != targetdstsw:
                         if size == -1:
                             print("*****Error: size is not defined")
                             exit()
