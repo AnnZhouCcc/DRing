@@ -1,7 +1,7 @@
-routing=ecmp
-k=0
-rstag=ecmp
-date=0315report
+routing=su
+k=2
+rstag=su2
+date=0320report
 
 
 run_make(){
