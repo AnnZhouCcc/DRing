@@ -41,7 +41,7 @@ run_4to16(){
     stime=350
     mstart=0
     mend=351
-    mult=1
+    mult=2
     denominator=0
     numerator=0
     name=run1
