@@ -1,7 +1,7 @@
 routing=su
 k=2
 rstag=su2
-date=0331su2t1050m1p2
+date=0331su2t1050m1p8
 
 
 run_make(){
@@ -43,7 +43,7 @@ run_4to16(){
     mend=1051
     mult=1
     denominator=10
-    numerator=2
+    numerator=8
     name=run1
     time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} FEW_TO_SOME ${mult} ${numerator} ${denominator} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${C} ${S} 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} ${mstart} ${mend} ${stime} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${name}_${mstart}_${mend}_${stime} &
     sleep 5

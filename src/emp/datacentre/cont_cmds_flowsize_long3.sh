@@ -1,7 +1,7 @@
 routing=su
 k=2
 rstag=su2
-date=0331su2t3500m4
+date=0331su2t3500m6
 
 
 run_make(){
@@ -41,7 +41,7 @@ run_4to16(){
     stime=3500
     mstart=0
     mend=3501
-    mult=4
+    mult=6
     denominator=0
     numerator=0
     name=run1
