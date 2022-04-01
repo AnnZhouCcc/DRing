@@ -1,7 +1,7 @@
 routing=su
-k=2
-rstag=su2
-date=0331su2t2100m1p8
+k=3
+rstag=su3
+date=0331su3t2100m1p8
 
 
 run_make(){
