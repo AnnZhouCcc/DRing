@@ -1,7 +1,7 @@
 routing=kshort
 k=32
 rstag=32short
-date=033132shortt3500m3
+date=033132shortt3500m4
 
 
 run_make(){
@@ -41,7 +41,7 @@ run_4to16(){
     stime=3500
     mstart=0
     mend=3501
-    mult=3
+    mult=4
     denominator=0
     numerator=0
     name=run1
