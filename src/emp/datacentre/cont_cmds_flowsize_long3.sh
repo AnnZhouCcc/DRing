@@ -1,7 +1,7 @@
-routing=fhi
-k=0
-rstag=fhi
-date=0331fhit3500m6
+routing=kdisjoint
+k=32
+rstag=32disjoint
+date=033132disjointt3500m10
 
 
 run_make(){
@@ -41,7 +41,7 @@ run_4to16(){
     stime=3500
     mstart=0
     mend=3501
-    mult=6
+    mult=10
     denominator=0
     numerator=0
     name=run1
