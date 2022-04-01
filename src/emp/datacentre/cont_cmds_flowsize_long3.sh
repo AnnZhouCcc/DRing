@@ -1,7 +1,7 @@
-routing=su
-k=3
-rstag=su3
-date=0331su3t3500m7p5
+routing=fhi
+k=0
+rstag=fhi
+date=0331fhit3500m7p5
 
 
 run_make(){
