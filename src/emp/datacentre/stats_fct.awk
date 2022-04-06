@@ -32,5 +32,10 @@ END {
     n99 = numbers[n99_index]
     n95_index = int(num_line*0.95)
     n95 = numbers[n95_index]
-    print filename," from",mstart,"to",mend," ",average," ",median," ",n95," ",n99," ",max
+    tail_num = n99_index-n95_index+1
+    tail_sum = 0
+    for(i=n95_index; i<=n99_index; i++)
+        tail_sum += numbers[i]
+    tail_average = tail_sum/tail_num
+    print filename," from",mstart,"to",mend," ",average," ",median," ",n95," ",n99," ",max," ",tail_average
 }
