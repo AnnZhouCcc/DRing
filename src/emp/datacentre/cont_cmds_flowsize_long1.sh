@@ -38,9 +38,9 @@ run_4to16(){
     pwfile="none"
     solve_starttime=0
     solve_endtime=0
-    stime=2100
+    stime=2000
     mstart=0
-    mend=2101
+    mend=2001
 
     denominator=0
     numerator=0
