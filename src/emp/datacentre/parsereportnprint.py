@@ -3,9 +3,9 @@ import re
 
 mstart = 0
 mend = 1050
-fctthreshold = 100
+fctthreshold = 1250
 
-with open("parse_sample.txt",'r') as fd:
+with open("fct_results_0321report/su327_report",'r') as fd:
     rd = csv.reader(fd, delimiter=" ", quotechar='"')
     # isqueue = False
     shouldprint = False

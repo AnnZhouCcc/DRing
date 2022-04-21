@@ -1,17 +1,18 @@
 import csv
 import re
 
-onlink = True
-targetsrcsw = 36
+onlink = False
+targetsrcsw = 70
 targetdstsw = 52
-# targetsrcswlist = [25,36,37,70]
+targetsrcswlist = [25,36,37,70]
+targetsrcswlist = []
 mstart = 0
-mend = 350
-n99fct = 26.693
+mend = 1050
+n99fct = 47.13
 
 sizesum = 0
 sizecount = 0
-with open("fct_results_0311report/report_2",'r') as fd:
+with open("fct_results_0315report/report_5",'r') as fd:
     rd = csv.reader(fd, delimiter=" ", quotechar='"')
     # isqueue = False
     shouldqueue = False
@@ -57,7 +58,7 @@ with open("fct_results_0311report/report_2",'r') as fd:
                         if srcsw == targetsrcsw and dstsw == targetdstsw:
                             shouldinclude = True
                     else:
-                        if srcsw in targetsrcswlist and dstsw != targetdstsw:
+                        if srcsw in targetsrcswlist and dstsw == targetdstsw:
                             shouldinclude = True
 
             if onlink:

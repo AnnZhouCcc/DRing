@@ -1,10 +1,12 @@
 import csv
 import re
 
-mstart = 154
-mend = 164
+mstart = 262
+mend = 282
+fctthreshold = 5
+sizethreshold = 35000
 
-with open("fct_results_0320report/su3_report",'r') as fd:
+with open("fct_results_0320report/maxdisjoint_report",'r') as fd:
     rd = csv.reader(fd, delimiter=" ", quotechar='"')
     # isqueue = False
     shouldprint = False
@@ -22,7 +24,7 @@ with open("fct_results_0320report/su3_report",'r') as fd:
             this_size = int(row[1])
             this_fct = float(row[2])
             this_start = float(row[3])
-            if mstart<=this_start and this_start<mend:
+            if mstart<=this_start and this_start<mend and this_size>sizethreshold and this_fct>fctthreshold:
                 print("flow starts at "+str(this_start) + " with fct "+str(this_fct)+" of size "+str(this_size))
                 shouldprint = True
             

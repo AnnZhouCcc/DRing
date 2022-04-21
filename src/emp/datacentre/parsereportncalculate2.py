@@ -1,8 +1,8 @@
 import csv
 import re
 
-mstart = 271
-mend = 275
+mstart = 200
+mend = 204
 
 flowcountarr = [0,0,0,0,0]
 flowsizearr = [0,0,0,0,0]
