@@ -85,7 +85,7 @@ if [[ $1 == "LEAFSPINE" ]]; then
     tempResultFile=leafspine_output_$2_$3_$NHOST_$NSW_$9_${10}_${PARAM2}_${BASHPID}
     tempLogFile=leafspine_pathlog_$2_$3_$NHOST_$NSW_$9_${10}_${PARAM2}_${BASHPID}
     echo $tempResultFile
-    ./leafspine_${SUFFIX} -o ${tempLogFile} -sub $2 -TMatrix ${10} -mult ${MULT} -numerator ${NUMERATOR} -denominator ${DENOMINATOR} -r ${ROUTING} -k ${KorN} -param ${PARAM} -paramo ${PARAMO} -netpath ${NETPATH} -pathweight ${PATHWEIGHT} -dp ${DP} | tee $tempResultFile
+    ./leafspine_${SUFFIX} -o ${tempLogFile} -sub $2 -TMatrix ${10} -mult ${MULT} -numerator ${NUMERATOR} -denominator ${DENOMINATOR} -solvestart ${SOLVESTART} -solveend ${SOLVEEND} -r ${ROUTING} -k ${KorN} -param ${PARAM} -paramo ${PARAMO} -netpath ${NETPATH} -pathweight ${PATHWEIGHT} -dp ${DP} -mstart ${MSTART} -mend ${MEND} -stime ${STIME} | tee $tempResultFile
     #cat leafspine_output | grep Throughput | awk -F " " '{thr[$5]=$2} END{for(sid in thr) print thr[sid]}' | awk -v nhost="$NHOST" '{sum+=$1} END{print sum/nhost/61}'
     #echo $tempResultFile
     #cat $tempResultFile | grep "Throughput" | awk -F " " '{thr[$7 " " $5]=$2} END{for(sid in thr) {split(sid,arr," "); print arr[1] " " thr[sid];}}'  | sort -n -k1 | awk -v nhost="$NHOST" '{sum[$1]+=$2} END{for(s in sum) print s,sum[s]/nhost/61}' | sort -n 
