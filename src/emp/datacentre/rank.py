@@ -1,7 +1,7 @@
 import csv
 import re
 
-threshold = 0
+threshold = 1000
 numsw = 80
 
 linkfreq = [[0 for x in range(numsw)] for y in range(numsw)] 
@@ -21,9 +21,9 @@ with open("output",'r') as fd:
                 linkfreq[srcsw][dstsw] += 1
 
 print("linecount = "+str(linecount))
-#for i in range(numsw):
-#    for j in range(numsw):
-#        if linkfreq[i][j] > threshold:
-#            print("link"+str(i)+"-"+str(j)+": "+str(linkfreq[i][j]))
-print("linkfreq of link25-52 = " + str(linkfreq[25][52])) 
+for i in range(numsw):
+    for j in range(numsw):
+        if linkfreq[i][j] > threshold:
+            print("link"+str(i)+"-"+str(j)+": "+str(linkfreq[i][j]))
+# print("linkfreq of link25-52 = " + str(linkfreq[25][52])) 
            
