@@ -1196,6 +1196,34 @@ void ConnectionMatrix::setAlltoAll(Topology *top){
 }
 
 
+void ConnectionMatrix::setRackLevelAllToAllFlowsHardCoding(int multiplier, double simtime_ms) {
+  // cannot handle numerator and denominator for now
+  cout<<"Rack level all-to-all" << endl;
+  int num_racks_leafspine = 64; // even if the topology is rrg, we still go by leafspine
+  int num_servers_per_rack_leafspine = 48;
+  for (int sr=0; sr<num_racks_leafspine; sr++) {
+    for (int dr=0; dr<num_racks_leafspine; dr++) {
+      if (sr == dr) continue;
+
+      for (int m=0; m<multiplier; m++) {
+        int i = m % num_servers_per_rack_leafspine;
+        int src = sr*num_servers_per_rack_leafspine + i;
+        int dst = dr*num_servers_per_rack_leafspine + i;
+
+        int bytes = genFlowBytes();
+        int mss = 1500;
+        while (bytes > 10 * 1024 * 1024){
+          bytes = genFlowBytes();
+        }
+        bytes = mss * ((bytes+mss-1)/mss);
+
+        double start_time_ms = drand() * simtime_ms;
+        flows.push_back(Flow(src, dst, bytes, start_time_ms));
+      }
+    }
+  }
+}
+
 
 void ConnectionMatrix::setUniform(int flowsPerHost){
 	for(int i=0; i<N; i++){

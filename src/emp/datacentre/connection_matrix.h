@@ -75,6 +75,7 @@ class ConnectionMatrix{
   void setMixFlows(Topology* top, int nracks, int multiplier, int numerator, int denominator);
   void setFluidMixFlows(Topology* top, vector<int>* hot_racks, int multiplier, int numerator, int denominator);
   void setFluidMixFlowsLeafspine(Topology* top, vector<int>* hot_servers, int multiplier, int numerator, int denominator);
+  void setRackLevelAllToAllFlowsHardCoding(int multiplier, double simtime_ms);
   int genFlowBytes();
   /* For generating pareto dist. via exp dist. */
   int mean_bytes = 100.0 * 1024;

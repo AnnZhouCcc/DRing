@@ -504,8 +504,9 @@ int main(int argc, char **argv) {
         conns->setUniform(param);
     }
     else if(conn_matrix == "RANDOM"){
-        int connxs = (NHOST * NHOST / 1000) * param;
-        conns->setRandomFlows(connxs, simtime_ms);
+        // int connxs = (NHOST * NHOST / 1000) * param;
+        // conns->setRandomFlows(connxs, simtime_ms);
+        conns->setRackLevelAllToAllFlowsHardCoding(multiplier, simtime_ms);
     }
     else if(conn_matrix == "FILE"){
         conns->setFlowsFromFile(top, paramstring, multiplier, numerator, denominator);
