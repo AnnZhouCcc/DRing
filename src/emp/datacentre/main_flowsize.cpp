@@ -440,62 +440,64 @@ int main(int argc, char **argv) {
         conns->setAlltoAll(top);
     }
     else if(conn_matrix == "RACK_TO_RACK"){
-        int sender_start = 1344;
-        int sender_end = 1391;
-        int receiver_start = 2640;
-        int receiver_end = 2687;
-        set<int> senders, receivers;
-        for (int i=sender_start; i<=sender_end; i++) {
-            senders.insert(i);
-        }
-        for (int i=receiver_start; i<=receiver_end; i++) {
-            receivers.insert(i);
-        }
-        conns->setRacktoRackFlowsHardCoding(top, &senders, &receivers, multiplier, numerator, denominator);
+        // int sender_start = 1344;
+        // int sender_end = 1391;
+        // int receiver_start = 2640;
+        // int receiver_end = 2687;
+        // set<int> senders, receivers;
+        // for (int i=sender_start; i<=sender_end; i++) {
+        //     senders.insert(i);
+        // }
+        // for (int i=receiver_start; i<=receiver_end; i++) {
+        //     receivers.insert(i);
+        // }
+        // conns->setRacktoRackFlowsHardCoding(top, &senders, &receivers, multiplier, numerator, denominator);
         // conns->setRacktoRackFlows(top, param, paramo, multiplier, numerator, denominator);
+        conns->setRackLevelRackToRackFlowsHardCoding(multiplier, simtime_ms);
     }
     else if(conn_matrix == "FEW_TO_SOME"){
-        if (param == 768) {
-            assert(paramo == 192);
-            vector<int> sender_starts {1344,2640,2304,2688,1392,1728,836,931,1520,979,2256,720,884,1672,1440,2592};
-            vector<int> sender_ends {1391,2687,2351,2735,1439,1775,883,978,1567,1026,2303,767,931,1719,1487,2639};
-            vector<int> receiver_starts {2496,2016,1968,2064};
-            vector<int> receiver_ends {2543,2063,2015,2111};
+        // if (param == 768) {
+        //     assert(paramo == 192);
+        //     vector<int> sender_starts {1344,2640,2304,2688,1392,1728,836,931,1520,979,2256,720,884,1672,1440,2592};
+        //     vector<int> sender_ends {1391,2687,2351,2735,1439,1775,883,978,1567,1026,2303,767,931,1719,1487,2639};
+        //     vector<int> receiver_starts {2496,2016,1968,2064};
+        //     vector<int> receiver_ends {2543,2063,2015,2111};
 
-            set<int> senders, receivers;
-            for (int i=0; i<sender_starts.size(); i++) {
-                for (int j=sender_starts.at(i); j<=sender_ends.at(i); j++) {
-                    senders.insert(j);
-                }
-            }
-            for (int i=0; i<receiver_starts.size(); i++) {
-                for (int j=receiver_starts.at(i); j<=receiver_ends.at(i); j++) {
-                    receivers.insert(j);
-                }
-            }
-            conns->setFewtoSomeFlowsHardCoding(top, &senders, &receivers, multiplier, numerator, denominator, simtime_ms);
-        } else {
-            assert(param == 192);
-            assert(paramo == 768);
-            vector<int> receiver_starts {1344,2640,2304,2880,96,1728,528,1920,2448,2112,2256,720,1824,432,1440,2592};
-            vector<int> receiver_ends {1391,2687,2351,2927,143,1775,575,1967,2495,2159,2303,767,1871,479,1487,2639};
-            vector<int> sender_starts {2496,2016,384,240};
-            vector<int> sender_ends {2543,2063,431,287};
+        //     set<int> senders, receivers;
+        //     for (int i=0; i<sender_starts.size(); i++) {
+        //         for (int j=sender_starts.at(i); j<=sender_ends.at(i); j++) {
+        //             senders.insert(j);
+        //         }
+        //     }
+        //     for (int i=0; i<receiver_starts.size(); i++) {
+        //         for (int j=receiver_starts.at(i); j<=receiver_ends.at(i); j++) {
+        //             receivers.insert(j);
+        //         }
+        //     }
+        //     conns->setFewtoSomeFlowsHardCoding(top, &senders, &receivers, multiplier, numerator, denominator, simtime_ms);
+        // } else {
+        //     assert(param == 192);
+        //     assert(paramo == 768);
+        //     vector<int> receiver_starts {1344,2640,2304,2880,96,1728,528,1920,2448,2112,2256,720,1824,432,1440,2592};
+        //     vector<int> receiver_ends {1391,2687,2351,2927,143,1775,575,1967,2495,2159,2303,767,1871,479,1487,2639};
+        //     vector<int> sender_starts {2496,2016,384,240};
+        //     vector<int> sender_ends {2543,2063,431,287};
 
-            set<int> senders, receivers;
-            for (int i=0; i<sender_starts.size(); i++) {
-                for (int j=sender_starts.at(i); j<=sender_ends.at(i); j++) {
-                    senders.insert(j);
-                }
-            }
-            for (int i=0; i<receiver_starts.size(); i++) {
-                for (int j=receiver_starts.at(i); j<=receiver_ends.at(i); j++) {
-                    receivers.insert(j);
-                }
-            }
-            conns->setFewtoSomeFlowsHardCoding(top, &senders, &receivers, multiplier, numerator, denominator, simtime_ms);
-        }
+        //     set<int> senders, receivers;
+        //     for (int i=0; i<sender_starts.size(); i++) {
+        //         for (int j=sender_starts.at(i); j<=sender_ends.at(i); j++) {
+        //             senders.insert(j);
+        //         }
+        //     }
+        //     for (int i=0; i<receiver_starts.size(); i++) {
+        //         for (int j=receiver_starts.at(i); j<=receiver_ends.at(i); j++) {
+        //             receivers.insert(j);
+        //         }
+        //     }
+        //     conns->setFewtoSomeFlowsHardCoding(top, &senders, &receivers, multiplier, numerator, denominator, simtime_ms);
+        // }
         // conns->setFewtoSomeFlows(top, param, paramo, multiplier, numerator, denominator, simtime_ms);
+        conns->setRackLevel16To4FlowsHardCoding(multiplier, simtime_ms);
     }
     else if(conn_matrix == "FEW_TO_SOME_REPEAT"){
         conns->setFewtoSomeFlowsRepeat(top, param, paramo, multiplier, numerator, denominator);
