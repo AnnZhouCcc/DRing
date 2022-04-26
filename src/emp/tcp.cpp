@@ -7,6 +7,7 @@
 #define KILL_THRESHOLD 5
 
 uint64_t total_packet_bytes = 0;
+uint64_t received_packet_bytes = 0;
 
 ////////////////////////////////////////////////////////////////
 //  TCP SOURCE
@@ -162,6 +163,8 @@ TcpSrc::receivePacket(Packet& pkt)
 
     //assert(seqno >= _last_acked);  // no dups or reordering allowed in this simple simulator
 
+	received_packet_bytes += p->size();
+
     //compute rtt
     uint64_t m = eventlist().now()-ts;
 
@@ -209,7 +212,7 @@ TcpSrc::receivePacket(Packet& pkt)
 		}
 		if (is_in_measurement) {
         	cout << "FCT " << _flow_size << " " << timeAsMs(eventlist().now() - _start_time) 
-				<< " " << timeAsMs(_start_time) << " " << _packets_sent << total_packet_bytes << endl;
+				<< " " << timeAsMs(_start_time) << " " << _packets_sent << " " << total_packet_bytes << " " << received_packet_bytes << endl;
 			for (vector<PacketSink*>::const_iterator it = _route->begin(); it != _route->end(); ++it) {
 				cout << (*it)->nodename() << " ";
 			}
@@ -678,6 +681,7 @@ TcpSink::receivePacket(Packet& pkt) {
     p->free();
 
     _packets+= p->size();
+	received_packet_bytes += p->size();
 
     //cout << "Sink recv seqno " << seqno << " size " << size << endl;
 
