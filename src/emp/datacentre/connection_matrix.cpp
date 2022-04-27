@@ -1231,20 +1231,22 @@ void ConnectionMatrix::setRackLevel16To4FlowsHardCoding(int multiplier, double s
   int num_servers_per_rack_leafspine = 48;
   for (int m=0; m<multiplier; m++) {
     for (int sr=48; sr<64; sr++) {
-      for (int dr=0; dr<4; dr++) {
-        for (int i=0; i<num_servers_per_rack_leafspine; i++) {
-          int src = sr*num_servers_per_rack_leafspine + i;
-          int dst = dr*num_servers_per_rack_leafspine + i;
+      for (int i=0; i<num_servers_per_rack_leafspine; i++) {
+        for (int dr=0; dr<4; dr++) {
+          for (int j=0; j<num_servers_per_rack_leafspine; j++) {
+            int src = sr*num_servers_per_rack_leafspine + i;
+            int dst = dr*num_servers_per_rack_leafspine + j;
 
-          int bytes = genFlowBytes();
-          int mss = 1500;
-          while (bytes > 10 * 1024 * 1024){
-            bytes = genFlowBytes();
+            int bytes = genFlowBytes();
+            int mss = 1500;
+            while (bytes > 10 * 1024 * 1024){
+              bytes = genFlowBytes();
+            }
+            bytes = mss * ((bytes+mss-1)/mss);
+
+            double start_time_ms = drand() * simtime_ms;
+            flows.push_back(Flow(src, dst, bytes, start_time_ms));
           }
-          bytes = mss * ((bytes+mss-1)/mss);
-
-          double start_time_ms = drand() * simtime_ms;
-          flows.push_back(Flow(src, dst, bytes, start_time_ms));
         }
       }
     }
