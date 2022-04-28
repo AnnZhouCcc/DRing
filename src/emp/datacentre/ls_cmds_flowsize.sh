@@ -1,7 +1,7 @@
 routing=ecmp
 k=0
 rstag=ecmp
-date=0428t2000r2rlstest
+date=0428t2000r2rlstest2
 
 
 run_make(){
