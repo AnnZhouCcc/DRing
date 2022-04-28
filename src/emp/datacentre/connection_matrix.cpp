@@ -1263,18 +1263,20 @@ void ConnectionMatrix::setRackLevelRackToRackFlowsHardCoding(int multiplier, dou
     int sr = 0;
     int dr = 25;
     for (int i=0; i<num_servers_per_rack_leafspine; i++) {
-      int src = sr*num_servers_per_rack_leafspine + i;
-      int dst = dr*num_servers_per_rack_leafspine + i;
+      for (int j=0; j<num_servers_per_rack_leafspine; j++) {
+        int src = sr*num_servers_per_rack_leafspine + i;
+        int dst = dr*num_servers_per_rack_leafspine + j;
 
-      int bytes = genFlowBytes();
-      int mss = 1500;
-      while (bytes > 10 * 1024 * 1024){
-        bytes = genFlowBytes();
+        int bytes = genFlowBytes();
+        int mss = 1500;
+        while (bytes > 10 * 1024 * 1024){
+          bytes = genFlowBytes();
+        }
+        bytes = mss * ((bytes+mss-1)/mss);
+
+        double start_time_ms = drand() * simtime_ms;
+        flows.push_back(Flow(src, dst, bytes, start_time_ms));
       }
-      bytes = mss * ((bytes+mss-1)/mss);
-
-      double start_time_ms = drand() * simtime_ms;
-      flows.push_back(Flow(src, dst, bytes, start_time_ms));
     }
   }
 }
