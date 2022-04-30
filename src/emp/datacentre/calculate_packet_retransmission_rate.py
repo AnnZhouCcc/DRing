@@ -4,15 +4,10 @@ import csv
 import re
 
 numsw = 80
-mstart = 100
-mend = 2000
-mstep = 1900
-filename = "fct_results_0428t2000r2rlsreport/m300r1"
+should_print = True
+filename = "fct_results_0428t2000r2rlsreport/pm50r1"
 
-for window_start in range(mstart, mend, mstep):
-    window_end = window_start + mstep
-    print("from " + str(window_start) + " to " + str(window_end) + ":")
-
+for i in range(1):
     retransmission = []
     sum_traffic_expected = 0
     sum_traffic_real = 0 
@@ -23,13 +18,16 @@ for window_start in range(mstart, mend, mstep):
             start = float(row[0])
             duration = float(row[1])
             end = start+duration
-            size = int(row[2])
-            actual_size = int(row[3])
+            size = float(row[2])
+            actual_size = float(row[3])
 
             num_flows += 1
             sum_traffic_expected += size
             sum_traffic_real += actual_size
-            retransmission.append((actual_size-size)/size)
+            rr = (actual_size-size)/size
+            retransmission.append(rr)
+            if should_print and rr>=1:
+            	print(row)
 
     print("overall retransmission\t" + str((sum_traffic_real-sum_traffic_expected)/sum_traffic_expected))    
     print("average retransmission\t" + str(sum(retransmission)/num_flows))
@@ -38,3 +36,4 @@ for window_start in range(mstart, mend, mstep):
     n99_index = int(num_flows*0.99)
     print("median retransmission\t" + str(retransmission[median_index]))
     print("n99 retransmission\t" + str(retransmission[n99_index]))      
+    print("max retransmission\t" + str(retransmission[num_flows-1]))      
