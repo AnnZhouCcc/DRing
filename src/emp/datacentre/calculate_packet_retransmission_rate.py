@@ -4,10 +4,16 @@ import csv
 import re
 
 numsw = 80
-should_print = True
+mstart = 100
+mend = 1900
+mstep = 200
+should_print = False
 filename = "fct_results_0428t2000r2rlsreport/pm50r1"
 
-for i in range(1):
+for wstart in range(mstart, mend, mstep):
+    wend = wstart +  mstep
+    print("from " + str(wstart) + " to " + str(wend) + ":\n")
+
     retransmission = []
     sum_traffic_expected = 0
     sum_traffic_real = 0 
@@ -21,13 +27,15 @@ for i in range(1):
             size = float(row[2])
             actual_size = float(row[3])
 
-            num_flows += 1
-            sum_traffic_expected += size
-            sum_traffic_real += actual_size
-            rr = (actual_size-size)/size
-            retransmission.append(rr)
-            if should_print and rr>=1:
-            	print(row)
+            # we only do a lower bound here
+            if start>=wstart and end<wend:
+                num_flows += 1
+                sum_traffic_expected += size
+                sum_traffic_real += actual_size
+                rr = (actual_size-size)/size
+                retransmission.append(rr)
+                if should_print and rr>=1:
+                    print(row)
 
     print("overall retransmission\t" + str((sum_traffic_real-sum_traffic_expected)/sum_traffic_expected))    
     print("average retransmission\t" + str(sum(retransmission)/num_flows))
