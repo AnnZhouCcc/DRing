@@ -5,10 +5,10 @@ import re
 
 numsw = 80
 mstart = 700
-mend = 1900
-mstep = 200
-k = 10
-filename = "parsed_text.txt"
+mend = 2000
+mstep = 1300
+k = 10 # should be even number for r2r
+filename = "fct_results_0428t2000r2rlsreport/pm600r1"
 
 def print_top_k_items(matrix, size, k):
     list_for_matrix = []
@@ -50,12 +50,12 @@ for window_start in range(mstart, mend, mstep):
                     link_name = matched[0]
                     link_type = link_name[:2]
                     link_number = int(link_name[2:])
-                    if link_name == "SW":
+                    if link_type == "LS":
                         link_number += 16
                     link_name2 = matched[1]
                     link_type2 = link_name2[:2]
                     link_number2 = int(link_name2[2:])
-                    if link_name2 == "SW":
+                    if link_type2 == "LS":
                         link_number2 += 16
                     link = tuple([link_number, link_number2])
                     link_set.add(link)
