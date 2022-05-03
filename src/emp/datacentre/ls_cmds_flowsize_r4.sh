@@ -1,7 +1,7 @@
 routing=ecmp
 k=0
 rstag=ecmp
-date=0501t2000r2rls
+date=0503t50016to4ls
 
 
 run_make(){
@@ -36,13 +36,13 @@ run_4to16(){
     pwfile="none"
     solve_starttime=0
     solve_endtime=0
-    stime=2000
+    stime=500
     mstart=0
-    mend=2001
+    mend=501
 
     denominator=0
     numerator=0
-    for mult in 1 2 3 4; do
+    for mult in 8; do
     name=run1
     time ./run.sh LEAFSPINE 1 64 16 null 3072 1 1 ${MAKE} FEW_TO_SOME ${mult} ${numerator} ${denominator} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${C} ${S} 3 ls_flowsize_80_64_1 ${npfile} ${pwfile} ${dp} ${mstart} ${mend} ${stime} | grep -e "FCT" -e "topology" > fct_results_${date}/ls_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${name}_${mstart}_${mend}_${stime} &
     sleep 5
@@ -101,5 +101,5 @@ run_r2r(){
 
 
 run_make
-# run_4to16
-run_r2r
+run_4to16
+# run_r2r

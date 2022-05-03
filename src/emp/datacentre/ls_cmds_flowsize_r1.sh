@@ -1,7 +1,7 @@
 routing=ecmp
 k=0
 rstag=ecmp
-date=0501t2000r2rls2
+date=0503t50016to4ls
 
 
 run_make(){
@@ -36,9 +36,9 @@ run_4to16(){
     pwfile="none"
     solve_starttime=0
     solve_endtime=0
-    stime=2000
+    stime=500
     mstart=0
-    mend=2001
+    mend=501
 
     denominator=0
     numerator=0
@@ -101,5 +101,5 @@ run_r2r(){
 
 
 run_make
-# run_4to16
-run_r2r
+run_4to16
+# run_r2r
