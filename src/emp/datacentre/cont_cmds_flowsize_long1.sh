@@ -100,7 +100,7 @@ run_a2a(){
 }
 
 
-run_r2r {
+run_r2r(){
     MAKE=NOMAKE
     tm="r2r"
     C=48
