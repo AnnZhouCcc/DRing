@@ -1,7 +1,7 @@
 routing=kdisjoint
 k=32
 rstag=32disjoint
-date=0504t2000r2r32disjoint2
+date=0504t2000r2r32disjoint3
 
 
 run_make(){
@@ -82,7 +82,7 @@ run_r2r(){
 
     numerator=0
     denominator=0
-    for mult in 1100; do
+    for mult in 50; do
     name=run1
     time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} RACK_TO_RACK ${mult} ${numerator} ${denominator} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${C} ${S} 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} ${mstart} ${mend} ${stime} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${name}_${mstart}_${mend}_${stime} &
     sleep 30
