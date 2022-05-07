@@ -1,7 +1,7 @@
 routing=kshort
 k=32
 rstag=32short
-date=0507t50016to432shortlp1
+date=0507t50016to432shortlp12
 
 
 run_make(){
