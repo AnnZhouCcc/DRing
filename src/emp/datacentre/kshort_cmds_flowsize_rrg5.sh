@@ -1,7 +1,7 @@
 routing=kdisjoint
 k=32
 rstag=32disjoint
-date=0508t50016to432disjointlp1
+date=0508t50016to432disjointlp2
 
 
 run_make(){
@@ -35,7 +35,7 @@ run_16to4(){
     topology=rrg
     npfile="netpathfiles/netpath_32disjoint_rrg.txt"
     dp=4
-    pwfile="pathweightfiles/16to4/rrg/32disjoint/pathweight_lp1_rrg_32disjoint_16to4_4dp.txt"
+    pwfile="pathweightfiles/16to4/rrg/32disjoint/pathweight_lp2_rrg_32disjoint_16to4_4dp.txt"
     solve_starttime=0
     solve_endtime=0
     stime=500
