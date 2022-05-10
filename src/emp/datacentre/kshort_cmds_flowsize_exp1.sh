@@ -1,7 +1,7 @@
 routing=kshort
 k=32
 rstag=32short
-date=0507t50016to432shortlp1report
+date=0508t50016to432shortlp2report
 
 
 run_make(){
@@ -35,7 +35,7 @@ run_16to4(){
     topology=rrg
     npfile="netpathfiles/netpath_32short_rrg.txt"
     dp=4
-    pwfile="pathweightfiles/16to4/rrg/32short/pathweight_lp1_rrg_32short_16to4_4dp.txt"
+    pwfile="pathweightfiles/16to4/rrg/32short/pathweight_lp2_rrg_32short_16to4_4dp.txt"
     solve_starttime=0
     solve_endtime=0
     stime=500
