@@ -497,7 +497,13 @@ int main(int argc, char **argv) {
         //     conns->setFewtoSomeFlowsHardCoding(top, &senders, &receivers, multiplier, numerator, denominator, simtime_ms);
         // }
         // conns->setFewtoSomeFlows(top, param, paramo, multiplier, numerator, denominator, simtime_ms);
-        conns->setRackLevel16To4FlowsHardCoding(multiplier, simtime_ms);
+        if (NHOST == 3072) {
+            conns->setRackLevel16To4FlowsHardCoding(multiplier, simtime_ms);
+        } else if (NHOST == 2988) {
+            conns->setDRingRackLevel16To4FlowsHardCoding(multiplier, simtime_ms);
+        } else {
+            cout << "Not hard-coded yet." << endl;
+        }
     }
     else if(conn_matrix == "FEW_TO_SOME_REPEAT"){
         conns->setFewtoSomeFlowsRepeat(top, param, paramo, multiplier, numerator, denominator);

@@ -1254,6 +1254,36 @@ void ConnectionMatrix::setRackLevel16To4FlowsHardCoding(int multiplier, double s
 }
 
 
+void ConnectionMatrix::setDRingRackLevel16To4FlowsHardCoding(int multiplier, double simtime_ms) {
+  // cannot handle numerator and denominator for now
+  cout<<"DRing Rack-level 16-to-4" << endl;
+  int num_racks_leafspine = 64; // even if the topology is rrg, we still go by leafspine
+  int num_servers_per_rack_leafspine = 48;
+  for (int m=0; m<multiplier; m++) {
+    for (int sr=24; sr<40; sr++) {
+      for (int i=0; i<num_servers_per_rack_leafspine; i++) {
+        for (int dr=0; dr<4; dr++) {
+          for (int j=0; j<num_servers_per_rack_leafspine; j++) {
+            int src = sr*num_servers_per_rack_leafspine + i;
+            int dst = dr*num_servers_per_rack_leafspine + j;
+
+            int bytes = genFlowBytes();
+            int mss = 1500;
+            while (bytes > 10 * 1024 * 1024){
+              bytes = genFlowBytes();
+            }
+            bytes = mss * ((bytes+mss-1)/mss);
+
+            double start_time_ms = drand() * simtime_ms;
+            flows.push_back(Flow(src, dst, bytes, start_time_ms));
+          }
+        }
+      }
+    }
+  }
+}
+
+
 void ConnectionMatrix::setRackLevelRackToRackFlowsHardCoding(int multiplier, double simtime_ms) {
   // cannot handle numerator and denominator for now
   cout<<"Rack-level rack-to-rack" << endl;
