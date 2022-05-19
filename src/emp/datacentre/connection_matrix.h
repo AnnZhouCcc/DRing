@@ -67,6 +67,7 @@ class ConnectionMatrix{
   void setFlowsFromFile(Topology* top, string filename, int multiplier, int numerator, int denominator);
   void setFlowsFromFileXHardCoding(Topology* top, string filename, int multiplier, int numerator, int denominator);
   void setFlowsFromClusterXHardCoding(Topology* top, string cluster, int multiplier, int numerator, int denominator, int solvestart, int solveend);
+  void setFlowsFromClusterYHardCoding(Topology* top, string cluster, int multiplier, int numerator, int denominator, double simtime_ms);
   void setFewtoSomeFlows(Topology* top, int nmasters, int nclients, int multiplier, int numerator, int denominator, double simtime_ms);
   void setFewtoSomeFlowsHardCoding(Topology *top, set<int>* sender_servers, set<int>* receiver_servers, int multiplier, int numerator, int denominator, double simtime_ms);
   void setFewtoSomeFlowsRepeat(Topology* top, int nmasters, int nclients, int multiplier, int numerator, int denominator);
