@@ -1,7 +1,7 @@
 routing=ecmp
 k=0
 rstag=ecmp
-date=0507t100a2als2
+date=0519t100clusterbls
 
 
 run_make(){
@@ -42,7 +42,7 @@ run_4to16(){
 
     denominator=0
     numerator=0
-    for mult in 7; do
+    for mult in 1 2 3 4; do
     name=run1
     time ./run.sh LEAFSPINE 1 64 16 null 3072 1 1 ${MAKE} FEW_TO_SOME ${mult} ${numerator} ${denominator} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${C} ${S} 3 ls_flowsize_80_64_1 ${npfile} ${pwfile} ${dp} ${mstart} ${mend} ${stime} | grep -e "FCT" -e "topology" > fct_results_${date}/ls_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${name}_${mstart}_${mend}_${stime} &
     sleep 5
@@ -79,7 +79,7 @@ run_r2r(){
     numerator=0
     denominator=0
 
-    for mult in 450; do
+    for mult in 525; do
     name=run1
     time ./run.sh LEAFSPINE 1 64 16 null 3072 1 1 ${MAKE} RACK_TO_RACK ${mult} ${numerator} ${denominator} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${C} ${S} 3 ls_flowsize_80_64_1 ${npfile} ${pwfile} ${dp} ${mstart} ${mend} ${stime} | grep -e "FCT" -e "topology" > fct_results_${date}/ls_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${name}_${mstart}_${mend}_${stime} &
     sleep 5
@@ -113,18 +113,17 @@ run_a2a(){
 
     numerator=0
     denominator=0
-    for sr in 1000; do
+    for sr in 50 100 200 300 400 500 600; do
     tm=a2a_${sr}
     name=run1
     time ./run.sh LEAFSPINE 1 64 16 null 3072 1 1 ${MAKE} RANDOM ${sr} ${numerator} ${denominator} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${sr} 0 3 ls_flowsize_80_64_1 ${npfile} ${pwfile} ${dp} ${mstart} ${mend} ${stime} | grep -e "FCT" -e "topology" > fct_results_${date}/ls_${tm}_${date}_ii${sr}_${numerator}_${denominator}_${name}_${mstart}_${mend}_${stime} &
     sleep 5
-    name=run2
-    time ./run.sh LEAFSPINE 1 64 16 null 3072 1 1 ${MAKE} RANDOM ${sr} ${numerator} ${denominator} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${sr} 0 3 ls_flowsize_80_64_1 ${npfile} ${pwfile} ${dp} ${mstart} ${mend} ${stime} | grep -e "FCT" -e "topology" > fct_results_${date}/ls_${tm}_${date}_ii${sr}_${numerator}_${denominator}_${name}_${mstart}_${mend}_${stime} &
-    sleep 5
+    # name=run2
+    # time ./run.sh LEAFSPINE 1 64 16 null 3072 1 1 ${MAKE} RANDOM ${sr} ${numerator} ${denominator} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${sr} 0 3 ls_flowsize_80_64_1 ${npfile} ${pwfile} ${dp} ${mstart} ${mend} ${stime} | grep -e "FCT" -e "topology" > fct_results_${date}/ls_${tm}_${date}_ii${sr}_${numerator}_${denominator}_${name}_${mstart}_${mend}_${stime} &
+    # sleep 5
     # name=run3
     # time ./run.sh LEAFSPINE 1 64 16 null 3072 1 1 ${MAKE} RANDOM ${sr} ${numerator} ${denominator} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${sr} 0 3 ls_flowsize_80_64_1 ${npfile} ${pwfile} ${dp} ${mstart} ${mend} ${stime} | grep -e "FCT" -e "topology" > fct_results_${date}/ls_${tm}_${date}_ii${sr}_${numerator}_${denominator}_${name}_${mstart}_${mend}_${stime} &
     # sleep 5
-    # wait
     # name=run4
     # time ./run.sh LEAFSPINE 1 64 16 null 3072 1 1 ${MAKE} RANDOM ${sr} ${numerator} ${denominator} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${sr} 0 3 ls_flowsize_80_64_1 ${npfile} ${pwfile} ${dp} ${mstart} ${mend} ${stime} | grep -e "FCT" -e "topology" > fct_results_${date}/ls_${tm}_${date}_ii${sr}_${numerator}_${denominator}_${name}_${mstart}_${mend}_${stime} &
     # sleep 5
@@ -136,7 +135,44 @@ run_a2a(){
 }
 
 
+run_cluster(){
+    MAKE=NOMAKE
+    tm="cluster_b"
+    tmfile="b"
+    npfile="none"
+    dp=0
+    pwfile="none"
+    solve_starttime=0
+    solve_endtime=0
+    stime=100
+    mstart=0
+    mend=101
+
+    denominator=0
+    numerator=0
+    for mult in 7; do
+    name=run1
+    time ./run.sh LEAFSPINE 1 64 16 null 3072 1 1 ${MAKE} CLUSTERX ${mult} ${numerator} ${denominator} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${tmfile} 10 3 ls_flowsize_80_64_1 ${npfile} ${pwfile} ${dp} ${mstart} ${mend} ${stime} | grep -e "FCT" -e "topology" > fct_results_${date}/ls_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${name}_${mstart}_${mend}_${stime} &
+    sleep 5
+    name=run2
+    time ./run.sh LEAFSPINE 1 64 16 null 3072 1 1 ${MAKE} CLUSTERX ${mult} ${numerator} ${denominator} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${tmfile} 10 3 ls_flowsize_80_64_1 ${npfile} ${pwfile} ${dp} ${mstart} ${mend} ${stime} | grep -e "FCT" -e "topology" > fct_results_${date}/ls_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${name}_${mstart}_${mend}_${stime} &
+    sleep 5
+    name=run3
+    time ./run.sh LEAFSPINE 1 64 16 null 3072 1 1 ${MAKE} CLUSTERX ${mult} ${numerator} ${denominator} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${tmfile} 10 3 ls_flowsize_80_64_1 ${npfile} ${pwfile} ${dp} ${mstart} ${mend} ${stime} | grep -e "FCT" -e "topology" > fct_results_${date}/ls_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${name}_${mstart}_${mend}_${stime} &
+    sleep 5
+    name=run4
+    time ./run.sh LEAFSPINE 1 64 16 null 3072 1 1 ${MAKE} CLUSTERX ${mult} ${numerator} ${denominator} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${tmfile} 10 3 ls_flowsize_80_64_1 ${npfile} ${pwfile} ${dp} ${mstart} ${mend} ${stime} | grep -e "FCT" -e "topology" > fct_results_${date}/ls_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${name}_${mstart}_${mend}_${stime} &
+    sleep 5
+    name=run5
+    time ./run.sh LEAFSPINE 1 64 16 null 3072 1 1 ${MAKE} CLUSTERX ${mult} ${numerator} ${denominator} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${tmfile} 10 3 ls_flowsize_80_64_1 ${npfile} ${pwfile} ${dp} ${mstart} ${mend} ${stime} | grep -e "FCT" -e "topology" > fct_results_${date}/ls_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${name}_${mstart}_${mend}_${stime} &
+    sleep 5
+    done
+    wait
+}
+
+
 run_make
 # run_4to16
 # run_r2r
-run_a2a
+# run_a2a
+run_cluster
