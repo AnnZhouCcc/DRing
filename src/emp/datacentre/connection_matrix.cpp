@@ -13,6 +13,7 @@
 #include <random>
 #include <iostream>
 #include <set>
+#include <queue>
 
 ConnectionMatrix::ConnectionMatrix(int n)
 {
@@ -1744,21 +1745,49 @@ void ConnectionMatrix::setFlowsFromClusterYHardCoding(Topology* top, string clus
     exit(0);
   }
   string TM_file_prefix = "trafficfiles/cluster_" + cluster + "/traffic_64racks";
-  string TM_files[];
-  if (cluster.compare("a") == 0 or cluster.compare("c") == 0) {
-    TM_files = {"_0_273"};
+  queue<string> TM_files;
+  int downscale_traffic;
+  int upscale_bytes;
+  if (cluster.compare("a") == 0) {
+    TM_files.push("_0_273");
+    downscale_traffic = 20;
+    upscale_bytes = 40;
   } else if (cluster.compare("b") == 0) {
-    TM_files = {"_0_500","_500_1000","_1000_1500","_1500_2000","_2000_2500","_2500_2900"};
+    TM_files.push("_0_500");
+    TM_files.push("_500_1000");
+    TM_files.push("_1000_1500");
+    TM_files.push("_1500_2000");
+    TM_files.push("_2000_2500");
+    TM_files.push("_2500_2900");
+    downscale_traffic = 250;
+    upscale_bytes = 15;
+  } else if (cluster.compare("c") == 0) {
+    TM_files.push("_0_273");
+    downscale_traffic = 25;
+    upscale_bytes = 2;
   }
 
+  if (denominator == 0 and numerator == 0) {
+    numerator = multiplier;
+    denominator = downscale_traffic;
+  } else {
+    numerator = multiplier * denominator + numerator;
+    denominator = denominator * downscale_traffic;
+  }
+  assert(numerator < denominator);
+  multiplier = 0;
+
   vector<Flow> temp_flows;
-  for (int i=0; i<TM_files->length; i++) {
-    string filename = TM_file_prefix + TM_files[i];
+  while (!TM_files.empty()) {
+    string TM_file = TM_files.front();
+    TM_files.pop();
+    string filename = TM_file_prefix + TM_file;
     ifstream TMFile(filename.c_str());
     string line;
     line.clear();
     int currswitch=0;
     if (TMFile.is_open()){
+      cout << "reading " << filename << endl;
       while(TMFile.good()){
         getline(TMFile, line);
         //Whitespace line
@@ -1766,13 +1795,11 @@ void ConnectionMatrix::setFlowsFromClusterYHardCoding(Topology* top, string clus
         stringstream ss(line);
         int fromserver, toserver, bytes, start_time_s;
         ss >> start_time_s >> bytes >> fromserver >> toserver;
+        bytes = bytes*upscale_bytes;
         bytes = mss * ((bytes+mss-1)/mss);
         if (fromserver >= NHOST or toserver >= NHOST) continue;
         double start_time_ms = (start_time_s+drand())/86400.0*simtime_ms;
-        if (multiplier > 0) {
-          temp_flows.push_back(Flow(fromserver, toserver, bytes, start_time_ms));
-          nflows++;
-        } else if (multiplier == 0) {
+        if (multiplier == 0) {
           int should_add = rand()%denominator;
           if (should_add < numerator) {
             temp_flows.push_back(Flow(fromserver, toserver, bytes, start_time_ms));
@@ -1784,27 +1811,6 @@ void ConnectionMatrix::setFlowsFromClusterYHardCoding(Topology* top, string clus
     }
   }
   flows = temp_flows;
-
-  // adding more flows if multiplier > 1
-  for (int ii=1; ii<multiplier; ii++) {
-    for (int j=0; j<temp_flows.size(); j++) {
-      Flow temp = temp_flows[j];
-      flows.push_back(Flow(temp.src, temp.dst, temp.bytes, temp.start_time_ms));
-      nflows++;
-    }
-  }
-
-  // adding more flows if denominator > 0
-  if (multiplier > 0 && denominator > 0) {
-    for (int j=0; j<temp_flows.size(); j++) {
-      int should_add = rand()%denominator;
-      if (should_add < numerator) {
-        Flow temp = temp_flows[j];
-        flows.push_back(Flow(temp.src, temp.dst, temp.bytes, temp.start_time_ms));
-        nflows++;
-      }
-    }
-  }
   cout<<"Nflows: "<<nflows<<endl;
 }
 
