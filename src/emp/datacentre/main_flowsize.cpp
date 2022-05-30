@@ -523,8 +523,8 @@ int main(int argc, char **argv) {
         conns->setFlowsFromFileXHardCoding(top, paramstring, multiplier, numerator, denominator);
     }
     else if (conn_matrix == "CLUSTERX") {
-        // conns->setFlowsFromClusterXHardCoding(top, paramstring, multiplier, numerator, denominator, solvestart, solveend);
-        conns->setFlowsFromClusterYHardCoding(top, paramstring, multiplier, numerator, denominator, simtime_ms);
+        conns->setFlowsFromClusterXHardCoding(top, paramstring, multiplier, numerator, denominator, solvestart, solveend, simtime_ms);
+        // conns->setFlowsFromClusterYHardCoding(top, paramstring, multiplier, numerator, denominator, simtime_ms);
     }
     else if(conn_matrix == "MIX"){
         conns->setMixFlows(top, param, multiplier, numerator, denominator);

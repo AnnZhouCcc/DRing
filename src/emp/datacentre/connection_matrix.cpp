@@ -1586,25 +1586,38 @@ void ConnectionMatrix::setFlowsFromFileXHardCoding(Topology* top, string filenam
   cout<<"Nflows: "<<nflows<<endl;
 }
 
-void ConnectionMatrix::setFlowsFromClusterXHardCoding(Topology* top, string cluster, int multiplier, int numerator, int denominator, int solvestart, int solveend) {
+int generateAdjustedBytes(int bytes) {
+  return mss * ((bytes+mss-1)/mss);
+}
+
+void ConnectionMatrix::setFlowsFromClusterXHardCoding(Topology* top, string cluster, int multiplier, int numerator, int denominator, int solvestart, int solveend, double simtime_ms) {
   int start_timeframe = solvestart;
   int end_timeframe = solveend;
-  int numservers = 3072;
-  int numracks = 80;
-
   int nflows = 0; 
   int mss = Packet::data_packet_size();
   cout << " mss " << mss << endl;
 
   // collect all TM files
-  if (cluster.compare("b") != 0) {
+  if (cluster.compare("a") != 0 and cluster.compare("b") != 0 and cluster.compare("c") != 0) {
     cout << "An unknown cluster is indicated as input: " << cluster << endl;
     exit(0);
   }
-  string TM_file_prefix = "trafficfiles/cluster_b/parsed_data_2pods";
-  string TM_files[] = {"_0_1000","_1000_1500","_1500_2000","_2000_2500","_2500_2900"};
+  string TM_file_prefix = "trafficfiles/cluster_" + cluster + "/traffic_64racks";
+  queue<string> TM_files;
+  if (cluster.compare("a") == 0) {
+    TM_files.push("_0_273");
+  } else if (cluster.compare("b") == 0) {
+    TM_files.push("_0_500");
+    TM_files.push("_500_1000");
+    TM_files.push("_1000_1500");
+    TM_files.push("_1500_2000");
+    TM_files.push("_2000_2500");
+    TM_files.push("_2500_2900");
+  } else if (cluster.compare("c") == 0) {
+    TM_files.push("_0_273");
+  }
 
-  // calculate traffic for each pair of racks
+  // read in traffic for each pair of racks
   int** traffic_per_rack_pair = new int*[NSW];
   for (int i=0; i<NSW; i++) {
     traffic_per_rack_pair[i] = new int[NSW];
@@ -1613,8 +1626,10 @@ void ConnectionMatrix::setFlowsFromClusterXHardCoding(Topology* top, string clus
     }
   }
   
-  for (int i=0; i<5; i++) {
-    string filename = TM_file_prefix + TM_files[i];
+  while (!TM_files.empty()) {
+    string TM_file = TM_files.front();
+    TM_files.pop();
+    string filename = TM_file_prefix + TM_file;
     ifstream TMFile(filename.c_str());
     string line;
     line.clear();
@@ -1625,37 +1640,26 @@ void ConnectionMatrix::setFlowsFromClusterXHardCoding(Topology* top, string clus
         //Whitespace line
         if (line.find_first_not_of(' ') == string::npos) break;
         stringstream ss(line);
-        int fromrack, torack, bytes, start_time_s;
-        ss >> start_time_s >> bytes >> fromrack >> torack;
+        int fromserver, toserver, fromrack, torack, bytes, start_time_s;
+        ss >> start_time_s >> bytes >> fromserver >> toserver;
         if (start_time_s < start_timeframe) continue;
         if (start_time_s >= end_timeframe) break; // the traffic data is sorted
+
+        #ifdef LEAF_SPINE
+          fromrack = top->ConvertHostToRack(fromserver);
+          torack = top->ConvertHostToRack(toserver);
+        #endif
+        #ifdef RAND_REGULAR
+          fromrack = top->ConvertHostToSwitch(fromserver);
+          torack = top->ConvertHostToSwitch(toserver);
+        #endif
+
         traffic_per_rack_pair[fromrack][torack] += bytes;
       }
       TMFile.close();
     }
   }
 
-  // bring up the traffic proportionally
-  int traffic_multiplier = 1;
-  int64_t max_total_bytes = 20000000000;
-  int64_t sum_traffic_per_rack_pair = 0;
-  for (int i=0; i<NSW; i++) {
-    for (int j=0; j<NSW; j++) {
-      if (i==j) continue;
-      sum_traffic_per_rack_pair += traffic_per_rack_pair[i][j];
-    }
-  }
-  double coefficient = sum_traffic_per_rack_pair / (double)max_total_bytes;
-  // double coefficient = 0.2;
-  cout << "coefficient = " << coefficient << endl;
-  for (int i=0; i<NSW; i++) {
-    for (int j=0; j<NSW; j++) {
-      traffic_per_rack_pair[i][j] = int(traffic_per_rack_pair[i][j]/coefficient);
-    }
-  }
-
-  double simtime_ms = 50.0;
-  // double simtime_ms = 60.0;
   int leftover_traffic_threshold = 200;
   vector<Flow> temp_flows;
   vector<Flow> original_flows;
@@ -1672,7 +1676,7 @@ void ConnectionMatrix::setFlowsFromClusterXHardCoding(Topology* top, string clus
         while (bytes > 10 * 1024 * 1024){
             bytes = genFlowBytes();
         }
-        int bytes_adjusted = mss * ((bytes+mss-1)/mss);
+        
         if (traffic_till_now + bytes <= traffic_cap) {
           if (traffic_till_now + bytes == traffic_cap) {
             have_sufficient_flows = true;
@@ -1681,6 +1685,7 @@ void ConnectionMatrix::setFlowsFromClusterXHardCoding(Topology* top, string clus
           double start_time_ms = drand() * simtime_ms;
           int fromserver = getOneServerFromRack(numservers, numracks, i);
           int toserver = getOneServerFromRack(numservers, numracks, j);
+          int bytes_adjusted = generateAdjustedBytes(bytes);
           temp_flows.push_back(Flow(fromserver, toserver, bytes_adjusted, start_time_ms));
           original_flows.push_back(Flow(fromserver, toserver, bytes, start_time_ms));
           // nflows++;
@@ -1688,9 +1693,10 @@ void ConnectionMatrix::setFlowsFromClusterXHardCoding(Topology* top, string clus
           have_sufficient_flows = true;
         }
       }
+
       if (traffic_cap - traffic_till_now >= leftover_traffic_threshold) {
         int bytes = traffic_cap - traffic_till_now;
-        int bytes_adjusted = mss * ((bytes+mss-1)/mss);
+        int bytes_adjusted = generateAdjustedBytes(bytes);
         double start_time_ms = drand() * simtime_ms;
         int fromserver = getOneServerFromRack(numservers, numracks, i);
         int toserver = getOneServerFromRack(numservers, numracks, j);
@@ -1710,7 +1716,7 @@ void ConnectionMatrix::setFlowsFromClusterXHardCoding(Topology* top, string clus
   }
   outputFile.close();
 
-  // adding more flows if multiplier > 0
+  // add flows if multiplier > 0
   for (int ii=0; ii<multiplier; ii++) {
     for (int j=0; j<temp_flows.size(); j++) {
       Flow temp = temp_flows[j];
@@ -1719,7 +1725,7 @@ void ConnectionMatrix::setFlowsFromClusterXHardCoding(Topology* top, string clus
     }
   }
 
-  // adding more flows if denominator > 0
+  // add flows if denominator > 0
   if (denominator > 0) {
     for (int j=0; j<temp_flows.size(); j++) {
       int should_add = rand()%denominator;
