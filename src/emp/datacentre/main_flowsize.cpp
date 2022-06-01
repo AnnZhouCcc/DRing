@@ -423,9 +423,10 @@ int main(int argc, char **argv) {
     //cout<< "Running sampled A2A with sample rate: "<< (double)param/8000.0 <<endl;
     assert (conn_matrix == "FILE" or conn_matrix == "FILEX" or conn_matrix == "CLUSTERX" or conn_matrix == "FEW_TO_SOME" 
         or conn_matrix == "FEW_TO_SOME_REPEAT" or conn_matrix == "RANDOM" or conn_matrix == "RACK_TO_RACK" or conn_matrix == "MIX" 
-        or conn_matrix == "FLUID_MIX" or conn_matrix == "TEST");
+        or conn_matrix == "FLUID_MIX" or conn_matrix == "TEST" or conn_matrix == "PERM");
     if(conn_matrix == "PERM")
-        conns->setPermutation();
+        // conns->setPermutation();
+        conns->setRackLevelPermutationFlowsHardCoding(multiplier, simtime_ms);
     else if(conn_matrix == "SAMPLED_PERM"){
         cout << "Running perm with " << param << " connections" << endl;
         conns->setPermutation(param);
