@@ -1225,6 +1225,54 @@ void ConnectionMatrix::setRackLevelAllToAllFlowsHardCoding(int multiplier, doubl
   }
 }
 
+
+void ConnectionMatrix::setRackLevelPermutationFlowsHardCoding(int multiplier, double simtime_ms) {
+  // cannot handle numerator and denominator for now
+  cout<<"Rack-level permutation" << endl;
+  int num_racks_leafspine = 64; // even if the topology is rrg, we still go by leafspine
+  int num_servers_per_rack_leafspine = 48;
+
+  int fromrack [num_racks_leafspine] = {};
+  int torack [num_racks_leafspine] = {};
+  for (int i=0; i<num_racks_leafspine; i++) {
+    fromrack[i] = i;
+    torack[i] = i;
+  }
+  bool should_reshuffle = true;
+  while (should_reshuffle) {
+    random_reshuffle(fromrack, fromrack+num_racks_leafspine);
+    random_reshuffle(torack, torack+num_racks_leafspine);
+    for (int i=0; i<num_racks_leafspine; i++) {
+      if (fromrack[i] == torack[i]) break;
+      should_reshuffle = false;
+    }
+  }
+
+  
+
+  for (int i=0; i<num_racks_leafspine; i++) {
+    int sr = fromrack[i];
+    int dr = torack[i];
+
+    for (int m=0; m<multiplier; m++) {
+      int j = m % num_servers_per_rack_leafspine;
+      int src = sr*num_servers_per_rack_leafspine + j;
+      int dst = dr*num_servers_per_rack_leafspine + j;
+
+      int bytes = genFlowBytes();
+      int mss = 1500;
+      while (bytes > 10 * 1024 * 1024){
+        bytes = genFlowBytes();
+      }
+      bytes = mss * ((bytes+mss-1)/mss);
+
+      double start_time_ms = drand() * simtime_ms;
+      flows.push_back(Flow(src, dst, bytes, start_time_ms));
+    }
+  }
+}
+
+
 void ConnectionMatrix::setRackLevel16To4FlowsHardCoding(int multiplier, double simtime_ms) {
   // cannot handle numerator and denominator for now
   cout<<"Rack-level 16-to-4" << endl;
