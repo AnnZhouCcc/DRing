@@ -1229,6 +1229,7 @@ void ConnectionMatrix::setRackLevelAllToAllFlowsHardCoding(int multiplier, doubl
 void ConnectionMatrix::setRackLevelPermutationFlowsHardCoding(int multiplier, double simtime_ms) {
   // cannot handle numerator and denominator for now
   cout<<"Rack-level permutation" << endl;
+  bool should_save_tm = true;
   int num_racks_leafspine = 64; // even if the topology is rrg, we still go by leafspine
   int num_servers_per_rack_leafspine = 48;
 
@@ -1246,9 +1247,7 @@ void ConnectionMatrix::setRackLevelPermutationFlowsHardCoding(int multiplier, do
       if (fromrack[i] == torack[i]) break;
       should_reshuffle = false;
     }
-  }
-
-  
+  }  
 
   for (int i=0; i<num_racks_leafspine; i++) {
     int sr = fromrack[i];
@@ -1269,6 +1268,15 @@ void ConnectionMatrix::setRackLevelPermutationFlowsHardCoding(int multiplier, do
       double start_time_ms = drand() * simtime_ms;
       flows.push_back(Flow(src, dst, bytes, start_time_ms));
     }
+  }
+
+  if (should_save_tm) {
+    string output_filename = "synthetictrafficfiles/permutation/generated_flows";
+    ofstream outputFile(output_filename);
+    for (Flow flow : flows) {
+      outputFile << flow.src << " " << flow.dst << " " << flow.bytes << " " << flow.start_time_ms << "\n";
+    }
+    outputFile.close();
   }
 }
 

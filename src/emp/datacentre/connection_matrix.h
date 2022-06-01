@@ -77,6 +77,7 @@ class ConnectionMatrix{
   void setFluidMixFlows(Topology* top, vector<int>* hot_racks, int multiplier, int numerator, int denominator);
   void setFluidMixFlowsLeafspine(Topology* top, vector<int>* hot_servers, int multiplier, int numerator, int denominator);
   void setRackLevelAllToAllFlowsHardCoding(int multiplier, double simtime_ms);
+  void setRackLevelPermutationFlowsHardCoding(int multiplier, double simtime_ms);
   void setRackLevel16To4FlowsHardCoding(int multiplier, double simtime_ms);
   void setDRingRackLevel16To4FlowsHardCoding(int multiplier, double simtime_ms);
   void setRackLevelRackToRackFlowsHardCoding(int multiplier, double simtime_ms);
