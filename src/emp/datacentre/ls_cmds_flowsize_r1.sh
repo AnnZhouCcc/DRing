@@ -184,7 +184,7 @@ run_perm(){
 
     numerator=0
     denominator=0
-    for sr in 1; do
+    for sr in 8 10; do
     tm=perm_${sr}
     name=run1
     time ./run.sh LEAFSPINE 1 64 16 null 3072 1 1 ${MAKE} PERM ${sr} ${numerator} ${denominator} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${sr} 0 3 ls_flowsize_80_64_1 ${npfile} ${pwfile} ${dp} ${mstart} ${mend} ${stime} | grep -e "FCT" -e "topology" > fct_results_${date}/ls_${tm}_${date}_ii${sr}_${numerator}_${denominator}_${name}_${mstart}_${mend}_${stime} &
