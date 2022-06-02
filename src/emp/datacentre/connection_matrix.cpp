@@ -1229,7 +1229,7 @@ void ConnectionMatrix::setRackLevelAllToAllFlowsHardCoding(int multiplier, doubl
 void ConnectionMatrix::setRackLevelPermutationFlowsHardCoding(int multiplier, double simtime_ms) {
   // cannot handle numerator and denominator for now
   cout<<"Rack-level permutation" << endl;
-  bool should_save_tm = true;
+  bool should_save_tm = false;
   int num_racks_leafspine = 64; // even if the topology is rrg, we still go by leafspine
   int num_servers_per_rack_leafspine = 48;
 
@@ -1241,8 +1241,8 @@ void ConnectionMatrix::setRackLevelPermutationFlowsHardCoding(int multiplier, do
   }
   bool should_reshuffle = true;
   while (should_reshuffle) {
-    random_reshuffle(fromrack, fromrack+num_racks_leafspine);
-    random_reshuffle(torack, torack+num_racks_leafspine);
+    random_shuffle(fromrack, fromrack+num_racks_leafspine);
+    random_shuffle(torack, torack+num_racks_leafspine);
     for (int i=0; i<num_racks_leafspine; i++) {
       if (fromrack[i] == torack[i]) break;
       should_reshuffle = false;
@@ -1254,19 +1254,22 @@ void ConnectionMatrix::setRackLevelPermutationFlowsHardCoding(int multiplier, do
     int dr = torack[i];
 
     for (int m=0; m<multiplier; m++) {
-      int j = m % num_servers_per_rack_leafspine;
-      int src = sr*num_servers_per_rack_leafspine + j;
-      int dst = dr*num_servers_per_rack_leafspine + j;
+      for (int s=0; s<num_servers_per_rack_leafspine; s++) {
+        for (int d=0; d<num_servers_per_rack_leafspine; d++) {
+          int src = sr*num_servers_per_rack_leafspine + s;
+          int dst = dr*num_servers_per_rack_leafspine + d;
 
-      int bytes = genFlowBytes();
-      int mss = 1500;
-      while (bytes > 10 * 1024 * 1024){
-        bytes = genFlowBytes();
+          int bytes = genFlowBytes();
+          int mss = 1500;
+          while (bytes > 10 * 1024 * 1024){
+            bytes = genFlowBytes();
+          }
+          bytes = mss * ((bytes+mss-1)/mss);
+
+          double start_time_ms = drand() * simtime_ms;
+          flows.push_back(Flow(src, dst, bytes, start_time_ms));
+        }
       }
-      bytes = mss * ((bytes+mss-1)/mss);
-
-      double start_time_ms = drand() * simtime_ms;
-      flows.push_back(Flow(src, dst, bytes, start_time_ms));
     }
   }
 
@@ -1727,7 +1730,7 @@ void ConnectionMatrix::setFlowsFromClusterXHardCoding(Topology* top, string clus
     }
   }
 
-  uint64_t leftover_traffic_threshold = 200;
+  uint64_t leftover_traffic_threshold = 0;
   vector<Flow> temp_flows;
   vector<Flow> original_flows;
   for (int i=0; i<numracks; i++) {
