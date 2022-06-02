@@ -142,8 +142,8 @@ run_cluster(){
     npfile="none"
     dp=0
     pwfile="none"
-    solve_starttime=27000
-    solve_endtime=30000
+    solve_starttime=33000
+    solve_endtime=36000
     stime=200
     mstart=0
     mend=201
