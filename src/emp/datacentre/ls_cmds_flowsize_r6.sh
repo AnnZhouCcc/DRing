@@ -139,9 +139,9 @@ run_cluster(){
     MAKE=NOMAKE
     tm="cluster_b"
     tmfile="b"
-    npfile="netpathfiles/netpath_ecmp_rrg.txt"
+    npfile="none"
     dp=3
-    pwfile="pathweightfiles/clusterb/rrg/ecmp/pathweight_lp1_rrg_ecmp_clusterb_27000_30000_3dp.txt"
+    pwfile="none"
     solve_starttime=27000
     solve_endtime=30000
     stime=200
