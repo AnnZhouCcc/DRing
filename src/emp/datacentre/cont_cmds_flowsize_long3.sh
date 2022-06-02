@@ -1,7 +1,7 @@
 routing=ecmp
 k=0
 rstag=ecmp
-date=0603t200clusterbinterval2ecmp
+date=0602t200clusterbinterval1ecmplp1
 
 
 run_make(){
@@ -129,11 +129,11 @@ run_cluster(){
     MAKE=NOMAKE
     tm="cluster_b"
     tmfile="b"
-    npfile="none"
-    dp=0
-    pwfile="none"
-    solve_starttime=33000
-    solve_endtime=36000
+    npfile="netpathfiles/netpath_ecmp_rrg.txt"
+    dp=3
+    pwfile="pathweightfiles/clusterb/rrg/ecmp/pathweight_lp1_rrg_ecmp_clusterb_27000_30000_3dp.txt"
+    solve_starttime=27000
+    solve_endtime=30000
     stime=200
     mstart=0
     mend=201
