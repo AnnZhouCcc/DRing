@@ -202,7 +202,7 @@ run_perm(){
     # name=run5
     # time ./run.sh LEAFSPINE 1 64 16 null 3072 1 1 ${MAKE} PERM ${sr} ${numerator} ${denominator} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${sr} 0 3 ls_flowsize_80_64_1 ${npfile} ${pwfile} ${dp} ${mstart} ${mend} ${stime} | grep -e "FCT" -e "topology" > fct_results_${date}/ls_${tm}_${date}_ii${sr}_${numerator}_${denominator}_${name}_${mstart}_${mend}_${stime} &
     # sleep 5
-    # done
+    done
     wait
 }
 
