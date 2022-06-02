@@ -1,7 +1,7 @@
 routing=ecmp
 k=0
 rstag=ecmp
-date=0601t100permutationls3
+date=0602t200clusterbinterval1ls
 
 
 run_make(){
@@ -139,18 +139,18 @@ run_cluster(){
     MAKE=NOMAKE
     tm="cluster_b"
     tmfile="b"
-    npfile="none"
-    dp=0
-    pwfile="none"
-    solve_starttime=0
-    solve_endtime=86400
-    stime=500
+    npfile="netpathfiles/netpath_ecmp_rrg.txt"
+    dp=3
+    pwfile="pathweightfiles/clusterb/rrg/ecmp/pathweight_lp1_rrg_ecmp_clusterb_27000_30000_3dp.txt"
+    solve_starttime=27000
+    solve_endtime=30000
+    stime=200
     mstart=0
-    mend=501
+    mend=201
 
     numerator=0
     denominator=0
-    for mult in 2; do
+    for mult in 10; do
     name=run1
     time ./run.sh LEAFSPINE 1 64 16 null 3072 1 1 ${MAKE} CLUSTERX ${mult} ${numerator} ${denominator} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${tmfile} 10 3 ls_flowsize_80_64_1 ${npfile} ${pwfile} ${dp} ${mstart} ${mend} ${stime} | grep -e "FCT" -e "topology" > fct_results_${date}/ls_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${name}_${mstart}_${mend}_${stime} &
     sleep 5
@@ -210,5 +210,5 @@ run_make
 # run_4to16
 # run_r2r
 # run_a2a
-# run_cluster
-run_perm
+run_cluster
+# run_perm
