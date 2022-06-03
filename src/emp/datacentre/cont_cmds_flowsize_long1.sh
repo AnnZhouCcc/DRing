@@ -1,7 +1,7 @@
 routing=kshort
 k=32
 rstag=32short
-date=0603onet200clusterbinterval132short
+date=0603onet200clusterbinterval232shortlp1
 
 
 run_make(){
@@ -129,18 +129,25 @@ run_cluster(){
     MAKE=NOMAKE
     tm="cluster_b"
     tmfile="b"
-    npfile="none"
-    dp=0
-    pwfile="none"
-    solve_starttime=27000
-    solve_endtime=30000
+    npfile="netpathfiles/netpath_32short_rrg.txt"
+    dp=3
+    pwfile="pathweightfiles/clusterb/rrg/32short/pathweight_lp1_rrg_32short_clusterb_33000_36000_3dp.txt"
+    solve_starttime=33000
+    solve_endtime=36000
     stime=200
     mstart=0
     mend=201
 
     numerator=0
     denominator=0
-    for mult in 14; do
+    for mult in 2 4 6 8 10 12; do
+    name=run1
+    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} CLUSTERX ${mult} ${numerator} ${denominator} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${tmfile} 10 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} ${mstart} ${mend} ${stime} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${name}_${mstart}_${mend}_${stime} &
+    sleep 5
+    done
+    wait
+
+    for mult in 14 16 18 20; do
     name=run1
     time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} CLUSTERX ${mult} ${numerator} ${denominator} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${tmfile} 10 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} ${mstart} ${mend} ${stime} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${name}_${mstart}_${mend}_${stime} &
     sleep 5
