@@ -1,7 +1,7 @@
-routing=ecmp
-k=0
-rstag=ecmp
-date=0603onet200clusterbinterval1ecmplp1
+routing=kshort
+k=32
+rstag=32short
+date=0603onet200clusterbinterval132shortlp2
 
 
 run_make(){
@@ -129,9 +129,9 @@ run_cluster(){
     MAKE=NOMAKE
     tm="cluster_b"
     tmfile="b"
-    npfile="netpathfiles/netpath_ecmp_rrg.txt"
-    dp=3
-    pwfile="pathweightfiles/clusterb/rrg/ecmp/pathweight_lp1_rrg_ecmp_clusterb_27000_30000_3dp.txt"
+    npfile="netpathfiles/netpath_32short_rrg.txt"
+    dp=4
+    pwfile="pathweightfiles/clusterb/rrg/32short/pathweight_lp2_rrg_32short_clusterb_27000_30000_4dp.txt"
     solve_starttime=27000
     solve_endtime=30000
     stime=200
@@ -163,86 +163,6 @@ run_perm(){
     numerator=0
     denominator=0
     for sr in 1 5 10; do
-    tm=perm_${sr}
-    name=run1
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} PERM ${sr} ${numerator} ${denominator} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${sr} 0 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} ${mstart} ${mend} ${stime} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${sr}_${numerator}_${denominator}_${name}_${mstart}_${mend}_${stime} &
-    sleep 5
-    name=run2
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} PERM ${sr} ${numerator} ${denominator} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${sr} 0 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} ${mstart} ${mend} ${stime} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${sr}_${numerator}_${denominator}_${name}_${mstart}_${mend}_${stime} &
-    sleep 5
-    name=run3
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} PERM ${sr} ${numerator} ${denominator} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${sr} 0 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} ${mstart} ${mend} ${stime} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${sr}_${numerator}_${denominator}_${name}_${mstart}_${mend}_${stime} &
-    sleep 5
-    name=run4
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} PERM ${sr} ${numerator} ${denominator} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${sr} 0 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} ${mstart} ${mend} ${stime} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${sr}_${numerator}_${denominator}_${name}_${mstart}_${mend}_${stime} &
-    sleep 5
-    name=run5
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} PERM ${sr} ${numerator} ${denominator} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${sr} 0 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} ${mstart} ${mend} ${stime} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${sr}_${numerator}_${denominator}_${name}_${mstart}_${mend}_${stime} &
-    sleep 5
-    done
-    wait
-
-    for sr in 15 20; do
-    tm=perm_${sr}
-    name=run1
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} PERM ${sr} ${numerator} ${denominator} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${sr} 0 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} ${mstart} ${mend} ${stime} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${sr}_${numerator}_${denominator}_${name}_${mstart}_${mend}_${stime} &
-    sleep 5
-    name=run2
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} PERM ${sr} ${numerator} ${denominator} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${sr} 0 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} ${mstart} ${mend} ${stime} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${sr}_${numerator}_${denominator}_${name}_${mstart}_${mend}_${stime} &
-    sleep 5
-    name=run3
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} PERM ${sr} ${numerator} ${denominator} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${sr} 0 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} ${mstart} ${mend} ${stime} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${sr}_${numerator}_${denominator}_${name}_${mstart}_${mend}_${stime} &
-    sleep 5
-    name=run4
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} PERM ${sr} ${numerator} ${denominator} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${sr} 0 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} ${mstart} ${mend} ${stime} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${sr}_${numerator}_${denominator}_${name}_${mstart}_${mend}_${stime} &
-    sleep 5
-    name=run5
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} PERM ${sr} ${numerator} ${denominator} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${sr} 0 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} ${mstart} ${mend} ${stime} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${sr}_${numerator}_${denominator}_${name}_${mstart}_${mend}_${stime} &
-    sleep 5
-    done
-    wait
-
-    for sr in 25; do
-    tm=perm_${sr}
-    name=run1
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} PERM ${sr} ${numerator} ${denominator} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${sr} 0 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} ${mstart} ${mend} ${stime} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${sr}_${numerator}_${denominator}_${name}_${mstart}_${mend}_${stime} &
-    sleep 5
-    name=run2
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} PERM ${sr} ${numerator} ${denominator} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${sr} 0 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} ${mstart} ${mend} ${stime} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${sr}_${numerator}_${denominator}_${name}_${mstart}_${mend}_${stime} &
-    sleep 5
-    name=run3
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} PERM ${sr} ${numerator} ${denominator} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${sr} 0 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} ${mstart} ${mend} ${stime} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${sr}_${numerator}_${denominator}_${name}_${mstart}_${mend}_${stime} &
-    sleep 5
-    name=run4
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} PERM ${sr} ${numerator} ${denominator} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${sr} 0 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} ${mstart} ${mend} ${stime} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${sr}_${numerator}_${denominator}_${name}_${mstart}_${mend}_${stime} &
-    sleep 5
-    name=run5
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} PERM ${sr} ${numerator} ${denominator} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${sr} 0 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} ${mstart} ${mend} ${stime} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${sr}_${numerator}_${denominator}_${name}_${mstart}_${mend}_${stime} &
-    sleep 5
-    done
-    wait
-
-    for sr in 30; do
-    tm=perm_${sr}
-    name=run1
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} PERM ${sr} ${numerator} ${denominator} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${sr} 0 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} ${mstart} ${mend} ${stime} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${sr}_${numerator}_${denominator}_${name}_${mstart}_${mend}_${stime} &
-    sleep 5
-    name=run2
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} PERM ${sr} ${numerator} ${denominator} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${sr} 0 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} ${mstart} ${mend} ${stime} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${sr}_${numerator}_${denominator}_${name}_${mstart}_${mend}_${stime} &
-    sleep 5
-    name=run3
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} PERM ${sr} ${numerator} ${denominator} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${sr} 0 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} ${mstart} ${mend} ${stime} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${sr}_${numerator}_${denominator}_${name}_${mstart}_${mend}_${stime} &
-    sleep 5
-    name=run4
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} PERM ${sr} ${numerator} ${denominator} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${sr} 0 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} ${mstart} ${mend} ${stime} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${sr}_${numerator}_${denominator}_${name}_${mstart}_${mend}_${stime} &
-    sleep 5
-    name=run5
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} PERM ${sr} ${numerator} ${denominator} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${sr} 0 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} ${mstart} ${mend} ${stime} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${sr}_${numerator}_${denominator}_${name}_${mstart}_${mend}_${stime} &
-    sleep 5
-    done
-    wait
-
-    for sr in 35; do
     tm=perm_${sr}
     name=run1
     time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} PERM ${sr} ${numerator} ${denominator} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${sr} 0 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} ${mstart} ${mend} ${stime} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${sr}_${numerator}_${denominator}_${name}_${mstart}_${mend}_${stime} &
