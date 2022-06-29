@@ -4,14 +4,25 @@
 #include <fstream>
 #include <string.h>
 
-int ConvertHostToRack(int host) { 
-    return host/48;
-};
+int getRackFromServer(int numservers, int numracks, int whichserver) {
+    int quotient = numservers/numracks;
+    int remainder = numservers%numracks;
+    int whichrack;
+    if (whichserver < (numracks-remainder)*quotient) {
+        whichrack = whichserver/quotient;
+    } else {
+        whichserver -= (numracks-remainder)*quotient;
+        whichrack = ( whichserver/(quotient+1)) + (numracks-remainder);
+    }
+    if (whichrack >= numracks) cout << "Warning: whichrack" << endl;
+    return whichrack;
+}
 
 int main(int argc, char **argv) {
-    int numracks = 64;
-    string filename = "synthetictrafficfiles/cluster_b/generated_flows_0_86400";
-    string tmfilename = "synthetictrafficfiles/cluster_b/check_flows_0_86400";
+    int numservers = 3072;
+    int numracks = 80;
+    string filename = "synthetictrafficfiles/cluster_b/generated_flows_27000_30000";
+    string tmfilename = "synthetictrafficfiles/cluster_b/check_flows_27000_30000";
 
     uint64_t** traffic_per_rack_pair = new uint64_t*[numracks];
     for (int i=0; i<numracks; i++) {
@@ -30,11 +41,12 @@ int main(int argc, char **argv) {
         //Whitespace line
         if (line.find_first_not_of(' ') == string::npos) break;
         stringstream ss(line);
-        int fromserver, toserver, fromrack, torack, bytes;
+        int fromserver, toserver, fromrack, torack;
+        uint64_t bytes;
         double start_time_ms;
         ss >> fromserver >> toserver >> bytes >> start_time_ms;
-        fromrack = ConvertHostToRack(fromserver);
-        torack = ConvertHostToRack(toserver);
+        fromrack = getRackFromServer(numservers,numracks,fromserver);
+        torack = getRackFromServer(numservers,numracks,toserver);
         traffic_per_rack_pair[fromrack][torack] += bytes;
       }
       TMFile.close();
