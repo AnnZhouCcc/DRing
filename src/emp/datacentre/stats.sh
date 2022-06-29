@@ -1,10 +1,15 @@
 # declare -a new_files=("ls_fb_skewed_802v3_ii2_2_10" "ls_fb_skewed_802v3_ii2_3_10")
 # prefix="./fct_results_802v3/"
-dir="./fct_results_0227m6/*"
-# mstart=0
-mend=350
+#dir="./fct_results_archive/fct_results_0409t2000css32disjoint/*"
+dir="./fct_results_0603onet200clusterbinterval232shortlp2delay/*"
+mstart=20
+mend=150
+#duration=15
 
-for mstart in 0; do
+for mstart in $mstart; do
+#for mstart in {5..65..15}; do
+#for mend in {900..1900..200}; do
+    #mend=`expr $mstart + $duration`
     echo -e "\nAVERAGE | MEDIAN | N95 | N99 | MAX | TAIL AVERAGE"
     for FILE in ${dir}; do
     # for FILE in "${new_files[@]}"; do

@@ -526,8 +526,8 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper_t
   }
 
 #if IS_DEBUG_ON
-  cout << "**debug info** src switch: " << src_sw << endl;
-  cout << "**debug info** dest switch: " << dest_sw << endl;
+  cout << "**11debug info** src switch: " << src_sw << endl;
+  cout << "**22debug info** dest switch: " << dest_sw << endl;
 #endif
 
   // Ankit: Testing if our numbering of switches/servers and topology construction is causing issues
@@ -989,8 +989,8 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
   int dest_sw = dest;
 
 #if IS_DEBUG_ON
-  cout << "**debug info** src switch: " << src_sw << endl;
-  cout << "**debug info** dest switch: " << dest_sw << endl;
+  cout << "**33debug info** src switch: " << src_sw << endl;
+  cout << "**44debug info** dest switch: " << dest_sw << endl;
 #endif
 
   // Ankit: Testing if our numbering of switches/servers and topology construction is causing issues
@@ -998,6 +998,9 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
 
   //< If same switch then only path through switch
   if (src_sw == dest_sw){
+#if IS_DEBUG_ON
+	cout << "is same sw" << endl;
+#endif
     // Queue* pqueue = new Queue(speedFromPktps(HOST_NIC), memFromPkt(FEEDER_BUFFER), *eventlist, NULL);
     // pqueue->setName("PQueue_" + ntoa(src) + "_" + ntoa(dest));
   
@@ -1490,6 +1493,9 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
       }
       else if(find_path_alg == ECMP){
 
+#if IS_DEBUG_ON
+	cout << "is ecmp" << endl;
+#endif
 			//return all shortest paths	 
 			vector<vector<BaseVertex* > > shortest_paths;
 			queue<vector<BaseVertex*> > shortest_paths_till_now;
@@ -1518,6 +1524,10 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
 					}
 				}
 			}
+
+#if IS_DEBUG_ON
+    cout << "shortest_paths has size " << shortest_paths.size() << endl;
+#endif
 
 			int i=0;
 			//printf("[%d --> %d] dist: %d, numpaths: %d \n", src_sw, dest_sw, shortestPathLen[src_sw][dest_sw], numpaths);
@@ -1571,6 +1581,10 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
 			// pathcache[pair<int, int>(src, dest)] = pair<vector<double>*, vector<route_t*>*> (pathweights, paths);
 			// return pair<vector<double>*, vector<route_t*>*>(pathweights, paths);
 			//return paths;
+#if IS_DEBUG_ON
+	cout << "ecmp paths_rack_based has size " << paths_rack_based->size() << endl;
+	cout << "ecmp net_paths_rack_based[src_sw][dest_sw] has size " << net_paths_rack_based[src_sw][dest_sw]->size() << endl;
+#endif
       }
       else if(find_path_alg == ECMP_DAG){
 
@@ -1723,6 +1737,11 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
 			// return pair<vector<double>*, vector<route_t*>*>(pathweights, paths);
       }
 
+#if IS_DEBUG_ON
+	cout << "1paths_rack_based has size " << paths_rack_based->size() << endl;
+	cout << "1net_paths_rack_based[src_sw][dest_sw] has size " << net_paths_rack_based[src_sw][dest_sw]->size() << endl;
+#endif
+
 	// }
 /*
 #if IS_DEBUG_MODE
@@ -1753,6 +1772,12 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
 #endif
 */
   }
+
+#if IS_DEBUG_ON
+	cout << "2paths_rack_based has size " << paths_rack_based->size() << endl;
+	cout << "2net_paths_rack_based[src_sw][dest_sw] has size " << net_paths_rack_based[src_sw][dest_sw]->size() << endl;
+#endif
+
 	return pair<vector<double>*, vector<route_t*>*>(pathweights, paths_rack_based);
 }
 
