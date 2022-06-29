@@ -17,19 +17,10 @@
 #include "dctcp.h"
 #include "topology.h"
 #include "connection_matrix.h"
-
 #include "main.h"
-
-// TOPOLOGY TO USE
-#if CHOSEN_TOPO == FAT
-#include "fat_tree_topology.h"
-#elif CHOSEN_TOPO == LEAFSPINE
-#include "leaf_spine_topology.h"
-#elif CHOSEN_TOPO == RRG
 #include "rand_regular_topology.h"
-#endif
 
-string rs = "ecmp";
+string rs = "fhi";
 
 uint32_t RTT = 2; // us
 int ssthresh = 43; //65 KB
@@ -121,13 +112,13 @@ int main(int argc, char **argv) {
     eventlist.setEndtime(timeFromSec(SIMTIME));
     Clock c(timeFromSec(50 / 100.), eventlist);
     int algo = COUPLED_EPSILON;
-    double epsilon = 1;
+    double epsilon, simtime_ms = 1;
     int param, paramo = 0;
-    int multiplier, numerator, denominator, korn = 0;
+    int multiplier, numerator, denominator, solvestart, solveend, korn, dp, mstart, mend, stime = 0;
     string paramstring, paramstringo;
-    string multiplierstring, numeratorstring, denominatorstring, kornstring;
+    string multiplierstring, numeratorstring, denominatorstring, solvestartstring, solveendstring, kornstring, dpstring, mstartstring, mendstring, stimestring;
     stringstream filename(ios_base::out);
-    string rfile;
+    string rfile, npfile, pwfile;
     string partitionsfile;
     string conn_matrix;
     string routing;
@@ -248,115 +239,13 @@ int main(int argc, char **argv) {
     route_t* routeout, *routein;
     TcpRtxTimerScanner tcpRtxScanner(timeFromMs(10), eventlist);
 
-#ifdef FAT_TREE
+    RandRegularTopology* top = new RandRegularTopology(&logfile, &eventlist, rfile, RANDOM, routing, korn, npfile, pwfile);
 
-    FatTreeTopology* top = new FatTreeTopology(&logfile, &eventlist, RANDOM);
-#endif
-
-#ifdef LEAF_SPINE
-    LeafSpineTopology* top = new LeafSpineTopology(&logfile, &eventlist, RANDOM);
-#endif
-
-//< Ankit added
-#ifdef RAND_REGULAR
-    //= "../../../rand_topologies/rand_" + ntoa(NSW) + "_" + ntoa(R) + ".txt";
-    RandRegularTopology* top = new RandRegularTopology(&logfile, &eventlist, rfile, RANDOM, routing, korn);
-#endif
-//>
-
-    // Permutation connections
-    ConnectionMatrix* conns = new ConnectionMatrix(NHOST);
-    //conns->setLocalTraffic(top);
-    
-    //cout<< "Running sampled A2A with sample rate: "<< (double)param/8000.0 <<endl;
-    assert (conn_matrix == "FILE" or conn_matrix == "FEW_TO_SOME" or conn_matrix == "FEW_TO_SOME_REPEAT" or conn_matrix == "RANDOM" or conn_matrix == "RACK_TO_RACK" or conn_matrix == "MIX");
-    if(conn_matrix == "PERM")
-        conns->setPermutation();
-    else if(conn_matrix == "SAMPLED_PERM"){
-        cout << "Running perm with " << param << " connections" << endl;
-        conns->setPermutation(param);
-    }
-    else if(conn_matrix == "HOT_SPOT"){
-        conns->setHotspot(param,N/param);
-    }
-    else if(conn_matrix == "MANY_TO_MANY"){
-        conns->setManytoMany(param);
-    }
-    else if(conn_matrix == "ALL_TO_ALL"){
-        conns->setAlltoAll(top);
-    }
-    else if(conn_matrix == "RACK_TO_RACK"){
-        conns->setRacktoRackFlows(top, param, paramo, multiplier, numerator, denominator);
-    }
-    else if(conn_matrix == "FEW_TO_SOME"){
-        conns->setFewtoSomeFlows(top, param, paramo, multiplier, numerator, denominator);
-    }
-    else if(conn_matrix == "FEW_TO_SOME_REPEAT"){
-        conns->setFewtoSomeFlowsRepeat(top, param, paramo, multiplier, numerator, denominator);
-    }
-    else if(conn_matrix == "UNIFORM"){
-        conns->setUniform(param);
-    }
-    else if(conn_matrix == "RANDOM"){
-        int connxs = (NHOST * NHOST / 1000) * param;
-        conns->setRandomFlows(connxs);
-    }
-    else if(conn_matrix == "FILE"){
-        conns->setFlowsFromFile(top, paramstring, multiplier, numerator, denominator);
-    }
-    else if(conn_matrix == "MIX"){
-        conns->setMixFlows(top, param, multiplier, numerator, denominator);
-    }
-    else{
-        cout<<"conn_matrix: "<<conn_matrix<<" not supported. Supported options are: "<<endl;
-        cout<<"PERM  //Random Permutation"<<endl;
-        cout<<"SAMPLED_PERM  //Sampled Random Permutation, sample ratio: param"<<endl;
-        cout<<"MANY_TO_MANY  //All to all for a subset of hosts"<<endl;
-        cout<<"ALL_TO_ALL  //All to all for all hosts"<<endl;
-		cout<<"ALL_TO_FEW  //All to few for all hosts"<<endl;
-        cout<<"FEW_TO_SOME  //Few servers to a subset of all hosts"<<endl;
-        cout<<"UNIFORM  //param random flows from each host"<<endl;
-        cout<<"RANDOM  //Random sources and destinations, for param percentage of pairs"<<endl;
-        cout<<"FILE  //Read Traffic Matrix from file (filename = param)"<<endl;
-        return 0;
-    }
-    map<int,vector<int>*>::iterator it;
-
-    cout << "Calculating net_path" << endl;
-    int flowID = 0;
-    int src_sw, dst_sw;
     vector<route_t*>*** net_paths = top->net_paths_rack_based;
-    vector<route_t*>* available_paths_out;
-    vector<route_t*>* available_paths_in;
-    for (Flow& flow: conns->flows) {
-        flowID++;
-        if(flowID%1000==0) {
-            cout << "FLOW: " << flow.src << "(" << top->ConvertHostToRack(flow.src)<<") -> "
-                 << flow.dst << "("<< top->ConvertHostToRack(flow.dst) << ") bytes: "
-                 << flow.bytes << " start_time_ms " << flow.start_time_ms << endl;
+    for (int srcsw=0; srcsw<N; srcsw++) {
+        for (int dstsw=0; dstsw<N; dstsw++) {
+            net_paths[srcsw][dstsw] = top->get_paths(srcsw, dstsw).second;
         }
-
-        #if CHOSEN_TOPO == LEAFSPINE
-            src_sw = top->ConvertHostToRack(flow.src);
-            dst_sw = top->ConvertHostToRack(flow.dst);
-        #elif CHOSEN_TOPO == RRG
-            src_sw = top->ConvertHostToSwitch(flow.src);
-            dst_sw = top->ConvertHostToSwitch(flow.dst);
-        #endif
-
-        if (!net_paths[src_sw][dst_sw]){
-            available_paths_out = top->get_paths(src_sw, dst_sw).second;
-	        assert(net_paths[src_sw][dst_sw] != NULL);
-        } else {
-	        available_paths_out = net_paths[src_sw][dst_sw];
-	    }
-
-        if (!net_paths[dst_sw][src_sw]){
-            available_paths_in = top->get_paths(dst_sw, src_sw).second;
-	        assert(net_paths[dst_sw][src_sw]);
-        } else {
-	        available_paths_in = net_paths[dst_sw][src_sw];
-	    }
     }
 
     store_netpath(net_paths);
