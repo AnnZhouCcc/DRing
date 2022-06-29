@@ -1,7 +1,7 @@
 import csv
 import re
 
-threshold = 1000
+threshold = 15
 numsw = 80
 
 linkfreq = [[0 for x in range(numsw)] for y in range(numsw)] 
@@ -15,7 +15,7 @@ with open("output",'r') as fd:
         for i in range(1,len(row)-2,2):
             m = re.search(r"queue\(.*\)([A-Z]+)_(\d+)-([A-Z]+)_(\d+)",row[i])
             matched = m.groups()
-            if matched[0] == 'SW' and matched[2] == 'SW':
+            if (matched[0] == 'LS' and matched[2] == 'US') or (matched[0]=='US' and matched[2]=='LS'):
                 srcsw = int(matched[1])
                 dstsw = int(matched[3])
                 linkfreq[srcsw][dstsw] += 1

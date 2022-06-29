@@ -2,29 +2,34 @@
 
 import csv
 import re
+from os.path import exists
 
 numsw = 80
-mstart = 100
-mend = 1900
-mstep = 1800
+mstart = 25
+mend = 400
+mstep = 375
+isreal = True
 
-for mv in range(50,601,50):
-    for rv in range(1,6):
+for mv in range(1,3):
+    for rv in range(1,2):
         print("m=" + str(mv) + ", r=" + str(rv))
-        filename = "fct_results_0428t2000r2rlsreport/pm" + str(mv) + "r" + str(rv)
+        filename = "fct_results_0530t500clusterblsreport/pm" + str(mv) + "r" + str(rv)
+	print(filename)
+	if not exists(filename):
+	    print("File not found")
+	    continue
 
         for window_start in range(mstart, mend, mstep):
             window_end = window_start + mstep
             print("from " + str(window_start) + " to " + str(window_end) + ":")
 
-            # linkdemand_expected_upper = [[0 for x in range(numsw)] for y in range(numsw)]
             linkdemand_real_upper = [[0 for x in range(numsw)] for y in range(numsw)]
-            # linkdemand_expected_lower = [[0 for x in range(numsw)] for y in range(numsw)]
             linkdemand_real_lower = [[0 for x in range(numsw)] for y in range(numsw)]
             with open(filename,'r') as fd:
                 rd = csv.reader(fd, delimiter="\t", quotechar='"')
                 linecount = 0
                 for row in rd:
+                    linecount += 1
                     start = float(row[0])
                     duration = float(row[1])
                     end = start+duration
@@ -39,12 +44,12 @@ for mv in range(50,601,50):
                             link_name = matched[0]
                             link_type = link_name[:2]
                             link_number = int(link_name[2:])
-                            if link_name == "LS":
+                            if link_type == "LS":
                                 link_number += 16
                             link_name2 = matched[1]
                             link_type2 = link_name2[:2]
                             link_number2 = int(link_name2[2:])
-                            if link_name2 == "LS":
+                            if link_type2 == "LS":
                                 link_number2 += 16
                             link = tuple([link_number, link_number2])
                             link_set.add(link)
@@ -52,32 +57,33 @@ for mv in range(50,601,50):
                     for link in link_set:
                         src = link[0]
                         dst = link[1]
-                        if start >= window_start and end < window_end:
-                            # linkdemand_expected_lower[src][dst] += size
-                            linkdemand_real_lower[src][dst] += actual_size
-                        if (start >= window_start and start < window_end) or (end >= window_start and end < window_end):
-                            # linkdemand_expected_upper[src][dst] += size
-                            linkdemand_real_upper[src][dst] += actual_size              
+                        if (start >= window_start and end < window_end) or (start<window_start and end>=window_end):
+			    if isreal:
+                                linkdemand_real_lower[src][dst] += actual_size
+			    else:
+                                linkdemand_real_lower[src][dst] += size
+                        if (start >= window_start and start < window_end) or (end >= window_start and end < window_end) or (start<window_start and end>=window_end):
+			    if isreal:
+                                linkdemand_real_upper[src][dst] += actual_size              
+                            else:
+				linkdemand_real_upper[src][dst] += size
 
             # only non-zero entries are taken into consideration
-            # linkdemand_expected_upper_arr = []
             linkdemand_real_upper_arr = []
-            # linkdemand_expected_lower_arr = []
             linkdemand_real_lower_arr = []
             linkcapacity = mstep * 1342176.0
+
             for i in range(numsw):
                 for j in range(numsw):
-                    # linkdemand_expected_lower_arr.append(linkdemand_expected_lower[i][j]/linkcapacity)
                     linkutil_real_lower = linkdemand_real_lower[i][j]/linkcapacity
                     if linkutil_real_lower > 0:
                         linkdemand_real_lower_arr.append(linkutil_real_lower) 
-                    # linkdemand_expected_upper_arr.append(linkdemand_expected_upper[i][j]/linkcapacity)  
                     linktuil_real_upper = linkdemand_real_upper[i][j]/linkcapacity
                     if linktuil_real_upper > 0:
                         linkdemand_real_upper_arr.append(linktuil_real_upper)   
 
             num_nz_links = len(linkdemand_real_lower_arr)
-            print("real lower bound - average/median/n99/max link util:")
+            print("real lower bound - average/median/n99/max/min link util:")
             print(str(sum(linkdemand_real_lower_arr)/num_nz_links))
             linkdemand_real_lower_arr.sort()
             median_index = int(num_nz_links/2)
@@ -85,9 +91,11 @@ for mv in range(50,601,50):
             print(str(linkdemand_real_lower_arr[median_index]))
             print(str(linkdemand_real_lower_arr[n99_index]))      
             print(str(linkdemand_real_lower_arr[num_nz_links-1]))
+            print(str(linkdemand_real_lower_arr[0]))
             print("real upper bound - average/median/n99/max link util:")
             print(str(sum(linkdemand_real_upper_arr)/num_nz_links))
             linkdemand_real_upper_arr.sort()
             print(str(linkdemand_real_upper_arr[median_index]))
             print(str(linkdemand_real_upper_arr[n99_index]))      
             print(str(linkdemand_real_upper_arr[num_nz_links-1]))
+            print(str(linkdemand_real_upper_arr[0]))

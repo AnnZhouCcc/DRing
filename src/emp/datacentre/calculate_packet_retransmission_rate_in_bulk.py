@@ -2,18 +2,22 @@
 
 import csv
 import re
+from os.path import exists
 
 numsw = 80
-mstart = 100
-mend = 1900
-mstep = 1800
+mstart = 25
+mend = 475
+mstep = 450
 
 
-for mv in range(50,601,50):
+for mv in range(13):
     for rv in range(1,6):
         print("m=" + str(mv) + ", r=" + str(rv))
-        filename = "fct_results_0428t2000r2rlsreport/pm" + str(mv) + "r" + str(rv)
-        
+        filename = "fct_results_0503t50016to4lsreport/pm" + str(mv) + "r" + str(rv)
+	if not exists(filename):
+	    print("File not found")
+	    continue        
+
         for wstart in range(mstart, mend, mstep):
             wend = wstart +  mstep
             print("from " + str(wstart) + " to " + str(wend) + ":")

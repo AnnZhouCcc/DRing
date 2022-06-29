@@ -1,12 +1,12 @@
 import csv
 import re
 
-threshold = 0.05
+threshold = 0.3
 numsw = 80
-mstart = 700
-mend = 1900
-is_lower_bound = True
-filename = "fct_results_0421lsreport/m1r1"
+mstart = 1900
+mend = 2000
+is_lower_bound = False
+filename = "fct_results_0427t200016to4lsreport/m8r1"
 
 linkfreq = [[0 for x in range(numsw)] for y in range(numsw)] 
 expect_queue = False
@@ -17,6 +17,7 @@ with open(filename,'r') as fd:
     rd = csv.reader(fd, delimiter=" ", quotechar='"')
     linecount = 0
     for row in rd:
+        linecount += 1
         if row[0][:5] != "queue" and row[0][:3] != "FCT":
 	        continue
         if row[0][:5] == "queue":
@@ -28,7 +29,7 @@ with open(filename,'r') as fd:
 
             if should_consider:
                 if flow_size == 0:
-                    print("*****Error: flow_size == 0")
+                    print("*****Error(" + str(linecount) + "): flow_size == 0")
                     exit()
                 for i in range(1,len(row)-2,2):
                     m = re.search(r"queue\(.*\)([A-Z]+)_(\d+)-([A-Z]+)_(\d+)",row[i])
@@ -38,6 +39,7 @@ with open(filename,'r') as fd:
                         dstsw = int(matched[3])
                         linkfreq[srcsw][dstsw] += flow_size
                 flow_size = 0
+                should_consider = False
         if row[0][:3] == "FCT":
             if (not expect_fct) or expect_queue:
                 print("*****Error: FCT")
@@ -48,7 +50,7 @@ with open(filename,'r') as fd:
                 print("*****Error: flow_size != 0")
                 exit()
 
-            size = int(row[1])
+            size = int(row[4])
             fct = float(row[2])
             start = float(row[3])
             end = start+fct
@@ -61,7 +63,7 @@ with open(filename,'r') as fd:
                     should_consider = True
                     flow_size = size
 
-linkcapacity = (mend-mstart) * 1342176
+linkcapacity = (mend-mstart) * 1342176.0
 for i in range(numsw):
     for j in range(numsw):
         linkutil = linkfreq[i][j]/linkcapacity

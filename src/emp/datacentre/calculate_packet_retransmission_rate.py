@@ -6,9 +6,9 @@ import re
 numsw = 80
 mstart = 100
 mend = 1900
-mstep = 200
+mstep = 1800
 should_print = False
-filename = "fct_results_0428t2000r2rlsreport/pm50r1"
+filename = "fct_results_0428t2000r2rlsreport/pm50r5"
 
 for wstart in range(mstart, mend, mstep):
     wend = wstart +  mstep
@@ -37,11 +37,16 @@ for wstart in range(mstart, mend, mstep):
                 if should_print and rr>=1:
                     print(row)
 
-    print("overall retransmission\t" + str((sum_traffic_real-sum_traffic_expected)/sum_traffic_expected))    
-    print("average retransmission\t" + str(sum(retransmission)/num_flows))
+    #print("overall retransmission\t" + str((sum_traffic_real-sum_traffic_expected)/sum_traffic_expected))    
+    #print("average retransmission\t" + str(sum(retransmission)/num_flows))
+    print(str((sum_traffic_real-sum_traffic_expected)/sum_traffic_expected))    
+    print(str(sum(retransmission)/num_flows))
     retransmission.sort()
     median_index = int(num_flows/2)
     n99_index = int(num_flows*0.99)
-    print("median retransmission\t" + str(retransmission[median_index]))
-    print("n99 retransmission\t" + str(retransmission[n99_index]))      
-    print("max retransmission\t" + str(retransmission[num_flows-1]))      
+    #print("median retransmission\t" + str(retransmission[median_index]))
+    #print("n99 retransmission\t" + str(retransmission[n99_index]))      
+    #print("max retransmission\t" + str(retransmission[num_flows-1]))      
+    print(str(retransmission[median_index]))
+    print(str(retransmission[n99_index]))      
+    print(str(retransmission[num_flows-1]))      

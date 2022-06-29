@@ -4,10 +4,10 @@ import csv
 import re
 
 numsw = 80
-mstart = 700
-mend = 1900
-mstep = 200
-filename = "parsed_text.txt"
+mstart = 0
+mend = 100
+mstep = 100
+filename = "fct_results_archive/fct_results_0507t100a2alsreport/pm1000r1"
 
 
 for window_start in range(mstart, mend, mstep):
@@ -36,12 +36,12 @@ for window_start in range(mstart, mend, mstep):
                     link_name = matched[0]
                     link_type = link_name[:2]
                     link_number = int(link_name[2:])
-                    if link_name == "LS":
+                    if link_type == "LS":
                         link_number += 16
                     link_name2 = matched[1]
                     link_type2 = link_name2[:2]
                     link_number2 = int(link_name2[2:])
-                    if link_name2 == "LS":
+                    if link_type2 == "LS":
                         link_number2 += 16
                     link = tuple([link_number, link_number2])
                     link_set.add(link)
@@ -62,6 +62,16 @@ for window_start in range(mstart, mend, mstep):
     # linkdemand_expected_lower_arr = []
     linkdemand_real_lower_arr = []
     linkcapacity = mstep * 1342176.0
+
+    print("test print")
+    print(linkdemand_real_lower[0][50]/linkcapacity)
+    print(linkdemand_real_lower[8][68]/linkcapacity)
+    print(linkdemand_real_lower[66][6]/linkcapacity)
+    print(linkdemand_real_upper[1][75]/linkcapacity)
+    print(linkdemand_real_upper[20][8]/linkcapacity)
+    print(linkdemand_real_upper[15][77]/linkcapacity)
+    exit()
+
     for i in range(numsw):
         for j in range(numsw):
             # linkdemand_expected_lower_arr.append(linkdemand_expected_lower[i][j]/linkcapacity)

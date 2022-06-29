@@ -1,11 +1,16 @@
 import csv
 import re
+from os.path import exists
 
-m_values = [100,150,250,350,400,450,500,550]
-for m in m_values:
-    for r in range(1,6):
-        inputfilename = "fct_results_0428t2000r2rlsreport/m" + str(m) + "r" + str(r)
-        outputfilename = "fct_results_0428t2000r2rlsreport/pm" + str(m) + "r" + str(r)
+#for mv in range(100,801,100):
+for mv in range(1,3):
+    for rv in range(1,2):
+        print("m=" + str(mv) + ", r=" + str(rv))
+        inputfilename = "fct_results_0530t500clusterblsreport/m" + str(mv) + "r" + str(rv)
+        outputfilename = "fct_results_0530t500clusterblsreport/pm" +str(mv) + "r" + str(rv)
+	if not exists(inputfilename):
+	    print("File not found")
+	    continue
 
         expect_queue = False
         expect_fct = True

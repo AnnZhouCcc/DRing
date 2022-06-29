@@ -9,7 +9,7 @@
         if (start >= mstart && start < mend) {
             if ($3 == targetfct) {
                 found = 1
-                print "flow with FCT ",$3," has size ",$2
+                print "flow with FCT ",$3," has size ",$2," and packets sent ",$5," that starts at time ",$4
             }
         }
     }
