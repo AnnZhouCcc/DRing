@@ -53,10 +53,10 @@ class RandRegularTopology: public Topology{
   vector<route_t*>*** net_paths_rack_based;
   // vector<route_t*>*** get_net_paths_rack_based() {return net_paths_rack_based;};
 
-  vector< pair<int,double> >*** path_weights_rack_based;
+  vector< pair<int,double> >**** path_weights_rack_based;
   // vector< pair<int,int> >*** path_weights_verification;
 
-  RandRegularTopology(Logfile* log,EventList* ev, string graphFile, queue_type qt=RANDOM, string alg="ecmp", int k=0, string netpathFile="none", string pathweightFile="none");
+  RandRegularTopology(Logfile* log,EventList* ev, string graphFile, queue_type qt=RANDOM, string alg="ecmp", int k=0, string netpathFile="none", string pathweightfileprefix, string pathweightfilesuffix, int solvestart, int solveend, int solveinterval, int computestart, int computeend, int computeinterval);
 
   void init_network();
   virtual pair<vector<double>*, vector<route_t*>*> get_paths(int src, int dest);
@@ -95,7 +95,7 @@ class RandRegularTopology: public Topology{
   int getHostsInRack(int rack);
 
   route_t *attach_head_tail(int src, int dst, bool is_same_switch, int rand_choice);
-  void delete_net_paths_rack_based();
+  void delete_net_paths_rack_based(int numintervals);
 };
 
 int rrg_randpath_weighted(vector<route_t*>* paths);

@@ -1822,6 +1822,170 @@ void ConnectionMatrix::setFlowsFromClusterXHardCoding(Topology* top, string clus
   delete [] traffic_per_rack_pair;
 }
 
+void ConnectionMatrix::setFlowsFromClusterXSmallInterval(Topology* top, string cluster, int multiplier, int numerator, int denominator, int solvestart, int solveend, int solveinterval, double simtime_ms) {
+  bool should_save_tm = false;
+  int nflows = 0; 
+  int mss = Packet::data_packet_size();
+  cout << " mss " << mss << endl;
+  int numservers = NHOST;
+  int numracks;
+  #if CHOSEN_TOPO == LEAFSPINE
+    numracks = 64;
+  #elif CHOSEN_TOPO == RRG
+    numracks = NSW;
+  #endif
+  cout << "numservers=" << numservers << ", numracks=" << numracks << endl;
+
+  // collect all TM files
+  if (cluster.compare("a") != 0 and cluster.compare("b") != 0 and cluster.compare("c") != 0) {
+    cout << "An unknown cluster is indicated as input: " << cluster << endl;
+    exit(0);
+  }
+  string TM_file_prefix = "trafficfiles/cluster_" + cluster + "/traffic_64racks";
+  queue<string> TM_files;
+  if (cluster.compare("a") == 0) {
+    TM_files.push("_0_273");
+  } else if (cluster.compare("b") == 0) {
+    TM_files.push("_0_500");
+    TM_files.push("_500_1000");
+    TM_files.push("_1000_1500");
+    TM_files.push("_1500_2000");
+    TM_files.push("_2000_2500");
+    TM_files.push("_2500_2900");
+  } else if (cluster.compare("c") == 0) {
+    TM_files.push("_0_273");
+  }
+
+  // read in traffic for each pair of racks
+  int numintervals = (solveend-solvestart) / solveinterval;
+  uint64_t*** traffic_per_rack_pair_per_interval = new uint64_t**[numintervals];
+  for (int k=0; k<numintervals; k++) {
+    traffic_per_rack_pair_per_interval[k] = new uint64_t*[numracks];
+    for (int i=0; i<numracks; i++) {
+      traffic_per_rack_pair_per_interval[k][i] = new uint64_t[numracks];
+      for (int j=0; j<numracks; j++) {
+        traffic_per_rack_pair_per_interval[k][i][j] = 0;
+      }
+    }
+  }
+  
+  while (!TM_files.empty()) {
+    string TM_file = TM_files.front();
+    TM_files.pop();
+    string filename = TM_file_prefix + TM_file;
+    ifstream TMFile(filename.c_str());
+    string line;
+    line.clear();
+    if (TMFile.is_open()){
+      while(TMFile.good()){
+        getline(TMFile, line);
+        //Whitespace line
+        if (line.find_first_not_of(' ') == string::npos) break;
+        stringstream ss(line);
+        int fromserver, toserver, fromrack, torack, start_time_s;
+	      uint64_t bytes;
+        ss >> start_time_s >> bytes >> fromserver >> toserver;
+        if (start_time_s < solvestart) continue;
+        if (start_time_s >= solveend) break; // the traffic data is sorted
+
+        fromrack = top->ConvertHostToRack(fromserver);
+        torack = top->ConvertHostToRack(toserver);
+        int whichinterval = (start_time_s-solvestart) / solveinterval;
+
+        traffic_per_rack_pair_per_interval[whichinterval][fromrack][torack] += bytes;
+      }
+      TMFile.close();
+    }
+  }
+
+  double simtime_per_interval_ms = simtime_ms / numintervals;
+  vector<Flow> temp_flows;
+  vector<Flow> original_flows;
+  for (int k=0; k<numintervals; k++) {
+    for (int i=0; i<numracks; i++) {
+      for (int j=0; j<numracks; j++) {
+        if (i==j) {
+          traffic_per_rack_pair_per_interval[k][i][j] = 0;
+          continue;
+        }
+        if (traffic_per_rack_pair_per_interval[k][i][j] == 0) continue;
+
+        uint64_t total_traffic = traffic_per_rack_pair_per_interval[k][i][j];
+        uint64_t traffic_till_now = 0;
+        bool have_sufficient_flows = false;
+        while (!have_sufficient_flows) {
+          int bytes = genFlowBytes();
+          while (bytes > 10 * 1024 * 1024){
+              bytes = genFlowBytes();
+          }
+          
+          if (traffic_till_now + bytes > total_traffic) {
+            have_sufficient_flows = true;
+            bytes = total_traffic - traffic_till_now;
+          } else if (traffic_till_now + bytes == total_traffic) {
+            have_sufficient_flows = true;
+          } else {
+            // Do nothing
+          }
+          
+          traffic_till_now += bytes;
+          int bytes_adjusted = mss * ((bytes+mss-1)/mss);
+          double start_time_ms = drand() * simtime_per_interval_ms + k*simtime_per_interval_ms;
+          int fromserver = getOneServerFromRack(numservers, numracks, i);
+          int toserver = getOneServerFromRack(numservers, numracks, j);
+          
+          temp_flows.push_back(Flow(fromserver, toserver, bytes_adjusted, start_time_ms));
+          if (should_save_tm) {
+            original_flows.push_back(Flow(fromserver, toserver, bytes, start_time_ms));
+          }
+        }
+      }
+    }
+  }
+  // flows = temp_flows;
+
+  // output the flows for debugging purpose
+  if (should_save_tm) {
+    string output_filename = "synthetictrafficfiles/cluster_b/generated_flows_" + to_string(solvestart) + "_" + to_string(solveend);
+    ofstream outputFile(output_filename);
+    for (Flow flow : original_flows) {
+      outputFile << flow.src << " " << flow.dst << " " << flow.bytes << " " << flow.start_time_ms << "\n";
+    }
+    outputFile.close();
+  }
+
+  // add flows if multiplier > 0
+  for (int ii=0; ii<multiplier; ii++) {
+    for (int j=0; j<temp_flows.size(); j++) {
+      Flow temp = temp_flows[j];
+      flows.push_back(Flow(temp.src, temp.dst, temp.bytes, temp.start_time_ms));
+      nflows++;
+    }
+  }
+
+  // add flows if denominator > 0
+  if (denominator > 0) {
+    for (int j=0; j<temp_flows.size(); j++) {
+      int should_add = rand()%denominator;
+      if (should_add < numerator) {
+        Flow temp = temp_flows[j];
+        flows.push_back(Flow(temp.src, temp.dst, temp.bytes, temp.start_time_ms));
+        nflows++;
+      }
+    }
+  }
+  cout<<"Nflows: "<<nflows<<endl;
+
+  // manage pointers
+  for (int k=0; k<numintervals; k++) {
+    for (int i=0; i<numracks; i++) {
+      delete [] traffic_per_rack_pair_per_interval[k][i];
+    }
+    delete [] traffic_per_rack_pair_per_interval[k];
+  }
+  delete [] traffic_per_rack_pair_per_interval;
+}
+
 
 void ConnectionMatrix::setFlowsFromClusterYHardCoding(Topology* top, string cluster, int multiplier, int numerator, int denominator, double simtime_ms) {
   int nflows = 0; 

@@ -17,7 +17,7 @@ GRBLIB=/Library/gurobi911/mac64/lib
 LIB=-L.. -L${GRBLIB}
 #-Lksp
 
-all:	fattree rrg leafspine computestore storetm storenetpath
+all:	fattree rrg clusterrrg leafspine computestore storetm storenetpath
 
 #Leaf spine
 leafspine: main_flowsize.o ../libhtsim.a leaf_spine_topology.o connection_matrix.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o
@@ -30,6 +30,9 @@ fattree: main_flowsize.o  ../libhtsim.a fat_tree_topology.o connection_matrix.o 
 rrg: main_flowsize.o  ../libhtsim.a connection_matrix.o rand_regular_topology.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o
 	$(CC) $(INCLUDE) $(CFLAGS)  main_flowsize.o connection_matrix.o rand_regular_topology.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o $(LIB) -lhtsim -lgurobi_g++4.2 -lgurobi91 -o rrg
 
+clusterrrg: main_flowsize_clusterx_small_interval.o  ../libhtsim.a connection_matrix.o rand_regular_topology.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o
+	$(CC) $(INCLUDE) $(CFLAGS)  main_flowsize_clusterx_small_interval.o connection_matrix.o rand_regular_topology.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o $(LIB) -lhtsim -lgurobi_g++4.2 -lgurobi91 -o clusterrrg
+
 computestore: main_compute.o  ../libhtsim.a compute_store.o connection_matrix.o rand_regular_topology.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o
 	$(CC) $(INCLUDE) $(CFLAGS)  main_compute.o compute_store.o connection_matrix.o rand_regular_topology.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o $(LIB) -lhtsim -lgurobi_g++4.2 -lgurobi91 -o computestore
 
@@ -41,6 +44,9 @@ storenetpath: main_storenetpath.o  ../libhtsim.a connection_matrix.o rand_regula
 
 main_flowsize.o: main_flowsize.cpp main.h
 	$(CC) $(INCLUDE) $(CFLAGS) -c main_flowsize.cpp 
+
+main_flowsize_clusterx_small_interval.o: main_flowsize_clusterx_small_interval.cpp main.h
+	$(CC) $(INCLUDE) $(CFLAGS) -c main_flowsize_clusterx_small_interval.cpp 
 
 main_compute.o: main_compute.cpp main.h
 	$(CC) $(INCLUDE) $(CFLAGS) -c main_compute.cpp 
@@ -79,4 +85,4 @@ BhandariTopKDisjointPathsAlg.o: BhandariTopKDisjointPathsAlg.cpp BhandariTopKDis
 	$(CC) $(INCLUDE) $(CFLAGS) -c BhandariTopKDisjointPathsAlg.cpp
 
 clean:	
-	rm *.o htsim_dc rrg fattree leafspine computestore storetm storenetpath
+	rm *.o htsim_dc rrg clusterrrg fattree leafspine computestore storetm storenetpath
