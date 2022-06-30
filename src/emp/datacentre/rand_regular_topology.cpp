@@ -215,6 +215,7 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
 
 	// Initialize path_weights_rack_based
 	int numintervals = (solveend-solvestart) / solveinterval;
+	cout << numintervals << endl;
 	path_weights_rack_based = new vector < pair<int,double> > ***[numintervals];
 	for (int k=0; k<numintervals; k++) {
 		path_weights_rack_based[k] = new vector < pair<int,double> > **[NSW];
@@ -240,14 +241,14 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
 	for (int i=0; i<numintervals; i++) {
 		if (computeinterval == 0) {
 			// optimal
-			computeintervalstart = solvestart;
-			computeintervalend = solveend;
+			computeintervalstart = solvestart + i*solveinterval;
+			computeintervalend = computeintervalstart + solveinterval;
 		} else {
 			// delay
 			computeintervalstart = computestart + i*solveinterval;
 			computeintervalend = computeintervalstart + computeinterval;
 		}
-		pathWeightFile = pathweightfileprefix + computeintervalstart + "_" + computeintervalend + pathweightfilesuffix;
+		pathWeightFile = pathweightfileprefix + itoa(computeintervalstart) + "_" + itoa(computeintervalend) + pathweightfilesuffix;
 
 		ifstream pwfile(pathWeightFile.c_str());
 		string pwline;
@@ -267,7 +268,7 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
 			pwfile.close();
 		}
 		else {
-			cout << "Error opening pathweightfile: " << pathweightFile << endl;
+			cout << "Error opening pathweightfile: " << pathWeightFile << endl;
 			exit(0);
 		}
 	}

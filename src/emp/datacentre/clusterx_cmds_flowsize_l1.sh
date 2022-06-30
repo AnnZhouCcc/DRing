@@ -38,9 +38,9 @@ run_cluster(){
     npfile="netpathfiles/netpath_su2_rrg.txt"
     dp=3
 
-    solve_starttime=7200
-    solve_endtime=86400
-    solve_interval=1800   
+    solvestart=7200
+    solveend=86400
+    solveinterval=1800   
 
     stime=200
     mstart=0
@@ -50,17 +50,17 @@ run_cluster(){
     denominator=0
     mult=1
 
-    compute_starttime=0
-    compute_endtime=0
-    compute_interval=0 
+    computestart=0
+    computeend=0
+    computeinterval=0 
     name=optimallp1
     pwfile="pathweightfiles/rrg/su2/7200_0_1800/optimallp1/pathweight_lp1_rrg_su2_clusterb_"
     time ./run_clusterx_small_interval.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} CLUSTERX ${mult} ${numerator} ${denominator} ${solvestart} ${solveend} ${routing} ${k} ${tmfile} 10 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} ${mstart} ${mend} ${stime} ${solveinterval} ${computestart} ${computeend} ${computeinterval} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${name}_${solvestart}_${solveend}_${solveinterval}_${computestart}_${computeend}_${computeinterval}_${mstart}_${mend}_${stime} &
     sleep 5
 
-    compute_starttime=0
-    compute_endtime=84600
-    compute_interval=7200 
+    computestart=0
+    computeend=84600
+    computeinterval=7200 
     name=delaylp1
     pwfile="pathweightfiles/rrg/su2/7200_0_1800/delaylp1/pathweight_lp1_rrg_su2_clusterb_"
     time ./run_clusterx_small_interval.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} CLUSTERX ${mult} ${numerator} ${denominator} ${solvestart} ${solveend} ${routing} ${k} ${tmfile} 10 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} ${mstart} ${mend} ${stime} ${solveinterval} ${computestart} ${computeend} ${computeinterval} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${name}_${solvestart}_${solveend}_${solveinterval}_${computestart}_${computeend}_${computeinterval}_${mstart}_${mend}_${stime} &
@@ -70,6 +70,7 @@ run_cluster(){
     pwfile="pathweightfiles/rrg/su2/7200_0_1800/delaylp2/pathweight_lp2_rrg_su2_clusterb_"
     time ./run_clusterx_small_interval.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} CLUSTERX ${mult} ${numerator} ${denominator} ${solvestart} ${solveend} ${routing} ${k} ${tmfile} 10 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} ${mstart} ${mend} ${stime} ${solveinterval} ${computestart} ${computeend} ${computeinterval} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${name}_${solvestart}_${solveend}_${solveinterval}_${computestart}_${computeend}_${computeinterval}_${mstart}_${mend}_${stime} &
     sleep 5
+    wait
 }
 
 

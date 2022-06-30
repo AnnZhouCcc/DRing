@@ -84,17 +84,23 @@ void print_path(route_t* rt){
 
 int choose_a_path(vector< pair<int,double> >* path_weights, vector<route_t*>* net_paths, int src_sw, int dst_sw, int dp) {
 #if PATHWEIGHTS
+    int numpaths = path_weights->size();
+    if (numpaths == 0) {
+	cout << "Temporary fix for acknowledgement: src_sw = " << src_sw << ",dst_sw = " << dst_sw << endl;
+	return rand()%net_paths->size();
+    }
+
     double unit = pow(10,dp);
     double random = (rand()%(int)unit)/unit;
 
     #if PW_DETAIL
         cout << "unit = " << unit << endl;
         cout << "random = " << random << endl;
-        cout << "num_paths = " << path_weights->size() << endl;
+        cout << "num_paths = " << numpaths << endl;
     #endif
 
     double sum = 0, prev_sum = 0;
-    for (int i=0; i<path_weights->size(); i++) {
+    for (int i=0; i<numpaths; i++) {
         prev_sum = sum;
         sum += path_weights->at(i).second;
 
@@ -339,7 +345,7 @@ int main(int argc, char **argv) {
     TcpRtxTimerScanner tcpRtxScanner(timeFromMs(10), eventlist);
 
     string pwfileprefix = pwfile;
-    string pwfilesuffix = "_" + dp + "dp.txt";
+    string pwfilesuffix = "_" + itoa(dp) + "dp.txt";
     RandRegularTopology* top = new RandRegularTopology(&logfile, &eventlist, rfile, RANDOM, routing, korn, npfile, pwfileprefix, pwfilesuffix, solvestart, solveend, solveinterval, computestart, computeend, computeinterval);
 
     // Permutation connections
@@ -375,8 +381,8 @@ int main(int argc, char **argv) {
         int bytes = flow.bytes;
 
         int numintervals = (solveend-solvestart) / solveinterval;
-        int intervallen = (mend-mstart) / numintervals;
-        int whichinterval = starttime / intervallen;
+        double intervallen = simtime_ms / numintervals;
+        int whichinterval = int(starttime / intervallen);
 
         assert (subflow_count == 1);
         tcpSrc = new TcpSrc(NULL, NULL, eventlist);
