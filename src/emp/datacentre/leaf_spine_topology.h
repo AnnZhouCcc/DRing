@@ -54,7 +54,7 @@ class LeafSpineTopology: public Topology{
   int ConvertHostToRack(int host) { return HOST_TOR_SWITCH(host);};
   pair<vector<int>, vector<int> > getcsRacks(int clients, int servers);
   route_t *attach_head_tail(int src, int dst, bool is_same_switch, int rand_choice);
-  void delete_net_paths_rack_based();
+  void delete_net_paths_rack_based(int numintervals);
  private:
   map<Queue*,int> _link_usage;
   int find_lp_switch(Queue* queue);

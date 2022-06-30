@@ -264,7 +264,7 @@ route_t *LeafSpineTopology::attach_head_tail(int src, int dst, bool is_same_swit
 	return this_route;
 }
 
-void LeafSpineTopology::delete_net_paths_rack_based() {
+void LeafSpineTopology::delete_net_paths_rack_based(int numintervals) {
         for (int i=0; i<NSW; i++) {
                 for (int j=0; j<NSW; j++) {
                         if (net_paths_rack_based[i][j]) {
