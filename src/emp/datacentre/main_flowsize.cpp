@@ -196,9 +196,9 @@ int main(int argc, char **argv) {
     int algo = COUPLED_EPSILON;
     double epsilon, simtime_ms = 1;
     int param, paramo = 0;
-    int multiplier, numerator, denominator, solvestart, solveend, korn, dp, mstart, mend, stime = 0;
+    int multiplier, numerator, denominator, solvestart, solveend, korn, dp, mstart, mend, stime, solveinterval, computestart, computeend, computeinterval = 0;
     string paramstring, paramstringo;
-    string multiplierstring, numeratorstring, denominatorstring, solvestartstring, solveendstring, kornstring, dpstring, mstartstring, mendstring, stimestring;
+    string multiplierstring, numeratorstring, denominatorstring, solvestartstring, solveendstring, kornstring, dpstring, mstartstring, mendstring, stimestring, solveintervalstring, computestartstring, computeendstring, computeintervalstring;
     stringstream filename(ios_base::out);
     string rfile, npfile, pwfile;
     string partitionsfile;
@@ -350,6 +350,34 @@ int main(int argc, char **argv) {
       cout << "stime = " << stime << endl;
       simtime_ms = stime;
 
+      if (argc>i&&!strcmp(argv[i],"-solveinterval")){
+          solveintervalstring = argv[i+1];
+          solveinterval = atoi(argv[i+1]);
+          i+=2;
+      }
+      cout << "solveinterval = " << solveinterval << endl;
+
+      if (argc>i&&!strcmp(argv[i],"-computestart")){
+          computestartstring = argv[i+1];
+          computestart = atoi(argv[i+1]);
+          i+=2;
+      }
+      cout << "computestart = " << computestart << endl;
+
+      if (argc>i&&!strcmp(argv[i],"-computeend")){
+          computeendstring = argv[i+1];
+          computeend = atoi(argv[i+1]);
+          i+=2;
+      }
+      cout << "computeend = " << computeend << endl;
+
+      if (argc>i&&!strcmp(argv[i],"-computeinterval")){
+          computeintervalstring = argv[i+1];
+          computeinterval = atoi(argv[i+1]);
+          i+=2;
+      }
+      cout << "computeinterval = " << computeinterval << endl;
+
       eventlist.num_flows_finished = 0;
     
       if (argc>i){
@@ -402,7 +430,10 @@ int main(int argc, char **argv) {
 //< Ankit added
 #ifdef RAND_REGULAR
     //= "../../../rand_topologies/rand_" + ntoa(NSW) + "_" + ntoa(R) + ".txt";
-    RandRegularTopology* top = new RandRegularTopology(&logfile, &eventlist, rfile, RANDOM, routing, korn, npfile, pwfile);
+    //RandRegularTopology* top = new RandRegularTopology(&logfile, &eventlist, rfile, RANDOM, routing, korn, npfile, pwfile);
+    string pwfileprefix = pwfile;
+    string pwfilesuffix = "_" + itoa(dp) + "dp.txt";
+    RandRegularTopology* top = new RandRegularTopology(&logfile, &eventlist, rfile, RANDOM, routing, korn, npfile, pwfileprefix, pwfilesuffix, solvestart, solveend, solveinterval, computestart, computeend, computeinterval);
 #endif
 //>
 
@@ -524,7 +555,8 @@ int main(int argc, char **argv) {
         conns->setFlowsFromFileXHardCoding(top, paramstring, multiplier, numerator, denominator);
     }
     else if (conn_matrix == "CLUSTERX") {
-        conns->setFlowsFromClusterXHardCoding(top, paramstring, multiplier, numerator, denominator, solvestart, solveend, simtime_ms);
+        conns->setFlowsFromClusterXSmallInterval(top, paramstring, multiplier, numerator, denominator, solvestart, solveend, solveinterval, simtime_ms);
+        //conns->setFlowsFromClusterXHardCoding(top, paramstring, multiplier, numerator, denominator, solvestart, solveend, simtime_ms);
         // conns->setFlowsFromClusterYHardCoding(top, paramstring, multiplier, numerator, denominator, simtime_ms);
     }
     else if(conn_matrix == "MIX"){

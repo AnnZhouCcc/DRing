@@ -21,6 +21,11 @@ DP=${24}
 MSTART=${25}
 MEND=${26}
 STIME=${27}
+SOLVEINTERVAL=${28}
+COMPUTESTART=${29}
+COMPUTEEND=${30}
+COMPUTEINTERVAL=${31}
+
 if [[ $1 == "FAT" ]]; then
     NHOST=`expr $3 \* $3 \* $3 / 4`
     NSW=`expr 5 \* $3 \* $3 / 4`
@@ -85,7 +90,7 @@ if [[ $1 == "LEAFSPINE" ]]; then
     tempResultFile=leafspine_output_$2_$3_$NHOST_$NSW_$9_${10}_${PARAM2}_${BASHPID}
     tempLogFile=leafspine_pathlog_$2_$3_$NHOST_$NSW_$9_${10}_${PARAM2}_${BASHPID}
     echo $tempResultFile
-    ./leafspine_${SUFFIX} -o ${tempLogFile} -sub $2 -TMatrix ${10} -mult ${MULT} -numerator ${NUMERATOR} -denominator ${DENOMINATOR} -solvestart ${SOLVESTART} -solveend ${SOLVEEND} -r ${ROUTING} -k ${KorN} -param ${PARAM} -paramo ${PARAMO} -netpath ${NETPATH} -pathweight ${PATHWEIGHT} -dp ${DP} -mstart ${MSTART} -mend ${MEND} -stime ${STIME} | tee $tempResultFile
+    ./leafspine_${SUFFIX} -o ${tempLogFile} -sub $2 -TMatrix ${10} -mult ${MULT} -numerator ${NUMERATOR} -denominator ${DENOMINATOR} -solvestart ${SOLVESTART} -solveend ${SOLVEEND} -r ${ROUTING} -k ${KorN} -param ${PARAM} -paramo ${PARAMO} -netpath ${NETPATH} -pathweight ${PATHWEIGHT} -dp ${DP} -mstart ${MSTART} -mend ${MEND} -stime ${STIME} -solveinterval ${SOLVEINTERVAL} -computestart ${COMPUTESTART} -computeend ${COMPUTEEND} -computeinterval ${COMPUTEINTERVAL} | tee $tempResultFile
     #cat leafspine_output | grep Throughput | awk -F " " '{thr[$5]=$2} END{for(sid in thr) print thr[sid]}' | awk -v nhost="$NHOST" '{sum+=$1} END{print sum/nhost/61}'
     #echo $tempResultFile
     #cat $tempResultFile | grep "Throughput" | awk -F " " '{thr[$7 " " $5]=$2} END{for(sid in thr) {split(sid,arr," "); print arr[1] " " thr[sid];}}'  | sort -n -k1 | awk -v nhost="$NHOST" '{sum[$1]+=$2} END{for(s in sum) print s,sum[s]/nhost/61}' | sort -n 
@@ -152,7 +157,7 @@ if [[ $1 == "RRG" ]]; then
     echo $tempResultFile
     echo ${PARAM}
     echo ${PARAMO}
-    ./rrg_$SUFFIX -o ${tempLogFile} -sub $2 -TMatrix ${TMatrix} -mult ${MULT} -numerator ${NUMERATOR} -denominator ${DENOMINATOR} -solvestart ${SOLVESTART} -solveend ${SOLVEEND} -r ${ROUTING} -k ${KorN} -param ${PARAM} -paramo ${PARAMO} -topo $5 -seed ${SEED} -netpath ${NETPATH} -pathweight ${PATHWEIGHT} -dp ${DP} -mstart ${MSTART} -mend ${MEND} -stime ${STIME} | tee $tempResultFile
+    ./rrg_$SUFFIX -o ${tempLogFile} -sub $2 -TMatrix ${TMatrix} -mult ${MULT} -numerator ${NUMERATOR} -denominator ${DENOMINATOR} -solvestart ${SOLVESTART} -solveend ${SOLVEEND} -r ${ROUTING} -k ${KorN} -param ${PARAM} -paramo ${PARAMO} -topo $5 -seed ${SEED} -netpath ${NETPATH} -pathweight ${PATHWEIGHT} -dp ${DP} -mstart ${MSTART} -mend ${MEND} -stime ${STIME} -solveinterval ${SOLVEINTERVAL} -computestart ${COMPUTESTART} -computeend ${COMPUTEEND} -computeinterval ${COMPUTEINTERVAL} | tee $tempResultFile
     #cat rrg_output | grep Throughput | awk -F " " '{thr[$7][$5]=$2} END{for(i=1; i<=10; i++) for(sid in thr[i]) print i,thr[i][sid]}' | awk -v nhost="$NHOST" -F " " '{sum[$1]+=$2} END{for(s in sum) print sum[s]/nhost/61}'
     tput=`cat $tempResultFile | grep Throughput | awk -F " " '{thr[$7 " " $5]=$2} END{for(sid in thr) {split(sid,arr," "); print arr[1] " " thr[sid];}}'  | sort -n -k1 | awk -v nhost="$NHOST" '{sum[$1]+=$2} END{for(s in sum) print s,sum[s]/nhost/61}' | sort -n | awk ' END { print } ' | awk '{ sum += $2 } END { if (NR > 0) print sum / NR }'`
     tput2=`cat $tempResultFile | grep Throughput | awk -F " " '{thr[$7 " " $5]=$2} END{for(sid in thr) {split(sid,arr," "); flow[arr[2]]+=thr[sid];cnt[arr[2]]+=1;}; for(fl in flow) {print fl " " flow[fl]/cnt[fl]/61 " " cnt[fl]};}'  | sort -n -k1 | awk -v nhost="$NHOST" '{ sum += $2 } END { print sum/nhost }'`
