@@ -150,5 +150,5 @@ run_equal(){
 
 
 run_make
-#run_lp
-run_equal
+run_lp
+# run_equal
