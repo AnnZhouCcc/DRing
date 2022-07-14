@@ -383,7 +383,8 @@ int main(int argc, char **argv) {
         int numintervals = (solveend-solvestart) / solveinterval;
         double intervallen = simtime_ms / numintervals;
         // int whichinterval = int(starttime / intervallen);
-        int whichinterval = int(int(starttime / intervallen)/2);
+        // int whichinterval = int(int(starttime / intervallen)/2);
+        int whichinterval = 0;
 
         assert (subflow_count == 1);
         tcpSrc = new TcpSrc(NULL, NULL, eventlist);

@@ -1,7 +1,7 @@
 routing=su
 k=2
 rstag=su2
-date=0714prelimt200clusterbsu2lpeverytwo
+date=0714prelimt200clusterbsu2lponeforall
 
 
 run_make(){
