@@ -30,4 +30,3 @@
 # Other experiments that can be run
 1. TEST_MIX -- turn on/off from `rand_regular_topology.cpp`
 2. TEST_TRANSIT -- turn on/off from `rand_regular_topology.cpp`
-3. LARGE_FLOWSIZE (and FLOWSIZE_MULT) -- turn on/off from `main_flowsize.cpp`
