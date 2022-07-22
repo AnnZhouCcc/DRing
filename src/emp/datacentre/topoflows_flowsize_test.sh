@@ -60,5 +60,32 @@ run_test(){
 }
 
 
+run_clusterx(){
+    MAKE=NOMAKE
+    tm="cluster_b"
+    tmfile="b"
+    npfile="netpathfiles/netpath_su2_rrg.txt"
+    pwfile="pathweightfiles/rrg/su2/7200_0_1800/delaylp1/pathweight_lp1_rrg_su2_clusterb_"
+    dp=3
+    solvestart=7200
+    solveend=86400
+    solveinterval=1800
+    computestart=0
+    computeend=86400
+    computeinterval=7200
+    stime=200
+    mstart=50
+    mend=150
+    numerator=1
+    denominator=10
+    mult=0
+    name=clusterx
+    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} CLUSTERX ${mult} ${numerator} ${denominator} ${solvestart} ${solveend} ${routing} ${k} ${tmfile} 10 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} ${mstart} ${mend} ${stime} ${solveinterval} ${computestart} ${computeend} ${computeinterval} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${name}_${computeinterval}_${solveinterval}_${stime} &
+    sleep 5
+    wait
+}
+
+
 run_make
-run_test
+# run_test
+run_clusterx
