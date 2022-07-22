@@ -34,7 +34,7 @@ string itoa(uint64_t n);
 extern int N;
 
 
-RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string graphFile, queue_type qt, string conn_matrix, string alg, int k, string netpathFile, string pathweightfileprefix, string pathweightfilesuffix, int solvestart, int solveend, int solveinterval, int computestart, int computeend, int computeinterval){
+RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string graphFile, queue_type qt, string conn_matrix, string alg, int k, string netpathfile, string pathweightfileprefix, string pathweightfilesuffix, int solvestart, int solveend, int solveinterval, int computestart, int computeend, int computeinterval){
   logfile = lg;
   eventlist = ev;
   qtype = qt;
@@ -119,11 +119,8 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
 	}
 
 #if PATHWEIGHTS
-	netPathFile = netpathFile;
-	// pathWeightFile = pathweightFile;
-
 	// Read net paths from file
-	ifstream npfile(netPathFile.c_str());
+	ifstream npfile(netpathfile.c_str());
     string npline;
 	// int count = 0;
     if (npfile.is_open()){
@@ -169,7 +166,7 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
 		npfile.close();
     }
     else {
-        cout << "Error opening netpathfile: " << netpathFile << endl;
+        cout << "Error opening netpathfile: " << netpathfile << endl;
         exit(0);
     }
 
@@ -201,6 +198,7 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
 
 	// Read path weights from file
 	int computeintervalstart, computeintervalend;
+	string pathweightfile;
 	for (int i=0; i<numintervals; i++) {
 		if (conn_matrix == "CLUSTERX") {
 			if (computeinterval == 0) {
@@ -212,11 +210,11 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
 				computeintervalstart = computestart + i*solveinterval;
 				computeintervalend = computeintervalstart + computeinterval;
 			}
-			pathWeightFile = pathweightfileprefix + itoa(computeintervalstart) + "_" + itoa(computeintervalend) + pathweightfilesuffix;
+			pathweightfile = pathweightfileprefix + itoa(computeintervalstart) + "_" + itoa(computeintervalend) + pathweightfilesuffix;
 		} else {
-			pathWeightFile = pathweightfileprefix;
+			pathweightfile = pathweightfileprefix;
 		}
-		ifstream pwfile(pathWeightFile.c_str());
+		ifstream pwfile(pathweightfile.c_str());
 		string pwline;
 		if (pwfile.is_open()){
 			while(pwfile.good()){
@@ -234,7 +232,7 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
 			pwfile.close();
 		}
 		else {
-			cout << "Error opening pathweightfile: " << pathWeightFile << endl;
+			cout << "Error opening pathweightfile: " << pathweightfile << endl;
 			exit(0);
 		}
 	}
