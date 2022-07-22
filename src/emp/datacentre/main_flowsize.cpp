@@ -457,6 +457,8 @@ int main(int argc, char **argv) {
 	#endif
 
     #if PATHWEIGHTS
+        num_paths_srcsw_dstsw = net_paths[src_sw][dst_sw]->size();
+        num_paths_dstsw_srcsw = net_paths[dst_sw][src_sw]->size();
     #else
         if (!net_paths[src_sw][dst_sw]){
 
