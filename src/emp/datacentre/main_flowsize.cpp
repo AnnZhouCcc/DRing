@@ -84,6 +84,7 @@ void print_path(route_t* rt){
 }
 
 int choose_a_path(vector< pair<int,double> >* path_weights, vector<route_t*>* net_paths, int src_sw, int dst_sw, int dp) {
+    // dp means precision
 #if PATHWEIGHTS
     int num_paths = path_weights->size();
 
@@ -91,12 +92,10 @@ int choose_a_path(vector< pair<int,double> >* path_weights, vector<route_t*>* ne
         cout << "***Error : main_flowsize.cpp choose_a_path : num_paths=0, src_sw=" << src_sw << ", dst_sw=" << dst_sw << endl;
         exit(1);
     } else {
-        double unit = pow(10,dp);
-        double random = (rand()%(int)unit)/unit;
+        double random = rand()/RAND_MAX;
 
     #if DEBUG_MODE
         cout << "num_paths = " << num_paths << endl;
-        cout << "unit = " << unit << endl;
         cout << "random = " << random << endl;
     #endif
 
