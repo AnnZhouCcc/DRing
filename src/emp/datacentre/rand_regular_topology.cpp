@@ -22,7 +22,7 @@
 
 #define TEST_MIX false
 #define TEST_TRANSIT false
-#define PATHWEIGHTS false
+#define PATHWEIGHTS true
 
 #if PATHWEIGHTS
 	string netPathFile = "none";
@@ -214,7 +214,8 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
     }
 
 	// Initialize path_weights_rack_based
-	int numintervals = (solveend-solvestart) / solveinterval;
+	// int numintervals = (solveend-solvestart) / solveinterval;
+	int numintervals = 1;
 	cout << numintervals << endl;
 	path_weights_rack_based = new vector < pair<int,double> > ***[numintervals];
 	for (int k=0; k<numintervals; k++) {
@@ -239,6 +240,7 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
 	// Read path weights from file
 	int computeintervalstart, computeintervalend;
 	for (int i=0; i<numintervals; i++) {
+		/*
 		if (computeinterval == 0) {
 			// optimal
 			computeintervalstart = solvestart + i*solveinterval;
@@ -249,7 +251,9 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
 			computeintervalend = computeintervalstart + computeinterval;
 		}
 		pathWeightFile = pathweightfileprefix + itoa(computeintervalstart) + "_" + itoa(computeintervalend) + pathweightfilesuffix;
+		*/
 
+		pathWeightFile = pathweightfileprefix;
 		ifstream pwfile(pathWeightFile.c_str());
 		string pwline;
 		if (pwfile.is_open()){

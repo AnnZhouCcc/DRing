@@ -352,9 +352,10 @@ int main(int argc, char **argv) {
 #elif CHOSEN_TOPO == LEAFSPINE
     LeafSpineTopology* top = new LeafSpineTopology(&logfile, &eventlist, RANDOM);
 #elif CHOSEN_TOPO == RRG
-    string pwfileprefix = pwfile;
-    string pwfilesuffix = "_" + itoa(dp) + "dp.txt";
-    RandRegularTopology* top = new RandRegularTopology(&logfile, &eventlist, rfile, RANDOM, routing, korn, npfile, pwfileprefix, pwfilesuffix, solvestart, solveend, solveinterval, computestart, computeend, computeinterval);
+    // string pwfileprefix = pwfile;
+    // string pwfilesuffix = "_" + itoa(dp) + "dp.txt";
+    // RandRegularTopology* top = new RandRegularTopology(&logfile, &eventlist, rfile, RANDOM, routing, korn, npfile, pwfileprefix, pwfilesuffix, solvestart, solveend, solveinterval, computestart, computeend, computeinterval);
+    RandRegularTopology* top = new RandRegularTopology(&logfile, &eventlist, rfile, RANDOM, routing, korn, npfile, pwfile, "", solvestart, solveend, solveinterval, computestart, computeend, computeinterval);
 #endif
 
     ConnectionMatrix* conns = new ConnectionMatrix(NHOST);
