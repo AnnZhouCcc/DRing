@@ -65,7 +65,7 @@ run_clusterx(){
     tm="cluster_b"
     tmfile="b"
     npfile="netpathfiles/netpath_su2_rrg.txt"
-    pwfile="pathweightfiles/rrg/su2/7200_0_1800/delaylp1/pathweight_lp1_rrg_su2_clusterb_"
+    pwfile="pathweightfiles/rrg/su2/7200_0_1800/delaylp1/pathweight_rrg_su2_clusterb_delaylp1_"
     dp=3
     solvestart=7200
     solveend=86400
