@@ -206,17 +206,17 @@ TcpSrc::receivePacket(Packet& pkt)
 		if (is_in_measurement) {
 			eventlist().num_flows_finished++;
 		}
-		if (eventlist().num_flows_finished > eventlist().num_flows_threshold) {
+		if (eventlist().num_flows_finished >= eventlist().num_flows_threshold) {
 			cout << "Already have " << eventlist().num_flows_threshold << " finished. Program exit." << endl;
 			exit(EXIT_SUCCESS);
 		}
 		if (is_in_measurement) {
         	cout << "FCT " << _flow_size << " " << timeAsMs(eventlist().now() - _start_time) 
 				<< " " << timeAsMs(_start_time) << " " << _packets_sent << " " << total_packet_bytes << " " << received_packet_bytes << endl;
-			for (vector<PacketSink*>::const_iterator it = _route->begin(); it != _route->end(); ++it) {
-				cout << (*it)->nodename() << " ";
-			}
-			cout << endl;
+			// for (vector<PacketSink*>::const_iterator it = _route->begin(); it != _route->end(); ++it) {
+			// 	cout << (*it)->nodename() << " ";
+			// }
+			// cout << endl;
 		}
     }
   
