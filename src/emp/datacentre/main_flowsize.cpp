@@ -100,14 +100,13 @@ int choose_a_path(vector< pair<int,double> >* path_weights, vector<route_t*>* ne
     #endif
 
         double sum = 0;
-        double prev_sum = 0;
         for (int i=0; i<num_paths; i++) {
-            prev_sum = sum;
+            double prev_sum = sum;
             sum += path_weights->at(i).second;
 
-    #if DEBUG_MODE
-        cout << path_weights->at(i).first << " " << path_weights->at(i).second << " | " << endl;
-    #endif
+        #if DEBUG_MODE
+            cout << path_weights->at(i).first << " " << path_weights->at(i).second << " | " << endl;
+        #endif
 
             if (random<sum && random>=prev_sum) return path_weights->at(i).first;
         }
@@ -351,10 +350,14 @@ int main(int argc, char **argv) {
 #elif CHOSEN_TOPO == LEAFSPINE
     LeafSpineTopology* top = new LeafSpineTopology(&logfile, &eventlist, RANDOM);
 #elif CHOSEN_TOPO == RRG
-    // string pwfileprefix = pwfile;
-    // string pwfilesuffix = "_" + itoa(dp) + "dp.txt";
-    // RandRegularTopology* top = new RandRegularTopology(&logfile, &eventlist, rfile, RANDOM, routing, korn, npfile, pwfileprefix, pwfilesuffix, solvestart, solveend, solveinterval, computestart, computeend, computeinterval);
-    RandRegularTopology* top = new RandRegularTopology(&logfile, &eventlist, rfile, RANDOM, routing, korn, npfile, pwfile, "", solvestart, solveend, solveinterval, computestart, computeend, computeinterval);
+    RandRegularTopology* top;
+    if (conn_matrix == "CLUSTERX") {
+        string pwfileprefix = pwfile;
+        string pwfilesuffix = "_" + itoa(dp) + "dp.txt";
+        top = new RandRegularTopology(&logfile, &eventlist, rfile, RANDOM, conn_matrix, routing, korn, npfile, pwfileprefix, pwfilesuffix, solvestart, solveend, solveinterval, computestart, computeend, computeinterval);
+    } else {
+        top = new RandRegularTopology(&logfile, &eventlist, rfile, RANDOM, conn_matrix, routing, korn, npfile, pwfile, "", solvestart, solveend, solveinterval, computestart, computeend, computeinterval);
+    }
 #endif
 
     ConnectionMatrix* conns = new ConnectionMatrix(NHOST);
@@ -437,9 +440,8 @@ int main(int argc, char **argv) {
 
     cout << "Starting to produce flow paths" << endl;
     typedef pair<int, int> PII;
-    int flowID = 0;
-    int src_sw, dst_sw;
-    int num_paths_srcsw_dstsw, num_paths_dstsw_srcsw;
+    int flowID = 0, whichinterval=0, numintervals=1;
+    int src_sw, dst_sw, num_paths_srcsw_dstsw, num_paths_dstsw_srcsw;
     vector<route_t*>*** net_paths = top->net_paths_rack_based;
     for (Flow& flow: conns->flows){
         flowID++;
@@ -459,6 +461,12 @@ int main(int argc, char **argv) {
     #if PATHWEIGHTS
         num_paths_srcsw_dstsw = net_paths[src_sw][dst_sw]->size();
         num_paths_dstsw_srcsw = net_paths[dst_sw][src_sw]->size();
+
+        if (conn_matrix == "CLUSTERX") {
+            numintervals = (solveend-solvestart) / solveinterval;
+            double intervallen = simtime_ms / numintervals;
+            whichinterval = int(flow.start_time_ms / intervallen);
+        }
     #else
         if (!net_paths[src_sw][dst_sw]){
 
@@ -524,8 +532,8 @@ int main(int argc, char **argv) {
 	    } else {
 
         #if CHOSEN_TOPO == RRG
-            int choice = choose_a_path(top->path_weights_rack_based[0][src_sw][dst_sw], net_paths[src_sw][dst_sw], src_sw, dst_sw, dp);
-            int rchoice = choose_a_path(top->path_weights_rack_based[0][dst_sw][src_sw], net_paths[dst_sw][src_sw], dst_sw, src_sw, dp);
+            int choice = choose_a_path(top->path_weights_rack_based[whichinterval][src_sw][dst_sw], net_paths[src_sw][dst_sw], src_sw, dst_sw, dp);
+            int rchoice = choose_a_path(top->path_weights_rack_based[whichinterval][dst_sw][src_sw], net_paths[dst_sw][src_sw], dst_sw, src_sw, dp);
         #elif CHOSEN_TOPO == LEAFSPINE
             int choice = choose_a_path(NULL, net_paths[src_sw][dst_sw], src_sw, dst_sw, dp);
             int rchoice = choose_a_path(NULL, net_paths[dst_sw][src_sw], dst_sw, src_sw, dp);
@@ -581,7 +589,7 @@ int main(int argc, char **argv) {
     }
 
     cout << "Set up all flows" << endl;
-    top->delete_net_paths_rack_based(1);
+    top->delete_net_paths_rack_based(numintervals);
 
     // Record the setup
     int pktsize = Packet::data_packet_size();

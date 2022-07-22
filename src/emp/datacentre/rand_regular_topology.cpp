@@ -77,7 +77,7 @@ pair<int, int> extractSwitchID(string nodename) {
     return pair<int, int>(src_sw, dst_sw);
 }
 
-RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string graphFile, queue_type qt, string alg, int k, string netpathFile, string pathweightfileprefix, string pathweightfilesuffix, int solvestart, int solveend, int solveinterval, int computestart, int computeend, int computeinterval){
+RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string graphFile, queue_type qt, string conn_matrix, string alg, int k, string netpathFile, string pathweightfileprefix, string pathweightfilesuffix, int solvestart, int solveend, int solveinterval, int computestart, int computeend, int computeinterval){
   logfile = lg;
   eventlist = ev;
   qtype = qt;
@@ -214,8 +214,10 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
     }
 
 	// Initialize path_weights_rack_based
-	// int numintervals = (solveend-solvestart) / solveinterval;
 	int numintervals = 1;
+	if (conn_matrix == "CLUSTERX") {
+		numintervals = (solveend-solvestart) / solveinterval;
+	}
 	cout << numintervals << endl;
 	path_weights_rack_based = new vector < pair<int,double> > ***[numintervals];
 	for (int k=0; k<numintervals; k++) {
@@ -240,20 +242,20 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
 	// Read path weights from file
 	int computeintervalstart, computeintervalend;
 	for (int i=0; i<numintervals; i++) {
-		/*
-		if (computeinterval == 0) {
-			// optimal
-			computeintervalstart = solvestart + i*solveinterval;
-			computeintervalend = computeintervalstart + solveinterval;
+		if (conn_matrix == "CLUSTERX") {
+			if (computeinterval == 0) {
+				// optimal
+				computeintervalstart = solvestart + i*solveinterval;
+				computeintervalend = computeintervalstart + solveinterval;
+			} else {
+				// delay
+				computeintervalstart = computestart + i*solveinterval;
+				computeintervalend = computeintervalstart + computeinterval;
+			}
+			pathWeightFile = pathweightfileprefix + itoa(computeintervalstart) + "_" + itoa(computeintervalend) + pathweightfilesuffix;
 		} else {
-			// delay
-			computeintervalstart = computestart + i*solveinterval;
-			computeintervalend = computeintervalstart + computeinterval;
+			pathWeightFile = pathweightfileprefix;
 		}
-		pathWeightFile = pathweightfileprefix + itoa(computeintervalstart) + "_" + itoa(computeintervalend) + pathweightfilesuffix;
-		*/
-
-		pathWeightFile = pathweightfileprefix;
 		ifstream pwfile(pathWeightFile.c_str());
 		string pwline;
 		if (pwfile.is_open()){
