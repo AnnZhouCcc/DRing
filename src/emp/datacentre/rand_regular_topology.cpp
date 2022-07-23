@@ -222,9 +222,9 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
 					exit(1);
 				}
 				// check whether netpathfile and pathweightfile are indeed matching
-				Queue *firstqueue = net_paths_rack_based[flowSrc][flowDst]->at(pid)->at(0);
+				PacketSink *firstqueue = net_paths_rack_based[flowSrc][flowDst]->at(pid)->at(0);
 				if (firstqueue != queues_sw_sw[linkSrc][linkDst]) {
-					cout << "***Error: netpathfile and pathweightfile mismatch, linkSrc=" << itoa(linkSrc) << ", linkDst=" << itoa(linkDst) << ", queue has name " << firstqueue->nodename << endl;
+					cout << "***Error: netpathfile and pathweightfile mismatch, linkSrc=" << itoa(linkSrc) << ", linkDst=" << itoa(linkDst) << ", queue has name " << firstqueue->nodename() << endl;
 					exit(1);
 				}
 
