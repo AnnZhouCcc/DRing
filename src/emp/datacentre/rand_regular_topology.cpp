@@ -265,14 +265,11 @@ void RandRegularTopology::init_network(){
 
    int logger_period_ms = 1000000;
    mem_b queue_size = SWITCH_BUFFER * Packet::data_packet_size();
-   int svrcnt = 0;
    // sw-svr
    for (int j = 0; j < NSW; j++) {
 	int nsvrports = K - adjMatrix[j]->size();
         for (int k = 0; k < nsvrports * OVERSUBSCRIPTION; k++) {
           // Downlink: sw to server = sw-svr
-          svrcnt++;
-          //printf("Downlink: sw[%d] to serverport[%d] = sw-svr \n", j, k);
           queueLogger = new QueueLoggerSampling(timeFromMs(logger_period_ms), *eventlist);
           logfile->addLogger(*queueLogger);
 
@@ -295,7 +292,6 @@ void RandRegularTopology::init_network(){
           pipes_svr_sw[j][k] = new Pipe(timeFromUs(RTT), *eventlist);
           pipes_svr_sw[j][k]->setName("Pipe-svr-sw-" + ntoa(k) + "-" + ntoa(j));
           logfile->writeName(*(pipes_svr_sw[j][k]));
-          //cout<<"done 2 "<<svrcnt<<" "<<K<<" "<<nsvrports<<" "<<OVERSUBSCRIPTION<<" "<<j<<" "<<adjMatrix[j]->size()<<endl;
         }
     }
 
@@ -427,237 +423,149 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths(int src,
 
 
 pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_other_paths(int src, int dest){
-	cout << "************Caution: get_other_paths is called.***********" << endl;
-   return get_paths_helper(src, dest, KSHORT);
+	cout << "***Warning: get_other_paths is called." << endl;
+	return get_paths_helper(src, dest, KSHORT);
 }
 
 
 pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(int src, int dest, FIND_PATH_ALGORITHM find_path_alg){
-//   if(pathcache.find(pair<int, int>(src, dest)) != pathcache.end())
-//     return pathcache[pair<int, int>(src, dest)];
-
-  // vector<route_t*>* paths = new vector<route_t*>();
-  vector<double>* pathweights = NULL;
-
-  route_t* routeout;
-  // route_t* path;
-  // vector<route_t*>* paths_no_head_tail;
-  vector<route_t*>* paths_rack_based = new vector<route_t*>();
-
-  //for(int z=0; z<NHOST; z++)
-  //      cout << "Host " << z << " Connect to switch " << ConvertHostToSwitch(z) << endl;
-
-  // Put Yen algorithm's src-dest shortest paths in routeout
-
-  //cout << "HERETO " << HETERO << " NHOST " << NHOST << " NSW " << NSW << " SVRPORTS " << SVRPORTS << endl;
-
-  // int src_sw = ConvertHostToSwitch(src);
-  // int dest_sw = ConvertHostToSwitch(dest);
-  int src_sw = src;
-  int dest_sw = dest;
 
 #if IS_DEBUG_ON
-  cout << "**33debug info** src switch: " << src_sw << endl;
-  cout << "**44debug info** dest switch: " << dest_sw << endl;
+  	cout << "get_paths_helper src switch=" << src_sw << ", dest switch=" << dest_sw << endl;
 #endif
 
-  // Ankit: Testing if our numbering of switches/servers and topology construction is causing issues
-  //cout << " From Switch " << src_sw << " to switch " << dest_sw << endl;
+	vector<double>* pathweights = NULL;
 
-  //< If same switch then only path through switch
-  if (src_sw == dest_sw){
-#if IS_DEBUG_ON
-	cout << "is same sw" << endl;
-#endif
-    // Queue* pqueue = new Queue(speedFromPktps(HOST_NIC), memFromPkt(FEEDER_BUFFER), *eventlist, NULL);
-    // pqueue->setName("PQueue_" + ntoa(src) + "_" + ntoa(dest));
-  
-    routeout = new route_t();
-    // routeout->push_back(pqueue);
+	route_t* routeout;
+	vector<route_t*>* paths_rack_based = new vector<route_t*>();
 
-    // routeout->push_back(queues_svr_sw[src_sw][ConvertHostToSwitchPort(src)]);
-    // routeout->push_back(pipes_svr_sw[src_sw][ConvertHostToSwitchPort(src)]);
+	int src_sw = src;
+	int dest_sw = dest;
 
-    // routeout->push_back(queues_sw_svr[dest_sw][ConvertHostToSwitchPort(dest)]);
-    // routeout->push_back(pipes_sw_svr[dest_sw][ConvertHostToSwitchPort(dest)]);
+	//< If same switch then only path through switch
+	if (src_sw == dest_sw){
 
-    paths_rack_based->push_back(routeout);
-    net_paths_rack_based[src_sw][dest_sw] = paths_rack_based;
+	#if IS_DEBUG_ON
+		cout << "is same sw" << endl;
+	#endif
 
-    //cout << "CHECK-NOT-NULL AT SAME SWITCH SERVERS" << endl;
-    // check_non_null(routeout);
-    // return pair<vector<double>*, vector<route_t*>*>(pathweights, paths);
-  }
-  //>
+		routeout = new route_t();
+		paths_rack_based->push_back(routeout);
+		net_paths_rack_based[src_sw][dest_sw] = paths_rack_based;
+	}
+	//>
+	else { 
+		assert(!net_paths_rack_based[src_sw][dest_sw]);
+		if(find_path_alg == KSHORT){
+			// Use the shortest path algo to set this stuff up
+			YenTopKShortestPathsAlg yenAlg(myGraph, myGraph->get_vertex(src_sw), myGraph->get_vertex(dest_sw));
 
-  else { 
-	// if (net_paths_rack_based[src_sw][dest_sw]) {
-	//	paths_no_head_tail = copy_path(net_paths_rack_based[src_sw][dest_sw]);
-	// }
-	// else {
-		// vector<route_t*>* paths_rack_based = new vector<route_t*>();
-	assert(!net_paths_rack_based[src_sw][dest_sw]);
-      if(find_path_alg == KSHORT){
-          // Use the shortest path algo to set this stuff up
-          YenTopKShortestPathsAlg yenAlg(myGraph, myGraph->get_vertex(src_sw), myGraph->get_vertex(dest_sw));
+			int i=0;
+			int shortestLen = -1;
+			int numpaths = korn; // previously set numpaths based on shortestPathLen
+			//printf("[%d --> %d] dist: %d, numpaths: %d \n", src_sw, dest_sw, shortestPathLen[src_sw][dest_sw], numpaths);
+			while(yenAlg.has_next() && i < numpaths){
+				// Ankit: Checking if YenAlgo gives anything
+				//cout << "YEN-ALGO gave some paths" << endl;
 
-          int i=0;
-          int shortestLen = -1;
-        //   int numpaths = NUMPATHS;
-		//   int numpaths_adjust = k;
-		  int numpaths = korn;
-        //   if(shortestPathLen[src_sw][dest_sw] == 1) numpaths = numpaths_adjust;
-        //   else if(shortestPathLen[src_sw][dest_sw] == 2) numpaths = numpaths_adjust;
-        //   else if(shortestPathLen[src_sw][dest_sw] == 3) numpaths = numpaths_adjust;
-        //   else if(shortestPathLen[src_sw][dest_sw] == 4) numpaths = numpaths_adjust;
-          //printf("[%d --> %d] dist: %d, numpaths: %d \n", src_sw, dest_sw, shortestPathLen[src_sw][dest_sw], numpaths);
-          while(yenAlg.has_next() && i < numpaths){
-              // Ankit: Checking if YenAlgo gives anything
-              //cout << "YEN-ALGO gave some paths" << endl;
+				++i;                                                                                                           
 
-              ++i;                                                                                                           
+				vector<BaseVertex*> pathIHave = yenAlg.next()->m_vtVertexList;
 
-              vector<BaseVertex*> pathIHave = yenAlg.next()->m_vtVertexList;
+				routeout = new route_t();
 
-              //	if (shortestLen == -1) shortestLen = pathIHave.size();
-              //	if (pathIHave.size() > shortestLen + 1) break;
+				// Ankit: Print path given by Yen algo
+				//cout << "YEN PATH NEW = ";
+				static int num_fail = 0;
+				static int total_paths = 0;
+				total_paths++;
+				int intermediate_switch = -1;
+				for (unsigned int hop = 1; hop < pathIHave.size(); hop++) {
+					int fr = pathIHave[hop-1]->getID();
+					int to = pathIHave[hop]->getID();
 
-            //   Queue* pqueue = new Queue(speedFromPktps(HOST_NIC), memFromPkt(FEEDER_BUFFER), *eventlist, NULL);
-            //   pqueue->setName("PQueue_" + ntoa(src) + "_" + ntoa(dest));
+					if(shortestPathLen[src_sw][to] == hop && shortestPathLen[to][dest_sw] == pathIHave.size()-1-hop)
+						intermediate_switch = to;
 
-              routeout = new route_t();
-            //   routeout->push_back(pqueue);
+					//cout << fr << " -> " << to << " -> ";
 
-            //   // First hop = svr to sw
-            //   routeout->push_back(queues_svr_sw[src_sw][ConvertHostToSwitchPort(src)]);
-            //   routeout->push_back(pipes_svr_sw[src_sw][ConvertHostToSwitchPort(src)]);
+					routeout->push_back(queues_sw_sw[fr][to]);
+					//cout << "(Converted = " << queues_sw_sw[fr][to]->str() << ")";
+					routeout->push_back(pipes_sw_sw[fr][to]);
+				}
 
-				  // Ankit: Print path given by Yen algo
-				  //cout << "YEN PATH NEW = ";
-				  static int num_fail = 0;
-				  static int total_paths = 0;
-				  total_paths++;
-				  int intermediate_switch = -1;
-				  for (unsigned int hop = 1; hop < pathIHave.size(); hop++) {
-					  int fr = pathIHave[hop-1]->getID();
-					  int to = pathIHave[hop]->getID();
+				cout<<"Path ["<<src_sw<<"-->"<<dest_sw<<"] Intermediate: ";
+				if(intermediate_switch == -1){	
+					cout<<"NULL"; num_fail++; 
+				}else{
+					cout<<intermediate_switch;
+				}
+				cout<<"(Failed: "<<num_fail<<"/"<<total_paths<<")"<<endl;
 
-					  if(shortestPathLen[src_sw][to] == hop && shortestPathLen[to][dest_sw] == pathIHave.size()-1-hop)
-						  intermediate_switch = to;
+				//cout << endl;
 
-					  //cout << fr << " -> " << to << " -> ";
+				//cout << "(Add final = " << dest << "(" << dest_sw << ") : "<< ConvertHostToSwitchPort(dest) <<" : "<<queues_sw_svr[dest_sw][ConvertHostToSwitchPort(dest)]<<endl;
 
-					  routeout->push_back(queues_sw_sw[fr][to]);
-					  //cout << "(Converted = " << queues_sw_sw[fr][to]->str() << ")";
-					  routeout->push_back(pipes_sw_sw[fr][to]);
-				  }
+				paths_rack_based->push_back(routeout);
+				//cout << "CHECK-NOT-NULL AT DIFFERENT SWITCH" << endl;
+				check_non_null(routeout);
+			}
 
-				  cout<<"Path ["<<src_sw<<"-->"<<dest_sw<<"] Intermediate: ";
-				  if(intermediate_switch == -1)
-				  {	cout<<"NULL"; num_fail++; }
-				  else
-					  cout<<intermediate_switch;
-				  cout<<"(Failed: "<<num_fail<<"/"<<total_paths<<")"<<endl;
+			yenAlg.clear();
+			net_paths_rack_based[src_sw][dest_sw] = paths_rack_based;
+		}
+		else if(find_path_alg == KDISJOINT){
+			// Set this stuff up, why do you need to specify source and vertex?
+			BhandariTopKDisjointPathsAlg BhandariAlg(myGraph, myGraph->get_vertex(src_sw), myGraph->get_vertex(dest_sw));
+			int i=0;
+			int shortestLen = -1;
+			vector<BasePath*> pathsIHave;
+			int numpaths = korn; // previously set numpaths based on shortestPathLen
+			//printf("[%d --> %d] dist: %d, numpaths: %d \n", src_sw, dest_sw, shortestPathLen[src_sw][dest_sw], numpaths);
+			BhandariAlg.KDisjointPaths(numpaths, pathsIHave);
+			for(int i=0; i<pathsIHave.size(); i++){
+				//Vipul: Checking if BhandariAlgo gives anything
+				//cout << "Bhandari-ALGO gave some paths" << endl;
 
-				  //cout << endl;
+				vector<BaseVertex*> pathIHave = pathsIHave[i]->m_vtVertexList;;
 
-              //cout << "(Add final = " << dest << "(" << dest_sw << ") : "<< ConvertHostToSwitchPort(dest) <<" : "<<queues_sw_svr[dest_sw][ConvertHostToSwitchPort(dest)]<<endl;
+				//	if (shortestLen == -1) shortestLen = pathIHave.size();
+				//	if (pathIHave.size() > shortestLen + 1) break;
 
-            //   routeout->push_back(queues_sw_svr[dest_sw][ConvertHostToSwitchPort(dest)]);
-            //   routeout->push_back(pipes_sw_svr[dest_sw][ConvertHostToSwitchPort(dest)]);
+				routeout = new route_t();
+		
+				// Vipul: Print path given by Bhandari algo
+				//cout << "Bhandari PATH NEW = ";
+				for (unsigned int hop = 1; hop < pathIHave.size(); hop++) {
+					int fr = pathIHave[hop-1]->getID();
+					int to = pathIHave[hop]->getID();
+					//cout << fr << " -> " << to << " -> ";
+					routeout->push_back(queues_sw_sw[fr][to]);
+					//cout << "(Converted = " << queues_sw_sw[fr][to]->str() << ")";
+					routeout->push_back(pipes_sw_sw[fr][to]);
+				}
+				//cout << endl;
+				/*
+					static int num_fail = 0; 
+					static int total_paths = 0;
+					total_paths++;
+					cout<<"KDisjoint Path ["<<src_sw<<"-->"<<dest_sw<<"] Intermediate: ";
+					if(intermediate_switch == -1)
+					{	cout<<"NULL"<<endl; num_fail++; }
+					else
+					cout<<intermediate_switch<<endl;
+					cout<<"(Failed: "<<num_fail<<"/"<<total_paths<<")"<<endl;
+				*/ 
+				//cout << "(Add final = " << dest_sw << ": "<< ConvertHostToSwitchPort(dest) <<" : "<<queues_sw_svr[dest_sw][ConvertHostToSwitchPort(dest)]<<endl;
+				paths_rack_based->push_back(routeout);
+				//cout << "CHECK-NOT-NULL AT DIFFERENT SWITCH" << endl;
+				check_non_null(routeout);
+			}
 
-              paths_rack_based->push_back(routeout);
-              //cout << "CHECK-NOT-NULL AT DIFFERENT SWITCH" << endl;
-              check_non_null(routeout);
-          }
-
-          yenAlg.clear();
-
-		  // assert(!net_paths_rack_based[src_sw][dest_sw]);
-		  net_paths_rack_based[src_sw][dest_sw] = paths_rack_based;
-		  // paths_no_head_tail = copy_path(paths_rack_based);
-
-        //   pathcache[pair<int, int>(src, dest)] = pair<vector<double>*, vector<route_t*>*> (pathweights, paths);
-    	//   return pair<vector<double>*, vector<route_t*>*>(pathweights, paths);
-          //return paths;
-      }
-
-      else if(find_path_alg == KDISJOINT){
-          // Set this stuff up, why do you need to specify source and vertex?
-          BhandariTopKDisjointPathsAlg BhandariAlg(myGraph, myGraph->get_vertex(src_sw), myGraph->get_vertex(dest_sw));
-          int i=0;
-          int shortestLen = -1;
-          vector<BasePath*> pathsIHave;
-	  int numpaths = korn;
-//          int numpaths = NUMPATHS;
-//		  int numpaths_adjust = 8;
-//          if(shortestPathLen[src_sw][dest_sw] == 1) numpaths = numpaths_adjust;
-//          else if(shortestPathLen[src_sw][dest_sw] == 2) numpaths = numpaths_adjust;
-//          else if(shortestPathLen[src_sw][dest_sw] == 3) numpaths = numpaths_adjust;
-//          else if(shortestPathLen[src_sw][dest_sw] == 4) numpaths = numpaths_adjust;
-          //printf("[%d --> %d] dist: %d, numpaths: %d \n", src_sw, dest_sw, shortestPathLen[src_sw][dest_sw], numpaths);
-          BhandariAlg.KDisjointPaths(numpaths, pathsIHave);
-          for(int i=0; i<pathsIHave.size(); i++){
-              //Vipul: Checking if BhandariAlgo gives anything
-              //cout << "Bhandari-ALGO gave some paths" << endl;
-
-              vector<BaseVertex*> pathIHave = pathsIHave[i]->m_vtVertexList;;
-
-              //	if (shortestLen == -1) shortestLen = pathIHave.size();
-              //	if (pathIHave.size() > shortestLen + 1) break;
-
-            //   Queue* pqueue = new Queue(speedFromPktps(HOST_NIC), memFromPkt(FEEDER_BUFFER), *eventlist, NULL);
-            //   pqueue->setName("PQueue_" + ntoa(src) + "_" + ntoa(dest));
-
-              routeout = new route_t();
-            //   routeout->push_back(pqueue);
-
-            //   // First hop = svr to sw
-            //   routeout->push_back(queues_svr_sw[src_sw][ConvertHostToSwitchPort(src)]);
-            //   routeout->push_back(pipes_svr_sw[src_sw][ConvertHostToSwitchPort(src)]);
-      
-				  // Vipul: Print path given by Bhandari algo
-				  //cout << "Bhandari PATH NEW = ";
-				  for (unsigned int hop = 1; hop < pathIHave.size(); hop++) {
-					  int fr = pathIHave[hop-1]->getID();
-					  int to = pathIHave[hop]->getID();
-					  //cout << fr << " -> " << to << " -> ";
-					  routeout->push_back(queues_sw_sw[fr][to]);
-					  //cout << "(Converted = " << queues_sw_sw[fr][to]->str() << ")";
-					  routeout->push_back(pipes_sw_sw[fr][to]);
-				  }
-				  //cout << endl;
-				  /*
-					  static int num_fail = 0; 
-					  static int total_paths = 0;
-					  total_paths++;
-					  cout<<"KDisjoint Path ["<<src_sw<<"-->"<<dest_sw<<"] Intermediate: ";
-					  if(intermediate_switch == -1)
-					  {	cout<<"NULL"<<endl; num_fail++; }
-					  else
-					  cout<<intermediate_switch<<endl;
-					  cout<<"(Failed: "<<num_fail<<"/"<<total_paths<<")"<<endl;
-					*/ 
-            //   routeout->push_back(queues_sw_svr[dest_sw][ConvertHostToSwitchPort(dest)]);
-            //   routeout->push_back(pipes_sw_svr[dest_sw][ConvertHostToSwitchPort(dest)]);
-              //cout << "(Add final = " << dest_sw << ": "<< ConvertHostToSwitchPort(dest) <<" : "<<queues_sw_svr[dest_sw][ConvertHostToSwitchPort(dest)]<<endl;
-              paths_rack_based->push_back(routeout);
-              //cout << "CHECK-NOT-NULL AT DIFFERENT SWITCH" << endl;
-              check_non_null(routeout);
-          }
-
-          BhandariAlg.clear();
-
-		  // assert(!net_paths_rack_based[src_sw][dest_sw]);
-		  net_paths_rack_based[src_sw][dest_sw] = paths_rack_based;
-		  // paths_no_head_tail = copy_path(paths_rack_based);
-
-        //   pathcache[pair<int, int>(src, dest)] = pair<vector<double>*, vector<route_t*>*> (pathweights, paths);
-    	//     return pair<vector<double>*, vector<route_t*>*>(pathweights, paths);
-          //return paths;
-      }
-      else if(find_path_alg == SHORTEST2){
-
+			BhandariAlg.clear();
+			net_paths_rack_based[src_sw][dest_sw] = paths_rack_based;
+		}
+		else if(find_path_alg == SHORTEST2){
 			//return all shortest paths	 
 			vector<vector<BaseVertex* > > shortest_paths;
 			queue<vector<BaseVertex*> > shortest_paths_till_now;
@@ -680,21 +588,21 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
 						shortest_paths.push_back(shortest_path);
 					}
 					else if (path_till_now.size() <= 1){
-                        bool new_hop = true;
-                        for (BaseVertex* path_vertex: path_till_now){
-                            new_hop = new_hop and (path_vertex->getID() != next_hop->getID());
-                        }
-                        if (new_hop){
-                            vector<BaseVertex*> shortest_path_till_now(path_till_now);
-                            shortest_path_till_now.push_back(next_hop);
-                            shortest_paths_till_now.push(shortest_path_till_now);
-                        }
+						bool new_hop = true;
+						for (BaseVertex* path_vertex: path_till_now){
+							new_hop = new_hop and (path_vertex->getID() != next_hop->getID());
+						}
+						if (new_hop){
+							vector<BaseVertex*> shortest_path_till_now(path_till_now);
+							shortest_path_till_now.push_back(next_hop);
+							shortest_paths_till_now.push(shortest_path_till_now);
+						}
 					}
-                    //evaluate this case only for shortest paths
+					//evaluate this case only for shortest paths
 					else if(shortestPathLen[src_sw][dest_sw] == (path_till_now.size() - 1)
-                                                              + shortestPathLen[last_vertex->getID()][dest_sw] &&
-                            shortestPathLen[last_vertex->getID()][dest_sw] == 1 + shortestPathLen[next_hop->getID()][dest_sw]){
-                        vector<BaseVertex*> shortest_path_till_now(path_till_now);
+																+ shortestPathLen[last_vertex->getID()][dest_sw] &&
+							shortestPathLen[last_vertex->getID()][dest_sw] == 1 + shortestPathLen[next_hop->getID()][dest_sw]){
+						vector<BaseVertex*> shortest_path_till_now(path_till_now);
 						shortest_path_till_now.push_back(next_hop);
 						shortest_paths_till_now.push(shortest_path_till_now);
 					}
@@ -712,15 +620,7 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
 				//	if (shortestLen == -1) shortestLen = pathIHave.size();
 				//	if (pathIHave.size() > shortestLen + 1) break;
 
-				// Queue* pqueue = new Queue(speedFromPktps(HOST_NIC), memFromPkt(FEEDER_BUFFER), *eventlist, NULL);
-				// pqueue->setName("PQueue_" + ntoa(src) + "_" + ntoa(dest));
-
 				routeout = new route_t();
-				// routeout->push_back(pqueue);
-
-				// // First hop = svr to sw
-				// routeout->push_back(queues_svr_sw[src_sw][ConvertHostToSwitchPort(src)]);
-				// routeout->push_back(pipes_svr_sw[src_sw][ConvertHostToSwitchPort(src)]);
 
 				// Ankit: Print path given by All Shortest paths
 				//cout << "SHORTEST PATH NEW = ";
@@ -734,11 +634,8 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
 					routeout->push_back(pipes_sw_sw[fr][to]);
 				}
 
-
 				//cout << endl;
 				//cout << "(Add final = " << dest << "(" << dest_sw << ") : "<< ConvertHostToSwitchPort(dest) <<" : "<<queues_sw_svr[dest_sw][ConvertHostToSwitchPort(dest)]<<endl;
-				// routeout->push_back(queues_sw_svr[dest_sw][ConvertHostToSwitchPort(dest)]);
-				// routeout->push_back(pipes_sw_svr[dest_sw][ConvertHostToSwitchPort(dest)]);
 
 				paths_rack_based->push_back(routeout);
 				//cout << "CHECK-NOT-NULL AT DIFFERENT SWITCH" << endl;
@@ -746,16 +643,9 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
 				++i;                                                                                                           
 			}
 
-			// assert(!net_paths_rack_based[src_sw][dest_sw]);
-		  	net_paths_rack_based[src_sw][dest_sw] = paths_rack_based;
-		  	// paths_no_head_tail = copy_path(paths_rack_based);
-
-			// pathcache[pair<int, int>(src, dest)] = pair<vector<double>*, vector<route_t*>*> (pathweights, paths);
-			// return pair<vector<double>*, vector<route_t*>*>(pathweights, paths);
-			//return paths;
-      }
-      else if(find_path_alg == SHORTESTN){
-
+			net_paths_rack_based[src_sw][dest_sw] = paths_rack_based;
+		}
+		else if(find_path_alg == SHORTESTN){
 			//return all shortest paths	 
 			vector<vector<BaseVertex* > > shortest_paths;
 			queue<vector<BaseVertex*> > shortest_paths_till_now;
@@ -778,21 +668,21 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
 						shortest_paths.push_back(shortest_path);
 					}
 					else if (path_till_now.size() <= (korn-1)){ // n-1 for shortest-union(n)
-                        bool new_hop = true;
-                        for (BaseVertex* path_vertex: path_till_now){
-                            new_hop = new_hop and (path_vertex->getID() != next_hop->getID());
-                        }
-                        if (new_hop){
-                            vector<BaseVertex*> shortest_path_till_now(path_till_now);
-                            shortest_path_till_now.push_back(next_hop);
-                            shortest_paths_till_now.push(shortest_path_till_now);
-                        }
+						bool new_hop = true;
+						for (BaseVertex* path_vertex: path_till_now){
+							new_hop = new_hop and (path_vertex->getID() != next_hop->getID());
+						}
+						if (new_hop){
+							vector<BaseVertex*> shortest_path_till_now(path_till_now);
+							shortest_path_till_now.push_back(next_hop);
+							shortest_paths_till_now.push(shortest_path_till_now);
+						}
 					}
-                    //evaluate this case only for shortest paths
+					//evaluate this case only for shortest paths
 					else if(shortestPathLen[src_sw][dest_sw] == (path_till_now.size() - 1)
-                                                              + shortestPathLen[last_vertex->getID()][dest_sw] &&
-                            shortestPathLen[last_vertex->getID()][dest_sw] == 1 + shortestPathLen[next_hop->getID()][dest_sw]){
-                        vector<BaseVertex*> shortest_path_till_now(path_till_now);
+																+ shortestPathLen[last_vertex->getID()][dest_sw] &&
+							shortestPathLen[last_vertex->getID()][dest_sw] == 1 + shortestPathLen[next_hop->getID()][dest_sw]){
+						vector<BaseVertex*> shortest_path_till_now(path_till_now);
 						shortest_path_till_now.push_back(next_hop);
 						shortest_paths_till_now.push(shortest_path_till_now);
 					}
@@ -810,15 +700,7 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
 				//	if (shortestLen == -1) shortestLen = pathIHave.size();
 				//	if (pathIHave.size() > shortestLen + 1) break;
 
-				// Queue* pqueue = new Queue(speedFromPktps(HOST_NIC), memFromPkt(FEEDER_BUFFER), *eventlist, NULL);
-				// pqueue->setName("PQueue_" + ntoa(src) + "_" + ntoa(dest));
-
 				routeout = new route_t();
-				// routeout->push_back(pqueue);
-
-				// // First hop = svr to sw
-				// routeout->push_back(queues_svr_sw[src_sw][ConvertHostToSwitchPort(src)]);
-				// routeout->push_back(pipes_svr_sw[src_sw][ConvertHostToSwitchPort(src)]);
 
 				// Ankit: Print path given by All Shortest paths
 				//cout << "SHORTEST PATH NEW = ";
@@ -832,11 +714,8 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
 					routeout->push_back(pipes_sw_sw[fr][to]);
 				}
 
-
 				//cout << endl;
 				//cout << "(Add final = " << dest << "(" << dest_sw << ") : "<< ConvertHostToSwitchPort(dest) <<" : "<<queues_sw_svr[dest_sw][ConvertHostToSwitchPort(dest)]<<endl;
-				// routeout->push_back(queues_sw_svr[dest_sw][ConvertHostToSwitchPort(dest)]);
-				// routeout->push_back(pipes_sw_svr[dest_sw][ConvertHostToSwitchPort(dest)]);
 
 				paths_rack_based->push_back(routeout);
 				//cout << "CHECK-NOT-NULL AT DIFFERENT SWITCH" << endl;
@@ -844,46 +723,39 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
 				++i;                                                                                                           
 			}
 
-			// assert(!net_paths_rack_based[src_sw][dest_sw]);
-		  	net_paths_rack_based[src_sw][dest_sw] = paths_rack_based;
-		  	// paths_no_head_tail = copy_path(paths_rack_based);
-
-			// pathcache[pair<int, int>(src, dest)] = pair<vector<double>*, vector<route_t*>*> (pathweights, paths);
-			// return pair<vector<double>*, vector<route_t*>*>(pathweights, paths);
-			//return paths;
-      }
-      else if(find_path_alg == FIRST_HOP_INDIRECTION){
-
+			net_paths_rack_based[src_sw][dest_sw] = paths_rack_based;
+		}
+		else if(find_path_alg == FIRST_HOP_INDIRECTION){
 			//return all shortest paths	 
 			vector<vector<BaseVertex* > > shortest_paths;
 			queue<vector<BaseVertex*> > shortest_paths_till_now;
 
 			vector<BaseVertex*> path_till_now;
 			path_till_now.push_back(myGraph->get_vertex(src_sw));
-            set<BaseVertex*> possible_first_hops;
-            myGraph->get_adjacent_vertices(myGraph->get_vertex(src_sw), possible_first_hops);
+			set<BaseVertex*> possible_first_hops;
+			myGraph->get_adjacent_vertices(myGraph->get_vertex(src_sw), possible_first_hops);
 
-            /*
-            int src_dest_dist = shortestPathLen[src_sw][dest_sw];
-            for(BaseVertex* next_hop: possible_first_hops){
-                if(next_hop == myGraph->get_vertex(dest_sw)){
-                    //destination is a neighbour, skip the direct path
-                    src_dest_dist += 1;
-                }
-            }
-            */
-            for(BaseVertex* next_hop: possible_first_hops){
-                if(next_hop == myGraph->get_vertex(dest_sw)){
-                    vector<BaseVertex*> shortest_path(path_till_now);
-                    shortest_path.push_back(next_hop);
-                    shortest_paths.push_back(shortest_path);
-                }
-                else{ //if(shortestPathLen[next_hop->getID()][dest_sw] <= src_dest_dist){
-                    vector<BaseVertex*> shortest_path_till_now(path_till_now);
-                    shortest_path_till_now.push_back(next_hop);
-                    shortest_paths_till_now.push(shortest_path_till_now);
-                }
-            }
+			/*
+			int src_dest_dist = shortestPathLen[src_sw][dest_sw];
+			for(BaseVertex* next_hop: possible_first_hops){
+				if(next_hop == myGraph->get_vertex(dest_sw)){
+					//destination is a neighbour, skip the direct path
+					src_dest_dist += 1;
+				}
+			}
+			*/
+			for(BaseVertex* next_hop: possible_first_hops){
+				if(next_hop == myGraph->get_vertex(dest_sw)){
+					vector<BaseVertex*> shortest_path(path_till_now);
+					shortest_path.push_back(next_hop);
+					shortest_paths.push_back(shortest_path);
+				}
+				else{ //if(shortestPathLen[next_hop->getID()][dest_sw] <= src_dest_dist){
+					vector<BaseVertex*> shortest_path_till_now(path_till_now);
+					shortest_path_till_now.push_back(next_hop);
+					shortest_paths_till_now.push(shortest_path_till_now);
+				}
+			}
 
 			while(!shortest_paths_till_now.empty()){
 				vector<BaseVertex*> path_till_now = shortest_paths_till_now.front();
@@ -917,15 +789,7 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
 				//	if (shortestLen == -1) shortestLen = pathIHave.size();
 				//	if (pathIHave.size() > shortestLen + 1) break;
 
-				// Queue* pqueue = new Queue(speedFromPktps(HOST_NIC), memFromPkt(FEEDER_BUFFER), *eventlist, NULL);
-				// pqueue->setName("PQueue_" + ntoa(src) + "_" + ntoa(dest));
-
 				routeout = new route_t();
-				// routeout->push_back(pqueue);
-
-				// // First hop = svr to sw
-				// routeout->push_back(queues_svr_sw[src_sw][ConvertHostToSwitchPort(src)]);
-				// routeout->push_back(pipes_svr_sw[src_sw][ConvertHostToSwitchPort(src)]);
 
 				// Ankit: Print path given by All Shortest paths
 				//cout << "SHORTEST PATH NEW = ";
@@ -939,11 +803,8 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
 					routeout->push_back(pipes_sw_sw[fr][to]);
 				}
 
-
 				//cout << endl;
 				//cout << "(Add final = " << dest << "(" << dest_sw << ") : "<< ConvertHostToSwitchPort(dest) <<" : "<<queues_sw_svr[dest_sw][ConvertHostToSwitchPort(dest)]<<endl;
-				// routeout->push_back(queues_sw_svr[dest_sw][ConvertHostToSwitchPort(dest)]);
-				// routeout->push_back(pipes_sw_svr[dest_sw][ConvertHostToSwitchPort(dest)]);
 
 				paths_rack_based->push_back(routeout);
 				//cout << "CHECK-NOT-NULL AT DIFFERENT SWITCH" << endl;
@@ -951,19 +812,14 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
 				++i;                                                                                                           
 			}
 
-			// assert(!net_paths_rack_based[src_sw][dest_sw]);
-		  	net_paths_rack_based[src_sw][dest_sw] = paths_rack_based;
-		  	// paths_no_head_tail = copy_path(paths_rack_based);
+			net_paths_rack_based[src_sw][dest_sw] = paths_rack_based;
+		}
+		else if(find_path_alg == ECMP){
 
-			// pathcache[pair<int, int>(src, dest)] = pair<vector<double>*, vector<route_t*>*> (pathweights, paths);
-			// return pair<vector<double>*, vector<route_t*>*>(pathweights, paths);
-			//return paths;
-      }
-      else if(find_path_alg == ECMP){
+		#if IS_DEBUG_ON
+			cout << "is ecmp" << endl;
+		#endif
 
-#if IS_DEBUG_ON
-	cout << "is ecmp" << endl;
-#endif
 			//return all shortest paths	 
 			vector<vector<BaseVertex* > > shortest_paths;
 			queue<vector<BaseVertex*> > shortest_paths_till_now;
@@ -993,9 +849,9 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
 				}
 			}
 
-#if IS_DEBUG_ON
-    cout << "shortest_paths has size " << shortest_paths.size() << endl;
-#endif
+		#if IS_DEBUG_ON
+			cout << "shortest_paths has size " << shortest_paths.size() << endl;
+		#endif
 
 			int i=0;
 			//printf("[%d --> %d] dist: %d, numpaths: %d \n", src_sw, dest_sw, shortestPathLen[src_sw][dest_sw], numpaths);
@@ -1008,15 +864,7 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
 				//	if (shortestLen == -1) shortestLen = pathIHave.size();
 				//	if (pathIHave.size() > shortestLen + 1) break;
 
-				// Queue* pqueue = new Queue(speedFromPktps(HOST_NIC), memFromPkt(FEEDER_BUFFER), *eventlist, NULL);
-				// pqueue->setName("PQueue_" + ntoa(src) + "_" + ntoa(dest));
-
 				routeout = new route_t();
-				// routeout->push_back(pqueue);
-
-				// // First hop = svr to sw
-				// routeout->push_back(queues_svr_sw[src_sw][ConvertHostToSwitchPort(src)]);
-				// routeout->push_back(pipes_svr_sw[src_sw][ConvertHostToSwitchPort(src)]);
 
 				// Ankit: Print path given by All Shortest paths
 				//cout << "SHORTEST PATH NEW = ";
@@ -1030,11 +878,8 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
 					routeout->push_back(pipes_sw_sw[fr][to]);
 				}
 
-
 				//cout << endl;
 				//cout << "(Add final = " << dest << "(" << dest_sw << ") : "<< ConvertHostToSwitchPort(dest) <<" : "<<queues_sw_svr[dest_sw][ConvertHostToSwitchPort(dest)]<<endl;
-				// routeout->push_back(queues_sw_svr[dest_sw][ConvertHostToSwitchPort(dest)]);
-				// routeout->push_back(pipes_sw_svr[dest_sw][ConvertHostToSwitchPort(dest)]);
 
 				paths_rack_based->push_back(routeout);
 				//cout << "CHECK-NOT-NULL AT DIFFERENT SWITCH" << endl;
@@ -1042,19 +887,15 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
 				++i;                                                                                                           
 			}
 
-			// assert(!net_paths_rack_based[src_sw][dest_sw]);
-		  	net_paths_rack_based[src_sw][dest_sw] = paths_rack_based;
-		  	// paths_no_head_tail = copy_path(paths_rack_based);
+			net_paths_rack_based[src_sw][dest_sw] = paths_rack_based;
 
-			// pathcache[pair<int, int>(src, dest)] = pair<vector<double>*, vector<route_t*>*> (pathweights, paths);
-			// return pair<vector<double>*, vector<route_t*>*>(pathweights, paths);
-			//return paths;
-#if IS_DEBUG_ON
-	cout << "ecmp paths_rack_based has size " << paths_rack_based->size() << endl;
-	cout << "ecmp net_paths_rack_based[src_sw][dest_sw] has size " << net_paths_rack_based[src_sw][dest_sw]->size() << endl;
-#endif
-      }
-      else if(find_path_alg == ECMP_DAG){
+		#if IS_DEBUG_ON
+			cout << "ecmp paths_rack_based has size " << paths_rack_based->size() << endl;
+			cout << "ecmp net_paths_rack_based[src_sw][dest_sw] has size " << net_paths_rack_based[src_sw][dest_sw]->size() << endl;
+		#endif
+
+		}
+		else if(find_path_alg == ECMP_DAG){
 
 			if(nextHops.find(dest_sw) == nextHops.end()){
 				nextHops[dest_sw] = map<int, map<BaseVertex*, double> >();
@@ -1104,7 +945,6 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
 				}
 			}
 
-
 			pathweights = new vector<double>();
 
 			//return all possible ecmp paths	 
@@ -1115,7 +955,6 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
 			vector<BaseVertex*> path_till_now;
 			path_till_now.push_back(myGraph->get_vertex(src_sw));
 			ecmp_paths_till_now.push(queueEntry(path_till_now, 1.0));
-
 
 			while(!ecmp_paths_till_now.empty()){
 				queueEntry entry = ecmp_paths_till_now.front();
@@ -1164,15 +1003,7 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
 				//	if (shortestLen == -1) shortestLen = pathIHave.size();
 				//	if (pathIHave.size() > shortestLen + 1) break;
 
-				// Queue* pqueue = new Queue(speedFromPktps(HOST_NIC), memFromPkt(FEEDER_BUFFER), *eventlist, NULL);
-				// pqueue->setName("PQueue_" + ntoa(src) + "_" + ntoa(dest));
-
 				routeout = new route_t();
-				// routeout->push_back(pqueue);
-
-				// // First hop = svr to sw
-				// routeout->push_back(queues_svr_sw[src_sw][ConvertHostToSwitchPort(src)]);
-				// routeout->push_back(pipes_svr_sw[src_sw][ConvertHostToSwitchPort(src)]);
 
 				// Ankit: Print path given by All Shortest paths
 				//cout << "SHORTEST PATH NEW = ";
@@ -1188,8 +1019,6 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
 
 				//cout << endl;
 				//cout << "(Add final = " << dest << "(" << dest_sw << ") : "<< ConvertHostToSwitchPort(dest) <<" : "<<queues_sw_svr[dest_sw][ConvertHostToSwitchPort(dest)]<<endl;
-				// routeout->push_back(queues_sw_svr[dest_sw][ConvertHostToSwitchPort(dest)]);
-				// routeout->push_back(pipes_sw_svr[dest_sw][ConvertHostToSwitchPort(dest)]);
 
 				paths_rack_based->push_back(routeout);
 				//cout << "CHECK-NOT-NULL AT DIFFERENT SWITCH" << endl;
@@ -1197,125 +1026,101 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
 				++i;                                                                                                           
 			}
 
-		  	// assert(!net_paths_rack_based[src_sw][dest_sw]);
-		  	net_paths_rack_based[src_sw][dest_sw] = paths_rack_based;
-		 	// paths_no_head_tail = copy_path(paths_rack_based);
+			net_paths_rack_based[src_sw][dest_sw] = paths_rack_based;
+		}
 
-			// pathcache[pair<int, int>(src, dest)] = pair<vector<double>*, vector<route_t*>*> (pathweights, paths);
-			// return pair<vector<double>*, vector<route_t*>*>(pathweights, paths);
-      }
+	#if IS_DEBUG_ON
+		cout << "ECMP_DAG paths_rack_based has size " << paths_rack_based->size() << endl;
+		cout << "ECMP_DAG net_paths_rack_based[src_sw][dest_sw] has size " << net_paths_rack_based[src_sw][dest_sw]->size() << endl;
+	#endif
 
-#if IS_DEBUG_ON
-	cout << "1paths_rack_based has size " << paths_rack_based->size() << endl;
-	cout << "1net_paths_rack_based[src_sw][dest_sw] has size " << net_paths_rack_based[src_sw][dest_sw]->size() << endl;
-#endif
-
-	// }
-/*
-#if IS_DEBUG_MODE
-	cout << "Attaching head and tail: paths size = " << paths_no_head_tail->size() << endl;
-#endif
-	  for (unsigned int i=0; i<paths_no_head_tail->size(); i++) {
-		  path = paths_no_head_tail->at(i);
-#if IS_DEBUG_MODE
-		cout << "get a path from paths_no_head_tail: path size = " << path->size() << endl;
-#endif
-		  Queue* pqueue = new Queue(speedFromPktps(HOST_NIC), memFromPkt(FEEDER_BUFFER), *eventlist, NULL);
-		  pqueue->setName("PQueue_" + ntoa(src) + "_" + ntoa(dest));
-		  path->push_front(pipes_svr_sw[src_sw][ConvertHostToSwitchPort(src)]);
-		  path->push_front(queues_svr_sw[src_sw][ConvertHostToSwitchPort(src)]);
-		  path->push_front(pqueue);
-
-		  path->push_back(queues_sw_svr[dest_sw][ConvertHostToSwitchPort(dest)]);
-		  path->push_back(pipes_sw_svr[dest_sw][ConvertHostToSwitchPort(dest)]);
-#if IS_DEBUG_MODE
-		cout << "after attaching: paths size = " << paths->size() << ", path size = " << path->size() << endl;
-#endif
-		  paths->push_back(path);
-		  check_non_null(path);
-	  }
-
-#if IS_DEBUG_MODE
-	cout << "right before returning" << endl;
-#endif
-*/
-  }
+	}
 
 #if IS_DEBUG_ON
-	cout << "2paths_rack_based has size " << paths_rack_based->size() << endl;
-	cout << "2net_paths_rack_based[src_sw][dest_sw] has size " << net_paths_rack_based[src_sw][dest_sw]->size() << endl;
+	cout << "get_paths_helper paths_rack_based has size " << paths_rack_based->size() << endl;
+	cout << "get_paths_helper net_paths_rack_based[src_sw][dest_sw] has size " << net_paths_rack_based[src_sw][dest_sw]->size() << endl;
 #endif
 
 	return pair<vector<double>*, vector<route_t*>*>(pathweights, paths_rack_based);
 }
 
 route_t *RandRegularTopology::attach_head_tail(int src, int dst, bool is_same_switch, int rand_choice) {
+
 #if IS_DEBUG_ON
-	cout << "attach_head_tail: src = " << src << ", dst = " << dst << ", is_same_switch?" << is_same_switch << ", rand_choice = " << rand_choice << endl;
+	cout << "attach_head_tail: srcsvr=" << src << ", dstsvr=" << dst << ", is_same_switch?" << is_same_switch << ", rand_choice=" << rand_choice << endl;
 #endif
+
 	int src_sw = ConvertHostToSwitch(src);
 	int dst_sw = ConvertHostToSwitch(dst);
+
 #if IS_DEBUG_ON
-	cout << "src_sw = " << src_sw << ",dst_sw = " << dst_sw << endl;
+	cout << "src_sw=" << src_sw << ", dst_sw=" << dst_sw << endl;
 #endif
-        route_t *this_route;
+
+    route_t *this_route;
 
 	if (is_same_switch) {
 		assert(rand_choice == 0);
-		//assert(this_route->size() == 0);
-                this_route = new route_t();
+        this_route = new route_t();
 		Queue* pqueue = new Queue(speedFromPktps(HOST_NIC), memFromPkt(FEEDER_BUFFER), *eventlist, NULL);
-    	  	pqueue->setName("PQueue_" + ntoa(src) + "_" + ntoa(dst));
+    	pqueue->setName("PQueue_" + ntoa(src) + "_" + ntoa(dst));
 		this_route->push_back(pqueue);
  		this_route->push_back(queues_svr_sw[src_sw][ConvertHostToSwitchPort(src)]);
  		this_route->push_back(pipes_svr_sw[src_sw][ConvertHostToSwitchPort(src)]);
  
  		this_route->push_back(queues_sw_svr[dst_sw][ConvertHostToSwitchPort(dst)]);
 		this_route->push_back(pipes_sw_svr[dst_sw][ConvertHostToSwitchPort(dst)]);
-	} else {
-	        this_route = new route_t(*(net_paths_rack_based[src_sw][dst_sw]->at(rand_choice)));
+	} 
+	else {
+	    this_route = new route_t(*(net_paths_rack_based[src_sw][dst_sw]->at(rand_choice)));
 		assert(this_route->size() > 0);
 		Queue* pqueue = new Queue(speedFromPktps(HOST_NIC), memFromPkt(FEEDER_BUFFER), *eventlist, NULL);
-                pqueue->setName("PQueue_" + ntoa(src) + "_" + ntoa(dst));
-                this_route->push_front(pipes_svr_sw[src_sw][ConvertHostToSwitchPort(src)]);
-                this_route->push_front(queues_svr_sw[src_sw][ConvertHostToSwitchPort(src)]);
-                this_route->push_front(pqueue);
- 
-                this_route->push_back(queues_sw_svr[dst_sw][ConvertHostToSwitchPort(dst)]);
-                this_route->push_back(pipes_sw_svr[dst_sw][ConvertHostToSwitchPort(dst)]); 
+		pqueue->setName("PQueue_" + ntoa(src) + "_" + ntoa(dst));
+		this_route->push_front(pipes_svr_sw[src_sw][ConvertHostToSwitchPort(src)]);
+		this_route->push_front(queues_svr_sw[src_sw][ConvertHostToSwitchPort(src)]);
+		this_route->push_front(pqueue);
+
+		this_route->push_back(queues_sw_svr[dst_sw][ConvertHostToSwitchPort(dst)]);
+		this_route->push_back(pipes_sw_svr[dst_sw][ConvertHostToSwitchPort(dst)]); 
 	}
+
 #if IS_DEBUG_ON
 	cout << "head and tail attached" << endl;
 #endif
+
 	return this_route;
 }
 
 void RandRegularTopology::delete_net_paths_rack_based(int numintervals) {
+
 #if IS_DEBUG_ON
 	cout << "delete_net_paths_rack_based" << endl;
 #endif
+
 	for (int i=0; i<NSW; i++) {
 		for (int j=0; j<NSW; j++) {
 			if (net_paths_rack_based[i][j]) {
-			for (auto p : (*net_paths_rack_based[i][j])) {
-				delete p;
-			}
-			net_paths_rack_based[i][j]->clear();
-			delete net_paths_rack_based[i][j];
+				for (auto p : (*net_paths_rack_based[i][j])) {
+					delete p;
+				}
+				net_paths_rack_based[i][j]->clear();
+				delete net_paths_rack_based[i][j];
 			}
 		}
 		delete [] net_paths_rack_based[i];
 	}	
+	delete [] net_paths_rack_based;
+
 #if IS_DEBUG_ON
 	cout << "done deleting" << endl;
 #endif 
-	delete [] net_paths_rack_based;
 
 #if PATHWEIGHTS
 	for (int k=0; k<numintervals; k++) {
 		for (int i=0; i<NSW; i++) {
 			for (int j=0; j<NSW; j++) {
 				if (path_weights_rack_based[k][i][j]) {
+					path_weights_rack_based[k][i][j]->clear();
 					delete path_weights_rack_based[k][i][j];
 				}
 			}
@@ -1325,6 +1130,7 @@ void RandRegularTopology::delete_net_paths_rack_based(int numintervals) {
 	}
 	delete [] path_weights_rack_based;
 #endif
+
 }
 
 void RandRegularTopology::floydWarshall(){
