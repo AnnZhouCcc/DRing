@@ -119,28 +119,18 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
 	}
 
 #if PATHWEIGHTS
-	// Read net paths from file
+	// Read netpath from file
 	ifstream npfile(netpathfile.c_str());
     string npline;
-	// int count = 0;
     if (npfile.is_open()){
 		while(npfile.good()){
 			getline(npfile, npline);
 			if (npline.find_first_not_of(' ') == string::npos) break;
 			stringstream npss(npline);
-			int flowSrc=-1;
-                        int flowDst,num_paths;
+			int flowSrc,flowDst,num_paths;
 			vector<route_t*> *paths_rack_based;
 			if (npline.find_first_of("->") == string::npos) {
-                                //if (flowSrc>=0 && net_paths_rack_based[flowSrc][flowDst]->size()==0) {
-                                //    route_t*route = new route_t();
-                                //    net_paths_rack_based[flowSrc][flowDst]->push_back(route);
-                                //}
 				npss >> flowSrc >> flowDst >> num_paths;
-				// if (count < 20) {
-				// 	cout << "flowSrc = " << flowSrc << ", flowDst = " << flowDst << endl;
-				// 	count++;
-				// }
 				paths_rack_based = new vector<route_t*>();
 				net_paths_rack_based[flowSrc][flowDst] = paths_rack_based;
 			} else {
@@ -152,10 +142,6 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
 					if (found != string::npos) {
 						linkSrc = stoi(link.substr(0,found));
 						linkDst = stoi(link.substr(found+2));
-						// if (count < 20) {
-						// 	cout << "linkSrc = " << linkSrc << ", linkDst = " << linkDst << endl;
-						// 	count++;
-						// }
 						routeout->push_back(queues_sw_sw[linkSrc][linkDst]);
 						routeout->push_back(pipes_sw_sw[linkSrc][linkDst]);
 					}
@@ -164,10 +150,10 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
 			}
 		}
 		npfile.close();
-    }
-    else {
-        cout << "Error opening netpathfile: " << netpathfile << endl;
-        exit(0);
+    } 
+	else {
+        cout << "***Error opening netpathfile: " << netpathfile << endl;
+        exit(1);
     }
 
 	// Initialize path_weights_rack_based
@@ -175,7 +161,8 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
 	if (conn_matrix == "CLUSTERX") {
 		numintervals = (solveend-solvestart) / solveinterval;
 	}
-	cout << numintervals << endl;
+	cout << "numintervals=" << numintervals << endl;
+
 	path_weights_rack_based = new vector < pair<int,double> > ***[numintervals];
 	for (int k=0; k<numintervals; k++) {
 		path_weights_rack_based[k] = new vector < pair<int,double> > **[NSW];
@@ -187,33 +174,38 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
 		}
 	}
 
-	// Initialize path_weights_verification
-	// path_weights_verification = new vector < pair<int,int> > **[NSW];
-	// for (int i=0; i<NSW; i++) {
-	// 	path_weights_verification[i] = new vector < pair<int,int> > *[NSW];
-	// 	for (int j=0; j<NSW; j++) {
-	// 		path_weights_verification[i][j] = new vector < pair<int,int> > ();
-	// 	}
-	// }
-
-	// Read path weights from file
-	int computeintervalstart, computeintervalend;
+	// Read pathweight from file
+	int thiscomputestart, thiscomputeend;
 	string pathweightfile;
 	for (int i=0; i<numintervals; i++) {
 		if (conn_matrix == "CLUSTERX") {
-			if (computeinterval == 0) {
-				// optimal
-				computeintervalstart = solvestart + i*solveinterval;
-				computeintervalend = computeintervalstart + solveinterval;
-			} else {
-				// delay
-				computeintervalstart = computestart + i*solveinterval;
-				computeintervalend = computeintervalstart + computeinterval;
+			if (solveinterval == 0) { // equal
+				if (computeinterval != 0) {
+					cout << "***Error: computeinterval!=0 when solveinterval==0, computeinterval=" << itoa(computeinterval) << endl;
+					exit(1);
+				}
+				if (pathweightfilesuffix != "") {
+					cout << "***Error: pathweightfilesuffix is non-empty when solveinterval==0 and computeinterval==0, pathweightfilesuffix=" << pathweightfilesuffix << endl;
+					exit(1);
+				}
+				pathweightfile = pathweightfileprefix;
+			} else if (computeinterval == 0) { // optimal
+				thiscomputestart = solvestart + i*solveinterval;
+				thiscomputeend = thiscomputestart + solveinterval;
+				pathweightfile = pathweightfileprefix + itoa(thiscomputestart) + "_" + itoa(thiscomputeend) + pathweightfilesuffix;
+			} else { // delay
+				thiscomputestart = computestart + i*solveinterval;
+				thiscomputeend = thiscomputestart + computeinterval;
+				pathweightfile = pathweightfileprefix + itoa(thiscomputestart) + "_" + itoa(thiscomputeend) + pathweightfilesuffix;
 			}
-			pathweightfile = pathweightfileprefix + itoa(computeintervalstart) + "_" + itoa(computeintervalend) + pathweightfilesuffix;
 		} else {
+			if (pathweightfilesuffix != "") {
+				cout << "***Error: pathweightfilesuffix is non-empty when solveinterval==0 and computeinterval==0, pathweightfilesuffix=" << pathweightfilesuffix << endl;
+				exit(1);
+			}
 			pathweightfile = pathweightfileprefix;
 		}
+
 		ifstream pwfile(pathweightfile.c_str());
 		string pwline;
 		if (pwfile.is_open()){
@@ -225,15 +217,24 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
 				double weight;
 				ss >> flowSrc >> flowDst >> pid >> linkSrc >> linkDst >> weight;
 
-				if (flowSrc >= NSW || flowDst >= NSW) cout << "Error with path weights: flowSrc >= NSW || flowDst >= NSW" << endl;
+				if (flowSrc>=NSW || flowDst>=NSW) {
+					cout << "***Error: flowSrc>=NSW || flowDst>=NSW, flowSrc=" << itoa(flowSrc) << ", flowDst=" << itoa(flowDst) << ", NSW=" << itoa(NSW) << endl;
+					exit(1);
+				}
+				// check whether netpathfile and pathweightfile are indeed matching
+				Queue *firstqueue = net_paths_rack_based[flowSrc][flowDst]->at(pid)->at(0);
+				if (firstqueue != queues_sw_sw[linkSrc][linkDst]) {
+					cout << "***Error: netpathfile and pathweightfile mismatch, linkSrc=" << itoa(linkSrc) << ", linkDst=" << itoa(linkDst) << ", queue has name " << firstqueue->nodename << endl;
+					exit(1);
+				}
+
 				path_weights_rack_based[i][flowSrc][flowDst]->push_back(pair<int,double>(pid,weight));
-				// path_weights_verification[flowSrc][flowDst]->push_back(pair<int,int>(linkSrc,linkDst));
 			}
 			pwfile.close();
 		}
 		else {
-			cout << "Error opening pathweightfile: " << pathweightfile << endl;
-			exit(0);
+			cout << "***Error opening pathweightfile: " << pathweightfile << endl;
+			exit(1);
 		}
 	}
 #endif
@@ -371,7 +372,6 @@ unsigned int RandRegularTopology::ConvertHostToSwitchPort(int host)
   }
   return myportindex;
 }
-
 
 
 int RandRegularTopology::ConvertHostToSwitch(int host)
