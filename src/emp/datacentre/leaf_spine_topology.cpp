@@ -200,13 +200,13 @@ pair<vector<double>*, vector<route_t*>*> LeafSpineTopology::get_paths(int src, i
 }
 
 route_t *LeafSpineTopology::attach_head_tail(int src, int dst, bool is_same_switch, int rand_choice) {
-        int src_sw = ConvertHostToRack(src);
-        int dst_sw = ConvertHostToRack(dst);
-	route_t *this_route = new route_t(*(net_paths_rack_based[src_sw][dst_sw]->at(rand_choice)));
+  int src_sw = ConvertHostToRack(src);
+  int dst_sw = ConvertHostToRack(dst);
+	route_t *this_route;
 
-        if (is_same_switch) {
-                assert(rand_choice == 0);
-                assert(this_route->size() == 0);
+  if (is_same_switch) {
+    assert(rand_choice == 0);
+    this_route = new route_t();
 
 		Queue* pqueue = new Queue(speedFromPktps(HOST_NIC), memFromPkt(FEEDER_BUFFER), *eventlist, NULL);
 		pqueue->setName("PQueue_" + ntoa(src) + "_" + ntoa(dst));
@@ -218,7 +218,9 @@ route_t *LeafSpineTopology::attach_head_tail(int src, int dst, bool is_same_swit
 
 		this_route->push_back(queues_nlp_ns[HOST_TOR_SWITCH(dst)][dst]);
 		this_route->push_back(pipes_nlp_ns[HOST_TOR_SWITCH(dst)][dst]);
-	} else {
+	} 
+  else {
+    this_route = new route_t(*(net_paths_rack_based[src_sw][dst_sw]->at(rand_choice)));
 		assert(this_route->size() > 0);
 
 		Queue* pqueue = new Queue(speedFromPktps(HOST_NIC), memFromPkt(FEEDER_BUFFER), *eventlist, NULL);
@@ -235,18 +237,18 @@ route_t *LeafSpineTopology::attach_head_tail(int src, int dst, bool is_same_swit
 }
 
 void LeafSpineTopology::delete_net_paths_rack_based(int numintervals) {
-        for (int i=0; i<NSW; i++) {
-                for (int j=0; j<NSW; j++) {
-                        if (net_paths_rack_based[i][j]) {
-                        for (auto p : (*net_paths_rack_based[     i][j])) {
-                                delete p;
-                        }
-                        net_paths_rack_based[i][j]->clear();
-                        delete net_paths_rack_based[i][j];
-                        }
-                }
-                delete [] net_paths_rack_based[i];
+  for (int i=0; i<NSW; i++) {
+    for (int j=0; j<NSW; j++) {
+      if (net_paths_rack_based[i][j]) {
+        for (auto p : (*net_paths_rack_based[i][j])) {
+          delete p;
         }
+        net_paths_rack_based[i][j]->clear();
+        delete net_paths_rack_based[i][j];
+      }
+    }
+    delete [] net_paths_rack_based[i];
+  }
 	delete [] net_paths_rack_based;
 }
 

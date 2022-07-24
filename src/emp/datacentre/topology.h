@@ -73,6 +73,9 @@ class Topology {
   }
   virtual void print_link_bandwidth_usage(double simTimeInSec){};
  
+  vector<route_t *>***net_paths_rack_based;
+  virtual void delete_net_paths_rack_based(int numintervals) = 0;
+  virtual route_t *attach_head_tail(int src, int dst, bool is_same_switch, int rand_choice) = 0;
 };
 
 #endif
