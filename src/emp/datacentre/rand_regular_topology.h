@@ -50,6 +50,8 @@ class RandRegularTopology: public Topology{
   FIND_PATH_ALGORITHM find_path_alg;
   int korn;
   vector< pair<int,double> >**** path_weights_rack_based;
+  void delete_net_paths_rack_based(int numintervals);
+  route_t *attach_head_tail(int src, int dst, bool is_same_switch, int rand_choice);
 
   RandRegularTopology(Logfile* log,EventList* ev, string graphFile, queue_type qt=RANDOM, string conn_matrix="CLUSTERX", string alg="ecmp", int k=0, string netpathFile="none", string pathweightfileprefix="none", string pathweightfilesuffix="none", int solvestart=0, int solveend=0, int solveinterval=0, int computestart=0, int computeend=0, int computeinterval=0);
 

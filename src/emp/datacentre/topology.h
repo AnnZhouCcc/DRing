@@ -74,8 +74,14 @@ class Topology {
   virtual void print_link_bandwidth_usage(double simTimeInSec){};
  
   vector<route_t *>***net_paths_rack_based;
-  virtual void delete_net_paths_rack_based(int numintervals) = 0;
-  virtual route_t *attach_head_tail(int src, int dst, bool is_same_switch, int rand_choice) = 0;
+  virtual void delete_net_paths_rack_based(int numintervals){
+	std::cout<<"delete_net_paths_rack_based not implemented (topology.h)"<<endl;
+	exit(0);
+  }
+  virtual route_t *attach_head_tail(int src, int dst, bool is_same_switch, int rand_choice){
+	std::cout<<"attach_head_tail not implemented (topology.h)"<<endl;
+	exit(0);
+  }
 };
 
 #endif
