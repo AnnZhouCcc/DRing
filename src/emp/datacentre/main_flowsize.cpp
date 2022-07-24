@@ -33,7 +33,7 @@
 #define PRINT_PATHS 0
 #define PERIODIC 0
 #define DEBUG_MODE false
-#define PATHWEIGHTS true
+#define PATHWEIGHTS false
 
 uint32_t RTT = 2; // us
 int ssthresh = 43; //65 KB
