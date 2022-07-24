@@ -169,62 +169,32 @@ pair<vector<double>*, vector<route_t*>*> LeafSpineTopology::get_other_paths(int 
 }
 
 pair<vector<double>*, vector<route_t*>*> LeafSpineTopology::get_paths(int src, int dest){
-  vector<route_t*>* paths = new vector<route_t*>();
   vector<double>* weights = NULL;
 
   route_t* routeout;
+  vector<route_t*>* paths = new vector<route_t*>();
 
   int src_sw = src;
   int dest_sw = dest;
+
   if (src_sw == dest_sw){
-    // Queue* pqueue = new Queue(speedFromPktps(HOST_NIC), memFromPkt(FEEDER_BUFFER), *eventlist, NULL);
-    // pqueue->setName("PQueue_" + ntoa(src) + "_" + ntoa(dest));
-    // logfile->writeName(*pqueue);
-  
     routeout = new route_t();
-    // routeout->push_back(pqueue);
-
-    // routeout->push_back(queues_ns_nlp[src][HOST_TOR_SWITCH(src)]);
-    // routeout->push_back(pipes_ns_nlp[src][HOST_TOR_SWITCH(src)]);
-
-    // routeout->push_back(queues_nlp_ns[HOST_TOR_SWITCH(dest)][dest]);
-    // routeout->push_back(pipes_nlp_ns[HOST_TOR_SWITCH(dest)][dest]);
-
     paths->push_back(routeout);
     net_paths_rack_based[src_sw][dest_sw] = paths;
-
-    // check_non_null(routeout);
-    // return pair<vector<double>*, vector<route_t*>*>(weights, paths);
   }
   else{
-
     //there are NSP paths between the source and the destination
     for (int upper = 0;upper < NSP; upper++){
-      //upper is nup
-      // Queue* pqueue = new Queue(speedFromPktps(HOST_NIC), memFromPkt(FEEDER_BUFFER), *eventlist, NULL);
-      // pqueue->setName("PQueue_" + ntoa(src) + "_" + ntoa(dest));
-      // logfile->writeName(*pqueue);
-      
+      //upper is nup; lower is nlp
       routeout = new route_t();
-      // routeout->push_back(pqueue);
-      
-      // routeout->push_back(queues_ns_nlp[src][HOST_TOR_SWITCH(src)]);
-      // routeout->push_back(pipes_ns_nlp[src][HOST_TOR_SWITCH(src)]);
-
       routeout->push_back(queues_nlp_nup[src_sw][upper]);
       routeout->push_back(pipes_nlp_nup[src_sw][upper]);
-
       routeout->push_back(queues_nup_nlp[upper][dest_sw]);
       routeout->push_back(pipes_nup_nlp[upper][dest_sw]);
-      
-      // routeout->push_back(queues_nlp_ns[HOST_TOR_SWITCH(dest)][dest]);
-      // routeout->push_back(pipes_nlp_ns[HOST_TOR_SWITCH(dest)][dest]);
-      
       paths->push_back(routeout);
       check_non_null(routeout);
-      net_paths_rack_based[src_sw][dest_sw] = paths;
     }
-    //return paths;
+    net_paths_rack_based[src_sw][dest_sw] = paths;
   }
   return pair<vector<double>*, vector<route_t*>*>(weights, paths);
 }
