@@ -457,13 +457,8 @@ int main(int argc, char **argv) {
                  << flow.dst << "("<< top->ConvertHostToRack(flow.dst) << ") bytes: "
                  << flow.bytes << " start_time_ms " << flow.start_time_ms << endl;
 
-	#if CHOSEN_TOPO == LEAFSPINE
 		src_sw = top->ConvertHostToRack(flow.src);
 		dst_sw = top->ConvertHostToRack(flow.dst);
-	#elif CHOSEN_TOPO == RRG
-		src_sw = top->ConvertHostToSwitch(flow.src);
-		dst_sw = top->ConvertHostToSwitch(flow.dst);
-	#endif
 
     #if PATHWEIGHTS
         num_paths_srcsw_dstsw = net_paths[src_sw][dst_sw]->size();

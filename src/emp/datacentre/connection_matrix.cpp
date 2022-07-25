@@ -2362,20 +2362,20 @@ int ConnectionMatrix::adjustBytesByPacketSize(int bytes) {
 
 void multiplyFlows(int multiplier, int numerator, int denominator) {
   if (numerator>denominator) {
-    cout << "***Error multiplyFlows: numerator>denominator, numerator=" << itoa(numerator) << ", denominator=" << itoa(denominator) << endl;
+    cout << "***Error multiplyFlows: numerator>denominator, numerator=" << numerator << ", denominator=" << denominator << endl;
     exit(1);
   }
   
   if (multiplier>0) {
     for (int m=0; m<multiplier; m++) {
-      for (Flow& flow: conns->base_flows) {
+      for (Flow& flow: base_flows) {
         flows.push_back(Flow(flow.src, flow.dst, flow.bytes, flow.start_time_ms));
       }
     }
   }
 
   if (denominator>0) {
-    for (Flow& flow: conns->base_flows) {
+    for (Flow& flow: base_flows) {
       int should_add = rand()%denominator;
       if (should_add<numerator) {
         flows.push_back(Flow(flow.src, flow.dst, flow.bytes, flow.start_time_ms));
@@ -2414,15 +2414,10 @@ void ConnectionMatrix::printTopoFlows(Topology *top, string topoflowsfilename) {
 #endif
 
   int srcsw, dstsw;
-  for (Flow& flow: conns->flows) {
+  for (Flow& flow: flows) {
 
-  #if CHOSEN_TOPO == LEAFSPINE
     srcsw = top->ConvertHostToRack(flow.src);
     dstsw = top->ConvertHostToRack(flow.dst);
-  #elif CHOSEN_TOPO == RRG
-    srcsw = top->ConvertHostToSwitch(flow.src);
-    dstsw = top->ConvertHostToSwitch(flow.dst);
-  #endif
 
     trafficmatrix[srcsw][dstsw] += flow.bytes;
     numflows++;
@@ -2430,9 +2425,9 @@ void ConnectionMatrix::printTopoFlows(Topology *top, string topoflowsfilename) {
     if (flow.start_time_ms<minstart) minstart = flow.start_time_ms;
 
     ofstream outputFile(topoflowsfilename);
-    outputFile << "numflows=" << itoa(numflows) << "\n";
-    outputFile << "minstart=" << itoa(minstart) << "\n";
-    outputFile << "maxstart=" << itoa(maxstart) << "\n";
+    outputFile << "numflows=" << numflows << "\n";
+    outputFile << "minstart=" << minstart << "\n";
+    outputFile << "maxstart=" << maxstart << "\n";
     outputFile << "\n";
 
   #if CHOSEN_TOPO == LEAFSPINE
@@ -2441,17 +2436,18 @@ void ConnectionMatrix::printTopoFlows(Topology *top, string topoflowsfilename) {
     int maxrack = NSW;
   #endif
 
-  for (int i=maxrack-1; i>=0; i--) {
-    outputFile << itoa(i) << "\t";
+    for (int i=maxrack-1; i>=0; i--) {
+      outputFile << i << "\t";
+      for (int j=0; j<maxrack; j++) {
+        outputFile << trafficmatrix[i][j] + "\t";
+      }
+      outputFile << "\n";
+    }
+    outputFile << "\t";
     for (int j=0; j<maxrack; j++) {
-      outputFile << itoa(trafficmatrix[i][j]) + "\t";
+      outputFile << j << "\t";
     }
     outputFile << "\n";
+    outputFile.close();
   }
-  outputFile << "\t";
-  for (int j=0; j<maxrack; j++) {
-    outputFile << itoa(j) << "\t";
-  }
-  outputFile << "\n";
-  outputFile.close();
 }
