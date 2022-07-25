@@ -348,7 +348,7 @@ int main(int argc, char **argv) {
 #if CHOSEN_TOPO == FAT
     FatTreeTopology* top = new FatTreeTopology(&logfile, &eventlist, RANDOM);
 #elif CHOSEN_TOPO == LEAFSPINE
-    LeafSpineTopology* top = new LeafSpineTopology(&logfile, &eventlist, RANDOM, npfile, pwfileprefix);
+    LeafSpineTopology* top = new LeafSpineTopology(&logfile, &eventlist, RANDOM, npfile, pwfile);
 #elif CHOSEN_TOPO == RRG
     RandRegularTopology* top;
     if (conn_matrix == "CLUSTERX") {
@@ -532,14 +532,8 @@ int main(int argc, char **argv) {
 		    routeout = top->attach_head_tail(flow.src, flow.dst, true, 0);
             routein = top->attach_head_tail(flow.dst, flow.src, true, 0);
 	    } else {
-
-        #if CHOSEN_TOPO == RRG
             int choice = choose_a_path(top->path_weights_rack_based[whichinterval][src_sw][dst_sw], net_paths[src_sw][dst_sw], src_sw, dst_sw, dp);
             int rchoice = choose_a_path(top->path_weights_rack_based[whichinterval][dst_sw][src_sw], net_paths[dst_sw][src_sw], dst_sw, src_sw, dp);
-        #elif CHOSEN_TOPO == LEAFSPINE
-            int choice = choose_a_path(NULL, net_paths[src_sw][dst_sw], src_sw, dst_sw, dp);
-            int rchoice = choose_a_path(NULL, net_paths[dst_sw][src_sw], dst_sw, src_sw, dp);
-        #endif
 
             if (choice>=num_paths_srcsw_dstsw){
                 cout << "***Weird path choice " << choice << " out of " << num_paths_srcsw_dstsw << ", src_sw=" << src_sw << ", dst_sw=" << dst_sw << endl;
