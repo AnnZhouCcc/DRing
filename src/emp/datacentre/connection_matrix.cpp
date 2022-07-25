@@ -15,6 +15,8 @@
 #include <set>
 #include <queue>
 
+int large_flow_threshold = 10 * 1024 * 1024;
+
 ConnectionMatrix::ConnectionMatrix(int n)
 {
   N = n;
@@ -2351,3 +2353,105 @@ void ConnectionMatrix::setHotspot(int hosts){
 }
 */
 
+
+int ConnectionMatrix::adjustBytesByPacketSize(int bytes) {
+  int mss = Packet::data_packet_size();
+  return mss * ((bytes+mss-1)/mss);
+}
+
+
+void multiplyFlows(int multiplier, int numerator, int denominator) {
+  if (numerator>denominator) {
+    cout << "***Error multiplyFlows: numerator>denominator, numerator=" << itoa(numerator) << ", denominator=" << itoa(denominator) << endl;
+    exit(1);
+  }
+  
+  if (multiplier>0) {
+    for (int m=0; m<multiplier; m++) {
+      for (Flow& flow: conns->base_flows) {
+        flows.push_back(Flow(flow.src, flow.dst, flow.bytes, flow.start_time_ms));
+      }
+    }
+  }
+
+  if (denominator>0) {
+    for (Flow& flow: conns->base_flows) {
+      int should_add = rand()%denominator;
+      if (should_add<numerator) {
+        flows.push_back(Flow(flow.src, flow.dst, flow.bytes, flow.start_time_ms));
+      }
+    }
+  }
+}
+
+
+void ConnectionMatrix::setTopoFlowsAllToAll(double simtime_ms) {
+  cout<<"Topo flows all to all" << endl;
+  for (int srcsvr=0; srcsvr<NHOST; srcsvr++) {
+    for (int dstsvr=0; dstsvr<NHOST; dstsvr++) {
+      if (srcsvr==dstsvr) continue;
+      int bytes = genFlowBytes();
+      while (bytes > large_flow_threshold){
+        bytes = genFlowBytes();
+      }
+      bytes = adjustBytesByPacketSize(bytes);
+      double start_time_ms = drand() * simtime_ms;
+      base_flows.push_back(Flow(srcsvr, dstsvr, bytes, start_time_ms));
+    }
+  }
+}
+
+
+void ConnectionMatrix::printTopoFlows(Topology *top, string topoflowsfilename) {
+  int numflows=0;
+  int minstart=10000000;
+  int maxstart=-1;
+
+#if CHOSEN_TOPO == LEAFSPINE
+  double trafficmatrix[NL][NL];
+#elif CHOSEN_TOPO == RRG
+  double trafficmatrix[NSW][NSW];
+#endif
+
+  int srcsw, dstsw;
+  for (Flow& flow: conns->flows) {
+
+  #if CHOSEN_TOPO == LEAFSPINE
+    srcsw = top->ConvertHostToRack(flow.src);
+    dstsw = top->ConvertHostToRack(flow.dst);
+  #elif CHOSEN_TOPO == RRG
+    srcsw = top->ConvertHostToSwitch(flow.src);
+    dstsw = top->ConvertHostToSwitch(flow.dst);
+  #endif
+
+    trafficmatrix[srcsw][dstsw] += flow.bytes;
+    numflows++;
+    if (flow.start_time_ms>maxstart) maxstart = flow.start_time_ms;
+    if (flow.start_time_ms<minstart) minstart = flow.start_time_ms;
+
+    ofstream outputFile(topoflowsfilename);
+    outputFile << "numflows=" << itoa(numflows) << "\n";
+    outputFile << "minstart=" << itoa(minstart) << "\n";
+    outputFile << "maxstart=" << itoa(maxstart) << "\n";
+    outputFile << "\n";
+
+  #if CHOSEN_TOPO == LEAFSPINE
+    int maxrack = NL;
+  #elif CHOSEN_TOPO == RRG
+    int maxrack = NSW;
+  #endif
+
+  for (int i=maxrack-1; i>=0; i--) {
+    outputFile << itoa(i) << "\t";
+    for (int j=0; j<maxrack; j++) {
+      outputFile << itoa(trafficmatrix[i][j]) + "\t";
+    }
+    outputFile << "\n";
+  }
+  outputFile << "\t";
+  for (int j=0; j<maxrack; j++) {
+    outputFile << itoa(j) << "\t";
+  }
+  outputFile << "\n";
+  outputFile.close();
+}

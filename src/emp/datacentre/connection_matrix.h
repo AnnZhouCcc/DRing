@@ -63,7 +63,7 @@ class ConnectionMatrix{
 
   /* For flow sizes */
   vector<Flow> flows;
-  // vector<Flow> sorted_flows;
+  vector<Flow> base_flows;
   void setFlowsFromFile(Topology* top, string filename, int multiplier, int numerator, int denominator);
   void setFlowsFromFileXHardCoding(Topology* top, string filename, int multiplier, int numerator, int denominator);
   void setFlowsFromClusterXHardCoding(Topology* top, string cluster, int multiplier, int numerator, int denominator, int solvestart, int solveend, double simtime_ms);
@@ -89,6 +89,11 @@ class ConnectionMatrix{
   double scale; // = mean_bytes * (shape - 1)/shape;   
   std::default_random_engine generator;
   std::exponential_distribution<double> exp_distribution;
+
+  int adjustBytesByPacketSize(int bytes);
+  void multiplyFlows(int multiplier, int numerator, int denominator);
+  void setTopoFlowsAllToAll(double simtime_ms);
+  void printTopoFlows(Topology* top, string topoflowsfilename);
 
 };
 

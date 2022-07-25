@@ -362,76 +362,83 @@ int main(int argc, char **argv) {
 
     ConnectionMatrix* conns = new ConnectionMatrix(NHOST);
 
-    assert (conn_matrix == "FILE" or conn_matrix == "FILEX" or conn_matrix == "CLUSTERX" or conn_matrix == "FEW_TO_SOME" 
-        or conn_matrix == "FEW_TO_SOME_REPEAT" or conn_matrix == "RANDOM" or conn_matrix == "RACK_TO_RACK" or conn_matrix == "MIX" 
-        or conn_matrix == "FLUID_MIX" or conn_matrix == "TEST" or conn_matrix == "PERM");
-    if(conn_matrix == "PERM") {
-        conns->setRackLevelPermutationFlowsHardCoding(multiplier, simtime_ms);
-    }
-    else if(conn_matrix == "SAMPLED_PERM"){
-        cout << "Running perm with " << param << " connections" << endl;
-        conns->setPermutation(param);
-    } 
-    else if(conn_matrix == "HOT_SPOT"){
-        conns->setHotspot(param,N/param);
-    }
-    else if(conn_matrix == "MANY_TO_MANY"){
-        conns->setManytoMany(param);
-    }
-    else if(conn_matrix == "ALL_TO_ALL"){
-        conns->setAlltoAll(top);
-    }
-    else if(conn_matrix == "RACK_TO_RACK"){
-        conns->setRackLevelRackToRackFlowsHardCoding(multiplier, simtime_ms);
-    }
-    else if(conn_matrix == "FEW_TO_SOME"){
-        if (NHOST == 3072) {
-            conns->setRackLevel16To4FlowsHardCoding(multiplier, simtime_ms);
-        } else if (NHOST == 2988) {
-            conns->setDRingRackLevel16To4FlowsHardCoding(multiplier, simtime_ms);
-        } else {
-            cout << "Not hard-coded yet." << endl;
-        }
-    }
-    else if(conn_matrix == "FEW_TO_SOME_REPEAT"){
-        conns->setFewtoSomeFlowsRepeat(top, param, paramo, multiplier, numerator, denominator);
-    }
-    else if(conn_matrix == "UNIFORM"){
-        conns->setUniform(param);
-    }
-    else if(conn_matrix == "RANDOM"){
-        conns->setRackLevelAllToAllFlowsHardCoding(multiplier, simtime_ms);
-    }
-    else if(conn_matrix == "FILE"){
-        conns->setFlowsFromFile(top, paramstring, multiplier, numerator, denominator);
-    }
-    else if (conn_matrix == "FILEX") {
-        conns->setFlowsFromFileXHardCoding(top, paramstring, multiplier, numerator, denominator);
+    if (conn_matrix == "A2A"){
+        conns->setTopoFlowsAllToAll(simtime_ms);
     }
     else if (conn_matrix == "CLUSTERX") {
         conns->setFlowsFromClusterXSmallInterval(top, paramstring, multiplier, numerator, denominator, solvestart, solveend, solveinterval, simtime_ms);
     }
+    else if(conn_matrix == "PERM") {
+        conns->setRackLevelPermutationFlowsHardCoding(multiplier, simtime_ms);
+    }
     else if(conn_matrix == "MIX"){
         conns->setMixFlows(top, param, multiplier, numerator, denominator);
     }
-    else if(conn_matrix == "FLUID_MIX"){ // setFluidMixFlows
+    else {
+        cout << "***Error: traffic pattern " << conn_matrix << " no longer supported." << endl;
+        exit(1);
+
+        if(conn_matrix == "SAMPLED_PERM"){
+            cout << "Running perm with " << param << " connections" << endl;
+            conns->setPermutation(param);
+        } 
+        else if(conn_matrix == "HOT_SPOT"){
+            conns->setHotspot(param,N/param);
+        }
+        else if(conn_matrix == "MANY_TO_MANY"){
+            conns->setManytoMany(param);
+        }
+        else if(conn_matrix == "ALL_TO_ALL"){
+            conns->setAlltoAll(top);
+        }
+        else if(conn_matrix == "RACK_TO_RACK"){
+            conns->setRackLevelRackToRackFlowsHardCoding(multiplier, simtime_ms);
+        }
+        else if(conn_matrix == "FEW_TO_SOME"){
+            if (NHOST == 3072) {
+                conns->setRackLevel16To4FlowsHardCoding(multiplier, simtime_ms);
+            } else if (NHOST == 2988) {
+                conns->setDRingRackLevel16To4FlowsHardCoding(multiplier, simtime_ms);
+            } else {
+                cout << "Not hard-coded yet." << endl;
+            }
+        }
+        else if(conn_matrix == "FEW_TO_SOME_REPEAT"){
+            conns->setFewtoSomeFlowsRepeat(top, param, paramo, multiplier, numerator, denominator);
+        }
+        else if(conn_matrix == "UNIFORM"){
+            conns->setUniform(param);
+        }
+        else if(conn_matrix == "RANDOM"){
+            conns->setRackLevelAllToAllFlowsHardCoding(multiplier, simtime_ms);
+        }
+        else if(conn_matrix == "FILE"){
+            conns->setFlowsFromFile(top, paramstring, multiplier, numerator, denominator);
+        }
+        else if (conn_matrix == "FILEX") {
+            conns->setFlowsFromFileXHardCoding(top, paramstring, multiplier, numerator, denominator);
+        }
+        else if(conn_matrix == "FLUID_MIX"){ // setFluidMixFlows
+        }
+        else if (conn_matrix == "TEST") {
+            conns->setTestRandomFlows(simtime_ms);
+        }
+        else{
+            cout<<"conn_matrix: "<<conn_matrix<<" not supported. Supported options are: "<<endl;
+            cout<<"PERM  //Random Permutation"<<endl;
+            cout<<"SAMPLED_PERM  //Sampled Random Permutation, sample ratio: param"<<endl;
+            cout<<"MANY_TO_MANY  //All to all for a subset of hosts"<<endl;
+            cout<<"ALL_TO_ALL  //All to all for all hosts"<<endl;
+            cout<<"ALL_TO_FEW  //All to few for all hosts"<<endl;
+            cout<<"FEW_TO_SOME  //Few servers to a subset of all hosts"<<endl;
+            cout<<"UNIFORM  //param random flows from each host"<<endl;
+            cout<<"RANDOM  //Random sources and destinations, for param percentage of pairs"<<endl;
+            cout<<"FILE  //Read Traffic Matrix from file (filename = param)"<<endl;
+            return 0;
+        }
     }
-    else if (conn_matrix == "TEST") {
-        conns->setTestRandomFlows(simtime_ms);
-    }
-    else{
-        cout<<"conn_matrix: "<<conn_matrix<<" not supported. Supported options are: "<<endl;
-        cout<<"PERM  //Random Permutation"<<endl;
-        cout<<"SAMPLED_PERM  //Sampled Random Permutation, sample ratio: param"<<endl;
-        cout<<"MANY_TO_MANY  //All to all for a subset of hosts"<<endl;
-        cout<<"ALL_TO_ALL  //All to all for all hosts"<<endl;
-		cout<<"ALL_TO_FEW  //All to few for all hosts"<<endl;
-        cout<<"FEW_TO_SOME  //Few servers to a subset of all hosts"<<endl;
-        cout<<"UNIFORM  //param random flows from each host"<<endl;
-        cout<<"RANDOM  //Random sources and destinations, for param percentage of pairs"<<endl;
-        cout<<"FILE  //Read Traffic Matrix from file (filename = param)"<<endl;
-        return 0;
-    }
+    conns->multiplyFlows(multiplier,numerator,denominator);
+    conns->printTopoFlows(top, "topoflowsfiles/topoflows_" + conn_matrix + ".txt");
     map<int,vector<int>*>::iterator it;
 
     // Determine the number of flows we should wait for in measurement
