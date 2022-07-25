@@ -74,6 +74,7 @@ class Topology {
   virtual void print_link_bandwidth_usage(double simTimeInSec){};
  
   vector<route_t *>***net_paths_rack_based;
+  vector< pair<int,double> >**** path_weights_rack_based;
   virtual void delete_net_paths_rack_based(int numintervals){
 	std::cout<<"delete_net_paths_rack_based not implemented (topology.h)"<<endl;
 	exit(0);

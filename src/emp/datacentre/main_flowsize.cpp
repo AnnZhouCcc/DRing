@@ -33,7 +33,7 @@
 #define PRINT_PATHS 0
 #define PERIODIC 0
 #define DEBUG_MODE false
-#define PATHWEIGHTS false
+#define PATHWEIGHTS true
 
 uint32_t RTT = 2; // us
 int ssthresh = 43; //65 KB
@@ -348,7 +348,7 @@ int main(int argc, char **argv) {
 #if CHOSEN_TOPO == FAT
     FatTreeTopology* top = new FatTreeTopology(&logfile, &eventlist, RANDOM);
 #elif CHOSEN_TOPO == LEAFSPINE
-    LeafSpineTopology* top = new LeafSpineTopology(&logfile, &eventlist, RANDOM);
+    LeafSpineTopology* top = new LeafSpineTopology(&logfile, &eventlist, RANDOM, npfile, pwfileprefix);
 #elif CHOSEN_TOPO == RRG
     RandRegularTopology* top;
     if (conn_matrix == "CLUSTERX") {
@@ -462,11 +462,13 @@ int main(int argc, char **argv) {
         num_paths_srcsw_dstsw = net_paths[src_sw][dst_sw]->size();
         num_paths_dstsw_srcsw = net_paths[dst_sw][src_sw]->size();
 
+    #if CHOSEN_TOPO == RRG
         if (conn_matrix == "CLUSTERX") {
             numintervals = (solveend-solvestart) / solveinterval;
             double intervallen = simtime_ms / numintervals;
             whichinterval = int(flow.start_time_ms / intervallen);
         }
+    #endif
     #else
         if (!net_paths[src_sw][dst_sw]){
 

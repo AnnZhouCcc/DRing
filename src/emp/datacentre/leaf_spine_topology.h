@@ -39,7 +39,7 @@ class LeafSpineTopology: public Topology{
 
   Logfile* logfile;
 
-  LeafSpineTopology(Logfile* log,EventList* ev, queue_type qt);
+  LeafSpineTopology(Logfile* log,EventList* ev, queue_type qt, string netpathfile, string pathweightfile);
 
   void init_network();
   virtual pair<vector<double>*, vector<route_t*>*> get_paths(int src, int dest);

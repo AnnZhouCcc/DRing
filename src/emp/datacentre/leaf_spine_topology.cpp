@@ -8,6 +8,7 @@
 #include <iostream>
 #include "main.h"
 
+#define PATHWEIGHTS true
 
 const bool USE_DISJOINT = false;
 
@@ -18,7 +19,7 @@ string itoa(uint64_t n);
 
 extern int N;
 
-LeafSpineTopology::LeafSpineTopology(Logfile* lg, EventList* ev, queue_type qt){
+LeafSpineTopology::LeafSpineTopology(Logfile* lg, EventList* ev, queue_type qt, string netpathfile, string pathweightfile){
   logfile = lg;
   eventlist = ev;
   qtype = qt;
@@ -31,13 +32,118 @@ LeafSpineTopology::LeafSpineTopology(Logfile* lg, EventList* ev, queue_type qt){
 
   init_network();
 
-  net_paths_rack_based = new vector<route_t*>**[NSW];
-  for (int i=0;i<NSW;i++){
-  	net_paths_rack_based[i] = new vector<route_t*>*[NSW];
-  	for (int j = 0;j<NSW;j++){
+  net_paths_rack_based = new vector<route_t*>**[NL];
+  for (int i=0;i<NL;i++){
+  	net_paths_rack_based[i] = new vector<route_t*>*[NL];
+  	for (int j = 0;j<NL;j++){
   		net_paths_rack_based[i][j] = NULL;
   	}
   }
+
+#if PATHWEIGHTS
+	// Read netpath from file
+	ifstream npfile(netpathfile.c_str());
+    string npline;
+    if (npfile.is_open()){
+      while(npfile.good()){
+        getline(npfile, npline);
+        if (npline.find_first_not_of(' ') == string::npos) break;
+        stringstream npss(npline);
+        int flowSrc,flowDst,num_paths;
+        vector<route_t*> *paths_rack_based;
+        if (npline.find_first_of("->") == string::npos) {
+          npss >> flowSrc >> flowDst >> num_paths;
+          paths_rack_based = new vector<route_t*>();
+          net_paths_rack_based[flowSrc][flowDst] = paths_rack_based;
+        } else {
+          string link;
+          int linkSrc,linkDst;
+          route_t *routeout = new route_t();
+          while (npss >> link) {
+            size_t found = link.find("->");
+            if (found != string::npos) {
+              linkSrc = stoi(link.substr(0,found));
+              linkDst = stoi(link.substr(found+2));
+              if (linkSrc<NL && linkDst<NL) {
+                cout << "***Error: linkSrc<NL and linkDst<NL, linkSrc=" << itoa(linkSrc) << ", linkDst=" << itoa(linkDst) << ", NL=" << itoa(NL) << endl;
+                exit(1);
+              } else if (linkSrc<NL) { // nlp-nup
+                linkDst -= NL;
+                routeout->push_back(queues_nlp_nup[linkSrc][linkDst]);
+                routeout->push_back(pipes_nlp_nup[linkSrc][linkDst]);
+              } else if (linkDst<NL) { // nup-nlp
+                linkSrc -= NL;
+                routeout->push_back(queues_nup_nlp[linkSrc][linkDst]);
+                routeout->push_back(pipes_nup_nlp[linkSrc][linkDst]);
+              } else {
+                cout << "***Error: linkSrc>NL and linkDst>NL, linkSrc=" << itoa(linkSrc) << ", linkDst=" << itoa(linkDst) << ", NL=" << itoa(NL) << endl;
+                exit(1);
+              }
+            }
+          }
+          paths_rack_based->push_back(routeout);
+        }
+      }
+      npfile.close();
+    } 
+	  else {
+      cout << "***Error opening netpathfile: " << netpathfile << endl;
+      exit(1);
+    }
+
+	// Initialize path_weights_rack_based
+	int numintervals = 1;
+	path_weights_rack_based = new vector < pair<int,double> > ***[numintervals];
+	for (int k=0; k<numintervals; k++) {
+		path_weights_rack_based[k] = new vector < pair<int,double> > **[NL];
+		for (int i=0; i<NL; i++) {
+			path_weights_rack_based[k][i] = new vector < pair<int,double> > *[NL];
+			for (int j=0; j<NL; j++) {
+				path_weights_rack_based[k][i][j] = new vector < pair<int,double> > ();
+			}
+		}
+	}
+
+	// Read pathweight from file
+	for (int i=0; i<numintervals; i++) {
+		ifstream pwfile(pathweightfile.c_str());
+		string pwline;
+		if (pwfile.is_open()){
+			while(pwfile.good()){
+				getline(pwfile, pwline);
+				if (pwline.find_first_not_of(' ') == string::npos) break;
+				stringstream ss(pwline);
+				int flowSrc,flowDst,pid,linkSrc,linkDst;
+				double weight;
+				ss >> flowSrc >> flowDst >> pid >> linkSrc >> linkDst >> weight;
+
+				if (flowSrc>=NL || flowDst>=NL) {
+					cout << "***Error: flowSrc>=NL || flowDst>=NL, flowSrc=" << itoa(flowSrc) << ", flowDst=" << itoa(flowDst) << ", NL=" << itoa(NL) << endl;
+					exit(1);
+				}
+        if (linkSrc>=NL || linkDst<NL) {
+					cout << "***Error: linkSrc>=NL || linkDst<NL, linkSrc=" << itoa(linkSrc) << ", linkDst=" << itoa(linkDst) << ", NL=" << itoa(NL) << endl;
+					exit(1);
+				}
+        linkDst-=NL;
+				// check whether netpathfile and pathweightfile are indeed matching
+				PacketSink *firstqueue = net_paths_rack_based[flowSrc][flowDst]->at(pid)->at(0);
+				if (firstqueue != queues_nlp_nup[linkSrc][linkDst]) {
+					cout << "***Error: netpathfile and pathweightfile mismatch, linkSrc=" << itoa(linkSrc) << ", linkDst=" << itoa(linkDst) << ", queue has name " << firstqueue->nodename() << endl;
+					exit(1);
+				}
+
+				path_weights_rack_based[i][flowSrc][flowDst]->push_back(pair<int,double>(pid,weight));
+			}
+			pwfile.close();
+		}
+		else {
+			cout << "***Error opening pathweightfile: " << pathweightfile << endl;
+			exit(1);
+		}
+	}
+#endif
+
 }
 
 void LeafSpineTopology::init_network(){
@@ -237,8 +343,8 @@ route_t *LeafSpineTopology::attach_head_tail(int src, int dst, bool is_same_swit
 }
 
 void LeafSpineTopology::delete_net_paths_rack_based(int numintervals) {
-  for (int i=0; i<NSW; i++) {
-    for (int j=0; j<NSW; j++) {
+  for (int i=0; i<NL; i++) {
+    for (int j=0; j<NL; j++) {
       if (net_paths_rack_based[i][j]) {
         for (auto p : (*net_paths_rack_based[i][j])) {
           delete p;
@@ -250,6 +356,23 @@ void LeafSpineTopology::delete_net_paths_rack_based(int numintervals) {
     delete [] net_paths_rack_based[i];
   }
 	delete [] net_paths_rack_based;
+
+#if PATHWEIGHTS
+	for (int k=0; k<numintervals; k++) {
+		for (int i=0; i<NL; i++) {
+			for (int j=0; j<NL; j++) {
+				if (path_weights_rack_based[k][i][j]) {
+					path_weights_rack_based[k][i][j]->clear();
+					delete path_weights_rack_based[k][i][j];
+				}
+			}
+			delete [] path_weights_rack_based[k][i];
+		}	
+		delete [] path_weights_rack_based[k];
+	}
+	delete [] path_weights_rack_based;
+#endif
+
 }
 
 void LeafSpineTopology::count_queue(Queue* queue){
