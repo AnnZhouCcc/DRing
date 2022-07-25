@@ -2360,7 +2360,7 @@ int ConnectionMatrix::adjustBytesByPacketSize(int bytes) {
 }
 
 
-void multiplyFlows(int multiplier, int numerator, int denominator) {
+void ConnectionMatrix::multiplyFlows(int multiplier, int numerator, int denominator) {
   if (numerator>denominator) {
     cout << "***Error multiplyFlows: numerator>denominator, numerator=" << numerator << ", denominator=" << denominator << endl;
     exit(1);
@@ -2439,7 +2439,7 @@ void ConnectionMatrix::printTopoFlows(Topology *top, string topoflowsfilename) {
     for (int i=maxrack-1; i>=0; i--) {
       outputFile << i << "\t";
       for (int j=0; j<maxrack; j++) {
-        outputFile << trafficmatrix[i][j] + "\t";
+        outputFile << trafficmatrix[i][j] << "\t";
       }
       outputFile << "\n";
     }
