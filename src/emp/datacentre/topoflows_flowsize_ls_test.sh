@@ -1,6 +1,6 @@
-routing=su
-k=2
-rstag=su2
+routing=ecmp
+k=0
+rstag=ecmp
 date=0722test
 
 
@@ -26,6 +26,24 @@ run_make(){
     stime=60
     name=make
     time ./run.sh LEAFSPINE 1 64 16 null 3072 1 1 ${MAKE} RACK_TO_RACK ${mult} ${numerator} ${denominator} ${solvestart} ${solveend} ${routing} ${k} ${C} ${S} 3 ls_flowsize_80_64_1 ${npfile} ${pwfile} ${dp} ${mstart} ${mend} ${stime} ${solveinterval} ${computestart} ${computeend} ${computeinterval} | grep -e "FCT" -e "topology" > fct_results_${date}/ls_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${name}_${computeinterval}_${solveinterval}_${stime} &
+    sleep 5
+    wait
+}
+
+
+run_a2a(){
+    MAKE=NOMAKE
+    tm="a2a"
+    npfile="netpathfiles/netpath_ecmp_leafspine.txt"
+    pwfile="pathweightfiles/leafspine/ecmp/pathweight_leafspine_ecmp_equal_64.txt"
+    stime=100
+    mstart=25
+    mend=75
+    numerator=1
+    denominator=2
+    mult=1
+    name=a2a
+    time ./run.sh LEAFSPINE 1 64 16 null 3072 1 1 ${MAKE} A2A ${mult} ${numerator} ${denominator} 0 0 ${routing} ${k} 0 0 3 ls_flowsize_80_64_1 ${npfile} ${pwfile} 0 ${mstart} ${mend} ${stime} 0 0 0 0 | grep -e "FCT" -e "topology" > fct_results_${date}/ls_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${name}_${stime} &
     sleep 5
     wait
 }
@@ -85,5 +103,6 @@ run_test2(){
 
 
 run_make
-run_test1
-run_test2
+run_a2a
+# run_test1
+# run_test2

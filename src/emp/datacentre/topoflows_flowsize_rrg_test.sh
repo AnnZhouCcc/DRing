@@ -31,7 +31,25 @@ run_make(){
 }
 
 
-run_test(){
+run_a2a(){
+    MAKE=NOMAKE
+    tm="a2a"
+    npfile="netpathfiles/netpath_su2_rrg.txt"
+    pwfile="pathweightfiles/rrg/su2/pathweight_rrg_su2_equal_1000.txt"
+    stime=100
+    mstart=25
+    mend=75
+    numerator=1
+    denominator=2
+    mult=1
+    name=a2a
+    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} A2A ${mult} ${numerator} ${denominator} 0 0 ${routing} ${k} 0 0 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} 0 ${mstart} ${mend} ${stime} 0 0 0 0 | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${name}_${stime} &
+    sleep 5
+    wait
+}
+
+
+run_test1(){
     MAKE=NOMAKE
     tm="r2r"
     C=48
@@ -51,14 +69,14 @@ run_test(){
     numerator=0
     denominator=0
     mult=1
-    name=test
+    name=test1
     time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} RACK_TO_RACK ${mult} ${numerator} ${denominator} ${solvestart} ${solveend} ${routing} ${k} ${C} ${S} 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} ${mstart} ${mend} ${stime} ${solveinterval} ${computestart} ${computeend} ${computeinterval} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${name}_${computeinterval}_${solveinterval}_${stime} &
     sleep 5
     wait
 }
 
 
-run_clusterx(){
+run_test2(){
     MAKE=NOMAKE
     tm="cluster_b"
     tmfile="b"
@@ -77,7 +95,7 @@ run_clusterx(){
     numerator=1
     denominator=10
     mult=0
-    name=clusterx
+    name=test2
     time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} CLUSTERX ${mult} ${numerator} ${denominator} ${solvestart} ${solveend} ${routing} ${k} ${tmfile} 10 3 rrg_${routing}_80_64_1 ${npfile} ${pwfile} ${dp} ${mstart} ${mend} ${stime} ${solveinterval} ${computestart} ${computeend} ${computeinterval} | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${name}_${computeinterval}_${solveinterval}_${stime} &
     sleep 5
     wait
@@ -85,5 +103,6 @@ run_clusterx(){
 
 
 run_make
-run_test
-run_clusterx
+run_a2a
+# run_test1
+# run_test2
