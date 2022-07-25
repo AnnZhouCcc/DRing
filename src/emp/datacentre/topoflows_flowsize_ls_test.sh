@@ -36,8 +36,8 @@ run_test1(){
     tm="r2r"
     C=48
     S=48
-    npfile="none"
-    pwfile="none"
+    npfile="netpathfiles/netpath_ecmp_leafspine.txt"
+    pwfile="pathweightfiles/leafspine/ecmp/pathweight_leafspine_ecmp_equal_64.txt"
     dp=0
     solvestart=0
     solveend=0
@@ -62,8 +62,8 @@ run_test2(){
     MAKE=NOMAKE
     tm="cluster_b"
     tmfile="b"
-    npfile="none"
-    pwfile="none"
+    npfile="netpathfiles/netpath_ecmp_leafspine.txt"
+    pwfile="pathweightfiles/leafspine/ecmp/pathweight_leafspine_ecmp_equal_64.txt"
     dp=0
     solvestart=7200
     solveend=86400
