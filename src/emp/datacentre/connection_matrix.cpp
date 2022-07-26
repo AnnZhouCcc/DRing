@@ -2423,31 +2423,31 @@ void ConnectionMatrix::printTopoFlows(Topology *top, string topoflowsfilename) {
     numflows++;
     if (flow.start_time_ms>maxstart) maxstart = flow.start_time_ms;
     if (flow.start_time_ms<minstart) minstart = flow.start_time_ms;
-
-    ofstream outputFile(topoflowsfilename);
-    outputFile << "numflows=" << numflows << "\n";
-    outputFile << "minstart=" << minstart << "\n";
-    outputFile << "maxstart=" << maxstart << "\n";
-    outputFile << "\n";
-
-  #if CHOSEN_TOPO == LEAFSPINE
-    int maxrack = NL;
-  #elif CHOSEN_TOPO == RRG
-    int maxrack = NSW;
-  #endif
-
-    for (int i=maxrack-1; i>=0; i--) {
-      outputFile << i << "\t";
-      for (int j=0; j<maxrack; j++) {
-        outputFile << trafficmatrix[i][j] << "\t";
-      }
-      outputFile << "\n";
-    }
-    outputFile << "\t";
-    for (int j=0; j<maxrack; j++) {
-      outputFile << j << "\t";
-    }
-    outputFile << "\n";
-    outputFile.close();
   }
+
+  ofstream outputFile(topoflowsfilename);
+  outputFile << "numflows=" << numflows << "\n";
+  outputFile << "minstart=" << minstart << "\n";
+  outputFile << "maxstart=" << maxstart << "\n";
+  outputFile << "\n";
+
+#if CHOSEN_TOPO == LEAFSPINE
+  int maxrack = NL;
+#elif CHOSEN_TOPO == RRG
+  int maxrack = NSW;
+#endif
+
+  for (int i=maxrack-1; i>=0; i--) {
+    outputFile << i << "\t";
+    for (int j=0; j<maxrack; j++) {
+      outputFile << trafficmatrix[i][j] << "\t";
+    }
+    outputFile << "\n";
+  }
+  outputFile << "\t";
+  for (int j=0; j<maxrack; j++) {
+    outputFile << j << "\t";
+  }
+  outputFile << "\n";
+  outputFile.close();
 }
