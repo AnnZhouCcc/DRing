@@ -1,4 +1,5 @@
 #include "connection_matrix.h"
+#include "leaf_spine_topology.h"
 #include <string.h>
 #include <iostream>
 #include <algorithm>

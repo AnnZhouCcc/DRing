@@ -28,7 +28,7 @@ LeafSpineTopology::LeafSpineTopology(Logfile* lg, EventList* ev, queue_type qt, 
 
   int num_links = (N/OVERSUBSCRIPTION) * 2;
   
-  srand ( time(NULL));
+  //srand ( time(NULL));
 
   init_network();
 

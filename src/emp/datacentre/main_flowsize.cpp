@@ -311,7 +311,7 @@ int main(int argc, char **argv) {
           exit_error(argv[0]);
       }
     }
-    srand(time(NULL));
+    //srand(time(NULL));
 
     cout <<  "Using algo="<<algo<< " epsilon=" << epsilon << endl;
     // prepare the loggers
