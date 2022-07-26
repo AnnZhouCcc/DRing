@@ -2361,6 +2361,11 @@ int ConnectionMatrix::adjustBytesByPacketSize(int bytes) {
     cout << "***Error adjustBytesByPacketSize: bytes too large, bytes=" << bytes << endl;
     exit(1);
   }
+  if (bytes<0) {
+    cout << "***Error adjustBytesByPacketSize: bytes<0, bytes=" << bytes << endl;
+    exit(1);
+  }
+  return mss * ((bytes+mss-1)/mss);
   return mss * ((bytes+mss-1)/mss);
 }
 
@@ -2396,7 +2401,7 @@ void ConnectionMatrix::setTopoFlowsAllToAll(double simtime_ms) {
     for (int dstsvr=0; dstsvr<NHOST; dstsvr++) {
       if (srcsvr==dstsvr) continue;
       int bytes = genFlowBytes();
-      while (bytes > large_flow_threshold){
+      while (bytes<0 or bytes>large_flow_threshold){
         bytes = genFlowBytes();
       }
       bytes = adjustBytesByPacketSize(bytes);
@@ -2418,7 +2423,7 @@ void ConnectionMatrix::printTopoFlows(Topology *top, string topoflowsfilename) {
   int maxrack=NSW;
 #endif
 
-  double trafficmatrix[maxrack][maxrack];
+  int64_t trafficmatrix[maxrack][maxrack];
   for (int i=0; i<maxrack; i++) {
     for (int j=0; j<maxrack; j++) {
       trafficmatrix[i][j]=0;
