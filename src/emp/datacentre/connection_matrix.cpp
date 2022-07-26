@@ -2356,6 +2356,10 @@ void ConnectionMatrix::setHotspot(int hosts){
 
 int ConnectionMatrix::adjustBytesByPacketSize(int bytes) {
   int mss = Packet::data_packet_size();
+  if (bytes >= large_flow_threshold+mss) {
+    cout << "***Error adjustBytesByPacketSize: bytes too large, bytes=" << bytes << endl;
+    exit(1);
+  }
   return mss * ((bytes+mss-1)/mss);
 }
 
@@ -2408,17 +2412,22 @@ void ConnectionMatrix::printTopoFlows(Topology *top, string topoflowsfilename) {
   int maxstart=-1;
 
 #if CHOSEN_TOPO == LEAFSPINE
-  double trafficmatrix[NL][NL];
+  int maxrack=NL;
 #elif CHOSEN_TOPO == RRG
-  double trafficmatrix[NSW][NSW];
+  int maxrack=NSW;
 #endif
+
+  double trafficmatrix[maxrack][maxrack];
+  for (int i=0; i<maxrack; i++) {
+    for (int j=0; j<maxrack; j++) {
+      trafficmatrix[i][j]=0;
+    }
+  }
 
   int srcsw, dstsw;
   for (Flow& flow: flows) {
-
     srcsw = top->ConvertHostToRack(flow.src);
     dstsw = top->ConvertHostToRack(flow.dst);
-
     trafficmatrix[srcsw][dstsw] += flow.bytes;
     numflows++;
     if (flow.start_time_ms>maxstart) maxstart = flow.start_time_ms;
@@ -2430,12 +2439,6 @@ void ConnectionMatrix::printTopoFlows(Topology *top, string topoflowsfilename) {
   outputFile << "minstart=" << minstart << "\n";
   outputFile << "maxstart=" << maxstart << "\n";
   outputFile << "\n";
-
-#if CHOSEN_TOPO == LEAFSPINE
-  int maxrack = NL;
-#elif CHOSEN_TOPO == RRG
-  int maxrack = NSW;
-#endif
 
   for (int i=maxrack-1; i>=0; i--) {
     outputFile << i << "\t";
