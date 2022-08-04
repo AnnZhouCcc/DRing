@@ -1,7 +1,7 @@
-routing=su
-k=2
-rstag=su2
-date=a2atest
+routing=racke2
+k=0
+rstag=racke2
+date=dringa2afct
 
 
 run_make(){
@@ -35,18 +35,19 @@ run_make(){
 run_a2a(){
     MAKE=NOMAKE
     tm="a2a"
-    seed=3
-    npfile="netpathfiles/netpath_su2_dring.txt"
-    pwfile="pathweightfiles/dring/su2/pathweight_dring_su2_equal_64.txt"
-    stime=100
-    mstart=25
-    mend=75
-    numerator=1
-    denominator=2
-    mult=1
+    npfile=netpathfiles/netpath_${rstag}_dring.txt
+    pwfile=pathweightfiles/dring/${rstag}/pathweight_dring_${rstag}_a2a_lp1_64.txt
+    stime=200
+    mstart=50
+    mend=150
+    #numerator=15
+    denominator=100
+    mult=0
     name=a2a
+    for numerator in 5 10; do
     time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/double_ring/instance1_80_64.edgelist 2988 1 1 ${MAKE} A2A ${mult} ${numerator} ${denominator} 0 0 ${routing} ${k} 0 0 ${seed} dring_${routing}_80_64_1 ${npfile} ${pwfile} 0 ${mstart} ${mend} ${stime} 0 0 0 0 | grep -e "FCT" -e "topology" > fct_results_${date}/dring_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${name}_${stime} &
     sleep 5
+    done
     wait
 }
 
