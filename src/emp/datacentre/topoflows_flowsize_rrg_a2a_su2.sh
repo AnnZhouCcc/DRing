@@ -42,7 +42,7 @@ run_equal(){
     mend=150
     denominator=100
     mult=0
-    for numerator in 2 4 6 8 10; do
+    for numerator in 5 10 15; do
     for run in 0 1 2 3 4 5 6 7 8 9; do
     name=equal_run${run}
     seed=${run}
@@ -52,7 +52,7 @@ run_equal(){
     wait
     done
 
-    for numerator in 12 14 16; do
+    for numerator in 20 25 30; do
     for run in 0 1 2 3 4; do
     name=equal_run${run}
     seed=${run}
@@ -61,6 +61,37 @@ run_equal(){
     done
     wait
     for run in 5 6 7 8 9; do
+    name=equal_run${run}
+    seed=${run}
+    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} A2A ${mult} ${numerator} ${denominator} 0 0 ${routing} ${k} 0 0 ${seed} rrg_${routing}_80_64_1 ${npfile} ${pwfile} 0 ${mstart} ${mend} ${stime} 0 0 0 0 | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${name}_${stime} &
+    sleep 5
+    done
+    wait
+    done
+
+    for numerator in 35 40 45 50; do
+    for run in 0 1 2; do
+    name=equal_run${run}
+    seed=${run}
+    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} A2A ${mult} ${numerator} ${denominator} 0 0 ${routing} ${k} 0 0 ${seed} rrg_${routing}_80_64_1 ${npfile} ${pwfile} 0 ${mstart} ${mend} ${stime} 0 0 0 0 | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${name}_${stime} &
+    sleep 5
+    done
+    wait
+    for run in 3 4 5; do
+    name=equal_run${run}
+    seed=${run}
+    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} A2A ${mult} ${numerator} ${denominator} 0 0 ${routing} ${k} 0 0 ${seed} rrg_${routing}_80_64_1 ${npfile} ${pwfile} 0 ${mstart} ${mend} ${stime} 0 0 0 0 | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${name}_${stime} &
+    sleep 5
+    done
+    wait
+    for run in 6 7; do
+    name=equal_run${run}
+    seed=${run}
+    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} A2A ${mult} ${numerator} ${denominator} 0 0 ${routing} ${k} 0 0 ${seed} rrg_${routing}_80_64_1 ${npfile} ${pwfile} 0 ${mstart} ${mend} ${stime} 0 0 0 0 | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${name}_${stime} &
+    sleep 5
+    done
+    wait
+    for run in 8 9; do
     name=equal_run${run}
     seed=${run}
     time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} A2A ${mult} ${numerator} ${denominator} 0 0 ${routing} ${k} 0 0 ${seed} rrg_${routing}_80_64_1 ${npfile} ${pwfile} 0 ${mstart} ${mend} ${stime} 0 0 0 0 | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${name}_${stime} &
@@ -181,4 +212,4 @@ run_lp(){
 
 run_make
 run_equal
-run_lp
+# run_lp

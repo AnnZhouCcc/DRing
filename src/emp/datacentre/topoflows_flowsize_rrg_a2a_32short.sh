@@ -42,7 +42,7 @@ run_equal(){
     mend=150
     denominator=100
     mult=0
-    for numerator in 2 4 6 8 10 12; do
+    for numerator in 2 4 6 8 10; do
     for run in 0 1 2 3 4 5 6 7 8 9; do
     name=equal_run${run}
     seed=${run}
@@ -52,7 +52,7 @@ run_equal(){
     wait
     done
 
-    for numerator in 14 16 18; do
+    for numerator in 12 14 16 18; do
     for run in 0 1 2 3 4; do
     name=equal_run${run}
     seed=${run}
