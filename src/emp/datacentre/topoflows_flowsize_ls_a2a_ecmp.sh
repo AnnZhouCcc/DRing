@@ -1,7 +1,7 @@
 routing=ecmp
 k=0
 rstag=ecmp
-date=lsa2aecmp2
+date=lsa2aecmp
 
 
 run_make(){
@@ -40,10 +40,26 @@ run_equal(){
     stime=200
     mstart=50
     mend=150
-    denominator=1000
+    denominator=100
     mult=0
-    for numerator in 3 6 9 12 15 18 21 24 27 30 33 36; do
+    for numerator in 5 10 15 20 25 30 35; do
     for run in 0 1 2 3 4 5 6 7 8 9; do
+    name=equal_run${run}
+    seed=${run}
+    time ./run.sh LEAFSPINE 1 64 16 null 3072 1 1 ${MAKE} A2A ${mult} ${numerator} ${denominator} 0 0 ${routing} ${k} 0 0 ${seed} ls_flowsize_80_64_1 ${npfile} ${pwfile} 0 ${mstart} ${mend} ${stime} 0 0 0 0 | grep -e "FCT" -e "topology" > fct_results_${date}/ls_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${name}_${stime} &
+    sleep 5
+    done
+    wait
+    done
+    for numerator in 40 45 50; do
+    for run in 0 1 2 3 4; do
+    name=equal_run${run}
+    seed=${run}
+    time ./run.sh LEAFSPINE 1 64 16 null 3072 1 1 ${MAKE} A2A ${mult} ${numerator} ${denominator} 0 0 ${routing} ${k} 0 0 ${seed} ls_flowsize_80_64_1 ${npfile} ${pwfile} 0 ${mstart} ${mend} ${stime} 0 0 0 0 | grep -e "FCT" -e "topology" > fct_results_${date}/ls_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${name}_${stime} &
+    sleep 5
+    done
+    wait
+    for run in 5 6 7 8 9; do
     name=equal_run${run}
     seed=${run}
     time ./run.sh LEAFSPINE 1 64 16 null 3072 1 1 ${MAKE} A2A ${mult} ${numerator} ${denominator} 0 0 ${routing} ${k} 0 0 ${seed} ls_flowsize_80_64_1 ${npfile} ${pwfile} 0 ${mstart} ${mend} ${stime} 0 0 0 0 | grep -e "FCT" -e "topology" > fct_results_${date}/ls_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${name}_${stime} &
@@ -77,5 +93,5 @@ run_equal2(){
 
 
 run_make
-# run_equal
-run_equal2
+run_equal
+# run_equal2
