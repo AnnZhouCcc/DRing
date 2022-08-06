@@ -41,9 +41,9 @@ run_equal(){
     stime=200
     mstart=50
     mend=150
-    denominator=1000
+    denominator=100
     mult=0
-    for numerator in 3 6 9 12 15 18 21 24 27; do
+    for numerator in 1 2 3 4 5 6 7 8; do
     for run in 0 1 2 3 4 5 6 7 8 9; do
     name=equal_run${run}
     seed=${run}
@@ -118,4 +118,4 @@ run_lp(){
 
 run_make
 run_equal
-run_lp
+# run_lp
