@@ -41,7 +41,7 @@ run_equal(){
     stime=200
     mstart=50
     mend=150
-    denominator=100
+    denominator=10
     mult=0
     for numerator in 1 2 3 4 5; do
     for run in 0 1 2 3 4 5 6 7 8 9; do
