@@ -2,12 +2,16 @@
 
 import csv
 import re
+import sys
+
+routing=sys.argv[1]
+multstr=sys.argv[2]
 
 numsw = 80
-mstart = 0
-mend = 100
+mstart = 50
+mend = 150
 mstep = 100
-filename = "fct_results_archive/fct_results_0507t100a2alsreport/pm1000r1"
+filename = "fct_results_dringa2areport/p"+routing+"_"+multstr
 
 
 for window_start in range(mstart, mend, mstep):
@@ -62,15 +66,6 @@ for window_start in range(mstart, mend, mstep):
     # linkdemand_expected_lower_arr = []
     linkdemand_real_lower_arr = []
     linkcapacity = mstep * 1342176.0
-
-    print("test print")
-    print(linkdemand_real_lower[0][50]/linkcapacity)
-    print(linkdemand_real_lower[8][68]/linkcapacity)
-    print(linkdemand_real_lower[66][6]/linkcapacity)
-    print(linkdemand_real_upper[1][75]/linkcapacity)
-    print(linkdemand_real_upper[20][8]/linkcapacity)
-    print(linkdemand_real_upper[15][77]/linkcapacity)
-    exit()
 
     for i in range(numsw):
         for j in range(numsw):

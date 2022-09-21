@@ -1,7 +1,6 @@
 routing=ecmp
 k=0
-rstag=ecmp
-date=a2atest
+date=lsa2afct
 
 
 run_make(){
@@ -38,11 +37,11 @@ run_a2a(){
     seed=3
     npfile="netpathfiles/netpath_ecmp_leafspine.txt"
     pwfile="pathweightfiles/leafspine/ecmp/pathweight_leafspine_ecmp_equal_64.txt"
-    stime=100
-    mstart=25
-    mend=75
-    numerator=1
-    denominator=20
+    stime=200
+    mstart=50
+    mend=150
+    numerator=20
+    denominator=100
     mult=0
     name=a2a
     time ./run.sh LEAFSPINE 1 64 16 null 3072 1 1 ${MAKE} A2A ${mult} ${numerator} ${denominator} 0 0 ${routing} ${k} 0 0 ${seed} ls_flowsize_80_64_1 ${npfile} ${pwfile} 0 ${mstart} ${mend} ${stime} 0 0 0 0 | grep -e "FCT" -e "topology" > fct_results_${date}/ls_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${name}_${stime} &

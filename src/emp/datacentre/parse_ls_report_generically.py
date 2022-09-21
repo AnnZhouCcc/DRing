@@ -1,8 +1,12 @@
 import csv
 import re
+import sys
 
-inputfilename = "fct_results_0427t200016to4lsreport/m1r1"
-outputfilename = "fct_results_0427t200016to4lsreport/pm1r1"
+routing=sys.argv[1]
+multstr=sys.argv[2]
+
+inputfilename = "fct_results_dringa2areport/"+routing+"_"+multstr
+outputfilename = "fct_results_dringa2areport/p"+routing+"_"+multstr
 
 expect_queue = False
 expect_fct = True

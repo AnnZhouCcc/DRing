@@ -4,16 +4,16 @@ CFLAGS = -std=c++11 -O3 -w -Wall -Wno-deprecated -Wno-unused-variable
 #CRT_space=$(shell pwd) #`pwd`
 #CRT=$(strip $(CRT_space))
 
-# BASEDIR=/home/annzhou/DRing/src/emp
-BASEDIR=/Users/annzhou/research/uiuc/DRing/src/emp
+BASEDIR=/home/annzhou/DRing/src/emp
+#BASEDIR=/Users/annzhou/research/uiuc/DRing/src/emp
 CRT=$(BASEDIR)/datacentre
-# GRB=/home/annzhou/gurobi912/linux64/include
-GRB=/Library/gurobi911/mac64/include
+GRB=/home/annzhou/gurobi912/linux64/include
+#GRB=/Library/gurobi911/mac64/include
 CRT_1UP=$(BASEDIR)
 INCLUDE= -I/$(CRT_1UP) -I$(CRT) -I$(GRB)
 #-I$(CRT)/ksp -I$(CRT)/ksp/boost
-# GRBLIB=/home/annzhou/gurobi912/linux64/lib
-GRBLIB=/Library/gurobi911/mac64/lib
+GRBLIB=/home/annzhou/gurobi912/linux64/lib
+#GRBLIB=/Library/gurobi911/mac64/lib
 LIB=-L.. -L${GRBLIB}
 #-Lksp
 
@@ -28,19 +28,19 @@ fattree: main_flowsize.o  ../libhtsim.a fat_tree_topology.o connection_matrix.o 
 
 # -lgurobi_g++5.2
 rrg: main_flowsize.o  ../libhtsim.a connection_matrix.o rand_regular_topology.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o
-	$(CC) $(INCLUDE) $(CFLAGS)  main_flowsize.o connection_matrix.o rand_regular_topology.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o $(LIB) -lhtsim -lgurobi_g++4.2 -lgurobi91 -o rrg
+	$(CC) $(INCLUDE) $(CFLAGS)  main_flowsize.o connection_matrix.o rand_regular_topology.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o $(LIB) -lhtsim -lgurobi_g++5.2 -lgurobi91 -o rrg
 
 clusterrrg: main_flowsize_clusterx_small_interval.o  ../libhtsim.a connection_matrix.o rand_regular_topology.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o
-	$(CC) $(INCLUDE) $(CFLAGS)  main_flowsize_clusterx_small_interval.o connection_matrix.o rand_regular_topology.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o $(LIB) -lhtsim -lgurobi_g++4.2 -lgurobi91 -o clusterrrg
+	$(CC) $(INCLUDE) $(CFLAGS)  main_flowsize_clusterx_small_interval.o connection_matrix.o rand_regular_topology.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o $(LIB) -lhtsim -lgurobi_g++5.2 -lgurobi91 -o clusterrrg
 
 computestore: main_compute.o  ../libhtsim.a compute_store.o connection_matrix.o rand_regular_topology.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o
-	$(CC) $(INCLUDE) $(CFLAGS)  main_compute.o compute_store.o connection_matrix.o rand_regular_topology.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o $(LIB) -lhtsim -lgurobi_g++4.2 -lgurobi91 -o computestore
+	$(CC) $(INCLUDE) $(CFLAGS)  main_compute.o compute_store.o connection_matrix.o rand_regular_topology.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o $(LIB) -lhtsim -lgurobi_g++5.2 -lgurobi91 -o computestore
 
 storetm: main_storetm.o  ../libhtsim.a connection_matrix.o rand_regular_topology.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o
-	$(CC) $(INCLUDE) $(CFLAGS)  main_storetm.o connection_matrix.o rand_regular_topology.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o $(LIB) -lhtsim -lgurobi_g++4.2 -lgurobi91 -o storetm
+	$(CC) $(INCLUDE) $(CFLAGS)  main_storetm.o connection_matrix.o rand_regular_topology.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o $(LIB) -lhtsim -lgurobi_g++5.2 -lgurobi91 -o storetm
 
 storenetpath: main_storenetpath.o  ../libhtsim.a connection_matrix.o rand_regular_topology.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o
-	$(CC) $(INCLUDE) $(CFLAGS)  main_storenetpath.o connection_matrix.o rand_regular_topology.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o $(LIB) -lhtsim -lgurobi_g++4.2 -lgurobi91 -o storenetpath
+	$(CC) $(INCLUDE) $(CFLAGS)  main_storenetpath.o connection_matrix.o rand_regular_topology.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o $(LIB) -lhtsim -lgurobi_g++5.2 -lgurobi91 -o storenetpath
 
 main_flowsize.o: main_flowsize.cpp main.h
 	$(CC) $(INCLUDE) $(CFLAGS) -c main_flowsize.cpp 

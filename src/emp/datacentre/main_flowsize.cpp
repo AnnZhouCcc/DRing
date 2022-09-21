@@ -92,7 +92,7 @@ int choose_a_path(vector< pair<int,double> >* path_weights, vector<route_t*>* ne
         cout << "***Error : main_flowsize.cpp choose_a_path : num_paths=0, src_sw=" << src_sw << ", dst_sw=" << dst_sw << endl;
         exit(1);
     } else {
-        double random = rand()/RAND_MAX;
+        double random = rand()/(double)(RAND_MAX);
 
     #if DEBUG_MODE
         cout << "num_paths = " << num_paths << endl;
