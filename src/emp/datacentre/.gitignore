@@ -6,3 +6,4 @@ traces/
 trafficfiles/cluster*
 synthetictrafficfiles/
 topoflowsfiles/
+topoflows_flowsize_*/fct_results_*/
