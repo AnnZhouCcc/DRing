@@ -38,22 +38,23 @@ run_equal(){
     tmfile="b"
     npfile="netpathfiles/netpath_ecmp_leafspine.txt"
     pwfile="pathweightfiles/leafspine/ecmp/pathweight_leafspine_ecmp_equal_64.txt"
-    stime=1000
-    mstart=250
-    mend=750
+    stime=400
+    mstart=100
+    mend=300
     solve_starttime=0
     solve_endtime=86400
+    solve_interval=1800
     denominator=10
     mult=0
     for numerator in 2 4 6 8; do
     for run in 0; do
     name=equal_run${run}
     seed=${run}
-    time ./run.sh LEAFSPINE 1 64 16 null 3072 1 1 ${MAKE} CLUSTERX ${mult} ${numerator} ${denominator} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${tmfile} 10 ${seed} ls_flowsize_80_64_1 ${npfile} ${pwfile} 0 ${mstart} ${mend} ${stime} 0 0 0 0 | grep -e "FCT" -e "topology" > fct_results_${date}/ls_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${name}_${stime} &
+    time ./run.sh LEAFSPINE 1 64 16 null 3072 1 1 ${MAKE} CLUSTERX ${mult} ${numerator} ${denominator} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${tmfile} 10 ${seed} ls_flowsize_80_64_1 ${npfile} ${pwfile} 0 ${mstart} ${mend} ${stime} ${solve_interval} 0 0 0 | grep -e "FCT" -e "topology" > fct_results_${date}/ls_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${name}_${stime} &
     sleep 5
     done
-    wait
     done
+    wait
 }
 
 

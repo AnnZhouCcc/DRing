@@ -8,10 +8,10 @@ routing=sys.argv[1]
 multstr=sys.argv[2]
 
 numsw = 80
-mstart = 50
-mend = 150
-mstep = 100
-filename = "fct_results_dringa2areport/p"+routing+"_"+multstr
+mstart = 100
+mend = 300
+mstep = 200
+filename = "fct_results_lsclusterbecmpreport/p"+routing+"_"+multstr
 
 
 for window_start in range(mstart, mend, mstep):

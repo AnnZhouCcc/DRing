@@ -5,16 +5,16 @@
 
 #define HOST_NIC 894784 // host nic speed in pps
 #define CORE_TO_HOST 10
-#define NUMPATHS 16
+#define NUMPATHS 0
 
 #define NSW 80	
-#define NHOST 2988
+#define NHOST 3072
 
 #define OVERSUBSCRIPTION 1
 
 // RRG STUFF
-#define R 		// R = switch-switch ports (or network-ports)
-#define SP 64		// P = total ports on switch
+#define R 0		// R = switch-switch ports (or network-ports)
+#define SP 0		// P = total ports on switch
 
 // FAT
 #define K 64
@@ -25,7 +25,7 @@
 #define LEAFSPINE 2
 
 // CHOSEN TOPOLOGY
-#define CHOSEN_TOPO RRG
+#define CHOSEN_TOPO LEAFSPINE
 
 //basic setup!
 

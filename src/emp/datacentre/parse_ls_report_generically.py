@@ -5,8 +5,8 @@ import sys
 routing=sys.argv[1]
 multstr=sys.argv[2]
 
-inputfilename = "fct_results_dringa2areport/"+routing+"_"+multstr
-outputfilename = "fct_results_dringa2areport/p"+routing+"_"+multstr
+inputfilename = "fct_results_lsclusterbecmpreport/"+routing+"_"+multstr
+outputfilename = "fct_results_lsclusterbecmpreport/p"+routing+"_"+multstr
 
 expect_queue = False
 expect_fct = True
@@ -15,7 +15,7 @@ with open(inputfilename,'r') as fd:
     rd = csv.reader(fd, delimiter=" ", quotechar='"')
     for row in rd:
         if row[0][:5] != "queue" and row[0][:3] != "FCT":
-	        continue
+            continue
         if row[0][:5] == "queue":
             if (not expect_queue) or expect_fct:
                 print("*****Error: queue")
@@ -41,4 +41,4 @@ with open(inputfilename,'r') as fd:
             start = row[3]
             actual_size = row[4]
             f.write(start + "\t" + fct + "\t" + size + "\t" + actual_size + "\t")      
-f.close()  
+f.close()

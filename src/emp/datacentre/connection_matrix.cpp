@@ -2510,7 +2510,7 @@ void ConnectionMatrix::setTopoFlowsClusterX(Topology* top, string cluster, int s
           }
           
           traffic_till_now += bytes;
-          int bytes = adjustBytesByPacketSize(bytes);
+          bytes = adjustBytesByPacketSize(bytes);
           double start_time_ms = drand() * simtime_per_interval_ms + k*simtime_per_interval_ms;
           int fromserver = getOneServerFromRack(numservers, numracks, i);
           int toserver = getOneServerFromRack(numservers, numracks, j);
