@@ -2412,6 +2412,126 @@ void ConnectionMatrix::setTopoFlowsAllToAll(double simtime_ms) {
 }
 
 
+void ConnectionMatrix::setTopoFlowsClusterX(Topology* top, string cluster, int solvestart, int solveend, int solveinterval, double simtime_ms) {
+  cout << "Topo flows clusterX" << endl;
+  int numservers = NHOST;
+  int numracks;
+  #if CHOSEN_TOPO == LEAFSPINE
+    numracks = NL;
+  #elif CHOSEN_TOPO == RRG
+    numracks = NSW;
+  #endif
+  cout << "numservers=" << numservers << ", numracks=" << numracks << endl;
+
+  // collect all TM files
+  if (cluster.compare("a") != 0 and cluster.compare("b") != 0 and cluster.compare("c") != 0) {
+    cout << "An unknown cluster is indicated as input: " << cluster << endl;
+    exit(0);
+  }
+  string TM_file_prefix = "trafficfiles/cluster_" + cluster + "/traffic_64racks";
+  queue<string> TM_files;
+  if (cluster.compare("a") == 0 or cluster.compare("c") == 0) {
+    TM_files.push("_0_273");
+  } else if (cluster.compare("b") == 0) {
+    TM_files.push("_0_500");
+    TM_files.push("_500_1000");
+    TM_files.push("_1000_1500");
+    TM_files.push("_1500_2000");
+    TM_files.push("_2000_2500");
+    TM_files.push("_2500_2900");
+  }
+
+  // read in traffic for each pair of racks
+  int numintervals = (solveend-solvestart) / solveinterval;
+  uint64_t*** traffic_per_rack_pair_per_interval = new uint64_t**[numintervals];
+  for (int k=0; k<numintervals; k++) {
+    traffic_per_rack_pair_per_interval[k] = new uint64_t*[numracks];
+    for (int i=0; i<numracks; i++) {
+      traffic_per_rack_pair_per_interval[k][i] = new uint64_t[numracks];
+      for (int j=0; j<numracks; j++) {
+        traffic_per_rack_pair_per_interval[k][i][j] = 0;
+      }
+    }
+  }
+  
+  while (!TM_files.empty()) {
+    string TM_file = TM_files.front();
+    TM_files.pop();
+    string filename = TM_file_prefix + TM_file;
+    ifstream TMFile(filename.c_str());
+    string line;
+    line.clear();
+    if (TMFile.is_open()){
+      while(TMFile.good()){
+        getline(TMFile, line);
+        //Whitespace line
+        if (line.find_first_not_of(' ') == string::npos) break;
+        stringstream ss(line);
+        int fromserver, toserver, fromrack, torack, start_time_s;
+	      uint64_t bytes;
+        ss >> start_time_s >> bytes >> fromserver >> toserver;
+        if (start_time_s < solvestart) continue;
+        if (start_time_s >= solveend) break; // the traffic data is sorted
+
+        fromrack = top->ConvertHostToRack(fromserver);
+        torack = top->ConvertHostToRack(toserver);
+        int whichinterval = (start_time_s-solvestart) / solveinterval;
+
+        traffic_per_rack_pair_per_interval[whichinterval][fromrack][torack] += bytes;
+      }
+      TMFile.close();
+    }
+  }
+
+  double simtime_per_interval_ms = simtime_ms / numintervals;
+  for (int k=0; k<numintervals; k++) {
+    for (int i=0; i<numracks; i++) {
+      for (int j=0; j<numracks; j++) {
+        if (i==j) {
+          traffic_per_rack_pair_per_interval[k][i][j] = 0;
+          continue;
+        }
+        if (traffic_per_rack_pair_per_interval[k][i][j] == 0) continue;
+
+        uint64_t total_traffic = traffic_per_rack_pair_per_interval[k][i][j];
+        uint64_t traffic_till_now = 0;
+        bool have_sufficient_flows = false;
+        while (!have_sufficient_flows) {
+          int bytes = genFlowBytes();
+          while (bytes<0 or bytes > large_flow_threshold){
+              bytes = genFlowBytes();
+          }
+          
+          if (traffic_till_now + bytes > total_traffic) {
+            have_sufficient_flows = true;
+            bytes = total_traffic - traffic_till_now;
+          } else if (traffic_till_now + bytes == total_traffic) {
+            have_sufficient_flows = true;
+          }
+          
+          traffic_till_now += bytes;
+          int bytes = adjustBytesByPacketSize(bytes);
+          double start_time_ms = drand() * simtime_per_interval_ms + k*simtime_per_interval_ms;
+          int fromserver = getOneServerFromRack(numservers, numracks, i);
+          int toserver = getOneServerFromRack(numservers, numracks, j);
+          
+          base_flows.push_back(Flow(fromserver, toserver, bytes, start_time_ms));
+        }
+      }
+    }
+  }
+
+  // manage pointers
+  for (int k=0; k<numintervals; k++) {
+    for (int i=0; i<numracks; i++) {
+      delete [] traffic_per_rack_pair_per_interval[k][i];
+    }
+    delete [] traffic_per_rack_pair_per_interval[k];
+  }
+  delete [] traffic_per_rack_pair_per_interval;
+}
+
+
 void ConnectionMatrix::printTopoFlows(Topology *top, string topoflowsfilename) {
   int numflows=0;
   int minstart=10000000;

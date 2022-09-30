@@ -366,7 +366,8 @@ int main(int argc, char **argv) {
         conns->setTopoFlowsAllToAll(simtime_ms);
     }
     else if (conn_matrix == "CLUSTERX") {
-        conns->setFlowsFromClusterXSmallInterval(top, paramstring, multiplier, numerator, denominator, solvestart, solveend, solveinterval, simtime_ms);
+        // conns->setFlowsFromClusterXSmallInterval(top, paramstring, multiplier, numerator, denominator, solvestart, solveend, solveinterval, simtime_ms);
+        conns->setTopoFlowsClusterX(top, paramstring, solvestart, solveend, solveinterval, simtime_ms);
     }
     else if(conn_matrix == "PERM") {
         conns->setRackLevelPermutationFlowsHardCoding(multiplier, simtime_ms);
