@@ -117,7 +117,7 @@ if [[ $1 == "LEAFSPINE" ]]; then
     echo "10ile_throughput $tput_10ile"
     echo "avg_link_usage ${avg_link_usage}"
     #echo "avg_throughput $tput" > $tempResultFile
-    #rm $tempResultFile
+    rm $tempResultFile
     rm $tputVsPathLenFile ${tempFlowDistFile}
     rm -rf ${tempFlowTputFile}
     rm -rf ${link_bw_usage_file} ${tempLogFile}

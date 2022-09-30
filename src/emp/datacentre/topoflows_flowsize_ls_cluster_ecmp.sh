@@ -48,10 +48,12 @@ run_equal(){
     numerator=0
     denominator=0
     for mult in 1 2; do
+    for run in 0 1 2 3 4 5 6 7 8 9; do
     name=equal_run${run}
     seed=${run}
     time ./run.sh LEAFSPINE 1 64 16 null 3072 1 1 ${MAKE} CLUSTERX ${mult} ${numerator} ${denominator} ${solve_starttime} ${solve_endtime} ${routing} ${k} ${tmfile} 10 ${seed} ls_flowsize_80_64_1 ${npfile} ${pwfile} 0 ${mstart} ${mend} ${stime} ${solve_interval} 0 0 0 | grep -e "FCT" -e "topology" > fct_results_${date}/ls_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${name}_${stime} &
     sleep 5
+    done
     done
     wait
 
