@@ -179,21 +179,9 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
 	string pathweightfile;
 	for (int i=0; i<numintervals; i++) {
 		if (conn_matrix == "CLUSTERX") {
-			if (solveinterval == 0) { // equal
-				if (computeinterval != 0) {
-					cout << "***Error: computeinterval!=0 when solveinterval==0, computeinterval=" << itoa(computeinterval) << endl;
-					exit(1);
-				}
-				if (pathweightfilesuffix != "") {
-					cout << "***Error: pathweightfilesuffix is non-empty when solveinterval==0 and computeinterval==0, pathweightfilesuffix=" << pathweightfilesuffix << endl;
-					exit(1);
-				}
+			if (computeinterval == 0) { // equal
 				pathweightfile = pathweightfileprefix;
-			} else if (computeinterval == 0) { // optimal
-				thiscomputestart = solvestart + i*solveinterval;
-				thiscomputeend = thiscomputestart + solveinterval;
-				pathweightfile = pathweightfileprefix + itoa(thiscomputestart) + "_" + itoa(thiscomputeend) + pathweightfilesuffix;
-			} else { // delay
+			} else { // optimal or delay
 				thiscomputestart = computestart + i*solveinterval;
 				thiscomputeend = thiscomputestart + computeinterval;
 				pathweightfile = pathweightfileprefix + itoa(thiscomputestart) + "_" + itoa(thiscomputeend) + pathweightfilesuffix;

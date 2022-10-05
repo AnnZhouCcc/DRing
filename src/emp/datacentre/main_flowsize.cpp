@@ -353,7 +353,7 @@ int main(int argc, char **argv) {
     RandRegularTopology* top;
     if (conn_matrix == "CLUSTERX") {
         string pwfileprefix = pwfile;
-        string pwfilesuffix = "_" + itoa(dp) + "dp.txt";
+        string pwfilesuffix = "_" + itoa(dp) + ".txt";
         top = new RandRegularTopology(&logfile, &eventlist, rfile, RANDOM, conn_matrix, routing, korn, npfile, pwfileprefix, pwfilesuffix, solvestart, solveend, solveinterval, computestart, computeend, computeinterval);
     } else {
         top = new RandRegularTopology(&logfile, &eventlist, rfile, RANDOM, conn_matrix, routing, korn, npfile, pwfile, "", solvestart, solveend, solveinterval, computestart, computeend, computeinterval);
