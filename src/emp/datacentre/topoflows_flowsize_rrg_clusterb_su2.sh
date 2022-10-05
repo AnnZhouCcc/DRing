@@ -1,8 +1,8 @@
 #ocean5
-routing=ecmp
-k=0
-routingname=ecmp
-date=rrgclusterbecmp
+routing=su
+k=2
+routingname=su2
+date=rrgclusterbsu2
 
 
 run_make(){
@@ -58,9 +58,7 @@ run_equal(){
     wait
     done
 
-    denominator=2
-    numerator=1
-    for mult in 1; do
+    for mult in 2; do
     for run in 0 1 2 3 4; do
     name=equal_run${run}
     seed=${run}
