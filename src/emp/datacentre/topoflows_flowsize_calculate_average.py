@@ -3,12 +3,14 @@ from os.path import isfile,join
 import csv
 
 expectednumruns=10
-topology="dring"
-routingset=["su2"]
-trafficmatrix="a2a"
+topology="ls"
+routingset=["ecmp"]
+tminfilename="clusterb"
+trafficmatrix="cluster"
+offset=1
 
 for routing in routingset:
-	dir="fct_results_"+topology+trafficmatrix+routing+"/"
+	dir="fct_results_"+topology+tminfilename+routing+"/"
 	path="/home/annzhou/DRing/src/emp/datacentre/"+dir
 	rawmap=dict()
 	files = [f for f in listdir(path) if isfile(join(path, f))]
@@ -19,20 +21,26 @@ for routing in routingset:
 	    tokens=filename.split('_')
 	    if topology=="ls":
 		if tokens[1]!=trafficmatrix: continue
-		mult=int(tokens[3][2:])
-		numerator=int(tokens[4])
-		denominator=int(tokens[5])
-		mode=tokens[6]
-		run=int(tokens[7][3:])
-		value=mult+(float(numerator))/denominator
+		mult=int(tokens[3+offset][2:])
+		numerator=int(tokens[4+offset])
+		denominator=int(tokens[5+offset])
+		mode=tokens[6+offset]
+		run=int(tokens[7+offset][3:])
+		if denominator == 0:
+		    value = mult
+		else:
+		    value=mult+(float(numerator))/denominator
 	    else:
 		if tokens[3]!=trafficmatrix: continue
-		mult=int(tokens[5][2:])
-		numerator=int(tokens[6])
-		denominator=int(tokens[7])
-		mode=tokens[8]
-		run=int(tokens[9][3:])
-		value=mult+(float(numerator))/denominator
+		mult=int(tokens[5+offset][2:])
+		numerator=int(tokens[6+offset])
+		denominator=int(tokens[7+offset])
+		mode=tokens[8+offset]
+		run=int(tokens[9+offset][3:])
+		if denominator == 0:
+		    value=mult
+		else:
+		    value=mult+(float(numerator))/denominator
 
 	    fctlist=list()
 	    traffic=0
