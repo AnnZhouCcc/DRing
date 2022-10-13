@@ -81,7 +81,7 @@ run_lp(){
     mend=150
     denominator=10
     mult=0
-    for numerator in 2 5; do
+    for numerator in 2 4; do
     for run in 0 1 2 3 4 5 6 7 8 9; do
     name=lp_run${run}
     seed=${run}
