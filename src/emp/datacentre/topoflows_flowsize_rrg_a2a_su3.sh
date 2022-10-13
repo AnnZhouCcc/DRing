@@ -1,4 +1,3 @@
-#ocean1
 routing=su
 k=3
 date=rrga2asu3
@@ -125,7 +124,7 @@ run_equal(){
     done
 }
 
-
+#ocean0
 run_lp(){
     MAKE=NOMAKE
     tm="a2a"
