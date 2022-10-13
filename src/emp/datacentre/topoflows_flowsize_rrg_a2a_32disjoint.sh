@@ -1,7 +1,7 @@
-#ocean5/1
-routing=racke1
-k=0
-date=rrga2aracke1
+#ocean1
+routing=kdisjoint
+k=32
+date=rrga2a32disjoint
 
 
 run_make(){
@@ -35,14 +35,14 @@ run_make(){
 run_equal(){
     MAKE=NOMAKE
     tm="a2a"
-    npfile="netpathfiles/netpath_racke1_rrg.txt"
-    pwfile="pathweightfiles/rrg/racke1/pathweight_rrg_racke1_equal_64.txt"
+    npfile="netpathfiles/netpath_32disjoint_rrg.txt"
+    pwfile="pathweightfiles/rrg/32disjoint/pathweight_rrg_32disjoint_equal_64.txt"
     stime=200
     mstart=50
     mend=150
     denominator=100
     mult=0
-    for numerator in 3 6 9; do
+    for numerator in 4 8; do
     for run in 0 1 2 3 4 5 6 7 8 9; do
     name=equal_run${run}
     seed=${run}
@@ -52,7 +52,7 @@ run_equal(){
     wait
     done
 
-    for numerator in 12 15 18; do
+    for numerator in 12 16 20 24; do
     for run in 0 1 2 3 4; do
     name=equal_run${run}
     seed=${run}
@@ -69,7 +69,7 @@ run_equal(){
     wait
     done
 
-    for numerator in 21 24 27; do
+    for numerator in 28 32; do
     for run in 0 1 2 3; do
     name=equal_run${run}
     seed=${run}
@@ -86,69 +86,6 @@ run_equal(){
     wait
     for run in 7 8 9; do
     name=equal_run${run}
-    seed=${run}
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} A2A ${mult} ${numerator} ${denominator} 0 0 ${routing} ${k} 0 0 ${seed} rrg_${routing}_80_64_1 ${npfile} ${pwfile} 0 ${mstart} ${mend} ${stime} 0 0 0 0 | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${name}_${stime} &
-    sleep 5
-    done
-    wait
-    done
-}
-
-
-run_weighted(){
-    MAKE=NOMAKE
-    tm="a2a"
-    npfile="netpathfiles/netpath_racke1_rrg.txt"
-    pwfile="pathweightfiles/rrg/racke1/pathweight_rrg_racke1_weighted_64.txt"
-    stime=200
-    mstart=50
-    mend=150
-    denominator=100
-    mult=0
-    for numerator in 3 6 9; do
-    for run in 0 1 2 3 4 5 6 7 8 9; do
-    name=weighted_run${run}
-    seed=${run}
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} A2A ${mult} ${numerator} ${denominator} 0 0 ${routing} ${k} 0 0 ${seed} rrg_${routing}_80_64_1 ${npfile} ${pwfile} 0 ${mstart} ${mend} ${stime} 0 0 0 0 | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${name}_${stime} &
-    sleep 5
-    done
-    wait
-    done
-
-    for numerator in 12 15 18; do
-    for run in 0 1 2 3 4; do
-    name=weighted_run${run}
-    seed=${run}
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} A2A ${mult} ${numerator} ${denominator} 0 0 ${routing} ${k} 0 0 ${seed} rrg_${routing}_80_64_1 ${npfile} ${pwfile} 0 ${mstart} ${mend} ${stime} 0 0 0 0 | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${name}_${stime} &
-    sleep 5
-    done
-    wait
-    for run in 5 6 7 8 9; do
-    name=weighted_run${run}
-    seed=${run}
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} A2A ${mult} ${numerator} ${denominator} 0 0 ${routing} ${k} 0 0 ${seed} rrg_${routing}_80_64_1 ${npfile} ${pwfile} 0 ${mstart} ${mend} ${stime} 0 0 0 0 | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${name}_${stime} &
-    sleep 5
-    done
-    wait
-    done
-
-    for numerator in 21 24; do
-    for run in 0 1 2 3; do
-    name=weighted_run${run}
-    seed=${run}
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} A2A ${mult} ${numerator} ${denominator} 0 0 ${routing} ${k} 0 0 ${seed} rrg_${routing}_80_64_1 ${npfile} ${pwfile} 0 ${mstart} ${mend} ${stime} 0 0 0 0 | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${name}_${stime} &
-    sleep 5
-    done
-    wait
-    for run in 4 5 6; do
-    name=weighted_run${run}
-    seed=${run}
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} A2A ${mult} ${numerator} ${denominator} 0 0 ${routing} ${k} 0 0 ${seed} rrg_${routing}_80_64_1 ${npfile} ${pwfile} 0 ${mstart} ${mend} ${stime} 0 0 0 0 | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${name}_${stime} &
-    sleep 5
-    done
-    wait
-    for run in 7 8 9; do
-    name=weighted_run${run}
     seed=${run}
     time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} A2A ${mult} ${numerator} ${denominator} 0 0 ${routing} ${k} 0 0 ${seed} rrg_${routing}_80_64_1 ${npfile} ${pwfile} 0 ${mstart} ${mend} ${stime} 0 0 0 0 | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${name}_${stime} &
     sleep 5
@@ -161,22 +98,15 @@ run_weighted(){
 run_lp(){
     MAKE=NOMAKE
     tm="a2a"
-    npfile="netpathfiles/netpath_racke1_rrg.txt"
-    pwfile="pathweightfiles/rrg/racke1/pathweight_rrg_racke1_a2a_lp1_64.txt"
+    npfile="netpathfiles/netpath_32disjoint_rrg.txt"
+    pwfile="pathweightfiles/rrg/32disjoint/pathweight_rrg_32disjoint_a2a_lp1_64.txt"
     stime=200
     mstart=50
     mend=150
-    denominator=100
+    denominator=10
     mult=0
-    for numerator in 40 45 50 55; do
-    for run in 0 1 2 3 4; do
-    name=lp_run${run}
-    seed=${run}
-    time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} A2A ${mult} ${numerator} ${denominator} 0 0 ${routing} ${k} 0 0 ${seed} rrg_${routing}_80_64_1 ${npfile} ${pwfile} 0 ${mstart} ${mend} ${stime} 0 0 0 0 | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${name}_${stime} &
-    sleep 5
-    done
-    wait
-    for run in 5 6 7 8 9; do
+    for numerator in 2 5; do
+    for run in 0 1 2 3 4 5 6 7 8 9; do
     name=lp_run${run}
     seed=${run}
     time ./run.sh RRG 1 64 16 graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist 3072 1 1 ${MAKE} A2A ${mult} ${numerator} ${denominator} 0 0 ${routing} ${k} 0 0 ${seed} rrg_${routing}_80_64_1 ${npfile} ${pwfile} 0 ${mstart} ${mend} ${stime} 0 0 0 0 | grep -e "FCT" -e "topology" > fct_results_${date}/rrg_${routing}_${k}_${tm}_${date}_ii${mult}_${numerator}_${denominator}_${name}_${stime} &
@@ -188,6 +118,5 @@ run_lp(){
 
 
 run_make
-#run_equal
-#run_weighted
+# run_equal
 run_lp
