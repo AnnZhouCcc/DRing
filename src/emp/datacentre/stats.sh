@@ -1,9 +1,9 @@
 # declare -a new_files=("ls_fb_skewed_802v3_ii2_2_10" "ls_fb_skewed_802v3_ii2_3_10")
 # prefix="./fct_results_802v3/"
 #dir="./fct_results_archive/fct_results_0409t2000css32disjoint/*"
-dir="./fct_results_lsclusterbecmp/*"
-mstart=250
-mend=1000
+dir="./fct_results_dringa2aracke2/*"
+mstart=50
+mend=150
 #duration=15
 
 for mstart in $mstart; do

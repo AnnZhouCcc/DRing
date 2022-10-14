@@ -2,7 +2,7 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
-topologyroutingmapping={"rrg":["ecmp","su2","su3","32disjoint","32short","racke0","racke1","racke2","ecmp2"],"dring":["ecmp","su2","su3","32disjoint","32short","racke0","racke1","racke2","su22"],"ls":["ecmp"]}
+topologyroutingmapping={"rrg":["ecmp","su2","su3","32disjoint","32short","racke0","racke1","racke2"],"dring":["ecmp","su2","su3","32disjoint","32short","racke0","racke1","racke2"],"ls":["ecmp"]}
 trafficmatrix="a2a"
 
 topologylinemapping={"rrg":'-',"dring":'--',"ls":':'}

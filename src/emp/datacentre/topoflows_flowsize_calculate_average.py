@@ -3,11 +3,11 @@ from os.path import isfile,join
 import csv
 
 expectednumruns=10
-topology="ls"
-routingset=["ecmp"]
-tminfilename="clusterb"
-trafficmatrix="cluster"
-offset=1
+topology="dring"
+routingset=["ecmp","su2","su3","32disjoint","32short","racke0","racke1","racke2"]
+tminfilename="a2a"
+trafficmatrix="a2a"
+offset=0
 
 for routing in routingset:
 	dir="fct_results_"+topology+tminfilename+routing+"/"
