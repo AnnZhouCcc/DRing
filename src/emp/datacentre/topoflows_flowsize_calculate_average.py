@@ -3,7 +3,7 @@ from os.path import isfile,join
 import csv
 
 expectednumruns=10
-topology="dring"
+topology="rrg"
 routingset=["ecmp","su2","su3","32disjoint","32short","racke0","racke1","racke2"]
 tminfilename="a2a"
 trafficmatrix="a2a"
