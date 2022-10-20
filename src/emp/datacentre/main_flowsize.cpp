@@ -363,6 +363,13 @@ int main(int argc, char **argv) {
     // code specifically for branch print-config
     ofstream configfile("configfiles/topology_config.txt");
     configfile << "CHOSEN_TOPO " << CHOSEN_TOPO << "\n";
+    configfile << "NSW " << NSW << "\n";
+    configfile << "NHOST " << NHOST << "\n";
+    configfile << "OVERSUBSCRIPTION " << OVERSUBSCRIPTION << "\n";
+    configfile << "SVRPORTS " << SVRPORTS << "\n";
+    configfile << "REDUCED_NHOST " << REDUCED_NHOST << "\n";
+    configfile << "HETERO " << HETERO << "\n";
+    configfile.close();
 
     ConnectionMatrix* conns = new ConnectionMatrix(NHOST);
 
