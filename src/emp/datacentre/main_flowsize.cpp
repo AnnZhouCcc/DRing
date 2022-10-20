@@ -360,6 +360,10 @@ int main(int argc, char **argv) {
     }
 #endif
 
+    // code specifically for branch print-config
+    ofstream configfile("configfiles/topology_config.txt");
+    configfile << "CHOSEN_TOPO " << CHOSEN_TOPO << "\n";
+
     ConnectionMatrix* conns = new ConnectionMatrix(NHOST);
 
     if (conn_matrix == "A2A"){
