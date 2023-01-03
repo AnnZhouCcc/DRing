@@ -1,0 +1,38 @@
+Tue Jan 3 15:21:34 CST 2023: Set up parameters
+topology=rrg
+routing=su2
+trafficmatrix=a2a
+mode=equal
+searchstart=0.4
+searchend=0.6
+threshold=5
+stime=200
+mstart=50
+mend=150
+precision=64
+Tue Jan 3 15:21:34 CST 2023: Run experiment search start
+mult=0,numerator=4,denominator=10
+Tue Jan 3 15:22:20 CST 2023: Set up parameters
+topology=rrg
+routing=su2
+trafficmatrix=a2a
+mode=equal
+searchstart=0.4
+searchend=0.6
+threshold=5
+stime=200
+mstart=50
+mend=150
+precision=64
+Tue Jan 3 15:22:21 CST 2023: Run experiment search start
+mult=0,numerator=4,denominator=10
+Tue Jan 3 15:34:47 CST 2023: Experiment done
+Tue Jan 3 15:34:53 CST 2023: n99fct=1.73799,totaltraffic=65854447500
+Tue Jan 3 15:34:53 CST 2023: Run experiment search end
+mult=0,numerator=6,denominator=10
+Tue Jan 3 15:59:33 CST 2023: Experiment done
+Tue Jan 3 15:59:43 CST 2023: n99fct=8.36657,totaltraffic=98916486000
+Tue Jan 3 15:59:43 CST 2023: Start binary search.
+searchmid=0.5,searchstart=0.4,searchend=0.6
+Tue Jan 3 15:59:43 CST 2023: Run experiment
+mult=0,numerator=5,denominator=10

@@ -37,5 +37,5 @@ END {
     for(i=n95_index; i<=n99_index; i++)
         tail_sum += numbers[i]
     tail_average = tail_sum/tail_num
-    print filename," from",mstart,"to",mend," ",average," ",median," ",n95," ",n99," ",max," ",tail_average
+    print filename,mstart,mend,average,median,n95,n99,max,tail_average
 }
