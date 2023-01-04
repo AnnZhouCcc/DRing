@@ -1,0 +1,94 @@
+Tue Jan 3 18:42:16 CST 2023: Set up parameters
+topology=rrg
+routing=ecmp
+trafficmatrix=a2a
+mode=lpdbr
+searchstart=0.6
+searchend=0.65
+threshold=5
+stime=200
+mstart=50
+mend=150
+precision=64
+Tue Jan 3 18:42:16 CST 2023: Run experiment search start
+mult=0,numerator=6,denominator=10
+Tue Jan 3 19:10:30 CST 2023: Experiment done
+Tue Jan 3 19:10:40 CST 2023: n99fct=4.83959,totaltraffic=98907441000
+Tue Jan 3 19:10:40 CST 2023: Run experiment search end
+mult=0,numerator=65,denominator=100
+Tue Jan 3 19:40:40 CST 2023: Experiment done
+Tue Jan 3 19:40:51 CST 2023: n99fct=6.62558,totaltraffic=107103106500
+Tue Jan 3 19:40:51 CST 2023: Start binary search.
+searchmid=0.625,searchstart=0.6,searchend=0.65
+Tue Jan 3 19:40:51 CST 2023: Run experiment
+mult=0,numerator=625,denominator=1000
+Tue Jan 3 20:03:33 CST 2023: Experiment done
+Tue Jan 3 20:03:44 CST 2023: n99fct=5.95823,totaltraffic=103050991500
+Change searchend to 0.625
+searchstart=0.6,searchend=0.625
+searchmid=0.6125,searchstart=0.6,searchend=0.625
+Tue Jan 3 20:03:44 CST 2023: Run experiment
+mult=0,numerator=6125,denominator=10000
+Tue Jan 3 20:27:21 CST 2023: Experiment done
+Tue Jan 3 20:27:34 CST 2023: n99fct=5.26819,totaltraffic=100842765000
+Change searchend to 0.6125
+searchstart=0.6,searchend=0.6125
+searchmid=0.60625,searchstart=0.6,searchend=0.6125
+Tue Jan 3 20:27:34 CST 2023: Run experiment
+mult=0,numerator=60625,denominator=100000
+Tue Jan 3 20:53:53 CST 2023: Experiment done
+Tue Jan 3 20:54:04 CST 2023: n99fct=5.00329,totaltraffic=99706561500
+Tue Jan 3 20:54:04 CST 2023: isCloseEnough searchstart=0.6,searchmid=0.60625,searchend=0.6125
+searchstart: n99fct=4.83959,totaltraffic=98907441000
+searchmid: n99fct=5.00329,totaltraffic=99706561500
+searchend: n99fct=5.26819,totaltraffic=100842765000
+=========[searchstart,searchmid]=========
+=========[0.6,0.60625]=========
+===============Close Interval Found==============
+Tue 03 Jan 2023 10:01:23 PM CST: Set up parameters
+topology=rrg
+routing=ecmp
+trafficmatrix=a2a
+mode=lpdbr
+searchstart=0.6
+searchend=0.65
+threshold=5
+stime=200
+mstart=50
+mend=150
+precision=64
+Tue 03 Jan 2023 10:01:23 PM CST: Run experiment search start
+mult=0,numerator=6,denominator=10
+Tue 03 Jan 2023 10:01:23 PM CST: Result already exists
+Tue 03 Jan 2023 10:01:34 PM CST: n99fct=4.83959,totaltraffic=98907441000
+Tue 03 Jan 2023 10:01:34 PM CST: Run experiment search end
+mult=0,numerator=65,denominator=100
+Tue 03 Jan 2023 10:01:34 PM CST: Result already exists
+Tue 03 Jan 2023 10:01:47 PM CST: n99fct=6.62558,totaltraffic=107103106500
+Tue 03 Jan 2023 10:01:47 PM CST: Start binary search.
+searchmid=0.625,searchstart=0.6,searchend=0.65
+Tue 03 Jan 2023 10:01:47 PM CST: Run experiment
+mult=0,numerator=625,denominator=1000
+Tue 03 Jan 2023 10:01:47 PM CST: Result already exists
+Tue 03 Jan 2023 10:01:58 PM CST: n99fct=5.95823,totaltraffic=103050991500
+Change searchend to 0.625
+searchstart=0.6,searchend=0.625
+searchmid=0.6125,searchstart=0.6,searchend=0.625
+Tue 03 Jan 2023 10:01:58 PM CST: Run experiment
+mult=0,numerator=6125,denominator=10000
+Tue 03 Jan 2023 10:01:58 PM CST: Result already exists
+Tue 03 Jan 2023 10:02:10 PM CST: n99fct=5.26819,totaltraffic=100842765000
+Change searchend to 0.6125
+searchstart=0.6,searchend=0.6125
+searchmid=0.60625,searchstart=0.6,searchend=0.6125
+Tue 03 Jan 2023 10:02:10 PM CST: Run experiment
+mult=0,numerator=60625,denominator=100000
+Tue 03 Jan 2023 10:02:10 PM CST: Result already exists
+Tue 03 Jan 2023 10:02:21 PM CST: n99fct=5.00329,totaltraffic=99706561500
+Tue 03 Jan 2023 10:02:21 PM CST: isCloseEnough searchstart=0.6,searchmid=0.60625,searchend=0.6125
+searchstart: n99fct=4.83959,totaltraffic=98907441000
+searchmid: n99fct=5.00329,totaltraffic=99706561500
+searchend: n99fct=5.26819,totaltraffic=100842765000
+=========[searchstart,searchmid]=========
+=========[0.6,0.60625]=========
+===============Close Interval Found==============

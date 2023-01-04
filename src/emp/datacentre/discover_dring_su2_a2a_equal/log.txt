@@ -1,0 +1,157 @@
+Wed Jan 4 14:10:02 CST 2023: Set up parameters
+topology=dring
+routing=su2
+trafficmatrix=a2a
+mode=equal
+searchstart=0.55
+searchend=0.65
+threshold=5
+stime=200
+mstart=50
+mend=150
+precision=64
+Wed Jan 4 14:10:02 CST 2023: Run experiment search start
+mult=0,numerator=55,denominator=100
+Wed Jan 4 14:36:29 CST 2023: Experiment done
+Wed Jan 4 14:36:38 CST 2023: n99fct=10.3417,totaltraffic=85565251500
+Wed Jan 4 14:36:38 CST 2023: Run experiment search end
+mult=0,numerator=65,denominator=100
+Wed Jan 4 14:40:06 CST 2023: Set up parameters
+topology=dring
+routing=su2
+trafficmatrix=a2a
+mode=equal
+searchstart=0.45
+searchend=0.55
+threshold=5
+stime=200
+mstart=50
+mend=150
+precision=64
+Wed Jan 4 14:40:06 CST 2023: Run experiment search start
+mult=0,numerator=45,denominator=100
+Wed Jan 4 15:00:30 CST 2023: Experiment done
+Wed Jan 4 15:00:38 CST 2023: n99fct=5.84103,totaltraffic=70120462500
+Wed Jan 4 15:00:38 CST 2023: Run experiment search end
+mult=0,numerator=55,denominator=100
+Wed Jan 4 15:00:38 CST 2023: Result already exists
+Wed Jan 4 15:00:48 CST 2023: n99fct=10.3417,totaltraffic=85565251500
+5 > 10.3417 ? 0
+5 < 5.84103 ? 1
+Wed Jan 4 15:14:23 CST 2023: Set up parameters
+topology=dring
+routing=su2
+trafficmatrix=a2a
+mode=equal
+searchstart=0.35
+searchend=0.45
+threshold=5
+stime=200
+mstart=50
+mend=150
+precision=64
+Wed Jan 4 15:14:23 CST 2023: Run experiment search start
+mult=0,numerator=35,denominator=100
+Wed Jan 4 15:27:33 CST 2023: Experiment done
+Wed Jan 4 15:27:40 CST 2023: n99fct=1.87758,totaltraffic=54792496500
+Wed Jan 4 15:27:40 CST 2023: Run experiment search end
+mult=0,numerator=45,denominator=100
+Wed Jan 4 15:27:40 CST 2023: Result already exists
+Wed Jan 4 15:27:48 CST 2023: n99fct=5.84103,totaltraffic=70120462500
+Wed Jan 4 15:27:48 CST 2023: Start binary search.
+searchmid=0.4,searchstart=0.35,searchend=0.45
+Wed Jan 4 15:27:48 CST 2023: Run experiment
+mult=0,numerator=4,denominator=10
+Wed Jan 4 15:41:57 CST 2023: Experiment done
+Wed Jan 4 15:42:03 CST 2023: n99fct=3.42262,totaltraffic=62717739000
+Change searchstart to 0.4
+searchstart=0.4,searchend=0.45
+searchmid=0.425,searchstart=0.4,searchend=0.45
+Wed Jan 4 15:42:03 CST 2023: Run experiment
+mult=0,numerator=425,denominator=1000
+Wed Jan 4 15:57:50 CST 2023: Experiment done
+Wed Jan 4 15:57:58 CST 2023: n99fct=,totaltraffic=
+Change searchend to 0.425
+searchstart=0.4,searchend=0.425
+fct not in order: n99fctstart=3.42262,threshold=5,n99fct=
+Wed Jan 4 16:12:24 CST 2023: Set up parameters
+topology=dring
+routing=su2
+trafficmatrix=a2a
+mode=equal
+searchstart=0.35
+searchend=0.45
+threshold=5
+stime=200
+mstart=50
+mend=150
+precision=64
+Wed Jan 4 16:12:25 CST 2023: Run experiment search start
+mult=0,numerator=35,denominator=100
+Wed Jan 4 16:12:25 CST 2023: Result already exists
+Wed Jan 4 16:12:30 CST 2023: n99fct=1.87758,totaltraffic=54792496500
+Wed Jan 4 16:12:30 CST 2023: Run experiment search end
+mult=0,numerator=45,denominator=100
+Wed Jan 4 16:12:30 CST 2023: Result already exists
+Wed Jan 4 16:12:38 CST 2023: n99fct=5.84103,totaltraffic=70120462500
+Wed Jan 4 16:12:38 CST 2023: Start binary search.
+searchmid=0.4,searchstart=0.35,searchend=0.45
+Wed Jan 4 16:12:38 CST 2023: Run experiment
+mult=0,numerator=4,denominator=10
+Wed Jan 4 16:12:38 CST 2023: Result already exists
+Wed Jan 4 16:12:44 CST 2023: n99fct=3.42262,totaltraffic=62717739000
+Change searchstart to 0.4
+searchstart=0.4,searchend=0.45
+searchmid=0.425,searchstart=0.4,searchend=0.45
+Wed Jan 4 16:12:44 CST 2023: Run experiment
+mult=0,numerator=425,denominator=1000
+Wed Jan 4 16:12:44 CST 2023: Result already exists
+Wed Jan 4 16:12:51 CST 2023: n99fct=,totaltraffic=
+Change searchend to 0.425
+searchstart=0.4,searchend=0.425
+fct not in order: n99fctstart=3.42262,threshold=5,n99fct=
+Wed Jan 4 16:16:27 CST 2023: Set up parameters
+topology=dring
+routing=su2
+trafficmatrix=a2a
+mode=equal
+searchstart=0.35
+searchend=0.45
+threshold=5
+stime=200
+mstart=50
+mend=150
+precision=64
+Wed Jan 4 16:16:28 CST 2023: Run experiment search start
+mult=0,numerator=35,denominator=100
+Wed Jan 4 16:16:28 CST 2023: Result already exists
+Wed Jan 4 16:16:33 CST 2023: n99fct=1.87758,totaltraffic=54792496500
+Wed Jan 4 16:16:33 CST 2023: Run experiment search end
+mult=0,numerator=45,denominator=100
+Wed Jan 4 16:16:33 CST 2023: Result already exists
+Wed Jan 4 16:16:41 CST 2023: n99fct=5.84103,totaltraffic=70120462500
+Wed Jan 4 16:16:41 CST 2023: Start binary search.
+searchmid=0.4,searchstart=0.35,searchend=0.45
+Wed Jan 4 16:16:41 CST 2023: Run experiment
+mult=0,numerator=4,denominator=10
+Wed Jan 4 16:16:41 CST 2023: Result already exists
+Wed Jan 4 16:16:47 CST 2023: n99fct=3.42262,totaltraffic=62717739000
+Change searchstart to 0.4
+searchstart=0.4,searchend=0.45
+searchmid=0.425,searchstart=0.4,searchend=0.45
+Wed Jan 4 16:16:48 CST 2023: Run experiment
+mult=0,numerator=425,denominator=1000
+Wed Jan 4 16:16:48 CST 2023: Result already exists
+Wed Jan 4 16:16:54 CST 2023: n99fct=4.55466,totaltraffic=66197176500
+Change searchstart to 0.425
+searchstart=0.425,searchend=0.45
+searchmid=0.4375,searchstart=0.425,searchend=0.45
+Wed Jan 4 16:16:54 CST 2023: Run experiment
+mult=0,numerator=4375,denominator=10000
+Wed Jan 4 16:35:53 CST 2023: Experiment done
+Wed Jan 4 16:36:00 CST 2023: n99fct=5.10779,totaltraffic=68003277000
+Change searchend to 0.4375
+searchstart=0.425,searchend=0.4375
+searchmid=0.43125,searchstart=0.425,searchend=0.4375
+Wed Jan 4 16:36:00 CST 2023: Run experiment
+mult=0,numerator=43125,denominator=100000

@@ -1,0 +1,24 @@
+Wed Jan 4 15:47:36 CST 2023: Set up parameters
+topology=leafspine
+routing=ecmp
+trafficmatrix=a2a
+mode=equal
+searchstart=0.5
+searchend=0.7
+threshold=5
+stime=200
+mstart=50
+mend=150
+precision=64
+Wed Jan 4 15:47:36 CST 2023: Run experiment search start
+mult=0,numerator=5,denominator=10
+Wed Jan 4 16:08:51 CST 2023: Experiment done
+Wed Jan 4 16:08:59 CST 2023: n99fct=4.78321,totaltraffic=82411288500
+Wed Jan 4 16:08:59 CST 2023: Run experiment search end
+mult=0,numerator=7,denominator=10
+Wed Jan 4 16:41:03 CST 2023: Experiment done
+Wed Jan 4 16:41:17 CST 2023: n99fct=11.2902,totaltraffic=115461324000
+Wed Jan 4 16:41:17 CST 2023: Start binary search.
+searchmid=0.6,searchstart=0.5,searchend=0.7
+Wed Jan 4 16:41:17 CST 2023: Run experiment
+mult=0,numerator=6,denominator=10

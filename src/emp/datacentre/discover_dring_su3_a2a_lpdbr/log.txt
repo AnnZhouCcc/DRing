@@ -1,0 +1,31 @@
+Wed 04 Jan 2023 02:17:06 PM CST: Set up parameters
+topology=dring
+routing=su3
+trafficmatrix=a2a
+mode=lpdbr
+searchstart=0.4
+searchend=0.6
+threshold=5
+stime=200
+mstart=50
+mend=150
+precision=64
+Wed 04 Jan 2023 02:17:06 PM CST: Run experiment search start
+mult=0,numerator=4,denominator=10
+Wed 04 Jan 2023 02:45:38 PM CST: Experiment done
+Wed 04 Jan 2023 02:45:46 PM CST: n99fct=1.96528,totaltraffic=62717316000
+Wed 04 Jan 2023 02:45:46 PM CST: Run experiment search end
+mult=0,numerator=6,denominator=10
+Wed 04 Jan 2023 03:46:31 PM CST: Experiment done
+Wed 04 Jan 2023 03:46:44 PM CST: n99fct=9.02685,totaltraffic=93791965500
+Wed 04 Jan 2023 03:46:44 PM CST: Start binary search.
+searchmid=0.5,searchstart=0.4,searchend=0.6
+Wed 04 Jan 2023 03:46:44 PM CST: Run experiment
+mult=0,numerator=5,denominator=10
+Wed 04 Jan 2023 04:32:48 PM CST: Experiment done
+Wed 04 Jan 2023 04:32:57 PM CST: n99fct=5.10682,totaltraffic=78218800500
+Change searchend to 0.5
+searchstart=0.4,searchend=0.5
+searchmid=0.45,searchstart=0.4,searchend=0.5
+Wed 04 Jan 2023 04:32:57 PM CST: Run experiment
+mult=0,numerator=45,denominator=100

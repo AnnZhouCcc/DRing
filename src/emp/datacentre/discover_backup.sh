@@ -1,6 +1,6 @@
 #!/bin/bash
 # Set parameters.
-topology=$1
+topology=$1 #rrg/dring/leafspine
 routing=$2
 trafficmatrix=a2a
 mode=$3 #equal/weighted/lppbr/lpdbr
@@ -32,12 +32,19 @@ fi
 
 if [ $topology = "rrg" ]
 then
+  graphname=RRG
   graphfile=graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist
   numservers=3072
 elif [ $topology = "dring" ]
 then
+  graphname=RRG
   graphfile=graphfiles/ring_supergraph/double_ring/instance1_80_64.edgelist
   numservers=2988
+elif [ $topology = "leafspine" ]
+then
+  graphname=LEAFSPINE
+  graphfile=null
+  numservers=3072
 else
   echo topology $topology not recognized.
 fi
@@ -134,7 +141,7 @@ echo mult=${multstart},numerator=${numeratorstart},denominator=${denominatorstar
 outputfilestart=${dir}/${multstart}_${numeratorstart}_${denominatorstart}_${stime}_${seed}
 if [ ! -s $outputfilestart ]
 then
-  time ./run.sh RRG 1 64 16 $graphfile $numservers 1 1 $make $trafficmatrixparam $multstart $numeratorstart $denominatorstart 0 0 $routingparam $kornparam 0 0 $seed $suffix $npfile $pwfile 0 $mstart $mend $stime 0 0 0 0 | grep -e "FCT" -e "topology" > $outputfilestart &
+  time ./run.sh $graphname 1 64 16 $graphfile $numservers 1 1 $make $trafficmatrixparam $multstart $numeratorstart $denominatorstart 0 0 $routingparam $kornparam 0 0 $seed $suffix $npfile $pwfile 0 $mstart $mend $stime 0 0 0 0 | grep -e "FCT" -e "topology" > $outputfilestart &
   sleep 5 
   wait
   echo $(date): Experiment done >> $logfile
@@ -155,7 +162,7 @@ echo mult=${multend},numerator=${numeratorend},denominator=${denominatorend} >> 
 outputfileend=${dir}/${multend}_${numeratorend}_${denominatorend}_${stime}_${seed}
 if [ ! -s $outputfileend ]
 then
-  time ./run.sh RRG 1 64 16 $graphfile $numservers 1 1 $make $trafficmatrixparam $multend $numeratorend $denominatorend 0 0 $routingparam $kornparam 0 0 $seed $suffix $npfile $pwfile 0 $mstart $mend $stime 0 0 0 0 | grep -e "FCT" -e "topology" > $outputfileend &
+  time ./run.sh $graphname 1 64 16 $graphfile $numservers 1 1 $make $trafficmatrixparam $multend $numeratorend $denominatorend 0 0 $routingparam $kornparam 0 0 $seed $suffix $npfile $pwfile 0 $mstart $mend $stime 0 0 0 0 | grep -e "FCT" -e "topology" > $outputfileend &
   sleep 5
   wait
   echo $(date): Experiment done >> $logfile
@@ -217,7 +224,7 @@ do
   outputfile=${dir}/${mult}_${numerator}_${denominator}_${stime}_${seed}
   if [ ! -s $outputfile ]
   then
-    time ./run.sh RRG 1 64 16 $graphfile $numservers 1 1 $make $trafficmatrixparam $mult $numerator $denominator 0 0 $routingparam $kornparam 0 0 $seed $suffix $npfile $pwfile 0 $mstart $mend $stime 0 0 0 0 | grep -e "FCT" -e "topology" > $outputfile &
+    time ./run.sh $graphname 1 64 16 $graphfile $numservers 1 1 $make $trafficmatrixparam $mult $numerator $denominator 0 0 $routingparam $kornparam 0 0 $seed $suffix $npfile $pwfile 0 $mstart $mend $stime 0 0 0 0 | grep -e "FCT" -e "topology" > $outputfile &
     sleep 5
     wait
     echo $(date): Experiment done >> $logfile

@@ -1,0 +1,52 @@
+Wed Jan 4 14:12:21 CST 2023: Set up parameters
+topology=dring
+routing=su2
+trafficmatrix=a2a
+mode=lppbr
+searchstart=0.5
+searchend=0.7
+threshold=5
+stime=200
+mstart=50
+mend=150
+precision=64
+Wed Jan 4 14:12:21 CST 2023: Run experiment search start
+mult=0,numerator=5,denominator=10
+Wed Jan 4 14:35:08 CST 2023: Experiment done
+Wed Jan 4 14:35:17 CST 2023: n99fct=4.8601,totaltraffic=78220429500
+Wed Jan 4 14:35:17 CST 2023: Run experiment search end
+mult=0,numerator=7,denominator=10
+Wed Jan 4 15:11:24 CST 2023: Experiment done
+Wed Jan 4 15:11:36 CST 2023: n99fct=11.6607,totaltraffic=109345083000
+Wed Jan 4 15:11:36 CST 2023: Start binary search.
+searchmid=0.6,searchstart=0.5,searchend=0.7
+Wed Jan 4 15:11:36 CST 2023: Run experiment
+mult=0,numerator=6,denominator=10
+Wed Jan 4 15:37:15 CST 2023: Experiment done
+Wed Jan 4 15:37:24 CST 2023: n99fct=8.72245,totaltraffic=93802125000
+Change searchend to 0.6
+searchstart=0.5,searchend=0.6
+searchmid=0.55,searchstart=0.5,searchend=0.6
+Wed Jan 4 15:37:24 CST 2023: Run experiment
+mult=0,numerator=55,denominator=100
+Wed Jan 4 15:58:40 CST 2023: Experiment done
+Wed Jan 4 15:58:50 CST 2023: n99fct=6.90085,totaltraffic=85565244000
+Change searchend to 0.55
+searchstart=0.5,searchend=0.55
+searchmid=0.525,searchstart=0.5,searchend=0.55
+Wed Jan 4 15:58:50 CST 2023: Run experiment
+mult=0,numerator=525,denominator=1000
+Wed Jan 4 16:18:03 CST 2023: Experiment done
+Wed Jan 4 16:18:12 CST 2023: n99fct=5.79608,totaltraffic=81636952500
+Change searchend to 0.525
+searchstart=0.5,searchend=0.525
+searchmid=0.5125,searchstart=0.5,searchend=0.525
+Wed Jan 4 16:18:12 CST 2023: Run experiment
+mult=0,numerator=5125,denominator=10000
+Wed Jan 4 16:39:54 CST 2023: Experiment done
+Wed Jan 4 16:40:03 CST 2023: n99fct=5.31258,totaltraffic=79793703000
+Change searchend to 0.5125
+searchstart=0.5,searchend=0.5125
+searchmid=0.50625,searchstart=0.5,searchend=0.5125
+Wed Jan 4 16:40:03 CST 2023: Run experiment
+mult=0,numerator=50625,denominator=100000

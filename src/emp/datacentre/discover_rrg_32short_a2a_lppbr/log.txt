@@ -1,0 +1,61 @@
+Tue 03 Jan 2023 07:35:37 PM CST: Set up parameters
+topology=rrg
+routing=32short
+trafficmatrix=a2a
+mode=lppbr
+searchstart=0.55
+searchend=0.65
+threshold=5
+stime=200
+mstart=50
+mend=150
+precision=64
+Tue 03 Jan 2023 07:35:37 PM CST: Run experiment search start
+mult=0,numerator=55,denominator=100
+Tue 03 Jan 2023 08:20:19 PM CST: Experiment done
+Tue 03 Jan 2023 08:20:29 PM CST: n99fct=2.96597,totaltraffic=90769030500
+Tue 03 Jan 2023 08:20:29 PM CST: Run experiment search end
+mult=0,numerator=65,denominator=100
+Tue 03 Jan 2023 09:14:34 PM CST: Experiment done
+Tue 03 Jan 2023 09:14:45 PM CST: n99fct=6.30068,totaltraffic=107112661500
+Tue 03 Jan 2023 09:14:45 PM CST: Start binary search.
+searchmid=0.6,searchstart=0.55,searchend=0.65
+Tue 03 Jan 2023 09:14:46 PM CST: Run experiment
+mult=0,numerator=6,denominator=10
+Tue 03 Jan 2023 09:59:32 PM CST: Experiment done
+Tue 03 Jan 2023 09:59:43 PM CST: n99fct=4.55304,totaltraffic=98916484500
+Change searchstart to 0.6
+searchstart=0.6,searchend=0.65
+searchmid=0.625,searchstart=0.6,searchend=0.65
+Tue 03 Jan 2023 09:59:43 PM CST: Run experiment
+mult=0,numerator=625,denominator=1000
+Tue 03 Jan 2023 10:53:21 PM CST: Experiment done
+Tue 03 Jan 2023 10:53:34 PM CST: n99fct=5.30052,totaltraffic=103047238500
+Change searchend to 0.625
+searchstart=0.6,searchend=0.625
+searchmid=0.6125,searchstart=0.6,searchend=0.625
+Tue 03 Jan 2023 10:53:34 PM CST: Run experiment
+mult=0,numerator=6125,denominator=10000
+Tue 03 Jan 2023 11:42:53 PM CST: Experiment done
+Tue 03 Jan 2023 11:43:05 PM CST: n99fct=4.96947,totaltraffic=100850308500
+Change searchstart to 0.6125
+searchstart=0.6125,searchend=0.625
+searchmid=0.61875,searchstart=0.6125,searchend=0.625
+Tue 03 Jan 2023 11:43:05 PM CST: Run experiment
+mult=0,numerator=61875,denominator=100000
+Wed 04 Jan 2023 12:33:34 AM CST: Experiment done
+Wed 04 Jan 2023 12:33:47 AM CST: n99fct=5.16676,totaltraffic=101735341500
+Change searchend to 0.61875
+searchstart=0.6125,searchend=0.61875
+searchmid=0.615625,searchstart=0.6125,searchend=0.61875
+Wed 04 Jan 2023 12:33:47 AM CST: Run experiment
+mult=0,numerator=615625,denominator=1000000
+Wed 04 Jan 2023 01:20:37 AM CST: Experiment done
+Wed 04 Jan 2023 01:20:48 AM CST: n99fct=5.02453,totaltraffic=101270790000
+Wed 04 Jan 2023 01:20:48 AM CST: isCloseEnough searchstart=0.6125,searchmid=0.615625,searchend=0.61875
+searchstart: n99fct=4.96947,totaltraffic=100850308500
+searchmid: n99fct=5.02453,totaltraffic=101270790000
+searchend: n99fct=5.16676,totaltraffic=101735341500
+=========[searchstart,searchmid]=========
+=========[0.6125,0.615625]=========
+===============Close Interval Found==============

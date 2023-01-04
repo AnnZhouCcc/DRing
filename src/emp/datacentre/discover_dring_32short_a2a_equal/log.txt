@@ -1,0 +1,60 @@
+Wed 04 Jan 2023 02:20:25 PM CST: Set up parameters
+topology=dring
+routing=32short
+trafficmatrix=a2a
+mode=equal
+searchstart=0.1
+searchend=0.2
+threshold=5
+stime=200
+mstart=50
+mend=150
+precision=64
+Wed 04 Jan 2023 02:20:25 PM CST: Run experiment search start
+mult=0,numerator=1,denominator=10
+Wed 04 Jan 2023 02:24:41 PM CST: Experiment done
+Wed 04 Jan 2023 02:24:43 PM CST: n99fct=0.752875,totaltraffic=15878361000
+Wed 04 Jan 2023 02:24:43 PM CST: Run experiment search end
+mult=0,numerator=2,denominator=10
+Wed 04 Jan 2023 02:43:32 PM CST: Experiment done
+Wed 04 Jan 2023 02:43:36 PM CST: n99fct=8.78308,totaltraffic=31515477000
+Wed 04 Jan 2023 02:43:36 PM CST: Start binary search.
+searchmid=0.15,searchstart=0.1,searchend=0.2
+Wed 04 Jan 2023 02:43:36 PM CST: Run experiment
+mult=0,numerator=15,denominator=100
+Wed 04 Jan 2023 02:53:06 PM CST: Experiment done
+Wed 04 Jan 2023 02:53:10 PM CST: n99fct=,totaltraffic=
+Change searchend to 0.15
+searchstart=0.1,searchend=0.15
+fct not in order: n99fctstart=0.752875,threshold=5,n99fct=
+Wed 04 Jan 2023 04:36:46 PM CST: Set up parameters
+topology=dring
+routing=32short
+trafficmatrix=a2a
+mode=equal
+searchstart=0.1
+searchend=0.2
+threshold=5
+stime=200
+mstart=50
+mend=150
+precision=64
+Wed 04 Jan 2023 04:36:46 PM CST: Run experiment search start
+mult=0,numerator=1,denominator=10
+Wed 04 Jan 2023 04:36:46 PM CST: Result already exists
+Wed 04 Jan 2023 04:36:48 PM CST: n99fct=0.752875,totaltraffic=15878361000
+Wed 04 Jan 2023 04:36:48 PM CST: Run experiment search end
+mult=0,numerator=2,denominator=10
+Wed 04 Jan 2023 04:36:48 PM CST: Result already exists
+Wed 04 Jan 2023 04:36:51 PM CST: n99fct=8.78308,totaltraffic=31515477000
+Wed 04 Jan 2023 04:36:52 PM CST: Start binary search.
+searchmid=0.15,searchstart=0.1,searchend=0.2
+Wed 04 Jan 2023 04:36:52 PM CST: Run experiment
+mult=0,numerator=15,denominator=100
+Wed 04 Jan 2023 04:36:52 PM CST: Result already exists
+Wed 04 Jan 2023 04:36:55 PM CST: n99fct=1.86041,totaltraffic=23490141000
+Change searchstart to 0.15
+searchstart=0.15,searchend=0.2
+searchmid=0.175,searchstart=0.15,searchend=0.2
+Wed 04 Jan 2023 04:36:55 PM CST: Run experiment
+mult=0,numerator=175,denominator=1000
