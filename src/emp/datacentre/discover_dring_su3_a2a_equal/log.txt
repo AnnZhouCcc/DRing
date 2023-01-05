@@ -36,3 +36,33 @@ searchstart=0.325,searchend=0.35
 searchmid=0.3375,searchstart=0.325,searchend=0.35
 Wed 04 Jan 2023 04:31:00 PM CST: Run experiment
 mult=0,numerator=3375,denominator=10000
+Wed 04 Jan 2023 05:01:35 PM CST: Experiment done
+Wed 04 Jan 2023 05:01:42 PM CST: n99fct=4.167,totaltraffic=52291192500
+Change searchstart to 0.3375
+searchstart=0.3375,searchend=0.35
+searchmid=0.34375,searchstart=0.3375,searchend=0.35
+Wed 04 Jan 2023 05:01:42 PM CST: Run experiment
+mult=0,numerator=34375,denominator=100000
+Wed 04 Jan 2023 05:33:30 PM CST: Experiment done
+Wed 04 Jan 2023 05:33:36 PM CST: n99fct=4.57949,totaltraffic=53558911500
+Change searchstart to 0.34375
+searchstart=0.34375,searchend=0.35
+searchmid=0.346875,searchstart=0.34375,searchend=0.35
+Wed 04 Jan 2023 05:33:36 PM CST: Run experiment
+mult=0,numerator=346875,denominator=1000000
+Wed 04 Jan 2023 06:02:02 PM CST: Experiment done
+Wed 04 Jan 2023 06:02:09 PM CST: n99fct=4.79375,totaltraffic=54059464500
+Change searchstart to 0.346875
+searchstart=0.346875,searchend=0.35
+searchmid=0.348437,searchstart=0.346875,searchend=0.35
+Wed 04 Jan 2023 06:02:09 PM CST: Run experiment
+mult=0,numerator=348437,denominator=1000000
+Wed 04 Jan 2023 06:31:03 PM CST: Experiment done
+Wed 04 Jan 2023 06:31:09 PM CST: n99fct=4.70645,totaltraffic=54332361000
+Wed 04 Jan 2023 06:31:09 PM CST: isCloseEnough searchstart=0.346875,searchmid=0.348437,searchend=0.35
+searchstart: n99fct=4.79375,totaltraffic=54059464500
+searchmid: n99fct=4.70645,totaltraffic=54332361000
+searchend: n99fct=5.07628,totaltraffic=54792999000
+=========[searchmid,searchend]=========
+=========[0.348437,0.35]=========
+===============Close Interval Found==============

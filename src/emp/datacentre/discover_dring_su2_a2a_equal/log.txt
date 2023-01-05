@@ -155,3 +155,19 @@ searchstart=0.425,searchend=0.4375
 searchmid=0.43125,searchstart=0.425,searchend=0.4375
 Wed Jan 4 16:36:00 CST 2023: Run experiment
 mult=0,numerator=43125,denominator=100000
+Wed Jan 4 16:52:39 CST 2023: Experiment done
+Wed Jan 4 16:52:48 CST 2023: n99fct=4.84768,totaltraffic=67302496500
+Change searchstart to 0.43125
+searchstart=0.43125,searchend=0.4375
+searchmid=0.434375,searchstart=0.43125,searchend=0.4375
+Wed Jan 4 16:52:48 CST 2023: Run experiment
+mult=0,numerator=434375,denominator=1000000
+Wed Jan 4 17:09:40 CST 2023: Experiment done
+Wed Jan 4 17:09:47 CST 2023: n99fct=5.01267,totaltraffic=67730914500
+Wed Jan 4 17:09:47 CST 2023: isCloseEnough searchstart=0.43125,searchmid=0.434375,searchend=0.4375
+searchstart: n99fct=4.84768,totaltraffic=67302496500
+searchmid: n99fct=5.01267,totaltraffic=67730914500
+searchend: n99fct=5.10779,totaltraffic=68003277000
+=========[searchstart,searchmid]=========
+=========[0.43125,0.434375]=========
+===============Close Interval Found==============

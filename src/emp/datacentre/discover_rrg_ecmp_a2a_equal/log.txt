@@ -86,3 +86,41 @@ searchend: n99fct=5.17455,totaltraffic=98906389500
 =========[searchmid,searchend]=========
 =========[0.596875,0.6]=========
 ===============Close Interval Found==============
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Wed 04 Jan 2023 09:14:46 PM CST
+topology=rrg
+routing=ecmp
+trafficmatrix=a2a
+mode=equal
+searchstart=
+searchend=
+threshold=5
+stime=200
+mstart=50
+mend=150
+precision=64
+Wed 04 Jan 2023 09:14:46 PM CST: Run experiment for p1
+mult=0,numerator=596875,denominator=1000000
+Wed 04 Jan 2023 09:14:46 PM CST: Running seed=0, outputting to discover_rrg_ecmp_a2a_equal/0_596875_1000000_200_0
+Wed 04 Jan 2023 09:14:46 PM CST: Result already exists
+Wed 04 Jan 2023 09:14:46 PM CST: Running seed=1, outputting to discover_rrg_ecmp_a2a_equal/0_596875_1000000_200_1
+Wed 04 Jan 2023 09:55:27 PM CST: Experiment done
+Wed 04 Jan 2023 09:55:27 PM CST: Running seed=2, outputting to discover_rrg_ecmp_a2a_equal/0_596875_1000000_200_2
+Wed 04 Jan 2023 10:29:07 PM CST: Experiment done
+Wed 04 Jan 2023 10:29:07 PM CST: Running seed=3, outputting to discover_rrg_ecmp_a2a_equal/0_596875_1000000_200_3
+Wed 04 Jan 2023 11:03:00 PM CST: Experiment done
+Wed 04 Jan 2023 11:03:00 PM CST: Running seed=4, outputting to discover_rrg_ecmp_a2a_equal/0_596875_1000000_200_4
+Wed 04 Jan 2023 11:38:01 PM CST: Experiment done
+Wed 04 Jan 2023 11:38:01 PM CST: Running seed=5, outputting to discover_rrg_ecmp_a2a_equal/0_596875_1000000_200_5
+Thu 05 Jan 2023 12:13:03 AM CST: Experiment done
+Thu 05 Jan 2023 12:13:03 AM CST: Running seed=6, outputting to discover_rrg_ecmp_a2a_equal/0_596875_1000000_200_6
+Thu 05 Jan 2023 12:46:56 AM CST: Experiment done
+Thu 05 Jan 2023 12:46:56 AM CST: Running seed=7, outputting to discover_rrg_ecmp_a2a_equal/0_596875_1000000_200_7
+Thu 05 Jan 2023 01:20:26 AM CST: Experiment done
+Thu 05 Jan 2023 01:20:26 AM CST: Running seed=8, outputting to discover_rrg_ecmp_a2a_equal/0_596875_1000000_200_8
+Thu 05 Jan 2023 01:53:39 AM CST: Experiment done
+Thu 05 Jan 2023 01:53:39 AM CST: Running seed=9, outputting to discover_rrg_ecmp_a2a_equal/0_596875_1000000_200_9
+Thu 05 Jan 2023 02:27:15 AM CST: Experiment done
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================

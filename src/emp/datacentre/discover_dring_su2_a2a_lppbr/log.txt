@@ -50,3 +50,12 @@ searchstart=0.5,searchend=0.5125
 searchmid=0.50625,searchstart=0.5,searchend=0.5125
 Wed Jan 4 16:40:03 CST 2023: Run experiment
 mult=0,numerator=50625,denominator=100000
+Wed Jan 4 16:59:48 CST 2023: Experiment done
+Wed Jan 4 16:59:56 CST 2023: n99fct=5.08567,totaltraffic=79080162000
+Wed Jan 4 16:59:56 CST 2023: isCloseEnough searchstart=0.5,searchmid=0.50625,searchend=0.5125
+searchstart: n99fct=4.8601,totaltraffic=78220429500
+searchmid: n99fct=5.08567,totaltraffic=79080162000
+searchend: n99fct=5.31258,totaltraffic=79793703000
+=========[searchstart,searchmid]=========
+=========[0.5,0.50625]=========
+===============Close Interval Found==============

@@ -64,3 +64,12 @@ searchstart=0.173437,searchend=0.175
 searchmid=0.174218,searchstart=0.173437,searchend=0.175
 Wed 04 Jan 2023 04:43:16 PM CST: Run experiment
 mult=0,numerator=174218,denominator=1000000
+Wed 04 Jan 2023 05:00:24 PM CST: Experiment done
+Wed 04 Jan 2023 05:00:27 PM CST: n99fct=4.59404,totaltraffic=27072235500
+Wed 04 Jan 2023 05:00:27 PM CST: isCloseEnough searchstart=0.173437,searchmid=0.174218,searchend=0.175
+searchstart: n99fct=4.76554,totaltraffic=26928652500
+searchmid: n99fct=4.59404,totaltraffic=27072235500
+searchend: n99fct=5.47657,totaltraffic=27374716500
+=========[searchmid,searchend]=========
+=========[0.174218,0.175]=========
+===============Close Interval Found==============
