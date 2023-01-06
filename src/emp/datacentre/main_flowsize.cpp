@@ -365,6 +365,9 @@ int main(int argc, char **argv) {
     if (conn_matrix == "A2A"){
         conns->setTopoFlowsAllToAll(simtime_ms);
     }
+    else if (conn_matrix.substr(0,3) == "S2S") {
+        conns->setTopoFlowsSomeToSome(conn_matrix, simtime_ms);
+    }
     else if (conn_matrix == "CLUSTERX") {
         // conns->setFlowsFromClusterXSmallInterval(top, paramstring, multiplier, numerator, denominator, solvestart, solveend, solveinterval, simtime_ms);
         conns->setTopoFlowsClusterX(top, paramstring, solvestart, solveend, solveinterval, simtime_ms);

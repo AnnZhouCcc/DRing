@@ -93,6 +93,7 @@ class ConnectionMatrix{
   int adjustBytesByPacketSize(int bytes);
   void multiplyFlows(int multiplier, int numerator, int denominator);
   void setTopoFlowsAllToAll(double simtime_ms);
+  void setTopoFlowsSomeToSome(string conn_matrix_str, double simtime_ms);
   void setTopoFlowsClusterX(Topology* top, string cluster, int solvestart, int solveend, int solveinterval, double simtime_ms);
   void printTopoFlows(Topology* top, string topoflowsfilename);
 
