@@ -59,3 +59,137 @@ searchend: n99fct=5.06639,totaltraffic=69233857500
 =========[searchmid,searchend]=========
 =========[0.440625,0.44375]=========
 ===============Close Interval Found==============
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Thu Jan 5 13:56:31 CST 2023
+topology=dring
+routing=ecmp
+trafficmatrix=a2a
+mode=equal
+searchstart=
+searchend=
+threshold=5
+stime=200
+mstart=50
+mend=150
+precision=64
+Thu Jan 5 13:56:31 CST 2023: Run experiment for p1
+mult=0,numerator=440625,denominator=1000000
+Thu Jan 5 13:56:31 CST 2023: Running seed=0, outputting to discover_dring_ecmp_a2a_equal/0_440625_1000000_200_0
+Thu Jan 5 13:56:31 CST 2023: Result already exists
+Thu Jan 5 13:56:31 CST 2023: Running seed=1, outputting to discover_dring_ecmp_a2a_equal/0_440625_1000000_200_1
+Thu Jan 5 14:25:47 CST 2023: Experiment done
+Thu Jan 5 14:25:47 CST 2023: Running seed=2, outputting to discover_dring_ecmp_a2a_equal/0_440625_1000000_200_2
+Thu Jan 5 14:51:42 CST 2023: Experiment done
+Thu Jan 5 14:51:42 CST 2023: Running seed=3, outputting to discover_dring_ecmp_a2a_equal/0_440625_1000000_200_3
+Thu Jan 5 15:17:49 CST 2023: Experiment done
+Thu Jan 5 15:17:49 CST 2023: Running seed=4, outputting to discover_dring_ecmp_a2a_equal/0_440625_1000000_200_4
+Thu Jan 5 15:43:32 CST 2023: Experiment done
+Thu Jan 5 15:43:32 CST 2023: Running seed=5, outputting to discover_dring_ecmp_a2a_equal/0_440625_1000000_200_5
+Thu Jan 5 16:09:51 CST 2023: Experiment done
+Thu Jan 5 16:09:51 CST 2023: Running seed=6, outputting to discover_dring_ecmp_a2a_equal/0_440625_1000000_200_6
+Thu Jan 5 16:35:37 CST 2023: Experiment done
+Thu Jan 5 16:35:37 CST 2023: Running seed=7, outputting to discover_dring_ecmp_a2a_equal/0_440625_1000000_200_7
+Thu Jan 5 17:00:12 CST 2023: Experiment done
+Thu Jan 5 17:00:12 CST 2023: Running seed=8, outputting to discover_dring_ecmp_a2a_equal/0_440625_1000000_200_8
+Thu Jan 5 17:22:30 CST 2023: Experiment done
+Thu Jan 5 17:22:30 CST 2023: Running seed=9, outputting to discover_dring_ecmp_a2a_equal/0_440625_1000000_200_9
+Thu Jan 5 17:44:33 CST 2023: Experiment done
+Thu Jan 5 17:44:33 CST 2023: Collecting stats for
+Thu Jan 5 17:46:23 CST 2023: n99fct=4.88799,totaltraffic=68624016450
+Thu Jan 5 17:46:23 CST 2023: Run experiment for p2
+mult=0,numerator=44375,denominator=100000
+Thu Jan 5 17:46:23 CST 2023: Running seed=0, outputting to discover_dring_ecmp_a2a_equal/0_44375_100000_200_0
+Thu Jan 5 17:46:23 CST 2023: Result already exists
+Thu Jan 5 17:46:23 CST 2023: Running seed=1, outputting to discover_dring_ecmp_a2a_equal/0_44375_100000_200_1
+Thu Jan 5 18:08:37 CST 2023: Experiment done
+Thu Jan 5 18:08:37 CST 2023: Running seed=2, outputting to discover_dring_ecmp_a2a_equal/0_44375_100000_200_2
+Thu Jan 5 18:30:23 CST 2023: Experiment done
+Thu Jan 5 18:30:23 CST 2023: Running seed=3, outputting to discover_dring_ecmp_a2a_equal/0_44375_100000_200_3
+Thu Jan 5 18:53:03 CST 2023: Experiment done
+Thu Jan 5 18:53:03 CST 2023: Running seed=4, outputting to discover_dring_ecmp_a2a_equal/0_44375_100000_200_4
+Thu Jan 5 19:18:36 CST 2023: Experiment done
+Thu Jan 5 19:18:36 CST 2023: Running seed=5, outputting to discover_dring_ecmp_a2a_equal/0_44375_100000_200_5
+Thu Jan 5 19:44:55 CST 2023: Experiment done
+Thu Jan 5 19:44:55 CST 2023: Running seed=6, outputting to discover_dring_ecmp_a2a_equal/0_44375_100000_200_6
+Thu Jan 5 20:10:34 CST 2023: Experiment done
+Thu Jan 5 20:10:34 CST 2023: Running seed=7, outputting to discover_dring_ecmp_a2a_equal/0_44375_100000_200_7
+Thu Jan 5 20:39:21 CST 2023: Experiment done
+Thu Jan 5 20:39:21 CST 2023: Running seed=8, outputting to discover_dring_ecmp_a2a_equal/0_44375_100000_200_8
+Thu Jan 5 21:08:50 CST 2023: Experiment done
+Thu Jan 5 21:08:50 CST 2023: Running seed=9, outputting to discover_dring_ecmp_a2a_equal/0_44375_100000_200_9
+Thu Jan 5 21:37:26 CST 2023: Experiment done
+Thu Jan 5 21:37:26 CST 2023: Collecting stats for discover_dring_ecmp_a2a_equal/0_44375_100000_200_
+Thu Jan 5 21:39:18 CST 2023: n99fct=5.00326,totaltraffic=69095722650
+Thu Jan 5 21:39:18 CST 2023: Calculating the cutoff point
+n99fct1=4.88799,totaltraffic1=68624016450,n99fct2=5.00326,totaltraffic2=69095722650
+m=,b=,y=5,x=
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Fri Jan 6 10:47:32 CST 2023
+topology=dring
+routing=ecmp
+trafficmatrix=a2a
+mode=equal
+searchstart=
+searchend=
+threshold=5
+stime=200
+mstart=50
+mend=150
+precision=64
+Fri Jan 6 10:47:32 CST 2023: Run experiment for p1
+mult=0,numerator=440625,denominator=1000000
+Fri Jan 6 10:47:32 CST 2023: Running seed=0, outputting to discover_dring_ecmp_a2a_equal/0_440625_1000000_200_0
+Fri Jan 6 10:47:32 CST 2023: Result already exists
+Fri Jan 6 10:47:32 CST 2023: Running seed=1, outputting to discover_dring_ecmp_a2a_equal/0_440625_1000000_200_1
+Fri Jan 6 10:47:32 CST 2023: Result already exists
+Fri Jan 6 10:47:32 CST 2023: Running seed=2, outputting to discover_dring_ecmp_a2a_equal/0_440625_1000000_200_2
+Fri Jan 6 10:47:32 CST 2023: Result already exists
+Fri Jan 6 10:47:32 CST 2023: Running seed=3, outputting to discover_dring_ecmp_a2a_equal/0_440625_1000000_200_3
+Fri Jan 6 10:47:32 CST 2023: Result already exists
+Fri Jan 6 10:47:32 CST 2023: Running seed=4, outputting to discover_dring_ecmp_a2a_equal/0_440625_1000000_200_4
+Fri Jan 6 10:47:32 CST 2023: Result already exists
+Fri Jan 6 10:47:32 CST 2023: Running seed=5, outputting to discover_dring_ecmp_a2a_equal/0_440625_1000000_200_5
+Fri Jan 6 10:47:32 CST 2023: Result already exists
+Fri Jan 6 10:47:32 CST 2023: Running seed=6, outputting to discover_dring_ecmp_a2a_equal/0_440625_1000000_200_6
+Fri Jan 6 10:47:32 CST 2023: Result already exists
+Fri Jan 6 10:47:32 CST 2023: Running seed=7, outputting to discover_dring_ecmp_a2a_equal/0_440625_1000000_200_7
+Fri Jan 6 10:47:32 CST 2023: Result already exists
+Fri Jan 6 10:47:32 CST 2023: Running seed=8, outputting to discover_dring_ecmp_a2a_equal/0_440625_1000000_200_8
+Fri Jan 6 10:47:32 CST 2023: Result already exists
+Fri Jan 6 10:47:32 CST 2023: Running seed=9, outputting to discover_dring_ecmp_a2a_equal/0_440625_1000000_200_9
+Fri Jan 6 10:47:32 CST 2023: Result already exists
+Fri Jan 6 10:47:32 CST 2023: Collecting stats for
+Fri Jan 6 10:47:32 CST 2023: n99fct=4.88799,totaltraffic=68624016450
+Fri Jan 6 10:47:32 CST 2023: Run experiment for p2
+mult=0,numerator=44375,denominator=100000
+Fri Jan 6 10:47:32 CST 2023: Running seed=0, outputting to discover_dring_ecmp_a2a_equal/0_44375_100000_200_0
+Fri Jan 6 10:47:32 CST 2023: Result already exists
+Fri Jan 6 10:47:32 CST 2023: Running seed=1, outputting to discover_dring_ecmp_a2a_equal/0_44375_100000_200_1
+Fri Jan 6 10:47:32 CST 2023: Result already exists
+Fri Jan 6 10:47:32 CST 2023: Running seed=2, outputting to discover_dring_ecmp_a2a_equal/0_44375_100000_200_2
+Fri Jan 6 10:47:32 CST 2023: Result already exists
+Fri Jan 6 10:47:32 CST 2023: Running seed=3, outputting to discover_dring_ecmp_a2a_equal/0_44375_100000_200_3
+Fri Jan 6 10:47:32 CST 2023: Result already exists
+Fri Jan 6 10:47:32 CST 2023: Running seed=4, outputting to discover_dring_ecmp_a2a_equal/0_44375_100000_200_4
+Fri Jan 6 10:47:32 CST 2023: Result already exists
+Fri Jan 6 10:47:32 CST 2023: Running seed=5, outputting to discover_dring_ecmp_a2a_equal/0_44375_100000_200_5
+Fri Jan 6 10:47:32 CST 2023: Result already exists
+Fri Jan 6 10:47:32 CST 2023: Running seed=6, outputting to discover_dring_ecmp_a2a_equal/0_44375_100000_200_6
+Fri Jan 6 10:47:32 CST 2023: Result already exists
+Fri Jan 6 10:47:32 CST 2023: Running seed=7, outputting to discover_dring_ecmp_a2a_equal/0_44375_100000_200_7
+Fri Jan 6 10:47:32 CST 2023: Result already exists
+Fri Jan 6 10:47:32 CST 2023: Running seed=8, outputting to discover_dring_ecmp_a2a_equal/0_44375_100000_200_8
+Fri Jan 6 10:47:32 CST 2023: Result already exists
+Fri Jan 6 10:47:32 CST 2023: Running seed=9, outputting to discover_dring_ecmp_a2a_equal/0_44375_100000_200_9
+Fri Jan 6 10:47:32 CST 2023: Result already exists
+Fri Jan 6 10:47:32 CST 2023: Collecting stats for discover_dring_ecmp_a2a_equal/0_44375_100000_200_
+Fri Jan 6 10:47:33 CST 2023: n99fct=5.00326,totaltraffic=69095722650
+Fri Jan 6 10:47:33 CST 2023: Calculating the cutoff point
+n99fct1=4.88799,totaltraffic1=68624016450,n99fct2=5.00326,totaltraffic2=69095722650
+m=2.44368e-10,b=-11.8815,y=5,x=6.90823e+10
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================

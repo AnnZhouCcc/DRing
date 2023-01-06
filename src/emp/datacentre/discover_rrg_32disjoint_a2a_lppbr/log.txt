@@ -81,3 +81,137 @@ searchend: n99fct=5.07458,totaltraffic=101735520000
 =========[searchmid,searchend]=========
 =========[0.615625,0.61875]=========
 ===============Close Interval Found==============
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Thu 05 Jan 2023 01:34:04 PM CST
+topology=rrg
+routing=32disjoint
+trafficmatrix=a2a
+mode=lppbr
+searchstart=
+searchend=
+threshold=5
+stime=200
+mstart=50
+mend=150
+precision=64
+Thu 05 Jan 2023 01:34:04 PM CST: Run experiment for p1
+mult=0,numerator=615625,denominator=1000000
+Thu 05 Jan 2023 01:34:04 PM CST: Running seed=0, outputting to discover_rrg_32disjoint_a2a_lppbr/0_615625_1000000_200_0
+Thu 05 Jan 2023 01:34:04 PM CST: Result already exists
+Thu 05 Jan 2023 01:34:04 PM CST: Running seed=1, outputting to discover_rrg_32disjoint_a2a_lppbr/0_615625_1000000_200_1
+Thu 05 Jan 2023 02:25:11 PM CST: Experiment done
+Thu 05 Jan 2023 02:25:11 PM CST: Running seed=2, outputting to discover_rrg_32disjoint_a2a_lppbr/0_615625_1000000_200_2
+Thu 05 Jan 2023 03:20:04 PM CST: Experiment done
+Thu 05 Jan 2023 03:20:04 PM CST: Running seed=3, outputting to discover_rrg_32disjoint_a2a_lppbr/0_615625_1000000_200_3
+Thu 05 Jan 2023 04:14:42 PM CST: Experiment done
+Thu 05 Jan 2023 04:14:42 PM CST: Running seed=4, outputting to discover_rrg_32disjoint_a2a_lppbr/0_615625_1000000_200_4
+Thu 05 Jan 2023 05:07:28 PM CST: Experiment done
+Thu 05 Jan 2023 05:07:28 PM CST: Running seed=5, outputting to discover_rrg_32disjoint_a2a_lppbr/0_615625_1000000_200_5
+Thu 05 Jan 2023 06:05:26 PM CST: Experiment done
+Thu 05 Jan 2023 06:05:26 PM CST: Running seed=6, outputting to discover_rrg_32disjoint_a2a_lppbr/0_615625_1000000_200_6
+Thu 05 Jan 2023 07:00:35 PM CST: Experiment done
+Thu 05 Jan 2023 07:00:35 PM CST: Running seed=7, outputting to discover_rrg_32disjoint_a2a_lppbr/0_615625_1000000_200_7
+Thu 05 Jan 2023 07:54:21 PM CST: Experiment done
+Thu 05 Jan 2023 07:54:21 PM CST: Running seed=8, outputting to discover_rrg_32disjoint_a2a_lppbr/0_615625_1000000_200_8
+Thu 05 Jan 2023 08:46:19 PM CST: Experiment done
+Thu 05 Jan 2023 08:46:19 PM CST: Running seed=9, outputting to discover_rrg_32disjoint_a2a_lppbr/0_615625_1000000_200_9
+Thu 05 Jan 2023 09:39:27 PM CST: Experiment done
+Thu 05 Jan 2023 09:39:27 PM CST: Collecting stats for
+Thu 05 Jan 2023 09:41:30 PM CST: n99fct=5.00806,totaltraffic=101397950250
+Thu 05 Jan 2023 09:41:30 PM CST: Run experiment for p2
+mult=0,numerator=61875,denominator=100000
+Thu 05 Jan 2023 09:41:30 PM CST: Running seed=0, outputting to discover_rrg_32disjoint_a2a_lppbr/0_61875_100000_200_0
+Thu 05 Jan 2023 09:41:30 PM CST: Result already exists
+Thu 05 Jan 2023 09:41:30 PM CST: Running seed=1, outputting to discover_rrg_32disjoint_a2a_lppbr/0_61875_100000_200_1
+Thu 05 Jan 2023 10:32:28 PM CST: Experiment done
+Thu 05 Jan 2023 10:32:28 PM CST: Running seed=2, outputting to discover_rrg_32disjoint_a2a_lppbr/0_61875_100000_200_2
+Thu 05 Jan 2023 11:21:01 PM CST: Experiment done
+Thu 05 Jan 2023 11:21:01 PM CST: Running seed=3, outputting to discover_rrg_32disjoint_a2a_lppbr/0_61875_100000_200_3
+Fri 06 Jan 2023 12:09:40 AM CST: Experiment done
+Fri 06 Jan 2023 12:09:40 AM CST: Running seed=4, outputting to discover_rrg_32disjoint_a2a_lppbr/0_61875_100000_200_4
+Fri 06 Jan 2023 01:01:26 AM CST: Experiment done
+Fri 06 Jan 2023 01:01:26 AM CST: Running seed=5, outputting to discover_rrg_32disjoint_a2a_lppbr/0_61875_100000_200_5
+Fri 06 Jan 2023 01:48:15 AM CST: Experiment done
+Fri 06 Jan 2023 01:48:15 AM CST: Running seed=6, outputting to discover_rrg_32disjoint_a2a_lppbr/0_61875_100000_200_6
+Fri 06 Jan 2023 02:37:57 AM CST: Experiment done
+Fri 06 Jan 2023 02:37:57 AM CST: Running seed=7, outputting to discover_rrg_32disjoint_a2a_lppbr/0_61875_100000_200_7
+Fri 06 Jan 2023 03:24:39 AM CST: Experiment done
+Fri 06 Jan 2023 03:24:39 AM CST: Running seed=8, outputting to discover_rrg_32disjoint_a2a_lppbr/0_61875_100000_200_8
+Fri 06 Jan 2023 04:15:30 AM CST: Experiment done
+Fri 06 Jan 2023 04:15:30 AM CST: Running seed=9, outputting to discover_rrg_32disjoint_a2a_lppbr/0_61875_100000_200_9
+Fri 06 Jan 2023 05:01:13 AM CST: Experiment done
+Fri 06 Jan 2023 05:01:13 AM CST: Collecting stats for discover_rrg_32disjoint_a2a_lppbr/0_61875_100000_200_
+Fri 06 Jan 2023 05:02:59 AM CST: n99fct=5.10623,totaltraffic=101879926950
+Fri 06 Jan 2023 05:03:00 AM CST: Calculating the cutoff point
+n99fct1=5.00806,totaltraffic1=101397950250,n99fct2=5.10623,totaltraffic2=101879926950
+m=,b=,y=5,x=
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Fri 06 Jan 2023 10:37:48 AM CST
+topology=rrg
+routing=32disjoint
+trafficmatrix=a2a
+mode=lppbr
+searchstart=
+searchend=
+threshold=5
+stime=200
+mstart=50
+mend=150
+precision=64
+Fri 06 Jan 2023 10:37:48 AM CST: Run experiment for p1
+mult=0,numerator=615625,denominator=1000000
+Fri 06 Jan 2023 10:37:48 AM CST: Running seed=0, outputting to discover_rrg_32disjoint_a2a_lppbr/0_615625_1000000_200_0
+Fri 06 Jan 2023 10:37:48 AM CST: Result already exists
+Fri 06 Jan 2023 10:37:48 AM CST: Running seed=1, outputting to discover_rrg_32disjoint_a2a_lppbr/0_615625_1000000_200_1
+Fri 06 Jan 2023 10:37:48 AM CST: Result already exists
+Fri 06 Jan 2023 10:37:48 AM CST: Running seed=2, outputting to discover_rrg_32disjoint_a2a_lppbr/0_615625_1000000_200_2
+Fri 06 Jan 2023 10:37:48 AM CST: Result already exists
+Fri 06 Jan 2023 10:37:48 AM CST: Running seed=3, outputting to discover_rrg_32disjoint_a2a_lppbr/0_615625_1000000_200_3
+Fri 06 Jan 2023 10:37:48 AM CST: Result already exists
+Fri 06 Jan 2023 10:37:48 AM CST: Running seed=4, outputting to discover_rrg_32disjoint_a2a_lppbr/0_615625_1000000_200_4
+Fri 06 Jan 2023 10:37:48 AM CST: Result already exists
+Fri 06 Jan 2023 10:37:48 AM CST: Running seed=5, outputting to discover_rrg_32disjoint_a2a_lppbr/0_615625_1000000_200_5
+Fri 06 Jan 2023 10:37:48 AM CST: Result already exists
+Fri 06 Jan 2023 10:37:48 AM CST: Running seed=6, outputting to discover_rrg_32disjoint_a2a_lppbr/0_615625_1000000_200_6
+Fri 06 Jan 2023 10:37:48 AM CST: Result already exists
+Fri 06 Jan 2023 10:37:48 AM CST: Running seed=7, outputting to discover_rrg_32disjoint_a2a_lppbr/0_615625_1000000_200_7
+Fri 06 Jan 2023 10:37:48 AM CST: Result already exists
+Fri 06 Jan 2023 10:37:48 AM CST: Running seed=8, outputting to discover_rrg_32disjoint_a2a_lppbr/0_615625_1000000_200_8
+Fri 06 Jan 2023 10:37:48 AM CST: Result already exists
+Fri 06 Jan 2023 10:37:48 AM CST: Running seed=9, outputting to discover_rrg_32disjoint_a2a_lppbr/0_615625_1000000_200_9
+Fri 06 Jan 2023 10:37:48 AM CST: Result already exists
+Fri 06 Jan 2023 10:37:48 AM CST: Collecting stats for
+Fri 06 Jan 2023 10:37:48 AM CST: n99fct=5.00806,totaltraffic=101397950250
+Fri 06 Jan 2023 10:37:48 AM CST: Run experiment for p2
+mult=0,numerator=61875,denominator=100000
+Fri 06 Jan 2023 10:37:48 AM CST: Running seed=0, outputting to discover_rrg_32disjoint_a2a_lppbr/0_61875_100000_200_0
+Fri 06 Jan 2023 10:37:48 AM CST: Result already exists
+Fri 06 Jan 2023 10:37:48 AM CST: Running seed=1, outputting to discover_rrg_32disjoint_a2a_lppbr/0_61875_100000_200_1
+Fri 06 Jan 2023 10:37:48 AM CST: Result already exists
+Fri 06 Jan 2023 10:37:48 AM CST: Running seed=2, outputting to discover_rrg_32disjoint_a2a_lppbr/0_61875_100000_200_2
+Fri 06 Jan 2023 10:37:48 AM CST: Result already exists
+Fri 06 Jan 2023 10:37:48 AM CST: Running seed=3, outputting to discover_rrg_32disjoint_a2a_lppbr/0_61875_100000_200_3
+Fri 06 Jan 2023 10:37:48 AM CST: Result already exists
+Fri 06 Jan 2023 10:37:48 AM CST: Running seed=4, outputting to discover_rrg_32disjoint_a2a_lppbr/0_61875_100000_200_4
+Fri 06 Jan 2023 10:37:48 AM CST: Result already exists
+Fri 06 Jan 2023 10:37:48 AM CST: Running seed=5, outputting to discover_rrg_32disjoint_a2a_lppbr/0_61875_100000_200_5
+Fri 06 Jan 2023 10:37:48 AM CST: Result already exists
+Fri 06 Jan 2023 10:37:48 AM CST: Running seed=6, outputting to discover_rrg_32disjoint_a2a_lppbr/0_61875_100000_200_6
+Fri 06 Jan 2023 10:37:48 AM CST: Result already exists
+Fri 06 Jan 2023 10:37:48 AM CST: Running seed=7, outputting to discover_rrg_32disjoint_a2a_lppbr/0_61875_100000_200_7
+Fri 06 Jan 2023 10:37:48 AM CST: Result already exists
+Fri 06 Jan 2023 10:37:48 AM CST: Running seed=8, outputting to discover_rrg_32disjoint_a2a_lppbr/0_61875_100000_200_8
+Fri 06 Jan 2023 10:37:48 AM CST: Result already exists
+Fri 06 Jan 2023 10:37:48 AM CST: Running seed=9, outputting to discover_rrg_32disjoint_a2a_lppbr/0_61875_100000_200_9
+Fri 06 Jan 2023 10:37:48 AM CST: Result already exists
+Fri 06 Jan 2023 10:37:48 AM CST: Collecting stats for discover_rrg_32disjoint_a2a_lppbr/0_61875_100000_200_
+Fri 06 Jan 2023 10:37:48 AM CST: n99fct=5.10623,totaltraffic=101879926950
+Fri 06 Jan 2023 10:37:48 AM CST: Calculating the cutoff point
+n99fct1=5.00806,totaltraffic1=101397950250,n99fct2=5.10623,totaltraffic2=101879926950
+m=2.03682e-10,b=-15.6449,y=5,x=1.01358e+11
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================

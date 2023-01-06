@@ -59,3 +59,137 @@ searchend: n99fct=5.26819,totaltraffic=100842765000
 =========[searchstart,searchmid]=========
 =========[0.6,0.60625]=========
 ===============Close Interval Found==============
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Thu 05 Jan 2023 01:18:28 PM CST
+topology=rrg
+routing=ecmp
+trafficmatrix=a2a
+mode=lppbr
+searchstart=
+searchend=
+threshold=5
+stime=200
+mstart=50
+mend=150
+precision=64
+Thu 05 Jan 2023 01:18:28 PM CST: Run experiment for p1
+mult=0,numerator=6,denominator=10
+Thu 05 Jan 2023 01:18:28 PM CST: Running seed=0, outputting to discover_rrg_ecmp_a2a_lppbr/0_6_10_200_0
+Thu 05 Jan 2023 01:18:28 PM CST: Result already exists
+Thu 05 Jan 2023 01:18:28 PM CST: Running seed=1, outputting to discover_rrg_ecmp_a2a_lppbr/0_6_10_200_1
+Thu 05 Jan 2023 02:06:42 PM CST: Experiment done
+Thu 05 Jan 2023 02:06:42 PM CST: Running seed=2, outputting to discover_rrg_ecmp_a2a_lppbr/0_6_10_200_2
+Thu 05 Jan 2023 03:00:42 PM CST: Experiment done
+Thu 05 Jan 2023 03:00:42 PM CST: Running seed=3, outputting to discover_rrg_ecmp_a2a_lppbr/0_6_10_200_3
+Thu 05 Jan 2023 03:49:54 PM CST: Experiment done
+Thu 05 Jan 2023 03:49:54 PM CST: Running seed=4, outputting to discover_rrg_ecmp_a2a_lppbr/0_6_10_200_4
+Thu 05 Jan 2023 04:41:17 PM CST: Experiment done
+Thu 05 Jan 2023 04:41:17 PM CST: Running seed=5, outputting to discover_rrg_ecmp_a2a_lppbr/0_6_10_200_5
+Thu 05 Jan 2023 05:33:22 PM CST: Experiment done
+Thu 05 Jan 2023 05:33:22 PM CST: Running seed=6, outputting to discover_rrg_ecmp_a2a_lppbr/0_6_10_200_6
+Thu 05 Jan 2023 06:24:47 PM CST: Experiment done
+Thu 05 Jan 2023 06:24:47 PM CST: Running seed=7, outputting to discover_rrg_ecmp_a2a_lppbr/0_6_10_200_7
+Thu 05 Jan 2023 07:15:37 PM CST: Experiment done
+Thu 05 Jan 2023 07:15:37 PM CST: Running seed=8, outputting to discover_rrg_ecmp_a2a_lppbr/0_6_10_200_8
+Thu 05 Jan 2023 08:05:09 PM CST: Experiment done
+Thu 05 Jan 2023 08:05:09 PM CST: Running seed=9, outputting to discover_rrg_ecmp_a2a_lppbr/0_6_10_200_9
+Thu 05 Jan 2023 08:56:36 PM CST: Experiment done
+Thu 05 Jan 2023 08:56:36 PM CST: Collecting stats for
+Thu 05 Jan 2023 08:58:39 PM CST: n99fct=4.82912,totaltraffic=98786590800
+Thu 05 Jan 2023 08:58:41 PM CST: Run experiment for p2
+mult=0,numerator=60625,denominator=100000
+Thu 05 Jan 2023 08:58:41 PM CST: Running seed=0, outputting to discover_rrg_ecmp_a2a_lppbr/0_60625_100000_200_0
+Thu 05 Jan 2023 08:58:41 PM CST: Result already exists
+Thu 05 Jan 2023 08:58:41 PM CST: Running seed=1, outputting to discover_rrg_ecmp_a2a_lppbr/0_60625_100000_200_1
+Thu 05 Jan 2023 09:48:41 PM CST: Experiment done
+Thu 05 Jan 2023 09:48:41 PM CST: Running seed=2, outputting to discover_rrg_ecmp_a2a_lppbr/0_60625_100000_200_2
+Thu 05 Jan 2023 10:39:43 PM CST: Experiment done
+Thu 05 Jan 2023 10:39:43 PM CST: Running seed=3, outputting to discover_rrg_ecmp_a2a_lppbr/0_60625_100000_200_3
+Thu 05 Jan 2023 11:26:23 PM CST: Experiment done
+Thu 05 Jan 2023 11:26:23 PM CST: Running seed=4, outputting to discover_rrg_ecmp_a2a_lppbr/0_60625_100000_200_4
+Fri 06 Jan 2023 12:12:48 AM CST: Experiment done
+Fri 06 Jan 2023 12:12:48 AM CST: Running seed=5, outputting to discover_rrg_ecmp_a2a_lppbr/0_60625_100000_200_5
+Fri 06 Jan 2023 12:59:11 AM CST: Experiment done
+Fri 06 Jan 2023 12:59:11 AM CST: Running seed=6, outputting to discover_rrg_ecmp_a2a_lppbr/0_60625_100000_200_6
+Fri 06 Jan 2023 01:51:20 AM CST: Experiment done
+Fri 06 Jan 2023 01:51:20 AM CST: Running seed=7, outputting to discover_rrg_ecmp_a2a_lppbr/0_60625_100000_200_7
+Fri 06 Jan 2023 02:43:24 AM CST: Experiment done
+Fri 06 Jan 2023 02:43:24 AM CST: Running seed=8, outputting to discover_rrg_ecmp_a2a_lppbr/0_60625_100000_200_8
+Fri 06 Jan 2023 03:31:41 AM CST: Experiment done
+Fri 06 Jan 2023 03:31:41 AM CST: Running seed=9, outputting to discover_rrg_ecmp_a2a_lppbr/0_60625_100000_200_9
+Fri 06 Jan 2023 04:16:00 AM CST: Experiment done
+Fri 06 Jan 2023 04:16:00 AM CST: Collecting stats for discover_rrg_ecmp_a2a_lppbr/0_60625_100000_200_
+Fri 06 Jan 2023 04:17:51 AM CST: n99fct=5.0579,totaltraffic=99839152500
+Fri 06 Jan 2023 04:17:51 AM CST: Calculating the cutoff point
+n99fct1=4.82912,totaltraffic1=98786590800,n99fct2=5.0579,totaltraffic2=99839152500
+m=,b=,y=5,x=
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Fri 06 Jan 2023 10:34:21 AM CST
+topology=rrg
+routing=ecmp
+trafficmatrix=a2a
+mode=lppbr
+searchstart=
+searchend=
+threshold=5
+stime=200
+mstart=50
+mend=150
+precision=64
+Fri 06 Jan 2023 10:34:21 AM CST: Run experiment for p1
+mult=0,numerator=6,denominator=10
+Fri 06 Jan 2023 10:34:21 AM CST: Running seed=0, outputting to discover_rrg_ecmp_a2a_lppbr/0_6_10_200_0
+Fri 06 Jan 2023 10:34:21 AM CST: Result already exists
+Fri 06 Jan 2023 10:34:21 AM CST: Running seed=1, outputting to discover_rrg_ecmp_a2a_lppbr/0_6_10_200_1
+Fri 06 Jan 2023 10:34:21 AM CST: Result already exists
+Fri 06 Jan 2023 10:34:21 AM CST: Running seed=2, outputting to discover_rrg_ecmp_a2a_lppbr/0_6_10_200_2
+Fri 06 Jan 2023 10:34:21 AM CST: Result already exists
+Fri 06 Jan 2023 10:34:21 AM CST: Running seed=3, outputting to discover_rrg_ecmp_a2a_lppbr/0_6_10_200_3
+Fri 06 Jan 2023 10:34:21 AM CST: Result already exists
+Fri 06 Jan 2023 10:34:21 AM CST: Running seed=4, outputting to discover_rrg_ecmp_a2a_lppbr/0_6_10_200_4
+Fri 06 Jan 2023 10:34:21 AM CST: Result already exists
+Fri 06 Jan 2023 10:34:21 AM CST: Running seed=5, outputting to discover_rrg_ecmp_a2a_lppbr/0_6_10_200_5
+Fri 06 Jan 2023 10:34:21 AM CST: Result already exists
+Fri 06 Jan 2023 10:34:21 AM CST: Running seed=6, outputting to discover_rrg_ecmp_a2a_lppbr/0_6_10_200_6
+Fri 06 Jan 2023 10:34:21 AM CST: Result already exists
+Fri 06 Jan 2023 10:34:21 AM CST: Running seed=7, outputting to discover_rrg_ecmp_a2a_lppbr/0_6_10_200_7
+Fri 06 Jan 2023 10:34:21 AM CST: Result already exists
+Fri 06 Jan 2023 10:34:21 AM CST: Running seed=8, outputting to discover_rrg_ecmp_a2a_lppbr/0_6_10_200_8
+Fri 06 Jan 2023 10:34:21 AM CST: Result already exists
+Fri 06 Jan 2023 10:34:22 AM CST: Running seed=9, outputting to discover_rrg_ecmp_a2a_lppbr/0_6_10_200_9
+Fri 06 Jan 2023 10:34:22 AM CST: Result already exists
+Fri 06 Jan 2023 10:34:22 AM CST: Collecting stats for
+Fri 06 Jan 2023 10:34:22 AM CST: n99fct=4.82912,totaltraffic=98786590800
+Fri 06 Jan 2023 10:34:22 AM CST: Run experiment for p2
+mult=0,numerator=60625,denominator=100000
+Fri 06 Jan 2023 10:34:22 AM CST: Running seed=0, outputting to discover_rrg_ecmp_a2a_lppbr/0_60625_100000_200_0
+Fri 06 Jan 2023 10:34:22 AM CST: Result already exists
+Fri 06 Jan 2023 10:34:22 AM CST: Running seed=1, outputting to discover_rrg_ecmp_a2a_lppbr/0_60625_100000_200_1
+Fri 06 Jan 2023 10:34:22 AM CST: Result already exists
+Fri 06 Jan 2023 10:34:22 AM CST: Running seed=2, outputting to discover_rrg_ecmp_a2a_lppbr/0_60625_100000_200_2
+Fri 06 Jan 2023 10:34:22 AM CST: Result already exists
+Fri 06 Jan 2023 10:34:22 AM CST: Running seed=3, outputting to discover_rrg_ecmp_a2a_lppbr/0_60625_100000_200_3
+Fri 06 Jan 2023 10:34:22 AM CST: Result already exists
+Fri 06 Jan 2023 10:34:22 AM CST: Running seed=4, outputting to discover_rrg_ecmp_a2a_lppbr/0_60625_100000_200_4
+Fri 06 Jan 2023 10:34:22 AM CST: Result already exists
+Fri 06 Jan 2023 10:34:22 AM CST: Running seed=5, outputting to discover_rrg_ecmp_a2a_lppbr/0_60625_100000_200_5
+Fri 06 Jan 2023 10:34:22 AM CST: Result already exists
+Fri 06 Jan 2023 10:34:22 AM CST: Running seed=6, outputting to discover_rrg_ecmp_a2a_lppbr/0_60625_100000_200_6
+Fri 06 Jan 2023 10:34:22 AM CST: Result already exists
+Fri 06 Jan 2023 10:34:22 AM CST: Running seed=7, outputting to discover_rrg_ecmp_a2a_lppbr/0_60625_100000_200_7
+Fri 06 Jan 2023 10:34:22 AM CST: Result already exists
+Fri 06 Jan 2023 10:34:22 AM CST: Running seed=8, outputting to discover_rrg_ecmp_a2a_lppbr/0_60625_100000_200_8
+Fri 06 Jan 2023 10:34:22 AM CST: Result already exists
+Fri 06 Jan 2023 10:34:22 AM CST: Running seed=9, outputting to discover_rrg_ecmp_a2a_lppbr/0_60625_100000_200_9
+Fri 06 Jan 2023 10:34:22 AM CST: Result already exists
+Fri 06 Jan 2023 10:34:22 AM CST: Collecting stats for discover_rrg_ecmp_a2a_lppbr/0_60625_100000_200_
+Fri 06 Jan 2023 10:34:22 AM CST: n99fct=5.0579,totaltraffic=99839152500
+Fri 06 Jan 2023 10:34:22 AM CST: Calculating the cutoff point
+n99fct1=4.82912,totaltraffic1=98786590800,n99fct2=5.0579,totaltraffic2=99839152500
+m=2.17355e-10,b=-16.6426,y=5,x=9.95726e+10
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================

@@ -102,3 +102,70 @@ searchend: n99fct=5.31291,totaltraffic=27382048500
 =========[searchmid,searchend]=========
 =========[0.174218,0.175]=========
 ===============Close Interval Found==============
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Thu 05 Jan 2023 06:31:26 PM CST
+topology=dring
+routing=32short
+trafficmatrix=a2a
+mode=equal
+searchstart=
+searchend=
+threshold=5
+stime=200
+mstart=50
+mend=150
+precision=64
+Thu 05 Jan 2023 06:31:26 PM CST: Run experiment for p1
+mult=0,numerator=174218,denominator=1000000
+Thu 05 Jan 2023 06:31:26 PM CST: Running seed=0, outputting to discover_dring_32short_a2a_equal/0_174218_1000000_200_0
+Thu 05 Jan 2023 06:31:26 PM CST: Result already exists
+Thu 05 Jan 2023 06:31:26 PM CST: Running seed=1, outputting to discover_dring_32short_a2a_equal/0_174218_1000000_200_1
+Thu 05 Jan 2023 06:43:48 PM CST: Experiment done
+Thu 05 Jan 2023 06:43:48 PM CST: Running seed=2, outputting to discover_dring_32short_a2a_equal/0_174218_1000000_200_2
+Thu 05 Jan 2023 06:55:45 PM CST: Experiment done
+Thu 05 Jan 2023 06:55:45 PM CST: Running seed=3, outputting to discover_dring_32short_a2a_equal/0_174218_1000000_200_3
+Thu 05 Jan 2023 07:07:37 PM CST: Experiment done
+Thu 05 Jan 2023 07:07:37 PM CST: Running seed=4, outputting to discover_dring_32short_a2a_equal/0_174218_1000000_200_4
+Thu 05 Jan 2023 07:18:55 PM CST: Experiment done
+Thu 05 Jan 2023 07:18:55 PM CST: Running seed=5, outputting to discover_dring_32short_a2a_equal/0_174218_1000000_200_5
+Thu 05 Jan 2023 07:29:58 PM CST: Experiment done
+Thu 05 Jan 2023 07:29:58 PM CST: Running seed=6, outputting to discover_dring_32short_a2a_equal/0_174218_1000000_200_6
+Thu 05 Jan 2023 07:40:23 PM CST: Experiment done
+Thu 05 Jan 2023 07:40:23 PM CST: Running seed=7, outputting to discover_dring_32short_a2a_equal/0_174218_1000000_200_7
+Thu 05 Jan 2023 07:50:43 PM CST: Experiment done
+Thu 05 Jan 2023 07:50:43 PM CST: Running seed=8, outputting to discover_dring_32short_a2a_equal/0_174218_1000000_200_8
+Thu 05 Jan 2023 08:01:07 PM CST: Experiment done
+Thu 05 Jan 2023 08:01:07 PM CST: Running seed=9, outputting to discover_dring_32short_a2a_equal/0_174218_1000000_200_9
+Thu 05 Jan 2023 08:11:23 PM CST: Experiment done
+Thu 05 Jan 2023 08:11:23 PM CST: Collecting stats for
+Thu 05 Jan 2023 08:11:55 PM CST: n99fct=4.53524,totaltraffic=27104319300
+Thu 05 Jan 2023 08:11:55 PM CST: Run experiment for p2
+mult=0,numerator=175,denominator=1000
+Thu 05 Jan 2023 08:11:55 PM CST: Running seed=0, outputting to discover_dring_32short_a2a_equal/0_175_1000_200_0
+Thu 05 Jan 2023 08:11:55 PM CST: Result already exists
+Thu 05 Jan 2023 08:11:55 PM CST: Running seed=1, outputting to discover_dring_32short_a2a_equal/0_175_1000_200_1
+Thu 05 Jan 2023 08:22:34 PM CST: Experiment done
+Thu 05 Jan 2023 08:22:34 PM CST: Running seed=2, outputting to discover_dring_32short_a2a_equal/0_175_1000_200_2
+Thu 05 Jan 2023 08:33:32 PM CST: Experiment done
+Thu 05 Jan 2023 08:33:32 PM CST: Running seed=3, outputting to discover_dring_32short_a2a_equal/0_175_1000_200_3
+Thu 05 Jan 2023 08:44:04 PM CST: Experiment done
+Thu 05 Jan 2023 08:44:04 PM CST: Running seed=4, outputting to discover_dring_32short_a2a_equal/0_175_1000_200_4
+Thu 05 Jan 2023 08:54:23 PM CST: Experiment done
+Thu 05 Jan 2023 08:54:23 PM CST: Running seed=5, outputting to discover_dring_32short_a2a_equal/0_175_1000_200_5
+Thu 05 Jan 2023 09:04:46 PM CST: Experiment done
+Thu 05 Jan 2023 09:04:46 PM CST: Running seed=6, outputting to discover_dring_32short_a2a_equal/0_175_1000_200_6
+Thu 05 Jan 2023 09:15:15 PM CST: Experiment done
+Thu 05 Jan 2023 09:15:15 PM CST: Running seed=7, outputting to discover_dring_32short_a2a_equal/0_175_1000_200_7
+Thu 05 Jan 2023 09:25:33 PM CST: Experiment done
+Thu 05 Jan 2023 09:25:33 PM CST: Running seed=8, outputting to discover_dring_32short_a2a_equal/0_175_1000_200_8
+Thu 05 Jan 2023 09:36:00 PM CST: Experiment done
+Thu 05 Jan 2023 09:36:00 PM CST: Running seed=9, outputting to discover_dring_32short_a2a_equal/0_175_1000_200_9
+Thu 05 Jan 2023 09:46:09 PM CST: Experiment done
+Thu 05 Jan 2023 09:46:09 PM CST: Collecting stats for discover_dring_32short_a2a_equal/0_175_1000_200_
+Thu 05 Jan 2023 09:46:42 PM CST: n99fct=4.75387,totaltraffic=27361172400
+Thu 05 Jan 2023 09:46:42 PM CST: Calculating the cutoff point
+n99fct1=4.53524,totaltraffic1=27104319300,n99fct2=4.75387,totaltraffic2=27361172400
+m=8.51187e-10,b=-18.5356,y=5,x=2.76503e+10
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================

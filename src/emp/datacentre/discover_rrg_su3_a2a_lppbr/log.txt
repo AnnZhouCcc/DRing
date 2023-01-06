@@ -66,3 +66,137 @@ searchend: n99fct=5.02334,totaltraffic=101737680000
 =========[searchmid,searchend]=========
 =========[0.615625,0.61875]=========
 ===============Close Interval Found==============
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Thu 05 Jan 2023 01:28:38 PM CST
+topology=rrg
+routing=su3
+trafficmatrix=a2a
+mode=lppbr
+searchstart=
+searchend=
+threshold=5
+stime=200
+mstart=50
+mend=150
+precision=64
+Thu 05 Jan 2023 01:28:38 PM CST: Run experiment for p1
+mult=0,numerator=615625,denominator=1000000
+Thu 05 Jan 2023 01:28:38 PM CST: Running seed=0, outputting to discover_rrg_su3_a2a_lppbr/0_615625_1000000_200_0
+Thu 05 Jan 2023 01:28:38 PM CST: Result already exists
+Thu 05 Jan 2023 01:28:38 PM CST: Running seed=1, outputting to discover_rrg_su3_a2a_lppbr/0_615625_1000000_200_1
+Thu 05 Jan 2023 02:22:14 PM CST: Experiment done
+Thu 05 Jan 2023 02:22:14 PM CST: Running seed=2, outputting to discover_rrg_su3_a2a_lppbr/0_615625_1000000_200_2
+Thu 05 Jan 2023 03:16:54 PM CST: Experiment done
+Thu 05 Jan 2023 03:16:54 PM CST: Running seed=3, outputting to discover_rrg_su3_a2a_lppbr/0_615625_1000000_200_3
+Thu 05 Jan 2023 04:09:57 PM CST: Experiment done
+Thu 05 Jan 2023 04:09:57 PM CST: Running seed=4, outputting to discover_rrg_su3_a2a_lppbr/0_615625_1000000_200_4
+Thu 05 Jan 2023 05:06:50 PM CST: Experiment done
+Thu 05 Jan 2023 05:06:50 PM CST: Running seed=5, outputting to discover_rrg_su3_a2a_lppbr/0_615625_1000000_200_5
+Thu 05 Jan 2023 05:57:11 PM CST: Experiment done
+Thu 05 Jan 2023 05:57:11 PM CST: Running seed=6, outputting to discover_rrg_su3_a2a_lppbr/0_615625_1000000_200_6
+Thu 05 Jan 2023 06:46:40 PM CST: Experiment done
+Thu 05 Jan 2023 06:46:40 PM CST: Running seed=7, outputting to discover_rrg_su3_a2a_lppbr/0_615625_1000000_200_7
+Thu 05 Jan 2023 07:40:59 PM CST: Experiment done
+Thu 05 Jan 2023 07:40:59 PM CST: Running seed=8, outputting to discover_rrg_su3_a2a_lppbr/0_615625_1000000_200_8
+Thu 05 Jan 2023 08:33:32 PM CST: Experiment done
+Thu 05 Jan 2023 08:33:32 PM CST: Running seed=9, outputting to discover_rrg_su3_a2a_lppbr/0_615625_1000000_200_9
+Thu 05 Jan 2023 09:24:20 PM CST: Experiment done
+Thu 05 Jan 2023 09:24:20 PM CST: Collecting stats for
+Thu 05 Jan 2023 09:26:21 PM CST: n99fct=5.00667,totaltraffic=101398138350
+Thu 05 Jan 2023 09:26:21 PM CST: Run experiment for p2
+mult=0,numerator=61875,denominator=100000
+Thu 05 Jan 2023 09:26:21 PM CST: Running seed=0, outputting to discover_rrg_su3_a2a_lppbr/0_61875_100000_200_0
+Thu 05 Jan 2023 09:26:21 PM CST: Result already exists
+Thu 05 Jan 2023 09:26:21 PM CST: Running seed=1, outputting to discover_rrg_su3_a2a_lppbr/0_61875_100000_200_1
+Thu 05 Jan 2023 10:20:38 PM CST: Experiment done
+Thu 05 Jan 2023 10:20:38 PM CST: Running seed=2, outputting to discover_rrg_su3_a2a_lppbr/0_61875_100000_200_2
+Thu 05 Jan 2023 11:08:50 PM CST: Experiment done
+Thu 05 Jan 2023 11:08:50 PM CST: Running seed=3, outputting to discover_rrg_su3_a2a_lppbr/0_61875_100000_200_3
+Thu 05 Jan 2023 11:56:23 PM CST: Experiment done
+Thu 05 Jan 2023 11:56:23 PM CST: Running seed=4, outputting to discover_rrg_su3_a2a_lppbr/0_61875_100000_200_4
+Fri 06 Jan 2023 12:47:58 AM CST: Experiment done
+Fri 06 Jan 2023 12:47:58 AM CST: Running seed=5, outputting to discover_rrg_su3_a2a_lppbr/0_61875_100000_200_5
+Fri 06 Jan 2023 01:34:13 AM CST: Experiment done
+Fri 06 Jan 2023 01:34:13 AM CST: Running seed=6, outputting to discover_rrg_su3_a2a_lppbr/0_61875_100000_200_6
+Fri 06 Jan 2023 02:20:28 AM CST: Experiment done
+Fri 06 Jan 2023 02:20:28 AM CST: Running seed=7, outputting to discover_rrg_su3_a2a_lppbr/0_61875_100000_200_7
+Fri 06 Jan 2023 03:06:35 AM CST: Experiment done
+Fri 06 Jan 2023 03:06:35 AM CST: Running seed=8, outputting to discover_rrg_su3_a2a_lppbr/0_61875_100000_200_8
+Fri 06 Jan 2023 03:57:22 AM CST: Experiment done
+Fri 06 Jan 2023 03:57:22 AM CST: Running seed=9, outputting to discover_rrg_su3_a2a_lppbr/0_61875_100000_200_9
+Fri 06 Jan 2023 04:45:09 AM CST: Experiment done
+Fri 06 Jan 2023 04:45:09 AM CST: Collecting stats for discover_rrg_su3_a2a_lppbr/0_61875_100000_200_
+Fri 06 Jan 2023 04:47:03 AM CST: n99fct=5.08873,totaltraffic=101878350900
+Fri 06 Jan 2023 04:47:03 AM CST: Calculating the cutoff point
+n99fct1=5.00667,totaltraffic1=101398138350,n99fct2=5.08873,totaltraffic2=101878350900
+m=,b=,y=5,x=
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Fri 06 Jan 2023 10:36:49 AM CST
+topology=rrg
+routing=su3
+trafficmatrix=a2a
+mode=lppbr
+searchstart=
+searchend=
+threshold=5
+stime=200
+mstart=50
+mend=150
+precision=64
+Fri 06 Jan 2023 10:36:49 AM CST: Run experiment for p1
+mult=0,numerator=615625,denominator=1000000
+Fri 06 Jan 2023 10:36:49 AM CST: Running seed=0, outputting to discover_rrg_su3_a2a_lppbr/0_615625_1000000_200_0
+Fri 06 Jan 2023 10:36:49 AM CST: Result already exists
+Fri 06 Jan 2023 10:36:49 AM CST: Running seed=1, outputting to discover_rrg_su3_a2a_lppbr/0_615625_1000000_200_1
+Fri 06 Jan 2023 10:36:49 AM CST: Result already exists
+Fri 06 Jan 2023 10:36:49 AM CST: Running seed=2, outputting to discover_rrg_su3_a2a_lppbr/0_615625_1000000_200_2
+Fri 06 Jan 2023 10:36:49 AM CST: Result already exists
+Fri 06 Jan 2023 10:36:49 AM CST: Running seed=3, outputting to discover_rrg_su3_a2a_lppbr/0_615625_1000000_200_3
+Fri 06 Jan 2023 10:36:49 AM CST: Result already exists
+Fri 06 Jan 2023 10:36:49 AM CST: Running seed=4, outputting to discover_rrg_su3_a2a_lppbr/0_615625_1000000_200_4
+Fri 06 Jan 2023 10:36:49 AM CST: Result already exists
+Fri 06 Jan 2023 10:36:49 AM CST: Running seed=5, outputting to discover_rrg_su3_a2a_lppbr/0_615625_1000000_200_5
+Fri 06 Jan 2023 10:36:49 AM CST: Result already exists
+Fri 06 Jan 2023 10:36:49 AM CST: Running seed=6, outputting to discover_rrg_su3_a2a_lppbr/0_615625_1000000_200_6
+Fri 06 Jan 2023 10:36:49 AM CST: Result already exists
+Fri 06 Jan 2023 10:36:49 AM CST: Running seed=7, outputting to discover_rrg_su3_a2a_lppbr/0_615625_1000000_200_7
+Fri 06 Jan 2023 10:36:49 AM CST: Result already exists
+Fri 06 Jan 2023 10:36:49 AM CST: Running seed=8, outputting to discover_rrg_su3_a2a_lppbr/0_615625_1000000_200_8
+Fri 06 Jan 2023 10:36:49 AM CST: Result already exists
+Fri 06 Jan 2023 10:36:49 AM CST: Running seed=9, outputting to discover_rrg_su3_a2a_lppbr/0_615625_1000000_200_9
+Fri 06 Jan 2023 10:36:49 AM CST: Result already exists
+Fri 06 Jan 2023 10:36:49 AM CST: Collecting stats for
+Fri 06 Jan 2023 10:36:49 AM CST: n99fct=5.00667,totaltraffic=101398138350
+Fri 06 Jan 2023 10:36:49 AM CST: Run experiment for p2
+mult=0,numerator=61875,denominator=100000
+Fri 06 Jan 2023 10:36:49 AM CST: Running seed=0, outputting to discover_rrg_su3_a2a_lppbr/0_61875_100000_200_0
+Fri 06 Jan 2023 10:36:49 AM CST: Result already exists
+Fri 06 Jan 2023 10:36:49 AM CST: Running seed=1, outputting to discover_rrg_su3_a2a_lppbr/0_61875_100000_200_1
+Fri 06 Jan 2023 10:36:49 AM CST: Result already exists
+Fri 06 Jan 2023 10:36:49 AM CST: Running seed=2, outputting to discover_rrg_su3_a2a_lppbr/0_61875_100000_200_2
+Fri 06 Jan 2023 10:36:49 AM CST: Result already exists
+Fri 06 Jan 2023 10:36:49 AM CST: Running seed=3, outputting to discover_rrg_su3_a2a_lppbr/0_61875_100000_200_3
+Fri 06 Jan 2023 10:36:49 AM CST: Result already exists
+Fri 06 Jan 2023 10:36:49 AM CST: Running seed=4, outputting to discover_rrg_su3_a2a_lppbr/0_61875_100000_200_4
+Fri 06 Jan 2023 10:36:49 AM CST: Result already exists
+Fri 06 Jan 2023 10:36:49 AM CST: Running seed=5, outputting to discover_rrg_su3_a2a_lppbr/0_61875_100000_200_5
+Fri 06 Jan 2023 10:36:49 AM CST: Result already exists
+Fri 06 Jan 2023 10:36:49 AM CST: Running seed=6, outputting to discover_rrg_su3_a2a_lppbr/0_61875_100000_200_6
+Fri 06 Jan 2023 10:36:49 AM CST: Result already exists
+Fri 06 Jan 2023 10:36:49 AM CST: Running seed=7, outputting to discover_rrg_su3_a2a_lppbr/0_61875_100000_200_7
+Fri 06 Jan 2023 10:36:49 AM CST: Result already exists
+Fri 06 Jan 2023 10:36:49 AM CST: Running seed=8, outputting to discover_rrg_su3_a2a_lppbr/0_61875_100000_200_8
+Fri 06 Jan 2023 10:36:49 AM CST: Result already exists
+Fri 06 Jan 2023 10:36:49 AM CST: Running seed=9, outputting to discover_rrg_su3_a2a_lppbr/0_61875_100000_200_9
+Fri 06 Jan 2023 10:36:49 AM CST: Result already exists
+Fri 06 Jan 2023 10:36:49 AM CST: Collecting stats for discover_rrg_su3_a2a_lppbr/0_61875_100000_200_
+Fri 06 Jan 2023 10:36:49 AM CST: n99fct=5.08873,totaltraffic=101878350900
+Fri 06 Jan 2023 10:36:49 AM CST: Calculating the cutoff point
+n99fct1=5.00667,totaltraffic1=101398138350,n99fct2=5.08873,totaltraffic2=101878350900
+m=1.70883e-10,b=-12.3205,y=5,x=1.01359e+11
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================

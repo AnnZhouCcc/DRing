@@ -123,3 +123,137 @@ searchend: n99fct=5.67308,totaltraffic=15953011500
 =========[searchmid,searchend]=========
 =========[0.101562,0.103125]=========
 ===============Close Interval Found==============
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Thu Jan 5 14:19:28 CST 2023
+topology=dring
+routing=32disjoint
+trafficmatrix=a2a
+mode=equal
+searchstart=
+searchend=
+threshold=5
+stime=200
+mstart=50
+mend=150
+precision=64
+Thu Jan 5 14:19:28 CST 2023: Run experiment for p1
+mult=0,numerator=101562,denominator=1000000
+Thu Jan 5 14:19:28 CST 2023: Running seed=0, outputting to discover_dring_32disjoint_a2a_equal/0_101562_1000000_200_0
+Thu Jan 5 14:19:28 CST 2023: Result already exists
+Thu Jan 5 14:19:28 CST 2023: Running seed=1, outputting to discover_dring_32disjoint_a2a_equal/0_101562_1000000_200_1
+Thu Jan 5 14:23:38 CST 2023: Experiment done
+Thu Jan 5 14:23:38 CST 2023: Running seed=2, outputting to discover_dring_32disjoint_a2a_equal/0_101562_1000000_200_2
+Thu Jan 5 14:27:50 CST 2023: Experiment done
+Thu Jan 5 14:27:50 CST 2023: Running seed=3, outputting to discover_dring_32disjoint_a2a_equal/0_101562_1000000_200_3
+Thu Jan 5 14:31:59 CST 2023: Experiment done
+Thu Jan 5 14:31:59 CST 2023: Running seed=4, outputting to discover_dring_32disjoint_a2a_equal/0_101562_1000000_200_4
+Thu Jan 5 14:36:13 CST 2023: Experiment done
+Thu Jan 5 14:36:13 CST 2023: Running seed=5, outputting to discover_dring_32disjoint_a2a_equal/0_101562_1000000_200_5
+Thu Jan 5 14:40:32 CST 2023: Experiment done
+Thu Jan 5 14:40:32 CST 2023: Running seed=6, outputting to discover_dring_32disjoint_a2a_equal/0_101562_1000000_200_6
+Thu Jan 5 14:44:17 CST 2023: Experiment done
+Thu Jan 5 14:44:17 CST 2023: Running seed=7, outputting to discover_dring_32disjoint_a2a_equal/0_101562_1000000_200_7
+Thu Jan 5 14:48:16 CST 2023: Experiment done
+Thu Jan 5 14:48:16 CST 2023: Running seed=8, outputting to discover_dring_32disjoint_a2a_equal/0_101562_1000000_200_8
+Thu Jan 5 14:52:21 CST 2023: Experiment done
+Thu Jan 5 14:52:21 CST 2023: Running seed=9, outputting to discover_dring_32disjoint_a2a_equal/0_101562_1000000_200_9
+Thu Jan 5 14:56:09 CST 2023: Experiment done
+Thu Jan 5 14:56:09 CST 2023: Collecting stats for
+Thu Jan 5 14:56:29 CST 2023: n99fct=5.26614,totaltraffic=15790158000
+Thu Jan 5 14:56:29 CST 2023: Run experiment for p2
+mult=0,numerator=103125,denominator=1000000
+Thu Jan 5 14:56:29 CST 2023: Running seed=0, outputting to discover_dring_32disjoint_a2a_equal/0_103125_1000000_200_0
+Thu Jan 5 14:56:29 CST 2023: Result already exists
+Thu Jan 5 14:56:29 CST 2023: Running seed=1, outputting to discover_dring_32disjoint_a2a_equal/0_103125_1000000_200_1
+Thu Jan 5 15:00:40 CST 2023: Experiment done
+Thu Jan 5 15:00:40 CST 2023: Running seed=2, outputting to discover_dring_32disjoint_a2a_equal/0_103125_1000000_200_2
+Thu Jan 5 15:05:06 CST 2023: Experiment done
+Thu Jan 5 15:05:06 CST 2023: Running seed=3, outputting to discover_dring_32disjoint_a2a_equal/0_103125_1000000_200_3
+Thu Jan 5 15:09:25 CST 2023: Experiment done
+Thu Jan 5 15:09:25 CST 2023: Running seed=4, outputting to discover_dring_32disjoint_a2a_equal/0_103125_1000000_200_4
+Thu Jan 5 15:13:40 CST 2023: Experiment done
+Thu Jan 5 15:13:40 CST 2023: Running seed=5, outputting to discover_dring_32disjoint_a2a_equal/0_103125_1000000_200_5
+Thu Jan 5 15:17:52 CST 2023: Experiment done
+Thu Jan 5 15:17:52 CST 2023: Running seed=6, outputting to discover_dring_32disjoint_a2a_equal/0_103125_1000000_200_6
+Thu Jan 5 15:21:44 CST 2023: Experiment done
+Thu Jan 5 15:21:44 CST 2023: Running seed=7, outputting to discover_dring_32disjoint_a2a_equal/0_103125_1000000_200_7
+Thu Jan 5 15:25:47 CST 2023: Experiment done
+Thu Jan 5 15:25:47 CST 2023: Running seed=8, outputting to discover_dring_32disjoint_a2a_equal/0_103125_1000000_200_8
+Thu Jan 5 15:30:01 CST 2023: Experiment done
+Thu Jan 5 15:30:01 CST 2023: Running seed=9, outputting to discover_dring_32disjoint_a2a_equal/0_103125_1000000_200_9
+Thu Jan 5 15:34:04 CST 2023: Experiment done
+Thu Jan 5 15:34:04 CST 2023: Collecting stats for discover_dring_32disjoint_a2a_equal/0_103125_1000000_200_
+Thu Jan 5 15:34:23 CST 2023: n99fct=5.65663,totaltraffic=16032344700
+Thu Jan 5 15:34:23 CST 2023: Calculating the cutoff point
+n99fct1=5.26614,totaltraffic1=15790158000,n99fct2=5.65663,totaltraffic2=16032344700
+m=,b=,y=5,x=
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Fri Jan 6 10:43:25 CST 2023
+topology=dring
+routing=32disjoint
+trafficmatrix=a2a
+mode=equal
+searchstart=
+searchend=
+threshold=5
+stime=200
+mstart=50
+mend=150
+precision=64
+Fri Jan 6 10:43:25 CST 2023: Run experiment for p1
+mult=0,numerator=101562,denominator=1000000
+Fri Jan 6 10:43:25 CST 2023: Running seed=0, outputting to discover_dring_32disjoint_a2a_equal/0_101562_1000000_200_0
+Fri Jan 6 10:43:25 CST 2023: Result already exists
+Fri Jan 6 10:43:25 CST 2023: Running seed=1, outputting to discover_dring_32disjoint_a2a_equal/0_101562_1000000_200_1
+Fri Jan 6 10:43:25 CST 2023: Result already exists
+Fri Jan 6 10:43:25 CST 2023: Running seed=2, outputting to discover_dring_32disjoint_a2a_equal/0_101562_1000000_200_2
+Fri Jan 6 10:43:25 CST 2023: Result already exists
+Fri Jan 6 10:43:25 CST 2023: Running seed=3, outputting to discover_dring_32disjoint_a2a_equal/0_101562_1000000_200_3
+Fri Jan 6 10:43:25 CST 2023: Result already exists
+Fri Jan 6 10:43:25 CST 2023: Running seed=4, outputting to discover_dring_32disjoint_a2a_equal/0_101562_1000000_200_4
+Fri Jan 6 10:43:25 CST 2023: Result already exists
+Fri Jan 6 10:43:25 CST 2023: Running seed=5, outputting to discover_dring_32disjoint_a2a_equal/0_101562_1000000_200_5
+Fri Jan 6 10:43:25 CST 2023: Result already exists
+Fri Jan 6 10:43:25 CST 2023: Running seed=6, outputting to discover_dring_32disjoint_a2a_equal/0_101562_1000000_200_6
+Fri Jan 6 10:43:25 CST 2023: Result already exists
+Fri Jan 6 10:43:25 CST 2023: Running seed=7, outputting to discover_dring_32disjoint_a2a_equal/0_101562_1000000_200_7
+Fri Jan 6 10:43:25 CST 2023: Result already exists
+Fri Jan 6 10:43:25 CST 2023: Running seed=8, outputting to discover_dring_32disjoint_a2a_equal/0_101562_1000000_200_8
+Fri Jan 6 10:43:25 CST 2023: Result already exists
+Fri Jan 6 10:43:25 CST 2023: Running seed=9, outputting to discover_dring_32disjoint_a2a_equal/0_101562_1000000_200_9
+Fri Jan 6 10:43:25 CST 2023: Result already exists
+Fri Jan 6 10:43:25 CST 2023: Collecting stats for
+Fri Jan 6 10:43:25 CST 2023: n99fct=5.26614,totaltraffic=15790158000
+Fri Jan 6 10:43:25 CST 2023: Run experiment for p2
+mult=0,numerator=103125,denominator=1000000
+Fri Jan 6 10:43:25 CST 2023: Running seed=0, outputting to discover_dring_32disjoint_a2a_equal/0_103125_1000000_200_0
+Fri Jan 6 10:43:25 CST 2023: Result already exists
+Fri Jan 6 10:43:25 CST 2023: Running seed=1, outputting to discover_dring_32disjoint_a2a_equal/0_103125_1000000_200_1
+Fri Jan 6 10:43:25 CST 2023: Result already exists
+Fri Jan 6 10:43:25 CST 2023: Running seed=2, outputting to discover_dring_32disjoint_a2a_equal/0_103125_1000000_200_2
+Fri Jan 6 10:43:25 CST 2023: Result already exists
+Fri Jan 6 10:43:25 CST 2023: Running seed=3, outputting to discover_dring_32disjoint_a2a_equal/0_103125_1000000_200_3
+Fri Jan 6 10:43:25 CST 2023: Result already exists
+Fri Jan 6 10:43:25 CST 2023: Running seed=4, outputting to discover_dring_32disjoint_a2a_equal/0_103125_1000000_200_4
+Fri Jan 6 10:43:25 CST 2023: Result already exists
+Fri Jan 6 10:43:25 CST 2023: Running seed=5, outputting to discover_dring_32disjoint_a2a_equal/0_103125_1000000_200_5
+Fri Jan 6 10:43:25 CST 2023: Result already exists
+Fri Jan 6 10:43:25 CST 2023: Running seed=6, outputting to discover_dring_32disjoint_a2a_equal/0_103125_1000000_200_6
+Fri Jan 6 10:43:25 CST 2023: Result already exists
+Fri Jan 6 10:43:25 CST 2023: Running seed=7, outputting to discover_dring_32disjoint_a2a_equal/0_103125_1000000_200_7
+Fri Jan 6 10:43:25 CST 2023: Result already exists
+Fri Jan 6 10:43:25 CST 2023: Running seed=8, outputting to discover_dring_32disjoint_a2a_equal/0_103125_1000000_200_8
+Fri Jan 6 10:43:25 CST 2023: Result already exists
+Fri Jan 6 10:43:25 CST 2023: Running seed=9, outputting to discover_dring_32disjoint_a2a_equal/0_103125_1000000_200_9
+Fri Jan 6 10:43:25 CST 2023: Result already exists
+Fri Jan 6 10:43:25 CST 2023: Collecting stats for discover_dring_32disjoint_a2a_equal/0_103125_1000000_200_
+Fri Jan 6 10:43:26 CST 2023: n99fct=5.65663,totaltraffic=16032344700
+Fri Jan 6 10:43:26 CST 2023: Calculating the cutoff point
+n99fct1=5.26614,totaltraffic1=15790158000,n99fct2=5.65663,totaltraffic2=16032344700
+m=1.61235e-09,b=-20.1931,y=5,x=1.56251e+10
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================

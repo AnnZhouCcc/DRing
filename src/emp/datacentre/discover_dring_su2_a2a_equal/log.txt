@@ -171,3 +171,137 @@ searchend: n99fct=5.10779,totaltraffic=68003277000
 =========[searchstart,searchmid]=========
 =========[0.43125,0.434375]=========
 ===============Close Interval Found==============
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Thu Jan 5 14:12:34 CST 2023
+topology=dring
+routing=su2
+trafficmatrix=a2a
+mode=equal
+searchstart=
+searchend=
+threshold=5
+stime=200
+mstart=50
+mend=150
+precision=64
+Thu Jan 5 14:12:34 CST 2023: Run experiment for p1
+mult=0,numerator=43125,denominator=100000
+Thu Jan 5 14:12:34 CST 2023: Running seed=0, outputting to discover_dring_su2_a2a_equal/0_43125_100000_200_0
+Thu Jan 5 14:12:34 CST 2023: Result already exists
+Thu Jan 5 14:12:34 CST 2023: Running seed=1, outputting to discover_dring_su2_a2a_equal/0_43125_100000_200_1
+Thu Jan 5 14:41:45 CST 2023: Experiment done
+Thu Jan 5 14:41:45 CST 2023: Running seed=2, outputting to discover_dring_su2_a2a_equal/0_43125_100000_200_2
+Thu Jan 5 15:09:19 CST 2023: Experiment done
+Thu Jan 5 15:09:19 CST 2023: Running seed=3, outputting to discover_dring_su2_a2a_equal/0_43125_100000_200_3
+Thu Jan 5 15:37:40 CST 2023: Experiment done
+Thu Jan 5 15:37:40 CST 2023: Running seed=4, outputting to discover_dring_su2_a2a_equal/0_43125_100000_200_4
+Thu Jan 5 16:06:13 CST 2023: Experiment done
+Thu Jan 5 16:06:13 CST 2023: Running seed=5, outputting to discover_dring_su2_a2a_equal/0_43125_100000_200_5
+Thu Jan 5 16:34:45 CST 2023: Experiment done
+Thu Jan 5 16:34:45 CST 2023: Running seed=6, outputting to discover_dring_su2_a2a_equal/0_43125_100000_200_6
+Thu Jan 5 17:04:16 CST 2023: Experiment done
+Thu Jan 5 17:04:16 CST 2023: Running seed=7, outputting to discover_dring_su2_a2a_equal/0_43125_100000_200_7
+Thu Jan 5 17:32:53 CST 2023: Experiment done
+Thu Jan 5 17:32:53 CST 2023: Running seed=8, outputting to discover_dring_su2_a2a_equal/0_43125_100000_200_8
+Thu Jan 5 18:00:33 CST 2023: Experiment done
+Thu Jan 5 18:00:33 CST 2023: Running seed=9, outputting to discover_dring_su2_a2a_equal/0_43125_100000_200_9
+Thu Jan 5 18:27:40 CST 2023: Experiment done
+Thu Jan 5 18:27:40 CST 2023: Collecting stats for
+Thu Jan 5 18:29:39 CST 2023: n99fct=4.73735,totaltraffic=67152325350
+Thu Jan 5 18:29:39 CST 2023: Run experiment for p2
+mult=0,numerator=434375,denominator=1000000
+Thu Jan 5 18:29:40 CST 2023: Running seed=0, outputting to discover_dring_su2_a2a_equal/0_434375_1000000_200_0
+Thu Jan 5 18:29:40 CST 2023: Result already exists
+Thu Jan 5 18:29:40 CST 2023: Running seed=1, outputting to discover_dring_su2_a2a_equal/0_434375_1000000_200_1
+Thu Jan 5 18:58:21 CST 2023: Experiment done
+Thu Jan 5 18:58:21 CST 2023: Running seed=2, outputting to discover_dring_su2_a2a_equal/0_434375_1000000_200_2
+Thu Jan 5 19:26:26 CST 2023: Experiment done
+Thu Jan 5 19:26:26 CST 2023: Running seed=3, outputting to discover_dring_su2_a2a_equal/0_434375_1000000_200_3
+Thu Jan 5 19:54:02 CST 2023: Experiment done
+Thu Jan 5 19:54:02 CST 2023: Running seed=4, outputting to discover_dring_su2_a2a_equal/0_434375_1000000_200_4
+Thu Jan 5 20:21:32 CST 2023: Experiment done
+Thu Jan 5 20:21:32 CST 2023: Running seed=5, outputting to discover_dring_su2_a2a_equal/0_434375_1000000_200_5
+Thu Jan 5 20:49:48 CST 2023: Experiment done
+Thu Jan 5 20:49:48 CST 2023: Running seed=6, outputting to discover_dring_su2_a2a_equal/0_434375_1000000_200_6
+Thu Jan 5 21:17:07 CST 2023: Experiment done
+Thu Jan 5 21:17:07 CST 2023: Running seed=7, outputting to discover_dring_su2_a2a_equal/0_434375_1000000_200_7
+Thu Jan 5 21:44:34 CST 2023: Experiment done
+Thu Jan 5 21:44:34 CST 2023: Running seed=8, outputting to discover_dring_su2_a2a_equal/0_434375_1000000_200_8
+Thu Jan 5 22:12:27 CST 2023: Experiment done
+Thu Jan 5 22:12:27 CST 2023: Running seed=9, outputting to discover_dring_su2_a2a_equal/0_434375_1000000_200_9
+Thu Jan 5 22:39:39 CST 2023: Experiment done
+Thu Jan 5 22:39:39 CST 2023: Collecting stats for discover_dring_su2_a2a_equal/0_434375_1000000_200_
+Thu Jan 5 22:41:40 CST 2023: n99fct=4.91804,totaltraffic=67653583050
+Thu Jan 5 22:41:40 CST 2023: Calculating the cutoff point
+n99fct1=4.73735,totaltraffic1=67152325350,n99fct2=4.91804,totaltraffic2=67653583050
+m=,b=,y=5,x=
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Fri Jan 6 10:50:14 CST 2023
+topology=dring
+routing=su2
+trafficmatrix=a2a
+mode=equal
+searchstart=
+searchend=
+threshold=5
+stime=200
+mstart=50
+mend=150
+precision=64
+Fri Jan 6 10:50:14 CST 2023: Run experiment for p1
+mult=0,numerator=43125,denominator=100000
+Fri Jan 6 10:50:14 CST 2023: Running seed=0, outputting to discover_dring_su2_a2a_equal/0_43125_100000_200_0
+Fri Jan 6 10:50:14 CST 2023: Result already exists
+Fri Jan 6 10:50:14 CST 2023: Running seed=1, outputting to discover_dring_su2_a2a_equal/0_43125_100000_200_1
+Fri Jan 6 10:50:14 CST 2023: Result already exists
+Fri Jan 6 10:50:14 CST 2023: Running seed=2, outputting to discover_dring_su2_a2a_equal/0_43125_100000_200_2
+Fri Jan 6 10:50:14 CST 2023: Result already exists
+Fri Jan 6 10:50:14 CST 2023: Running seed=3, outputting to discover_dring_su2_a2a_equal/0_43125_100000_200_3
+Fri Jan 6 10:50:14 CST 2023: Result already exists
+Fri Jan 6 10:50:14 CST 2023: Running seed=4, outputting to discover_dring_su2_a2a_equal/0_43125_100000_200_4
+Fri Jan 6 10:50:14 CST 2023: Result already exists
+Fri Jan 6 10:50:14 CST 2023: Running seed=5, outputting to discover_dring_su2_a2a_equal/0_43125_100000_200_5
+Fri Jan 6 10:50:14 CST 2023: Result already exists
+Fri Jan 6 10:50:14 CST 2023: Running seed=6, outputting to discover_dring_su2_a2a_equal/0_43125_100000_200_6
+Fri Jan 6 10:50:14 CST 2023: Result already exists
+Fri Jan 6 10:50:14 CST 2023: Running seed=7, outputting to discover_dring_su2_a2a_equal/0_43125_100000_200_7
+Fri Jan 6 10:50:14 CST 2023: Result already exists
+Fri Jan 6 10:50:14 CST 2023: Running seed=8, outputting to discover_dring_su2_a2a_equal/0_43125_100000_200_8
+Fri Jan 6 10:50:14 CST 2023: Result already exists
+Fri Jan 6 10:50:14 CST 2023: Running seed=9, outputting to discover_dring_su2_a2a_equal/0_43125_100000_200_9
+Fri Jan 6 10:50:14 CST 2023: Result already exists
+Fri Jan 6 10:50:14 CST 2023: Collecting stats for
+Fri Jan 6 10:50:14 CST 2023: n99fct=4.73735,totaltraffic=67152325350
+Fri Jan 6 10:50:14 CST 2023: Run experiment for p2
+mult=0,numerator=434375,denominator=1000000
+Fri Jan 6 10:50:14 CST 2023: Running seed=0, outputting to discover_dring_su2_a2a_equal/0_434375_1000000_200_0
+Fri Jan 6 10:50:14 CST 2023: Result already exists
+Fri Jan 6 10:50:14 CST 2023: Running seed=1, outputting to discover_dring_su2_a2a_equal/0_434375_1000000_200_1
+Fri Jan 6 10:50:14 CST 2023: Result already exists
+Fri Jan 6 10:50:14 CST 2023: Running seed=2, outputting to discover_dring_su2_a2a_equal/0_434375_1000000_200_2
+Fri Jan 6 10:50:14 CST 2023: Result already exists
+Fri Jan 6 10:50:14 CST 2023: Running seed=3, outputting to discover_dring_su2_a2a_equal/0_434375_1000000_200_3
+Fri Jan 6 10:50:14 CST 2023: Result already exists
+Fri Jan 6 10:50:14 CST 2023: Running seed=4, outputting to discover_dring_su2_a2a_equal/0_434375_1000000_200_4
+Fri Jan 6 10:50:14 CST 2023: Result already exists
+Fri Jan 6 10:50:14 CST 2023: Running seed=5, outputting to discover_dring_su2_a2a_equal/0_434375_1000000_200_5
+Fri Jan 6 10:50:14 CST 2023: Result already exists
+Fri Jan 6 10:50:14 CST 2023: Running seed=6, outputting to discover_dring_su2_a2a_equal/0_434375_1000000_200_6
+Fri Jan 6 10:50:14 CST 2023: Result already exists
+Fri Jan 6 10:50:14 CST 2023: Running seed=7, outputting to discover_dring_su2_a2a_equal/0_434375_1000000_200_7
+Fri Jan 6 10:50:14 CST 2023: Result already exists
+Fri Jan 6 10:50:14 CST 2023: Running seed=8, outputting to discover_dring_su2_a2a_equal/0_434375_1000000_200_8
+Fri Jan 6 10:50:14 CST 2023: Result already exists
+Fri Jan 6 10:50:14 CST 2023: Running seed=9, outputting to discover_dring_su2_a2a_equal/0_434375_1000000_200_9
+Fri Jan 6 10:50:14 CST 2023: Result already exists
+Fri Jan 6 10:50:14 CST 2023: Collecting stats for discover_dring_su2_a2a_equal/0_434375_1000000_200_
+Fri Jan 6 10:50:14 CST 2023: n99fct=4.91804,totaltraffic=67653583050
+Fri Jan 6 10:50:14 CST 2023: Calculating the cutoff point
+n99fct1=4.73735,totaltraffic1=67152325350,n99fct2=4.91804,totaltraffic2=67653583050
+m=3.60473e-10,b=-19.4693,y=5,x=6.78811e+10
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================

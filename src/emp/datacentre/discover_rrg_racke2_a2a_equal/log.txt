@@ -66,3 +66,137 @@ searchend: n99fct=5.13644,totaltraffic=32577706500
 =========[searchstart,searchmid]=========
 =========[0.196875,0.198437]=========
 ===============Close Interval Found==============
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Thu Jan 5 13:45:36 CST 2023
+topology=rrg
+routing=racke2
+trafficmatrix=a2a
+mode=equal
+searchstart=
+searchend=
+threshold=5
+stime=200
+mstart=50
+mend=150
+precision=64
+Thu Jan 5 13:45:36 CST 2023: Run experiment for p1
+mult=0,numerator=196875,denominator=1000000
+Thu Jan 5 13:45:36 CST 2023: Running seed=0, outputting to discover_rrg_racke2_a2a_equal/0_196875_1000000_200_0
+Thu Jan 5 13:45:36 CST 2023: Result already exists
+Thu Jan 5 13:45:36 CST 2023: Running seed=1, outputting to discover_rrg_racke2_a2a_equal/0_196875_1000000_200_1
+Thu Jan 5 13:56:36 CST 2023: Experiment done
+Thu Jan 5 13:56:36 CST 2023: Running seed=2, outputting to discover_rrg_racke2_a2a_equal/0_196875_1000000_200_2
+Thu Jan 5 14:08:30 CST 2023: Experiment done
+Thu Jan 5 14:08:30 CST 2023: Running seed=3, outputting to discover_rrg_racke2_a2a_equal/0_196875_1000000_200_3
+Thu Jan 5 14:18:46 CST 2023: Experiment done
+Thu Jan 5 14:18:46 CST 2023: Running seed=4, outputting to discover_rrg_racke2_a2a_equal/0_196875_1000000_200_4
+Thu Jan 5 14:31:51 CST 2023: Experiment done
+Thu Jan 5 14:31:51 CST 2023: Running seed=5, outputting to discover_rrg_racke2_a2a_equal/0_196875_1000000_200_5
+Thu Jan 5 14:44:07 CST 2023: Experiment done
+Thu Jan 5 14:44:07 CST 2023: Running seed=6, outputting to discover_rrg_racke2_a2a_equal/0_196875_1000000_200_6
+Thu Jan 5 14:56:06 CST 2023: Experiment done
+Thu Jan 5 14:56:06 CST 2023: Running seed=7, outputting to discover_rrg_racke2_a2a_equal/0_196875_1000000_200_7
+Thu Jan 5 15:07:38 CST 2023: Experiment done
+Thu Jan 5 15:07:38 CST 2023: Running seed=8, outputting to discover_rrg_racke2_a2a_equal/0_196875_1000000_200_8
+Thu Jan 5 15:19:13 CST 2023: Experiment done
+Thu Jan 5 15:19:13 CST 2023: Running seed=9, outputting to discover_rrg_racke2_a2a_equal/0_196875_1000000_200_9
+Thu Jan 5 15:32:02 CST 2023: Experiment done
+Thu Jan 5 15:32:02 CST 2023: Collecting stats for
+Thu Jan 5 15:32:42 CST 2023: n99fct=5.05703,totaltraffic=32428898700
+Thu Jan 5 15:32:42 CST 2023: Run experiment for p2
+mult=0,numerator=198437,denominator=1000000
+Thu Jan 5 15:32:42 CST 2023: Running seed=0, outputting to discover_rrg_racke2_a2a_equal/0_198437_1000000_200_0
+Thu Jan 5 15:32:42 CST 2023: Result already exists
+Thu Jan 5 15:32:42 CST 2023: Running seed=1, outputting to discover_rrg_racke2_a2a_equal/0_198437_1000000_200_1
+Thu Jan 5 15:44:32 CST 2023: Experiment done
+Thu Jan 5 15:44:32 CST 2023: Running seed=2, outputting to discover_rrg_racke2_a2a_equal/0_198437_1000000_200_2
+Thu Jan 5 15:54:49 CST 2023: Experiment done
+Thu Jan 5 15:54:49 CST 2023: Running seed=3, outputting to discover_rrg_racke2_a2a_equal/0_198437_1000000_200_3
+Thu Jan 5 16:05:05 CST 2023: Experiment done
+Thu Jan 5 16:05:05 CST 2023: Running seed=4, outputting to discover_rrg_racke2_a2a_equal/0_198437_1000000_200_4
+Thu Jan 5 16:16:45 CST 2023: Experiment done
+Thu Jan 5 16:16:45 CST 2023: Running seed=5, outputting to discover_rrg_racke2_a2a_equal/0_198437_1000000_200_5
+Thu Jan 5 16:27:12 CST 2023: Experiment done
+Thu Jan 5 16:27:12 CST 2023: Running seed=6, outputting to discover_rrg_racke2_a2a_equal/0_198437_1000000_200_6
+Thu Jan 5 16:38:26 CST 2023: Experiment done
+Thu Jan 5 16:38:26 CST 2023: Running seed=7, outputting to discover_rrg_racke2_a2a_equal/0_198437_1000000_200_7
+Thu Jan 5 16:50:24 CST 2023: Experiment done
+Thu Jan 5 16:50:24 CST 2023: Running seed=8, outputting to discover_rrg_racke2_a2a_equal/0_198437_1000000_200_8
+Thu Jan 5 17:01:42 CST 2023: Experiment done
+Thu Jan 5 17:01:42 CST 2023: Running seed=9, outputting to discover_rrg_racke2_a2a_equal/0_198437_1000000_200_9
+Thu Jan 5 17:12:08 CST 2023: Experiment done
+Thu Jan 5 17:12:08 CST 2023: Collecting stats for discover_rrg_racke2_a2a_equal/0_198437_1000000_200_
+Thu Jan 5 17:12:43 CST 2023: n99fct=5.2157,totaltraffic=32691871050
+Thu Jan 5 17:12:43 CST 2023: Calculating the cutoff point
+n99fct1=5.05703,totaltraffic1=32428898700,n99fct2=5.2157,totaltraffic2=32691871050
+m=,b=,y=5,x=
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Thu Jan 5 18:35:57 CST 2023
+topology=rrg
+routing=racke2
+trafficmatrix=a2a
+mode=equal
+searchstart=
+searchend=
+threshold=5
+stime=200
+mstart=50
+mend=150
+precision=64
+Thu Jan 5 18:35:57 CST 2023: Run experiment for p1
+mult=0,numerator=196875,denominator=1000000
+Thu Jan 5 18:35:57 CST 2023: Running seed=0, outputting to discover_rrg_racke2_a2a_equal/0_196875_1000000_200_0
+Thu Jan 5 18:35:57 CST 2023: Result already exists
+Thu Jan 5 18:35:57 CST 2023: Running seed=1, outputting to discover_rrg_racke2_a2a_equal/0_196875_1000000_200_1
+Thu Jan 5 18:35:57 CST 2023: Result already exists
+Thu Jan 5 18:35:57 CST 2023: Running seed=2, outputting to discover_rrg_racke2_a2a_equal/0_196875_1000000_200_2
+Thu Jan 5 18:35:57 CST 2023: Result already exists
+Thu Jan 5 18:35:57 CST 2023: Running seed=3, outputting to discover_rrg_racke2_a2a_equal/0_196875_1000000_200_3
+Thu Jan 5 18:35:57 CST 2023: Result already exists
+Thu Jan 5 18:35:57 CST 2023: Running seed=4, outputting to discover_rrg_racke2_a2a_equal/0_196875_1000000_200_4
+Thu Jan 5 18:35:57 CST 2023: Result already exists
+Thu Jan 5 18:35:57 CST 2023: Running seed=5, outputting to discover_rrg_racke2_a2a_equal/0_196875_1000000_200_5
+Thu Jan 5 18:35:57 CST 2023: Result already exists
+Thu Jan 5 18:35:57 CST 2023: Running seed=6, outputting to discover_rrg_racke2_a2a_equal/0_196875_1000000_200_6
+Thu Jan 5 18:35:57 CST 2023: Result already exists
+Thu Jan 5 18:35:57 CST 2023: Running seed=7, outputting to discover_rrg_racke2_a2a_equal/0_196875_1000000_200_7
+Thu Jan 5 18:35:57 CST 2023: Result already exists
+Thu Jan 5 18:35:57 CST 2023: Running seed=8, outputting to discover_rrg_racke2_a2a_equal/0_196875_1000000_200_8
+Thu Jan 5 18:35:57 CST 2023: Result already exists
+Thu Jan 5 18:35:57 CST 2023: Running seed=9, outputting to discover_rrg_racke2_a2a_equal/0_196875_1000000_200_9
+Thu Jan 5 18:35:57 CST 2023: Result already exists
+Thu Jan 5 18:35:57 CST 2023: Collecting stats for
+Thu Jan 5 18:35:58 CST 2023: n99fct=5.05703,totaltraffic=32428898700
+Thu Jan 5 18:35:58 CST 2023: Run experiment for p2
+mult=0,numerator=198437,denominator=1000000
+Thu Jan 5 18:35:58 CST 2023: Running seed=0, outputting to discover_rrg_racke2_a2a_equal/0_198437_1000000_200_0
+Thu Jan 5 18:35:58 CST 2023: Result already exists
+Thu Jan 5 18:35:58 CST 2023: Running seed=1, outputting to discover_rrg_racke2_a2a_equal/0_198437_1000000_200_1
+Thu Jan 5 18:35:58 CST 2023: Result already exists
+Thu Jan 5 18:35:58 CST 2023: Running seed=2, outputting to discover_rrg_racke2_a2a_equal/0_198437_1000000_200_2
+Thu Jan 5 18:35:58 CST 2023: Result already exists
+Thu Jan 5 18:35:58 CST 2023: Running seed=3, outputting to discover_rrg_racke2_a2a_equal/0_198437_1000000_200_3
+Thu Jan 5 18:35:58 CST 2023: Result already exists
+Thu Jan 5 18:35:58 CST 2023: Running seed=4, outputting to discover_rrg_racke2_a2a_equal/0_198437_1000000_200_4
+Thu Jan 5 18:35:58 CST 2023: Result already exists
+Thu Jan 5 18:35:58 CST 2023: Running seed=5, outputting to discover_rrg_racke2_a2a_equal/0_198437_1000000_200_5
+Thu Jan 5 18:35:58 CST 2023: Result already exists
+Thu Jan 5 18:35:58 CST 2023: Running seed=6, outputting to discover_rrg_racke2_a2a_equal/0_198437_1000000_200_6
+Thu Jan 5 18:35:58 CST 2023: Result already exists
+Thu Jan 5 18:35:58 CST 2023: Running seed=7, outputting to discover_rrg_racke2_a2a_equal/0_198437_1000000_200_7
+Thu Jan 5 18:35:58 CST 2023: Result already exists
+Thu Jan 5 18:35:58 CST 2023: Running seed=8, outputting to discover_rrg_racke2_a2a_equal/0_198437_1000000_200_8
+Thu Jan 5 18:35:58 CST 2023: Result already exists
+Thu Jan 5 18:35:58 CST 2023: Running seed=9, outputting to discover_rrg_racke2_a2a_equal/0_198437_1000000_200_9
+Thu Jan 5 18:35:58 CST 2023: Result already exists
+Thu Jan 5 18:35:58 CST 2023: Collecting stats for discover_rrg_racke2_a2a_equal/0_198437_1000000_200_
+Thu Jan 5 18:35:58 CST 2023: n99fct=5.2157,totaltraffic=32691871050
+Thu Jan 5 18:35:58 CST 2023: Calculating the cutoff point
+n99fct1=5.05703,totaltraffic1=32428898700,n99fct2=5.2157,totaltraffic2=32691871050
+m=6.03371e-10,b=-14.5096,y=5,x=3.23343e+10
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================

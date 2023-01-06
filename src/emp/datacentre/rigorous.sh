@@ -187,25 +187,27 @@ echo $(date): n99fct=${n99fct2},totaltraffic=${totaltraffic2} >> $logfile
 
 # Calculate the cutoff point.
 calculate_m() {
-  awk -v x1 -v y1 -v x2 -v y2 'BEGIN {printf ((y2-y1)/(x2-x1))}'
+  awk -v x1=$1 -v y1=$2 -v x2=$3 -v y2=$4 'BEGIN {printf ((y2-y1)/(x2-x1))}'
 }
 
 calculate_b() {
-  awk -v x -v y -v m 'BEGIN {printf (y-m*x)}'
+  awk -v x=$1 -v y=$2 -v m=$3 'BEGIN {printf (y-m*x)}'
 }
 
 calculate_x_given_y() {
-  awk -v y -v m -v b 'BEGIN {(y-b)/m}'
+  awk -v y=$1 -v m=$2 -v b=$3 'BEGIN {printf ((y-b)/m)}'
 }
 
 echo $(date): Calculating the cutoff point >> $logfile
 echo n99fct1=${n99fct1},totaltraffic1=${totaltraffic1},n99fct2=${n99fct2},totaltraffic2=${totaltraffic2} >> $logfile
-m=$(calculate_m $n99fct1 $totaltraffic1 $n99fct2 $totaltraffic2)
-b=$(calculate_b $n99fct1 $totaltraffic1 $m)
+m=$(calculate_m $totaltraffic1 $n99fct1 $totaltraffic2 $n99fct2)
+b=$(calculate_b $totaltraffic1 $n99fct1 $m)
 x=$(calculate_x_given_y $threshold $m $b)
 echo m=${m},b=${b},y=${threshold},x=${x} >> $logfile
+
 echo Finished.
 echo $suffix $x
+echo $n99fct1 $threshold $n99fct2
 
 rm $tempoutputfile
 echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ >> $logfile

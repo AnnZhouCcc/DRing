@@ -80,3 +80,70 @@ searchend: n99fct=6.03607,totaltraffic=19022797500
 =========[searchstart,searchmid]=========
 =========[0.121875,0.122657]=========
 ===============Close Interval Found==============
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Thu Jan 5 18:45:27 CST 2023
+topology=dring
+routing=racke2
+trafficmatrix=a2a
+mode=weighted
+searchstart=
+searchend=
+threshold=5
+stime=200
+mstart=50
+mend=150
+precision=64
+Thu Jan 5 18:45:27 CST 2023: Run experiment for p1
+mult=0,numerator=121875,denominator=1000000
+Thu Jan 5 18:45:27 CST 2023: Running seed=0, outputting to discover_dring_racke2_a2a_weighted/0_121875_1000000_200_0
+Thu Jan 5 18:45:27 CST 2023: Result already exists
+Thu Jan 5 18:45:27 CST 2023: Running seed=1, outputting to discover_dring_racke2_a2a_weighted/0_121875_1000000_200_1
+Thu Jan 5 18:53:13 CST 2023: Experiment done
+Thu Jan 5 18:53:13 CST 2023: Running seed=2, outputting to discover_dring_racke2_a2a_weighted/0_121875_1000000_200_2
+Thu Jan 5 19:00:32 CST 2023: Experiment done
+Thu Jan 5 19:00:32 CST 2023: Running seed=3, outputting to discover_dring_racke2_a2a_weighted/0_121875_1000000_200_3
+Thu Jan 5 19:07:58 CST 2023: Experiment done
+Thu Jan 5 19:07:58 CST 2023: Running seed=4, outputting to discover_dring_racke2_a2a_weighted/0_121875_1000000_200_4
+Thu Jan 5 19:14:25 CST 2023: Experiment done
+Thu Jan 5 19:14:25 CST 2023: Running seed=5, outputting to discover_dring_racke2_a2a_weighted/0_121875_1000000_200_5
+Thu Jan 5 19:20:10 CST 2023: Experiment done
+Thu Jan 5 19:20:10 CST 2023: Running seed=6, outputting to discover_dring_racke2_a2a_weighted/0_121875_1000000_200_6
+Thu Jan 5 19:25:55 CST 2023: Experiment done
+Thu Jan 5 19:25:55 CST 2023: Running seed=7, outputting to discover_dring_racke2_a2a_weighted/0_121875_1000000_200_7
+Thu Jan 5 19:31:44 CST 2023: Experiment done
+Thu Jan 5 19:31:44 CST 2023: Running seed=8, outputting to discover_dring_racke2_a2a_weighted/0_121875_1000000_200_8
+Thu Jan 5 19:37:31 CST 2023: Experiment done
+Thu Jan 5 19:37:31 CST 2023: Running seed=9, outputting to discover_dring_racke2_a2a_weighted/0_121875_1000000_200_9
+Thu Jan 5 19:43:17 CST 2023: Experiment done
+Thu Jan 5 19:43:17 CST 2023: Collecting stats for
+Thu Jan 5 19:43:46 CST 2023: n99fct=5.23025,totaltraffic=18903565950
+Thu Jan 5 19:43:46 CST 2023: Run experiment for p2
+mult=0,numerator=122657,denominator=1000000
+Thu Jan 5 19:43:46 CST 2023: Running seed=0, outputting to discover_dring_racke2_a2a_weighted/0_122657_1000000_200_0
+Thu Jan 5 19:43:46 CST 2023: Result already exists
+Thu Jan 5 19:43:46 CST 2023: Running seed=1, outputting to discover_dring_racke2_a2a_weighted/0_122657_1000000_200_1
+Thu Jan 5 19:49:31 CST 2023: Experiment done
+Thu Jan 5 19:49:31 CST 2023: Running seed=2, outputting to discover_dring_racke2_a2a_weighted/0_122657_1000000_200_2
+Thu Jan 5 19:55:50 CST 2023: Experiment done
+Thu Jan 5 19:55:50 CST 2023: Running seed=3, outputting to discover_dring_racke2_a2a_weighted/0_122657_1000000_200_3
+Thu Jan 5 20:03:22 CST 2023: Experiment done
+Thu Jan 5 20:03:22 CST 2023: Running seed=4, outputting to discover_dring_racke2_a2a_weighted/0_122657_1000000_200_4
+Thu Jan 5 20:10:41 CST 2023: Experiment done
+Thu Jan 5 20:10:41 CST 2023: Running seed=5, outputting to discover_dring_racke2_a2a_weighted/0_122657_1000000_200_5
+Thu Jan 5 20:17:57 CST 2023: Experiment done
+Thu Jan 5 20:17:57 CST 2023: Running seed=6, outputting to discover_dring_racke2_a2a_weighted/0_122657_1000000_200_6
+Thu Jan 5 20:25:25 CST 2023: Experiment done
+Thu Jan 5 20:25:25 CST 2023: Running seed=7, outputting to discover_dring_racke2_a2a_weighted/0_122657_1000000_200_7
+Thu Jan 5 20:32:57 CST 2023: Experiment done
+Thu Jan 5 20:32:57 CST 2023: Running seed=8, outputting to discover_dring_racke2_a2a_weighted/0_122657_1000000_200_8
+Thu Jan 5 20:40:29 CST 2023: Experiment done
+Thu Jan 5 20:40:29 CST 2023: Running seed=9, outputting to discover_dring_racke2_a2a_weighted/0_122657_1000000_200_9
+Thu Jan 5 20:47:43 CST 2023: Experiment done
+Thu Jan 5 20:47:43 CST 2023: Collecting stats for discover_dring_racke2_a2a_weighted/0_122657_1000000_200_
+Thu Jan 5 20:48:13 CST 2023: n99fct=5.68353,totaltraffic=19026223200
+Thu Jan 5 20:48:13 CST 2023: Calculating the cutoff point
+n99fct1=5.23025,totaltraffic1=18903565950,n99fct2=5.68353,totaltraffic2=19026223200
+m=3.6955e-09,b=-64.6279,y=5,x=1.88413e+10
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================
