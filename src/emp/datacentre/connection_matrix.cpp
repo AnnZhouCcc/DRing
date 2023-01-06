@@ -2566,10 +2566,10 @@ void ConnectionMatrix::setTopoFlowsSomeToSome(string conn_matrix_str, double sim
   cout << "numsendingracks=" << numsendingracks << ",numreceivingracks=" << numreceivingracks << ",isbidirectionaltraffic=" << isbidirectionaltraffic << ",configfilenumber=" << configfilenumber << endl;
 
   // Read traffic from config file
-  string trafficfilename = "trafficfiles/s2s_"+numsendingracks+"_"+numreceivingracks+"/"+configfilenumber+".txt";
+  string trafficfilename = "trafficfiles/s2s_"+to_string(numsendingracks)+"_"+to_string(numreceivingracks)+"/"+to_string(configfilenumber)+".txt";
   cout << "trafficfilename: " << trafficfilename << endl;
   ifstream TMFile(trafficfilename.c_str());
-  string line, token;
+  string line;
   int racknumber;
   bool is_sending_racks = false, is_receiving_racks = false;
   vector<int> sending_racks;

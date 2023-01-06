@@ -1,4 +1,4 @@
 sending
-25
+21
 receiving
-77
+62
