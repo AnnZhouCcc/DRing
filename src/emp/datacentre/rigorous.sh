@@ -32,12 +32,19 @@ fi
 
 if [ $topology = "rrg" ]
 then
+  graphname=RRG
   graphfile=graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist
   numservers=3072
 elif [ $topology = "dring" ]
 then
+  graphname=RRG
   graphfile=graphfiles/ring_supergraph/double_ring/instance1_80_64.edgelist
   numservers=2988
+elif [ $topology = "leafspine" ]
+then
+  graphname=LEAFSPINE
+  graphfile=null
+  numservers=3072
 else
   echo topology $topology not recognized.
 fi
@@ -126,6 +133,7 @@ seedto=9
 mult1=$(cat $tempoutputfile | cut -d " " -f 1)
 numerator1=$(cat $tempoutputfile | cut -d " " -f 2)
 denominator1=$(cat $tempoutputfile | cut -d " " -f 3)
+runp3=0
 
 echo $(date): Run experiment for p1 >> $logfile
 echo mult=${mult1},numerator=${numerator1},denominator=${denominator1} >> $logfile
@@ -136,7 +144,7 @@ do
   echo $(date): Running seed=${seed}, outputting to ${outputfile1} >> $logfile
   if [ ! -s $outputfile1 ]
   then
-    time ./run.sh RRG 1 64 16 $graphfile $numservers 1 1 $make $trafficmatrixparam $mult1 $numerator1 $denominator1 0 0 $routingparam $kornparam 0 0 $seed $suffix $npfile $pwfile 0 $mstart $mend $stime 0 0 0 0 | grep -e "FCT" -e "topology" > $outputfile1 &
+    time ./run.sh $graphname 1 64 16 $graphfile $numservers 1 1 $make $trafficmatrixparam $mult1 $numerator1 $denominator1 0 0 $routingparam $kornparam 0 0 $seed $suffix $npfile $pwfile 0 $mstart $mend $stime 0 0 0 0 | grep -e "FCT" -e "topology" > $outputfile1 &
     sleep 30
     wait
     echo $(date): Experiment done >> $logfile
@@ -168,7 +176,7 @@ do
   echo $(date): Running seed=${seed}, outputting to ${outputfile2} >> $logfile
   if [ ! -s $outputfile2 ]
   then
-    time ./run.sh RRG 1 64 16 $graphfile $numservers 1 1 $make $trafficmatrixparam $mult2 $numerator2 $denominator2 0 0 $routingparam $kornparam 0 0 $seed $suffix $npfile $pwfile 0 $mstart $mend $stime 0 0 0 0 | grep -e "FCT" -e "topology" > $outputfile2 &
+    time ./run.sh $graphname 1 64 16 $graphfile $numservers 1 1 $make $trafficmatrixparam $mult2 $numerator2 $denominator2 0 0 $routingparam $kornparam 0 0 $seed $suffix $npfile $pwfile 0 $mstart $mend $stime 0 0 0 0 | grep -e "FCT" -e "topology" > $outputfile2 &
     sleep 30
     wait
     echo $(date): Experiment done >> $logfile
