@@ -73,3 +73,70 @@ searchend: n99fct=5.47657,totaltraffic=27374716500
 =========[searchmid,searchend]=========
 =========[0.174218,0.175]=========
 ===============Close Interval Found==============
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Fri Jan 6 13:57:04 CST 2023
+topology=dring
+routing=racke2
+trafficmatrix=a2a
+mode=equal
+searchstart=
+searchend=
+threshold=5
+stime=200
+mstart=50
+mend=150
+precision=64
+Fri Jan 6 13:57:04 CST 2023: Run experiment for p1
+mult=0,numerator=174218,denominator=1000000
+Fri Jan 6 13:57:04 CST 2023: Running seed=0, outputting to discover_dring_racke2_a2a_equal/0_174218_1000000_200_0
+Fri Jan 6 13:57:04 CST 2023: Result already exists
+Fri Jan 6 13:57:04 CST 2023: Running seed=1, outputting to discover_dring_racke2_a2a_equal/0_174218_1000000_200_1
+Fri Jan 6 14:05:18 CST 2023: Experiment done
+Fri Jan 6 14:05:18 CST 2023: Running seed=2, outputting to discover_dring_racke2_a2a_equal/0_174218_1000000_200_2
+Fri Jan 6 14:13:10 CST 2023: Experiment done
+Fri Jan 6 14:13:10 CST 2023: Running seed=3, outputting to discover_dring_racke2_a2a_equal/0_174218_1000000_200_3
+Fri Jan 6 14:21:03 CST 2023: Experiment done
+Fri Jan 6 14:21:03 CST 2023: Running seed=4, outputting to discover_dring_racke2_a2a_equal/0_174218_1000000_200_4
+Fri Jan 6 14:28:55 CST 2023: Experiment done
+Fri Jan 6 14:28:55 CST 2023: Running seed=5, outputting to discover_dring_racke2_a2a_equal/0_174218_1000000_200_5
+Fri Jan 6 14:36:54 CST 2023: Experiment done
+Fri Jan 6 14:36:54 CST 2023: Running seed=6, outputting to discover_dring_racke2_a2a_equal/0_174218_1000000_200_6
+Fri Jan 6 14:44:51 CST 2023: Experiment done
+Fri Jan 6 14:44:51 CST 2023: Running seed=7, outputting to discover_dring_racke2_a2a_equal/0_174218_1000000_200_7
+Fri Jan 6 14:52:48 CST 2023: Experiment done
+Fri Jan 6 14:52:48 CST 2023: Running seed=8, outputting to discover_dring_racke2_a2a_equal/0_174218_1000000_200_8
+Fri Jan 6 15:00:41 CST 2023: Experiment done
+Fri Jan 6 15:00:41 CST 2023: Running seed=9, outputting to discover_dring_racke2_a2a_equal/0_174218_1000000_200_9
+Fri Jan 6 15:08:41 CST 2023: Experiment done
+Fri Jan 6 15:08:41 CST 2023: Collecting stats for
+Fri Jan 6 15:09:08 CST 2023: n99fct=4.99699,totaltraffic=27100627200
+Fri Jan 6 15:09:08 CST 2023: Run experiment for p2
+mult=0,numerator=175,denominator=1000
+Fri Jan 6 15:09:08 CST 2023: Running seed=0, outputting to discover_dring_racke2_a2a_equal/0_175_1000_200_0
+Fri Jan 6 15:09:08 CST 2023: Result already exists
+Fri Jan 6 15:09:08 CST 2023: Running seed=1, outputting to discover_dring_racke2_a2a_equal/0_175_1000_200_1
+Fri Jan 6 15:17:00 CST 2023: Experiment done
+Fri Jan 6 15:17:00 CST 2023: Running seed=2, outputting to discover_dring_racke2_a2a_equal/0_175_1000_200_2
+Fri Jan 6 15:25:02 CST 2023: Experiment done
+Fri Jan 6 15:25:02 CST 2023: Running seed=3, outputting to discover_dring_racke2_a2a_equal/0_175_1000_200_3
+Fri Jan 6 15:32:57 CST 2023: Experiment done
+Fri Jan 6 15:32:57 CST 2023: Running seed=4, outputting to discover_dring_racke2_a2a_equal/0_175_1000_200_4
+Fri Jan 6 15:40:53 CST 2023: Experiment done
+Fri Jan 6 15:40:53 CST 2023: Running seed=5, outputting to discover_dring_racke2_a2a_equal/0_175_1000_200_5
+Fri Jan 6 15:48:52 CST 2023: Experiment done
+Fri Jan 6 15:48:52 CST 2023: Running seed=6, outputting to discover_dring_racke2_a2a_equal/0_175_1000_200_6
+Fri Jan 6 15:56:57 CST 2023: Experiment done
+Fri Jan 6 15:56:57 CST 2023: Running seed=7, outputting to discover_dring_racke2_a2a_equal/0_175_1000_200_7
+Fri Jan 6 16:04:54 CST 2023: Experiment done
+Fri Jan 6 16:04:54 CST 2023: Running seed=8, outputting to discover_dring_racke2_a2a_equal/0_175_1000_200_8
+Fri Jan 6 16:12:55 CST 2023: Experiment done
+Fri Jan 6 16:12:55 CST 2023: Running seed=9, outputting to discover_dring_racke2_a2a_equal/0_175_1000_200_9
+Fri Jan 6 16:20:57 CST 2023: Experiment done
+Fri Jan 6 16:20:57 CST 2023: Collecting stats for discover_dring_racke2_a2a_equal/0_175_1000_200_
+Fri Jan 6 16:21:24 CST 2023: n99fct=5.35872,totaltraffic=27358004100
+Fri Jan 6 16:21:24 CST 2023: Calculating the cutoff point
+n99fct1=4.99699,totaltraffic1=27100627200,n99fct2=5.35872,totaltraffic2=27358004100
+m=1.40545e-09,b=-33.0916,y=5,x=2.71028e+10
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================

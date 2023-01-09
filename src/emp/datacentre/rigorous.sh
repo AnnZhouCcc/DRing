@@ -113,8 +113,8 @@ echo topology=$topology >> $logfile
 echo routing=$routing >> $logfile
 echo trafficmatrix=$trafficmatrix >> $logfile
 echo mode=$mode >> $logfile
-echo searchstart=$searchstart >> $logfile
-echo searchend=$searchend >> $logfile
+echo p1=$p1 >> $logfile
+echo p2=$p2 >> $logfile
 echo threshold=$threshold >> $logfile
 echo stime=$stime >> $logfile
 echo mstart=$mstart >> $logfile
@@ -133,7 +133,6 @@ seedto=9
 mult1=$(cat $tempoutputfile | cut -d " " -f 1)
 numerator1=$(cat $tempoutputfile | cut -d " " -f 2)
 denominator1=$(cat $tempoutputfile | cut -d " " -f 3)
-runp3=0
 
 echo $(date): Run experiment for p1 >> $logfile
 echo mult=${mult1},numerator=${numerator1},denominator=${denominator1} >> $logfile
@@ -155,7 +154,7 @@ do
 done
 
 outputfileprefix1=${dir}/${mult1}_${numerator1}_${denominator1}_${stime}_
-echo $(date): Collecting stats for ${outputfileprefix} >> $logfile
+echo $(date): Collecting stats for ${outputfileprefix1} >> $logfile
 ./rigorous_aux_collect_n99fct_totaltraffic_from_multiple_stats.sh $outputfileprefix1 $seedfrom $seedto $mstart $mend ${outputfileprefix1}summary > $tempoutputfile
 n99fct1=$(cat $tempoutputfile | cut -d " " -f 1)
 totaltraffic1=$(cat $tempoutputfile | cut -d " " -f 2)

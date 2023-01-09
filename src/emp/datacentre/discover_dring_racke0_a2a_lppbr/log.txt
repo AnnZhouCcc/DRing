@@ -109,3 +109,106 @@ searchend: n99fct=5.12384,totaltraffic=77149362000
 =========[searchmid,searchend]=========
 =========[0.490625,0.49375]=========
 ===============Close Interval Found==============
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Fri 06 Jan 2023 01:50:58 PM CST
+topology=dring
+routing=racke0
+trafficmatrix=a2a
+mode=lppbr
+searchstart=
+searchend=
+threshold=5
+stime=200
+mstart=50
+mend=150
+precision=64
+Fri 06 Jan 2023 01:50:58 PM CST: Run experiment for p1
+mult=0,numerator=490625,denominator=1000000
+Fri 06 Jan 2023 01:50:58 PM CST: Running seed=0, outputting to discover_dring_racke0_a2a_lppbr/0_490625_1000000_200_0
+Fri 06 Jan 2023 01:50:58 PM CST: Result already exists
+Fri 06 Jan 2023 01:50:58 PM CST: Running seed=1, outputting to discover_dring_racke0_a2a_lppbr/0_490625_1000000_200_1
+Fri 06 Jan 2023 02:33:23 PM CST: Experiment done
+Fri 06 Jan 2023 02:33:23 PM CST: Running seed=2, outputting to discover_dring_racke0_a2a_lppbr/0_490625_1000000_200_2
+Fri 06 Jan 2023 03:17:04 PM CST: Experiment done
+Fri 06 Jan 2023 03:17:04 PM CST: Running seed=3, outputting to discover_dring_racke0_a2a_lppbr/0_490625_1000000_200_3
+Fri 06 Jan 2023 03:58:38 PM CST: Experiment done
+Fri 06 Jan 2023 03:58:38 PM CST: Running seed=4, outputting to discover_dring_racke0_a2a_lppbr/0_490625_1000000_200_4
+Fri 06 Jan 2023 04:41:16 PM CST: Experiment done
+Fri 06 Jan 2023 04:41:16 PM CST: Running seed=5, outputting to discover_dring_racke0_a2a_lppbr/0_490625_1000000_200_5
+Fri 06 Jan 2023 05:23:22 PM CST: Experiment done
+Fri 06 Jan 2023 05:23:22 PM CST: Running seed=6, outputting to discover_dring_racke0_a2a_lppbr/0_490625_1000000_200_6
+Fri 06 Jan 2023 06:05:47 PM CST: Experiment done
+Fri 06 Jan 2023 06:05:47 PM CST: Running seed=7, outputting to discover_dring_racke0_a2a_lppbr/0_490625_1000000_200_7
+Fri 06 Jan 2023 06:45:59 PM CST: Experiment done
+Fri 06 Jan 2023 06:45:59 PM CST: Running seed=8, outputting to discover_dring_racke0_a2a_lppbr/0_490625_1000000_200_8
+Fri 06 Jan 2023 07:26:31 PM CST: Experiment done
+Fri 06 Jan 2023 07:26:31 PM CST: Running seed=9, outputting to discover_dring_racke0_a2a_lppbr/0_490625_1000000_200_9
+Fri 06 Jan 2023 08:10:53 PM CST: Experiment done
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sat 07 Jan 2023 09:30:05 AM CST
+topology=dring
+routing=racke0
+trafficmatrix=a2a
+mode=lppbr
+searchstart=
+searchend=
+threshold=5
+stime=200
+mstart=50
+mend=150
+precision=64
+Sat 07 Jan 2023 09:30:05 AM CST: Run experiment for p1
+mult=0,numerator=490625,denominator=1000000
+Sat 07 Jan 2023 09:30:05 AM CST: Running seed=0, outputting to discover_dring_racke0_a2a_lppbr/0_490625_1000000_200_0
+Sat 07 Jan 2023 09:30:05 AM CST: Result already exists
+Sat 07 Jan 2023 09:30:05 AM CST: Running seed=1, outputting to discover_dring_racke0_a2a_lppbr/0_490625_1000000_200_1
+Sat 07 Jan 2023 09:30:05 AM CST: Result already exists
+Sat 07 Jan 2023 09:30:05 AM CST: Running seed=2, outputting to discover_dring_racke0_a2a_lppbr/0_490625_1000000_200_2
+Sat 07 Jan 2023 09:30:05 AM CST: Result already exists
+Sat 07 Jan 2023 09:30:05 AM CST: Running seed=3, outputting to discover_dring_racke0_a2a_lppbr/0_490625_1000000_200_3
+Sat 07 Jan 2023 09:30:05 AM CST: Result already exists
+Sat 07 Jan 2023 09:30:05 AM CST: Running seed=4, outputting to discover_dring_racke0_a2a_lppbr/0_490625_1000000_200_4
+Sat 07 Jan 2023 09:30:05 AM CST: Result already exists
+Sat 07 Jan 2023 09:30:05 AM CST: Running seed=5, outputting to discover_dring_racke0_a2a_lppbr/0_490625_1000000_200_5
+Sat 07 Jan 2023 09:30:05 AM CST: Result already exists
+Sat 07 Jan 2023 09:30:05 AM CST: Running seed=6, outputting to discover_dring_racke0_a2a_lppbr/0_490625_1000000_200_6
+Sat 07 Jan 2023 09:30:05 AM CST: Result already exists
+Sat 07 Jan 2023 09:30:05 AM CST: Running seed=7, outputting to discover_dring_racke0_a2a_lppbr/0_490625_1000000_200_7
+Sat 07 Jan 2023 09:30:05 AM CST: Result already exists
+Sat 07 Jan 2023 09:30:05 AM CST: Running seed=8, outputting to discover_dring_racke0_a2a_lppbr/0_490625_1000000_200_8
+Sat 07 Jan 2023 09:30:05 AM CST: Result already exists
+Sat 07 Jan 2023 09:30:05 AM CST: Running seed=9, outputting to discover_dring_racke0_a2a_lppbr/0_490625_1000000_200_9
+Sat 07 Jan 2023 09:30:05 AM CST: Result already exists
+Sat 07 Jan 2023 09:30:05 AM CST: Collecting stats for discover_dring_racke0_a2a_lppbr/0_490625_1000000_200_
+Sat 07 Jan 2023 09:31:32 AM CST: n99fct=4.8921,totaltraffic=76432042050
+Sat 07 Jan 2023 09:31:32 AM CST: Run experiment for p2
+mult=0,numerator=49375,denominator=100000
+Sat 07 Jan 2023 09:31:32 AM CST: Running seed=0, outputting to discover_dring_racke0_a2a_lppbr/0_49375_100000_200_0
+Sat 07 Jan 2023 09:31:32 AM CST: Result already exists
+Sat 07 Jan 2023 09:31:32 AM CST: Running seed=1, outputting to discover_dring_racke0_a2a_lppbr/0_49375_100000_200_1
+Sat 07 Jan 2023 10:13:40 AM CST: Experiment done
+Sat 07 Jan 2023 10:13:40 AM CST: Running seed=2, outputting to discover_dring_racke0_a2a_lppbr/0_49375_100000_200_2
+Sat 07 Jan 2023 10:57:22 AM CST: Experiment done
+Sat 07 Jan 2023 10:57:22 AM CST: Running seed=3, outputting to discover_dring_racke0_a2a_lppbr/0_49375_100000_200_3
+Sat 07 Jan 2023 11:38:40 AM CST: Experiment done
+Sat 07 Jan 2023 11:38:40 AM CST: Running seed=4, outputting to discover_dring_racke0_a2a_lppbr/0_49375_100000_200_4
+Sat 07 Jan 2023 12:20:13 PM CST: Experiment done
+Sat 07 Jan 2023 12:20:13 PM CST: Running seed=5, outputting to discover_dring_racke0_a2a_lppbr/0_49375_100000_200_5
+Sat 07 Jan 2023 01:01:56 PM CST: Experiment done
+Sat 07 Jan 2023 01:01:56 PM CST: Running seed=6, outputting to discover_dring_racke0_a2a_lppbr/0_49375_100000_200_6
+Sat 07 Jan 2023 01:43:12 PM CST: Experiment done
+Sat 07 Jan 2023 01:43:12 PM CST: Running seed=7, outputting to discover_dring_racke0_a2a_lppbr/0_49375_100000_200_7
+Sat 07 Jan 2023 02:25:22 PM CST: Experiment done
+Sat 07 Jan 2023 02:25:22 PM CST: Running seed=8, outputting to discover_dring_racke0_a2a_lppbr/0_49375_100000_200_8
+Sat 07 Jan 2023 03:09:58 PM CST: Experiment done
+Sat 07 Jan 2023 03:09:58 PM CST: Running seed=9, outputting to discover_dring_racke0_a2a_lppbr/0_49375_100000_200_9
+Sat 07 Jan 2023 03:48:11 PM CST: Experiment done
+Sat 07 Jan 2023 03:48:11 PM CST: Collecting stats for discover_dring_racke0_a2a_lppbr/0_49375_100000_200_
+Sat 07 Jan 2023 03:49:36 PM CST: n99fct=5.01585,totaltraffic=76894881150
+Sat 07 Jan 2023 03:49:36 PM CST: Calculating the cutoff point
+n99fct1=4.8921,totaltraffic1=76432042050,n99fct2=5.01585,totaltraffic2=76894881150
+m=2.67372e-10,b=-15.5437,y=5,x=7.68356e+10
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================

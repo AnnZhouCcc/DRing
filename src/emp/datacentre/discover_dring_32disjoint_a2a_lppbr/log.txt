@@ -66,3 +66,106 @@ searchend: n99fct=5.01334,totaltraffic=77157468000
 =========[searchmid,searchend]=========
 =========[0.490625,0.49375]=========
 ===============Close Interval Found==============
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Fri 06 Jan 2023 01:50:34 PM CST
+topology=dring
+routing=32disjoint
+trafficmatrix=a2a
+mode=lppbr
+searchstart=
+searchend=
+threshold=5
+stime=200
+mstart=50
+mend=150
+precision=64
+Fri 06 Jan 2023 01:50:34 PM CST: Run experiment for p1
+mult=0,numerator=490625,denominator=1000000
+Fri 06 Jan 2023 01:50:34 PM CST: Running seed=0, outputting to discover_dring_32disjoint_a2a_lppbr/0_490625_1000000_200_0
+Fri 06 Jan 2023 01:50:34 PM CST: Result already exists
+Fri 06 Jan 2023 01:50:34 PM CST: Running seed=1, outputting to discover_dring_32disjoint_a2a_lppbr/0_490625_1000000_200_1
+Fri 06 Jan 2023 02:36:03 PM CST: Experiment done
+Fri 06 Jan 2023 02:36:03 PM CST: Running seed=2, outputting to discover_dring_32disjoint_a2a_lppbr/0_490625_1000000_200_2
+Fri 06 Jan 2023 03:18:36 PM CST: Experiment done
+Fri 06 Jan 2023 03:18:36 PM CST: Running seed=3, outputting to discover_dring_32disjoint_a2a_lppbr/0_490625_1000000_200_3
+Fri 06 Jan 2023 03:59:18 PM CST: Experiment done
+Fri 06 Jan 2023 03:59:18 PM CST: Running seed=4, outputting to discover_dring_32disjoint_a2a_lppbr/0_490625_1000000_200_4
+Fri 06 Jan 2023 04:39:51 PM CST: Experiment done
+Fri 06 Jan 2023 04:39:51 PM CST: Running seed=5, outputting to discover_dring_32disjoint_a2a_lppbr/0_490625_1000000_200_5
+Fri 06 Jan 2023 05:20:45 PM CST: Experiment done
+Fri 06 Jan 2023 05:20:45 PM CST: Running seed=6, outputting to discover_dring_32disjoint_a2a_lppbr/0_490625_1000000_200_6
+Fri 06 Jan 2023 06:06:14 PM CST: Experiment done
+Fri 06 Jan 2023 06:06:14 PM CST: Running seed=7, outputting to discover_dring_32disjoint_a2a_lppbr/0_490625_1000000_200_7
+Fri 06 Jan 2023 06:48:25 PM CST: Experiment done
+Fri 06 Jan 2023 06:48:25 PM CST: Running seed=8, outputting to discover_dring_32disjoint_a2a_lppbr/0_490625_1000000_200_8
+Fri 06 Jan 2023 07:30:20 PM CST: Experiment done
+Fri 06 Jan 2023 07:30:20 PM CST: Running seed=9, outputting to discover_dring_32disjoint_a2a_lppbr/0_490625_1000000_200_9
+Fri 06 Jan 2023 08:11:30 PM CST: Experiment done
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sat 07 Jan 2023 09:28:53 AM CST
+topology=dring
+routing=32disjoint
+trafficmatrix=a2a
+mode=lppbr
+searchstart=
+searchend=
+threshold=5
+stime=200
+mstart=50
+mend=150
+precision=64
+Sat 07 Jan 2023 09:28:53 AM CST: Run experiment for p1
+mult=0,numerator=490625,denominator=1000000
+Sat 07 Jan 2023 09:28:53 AM CST: Running seed=0, outputting to discover_dring_32disjoint_a2a_lppbr/0_490625_1000000_200_0
+Sat 07 Jan 2023 09:28:53 AM CST: Result already exists
+Sat 07 Jan 2023 09:28:53 AM CST: Running seed=1, outputting to discover_dring_32disjoint_a2a_lppbr/0_490625_1000000_200_1
+Sat 07 Jan 2023 09:28:53 AM CST: Result already exists
+Sat 07 Jan 2023 09:28:53 AM CST: Running seed=2, outputting to discover_dring_32disjoint_a2a_lppbr/0_490625_1000000_200_2
+Sat 07 Jan 2023 09:28:53 AM CST: Result already exists
+Sat 07 Jan 2023 09:28:53 AM CST: Running seed=3, outputting to discover_dring_32disjoint_a2a_lppbr/0_490625_1000000_200_3
+Sat 07 Jan 2023 09:28:53 AM CST: Result already exists
+Sat 07 Jan 2023 09:28:54 AM CST: Running seed=4, outputting to discover_dring_32disjoint_a2a_lppbr/0_490625_1000000_200_4
+Sat 07 Jan 2023 09:28:54 AM CST: Result already exists
+Sat 07 Jan 2023 09:28:54 AM CST: Running seed=5, outputting to discover_dring_32disjoint_a2a_lppbr/0_490625_1000000_200_5
+Sat 07 Jan 2023 09:28:54 AM CST: Result already exists
+Sat 07 Jan 2023 09:28:54 AM CST: Running seed=6, outputting to discover_dring_32disjoint_a2a_lppbr/0_490625_1000000_200_6
+Sat 07 Jan 2023 09:28:54 AM CST: Result already exists
+Sat 07 Jan 2023 09:28:54 AM CST: Running seed=7, outputting to discover_dring_32disjoint_a2a_lppbr/0_490625_1000000_200_7
+Sat 07 Jan 2023 09:28:54 AM CST: Result already exists
+Sat 07 Jan 2023 09:28:54 AM CST: Running seed=8, outputting to discover_dring_32disjoint_a2a_lppbr/0_490625_1000000_200_8
+Sat 07 Jan 2023 09:28:54 AM CST: Result already exists
+Sat 07 Jan 2023 09:28:54 AM CST: Running seed=9, outputting to discover_dring_32disjoint_a2a_lppbr/0_490625_1000000_200_9
+Sat 07 Jan 2023 09:28:54 AM CST: Result already exists
+Sat 07 Jan 2023 09:28:54 AM CST: Collecting stats for
+Sat 07 Jan 2023 09:30:22 AM CST: n99fct=4.75707,totaltraffic=76433797050
+Sat 07 Jan 2023 09:30:22 AM CST: Run experiment for p2
+mult=0,numerator=49375,denominator=100000
+Sat 07 Jan 2023 09:30:22 AM CST: Running seed=0, outputting to discover_dring_32disjoint_a2a_lppbr/0_49375_100000_200_0
+Sat 07 Jan 2023 09:30:22 AM CST: Result already exists
+Sat 07 Jan 2023 09:30:22 AM CST: Running seed=1, outputting to discover_dring_32disjoint_a2a_lppbr/0_49375_100000_200_1
+Sat 07 Jan 2023 10:12:44 AM CST: Experiment done
+Sat 07 Jan 2023 10:12:44 AM CST: Running seed=2, outputting to discover_dring_32disjoint_a2a_lppbr/0_49375_100000_200_2
+Sat 07 Jan 2023 10:56:20 AM CST: Experiment done
+Sat 07 Jan 2023 10:56:20 AM CST: Running seed=3, outputting to discover_dring_32disjoint_a2a_lppbr/0_49375_100000_200_3
+Sat 07 Jan 2023 11:35:45 AM CST: Experiment done
+Sat 07 Jan 2023 11:35:45 AM CST: Running seed=4, outputting to discover_dring_32disjoint_a2a_lppbr/0_49375_100000_200_4
+Sat 07 Jan 2023 12:15:15 PM CST: Experiment done
+Sat 07 Jan 2023 12:15:15 PM CST: Running seed=5, outputting to discover_dring_32disjoint_a2a_lppbr/0_49375_100000_200_5
+Sat 07 Jan 2023 12:55:35 PM CST: Experiment done
+Sat 07 Jan 2023 12:55:35 PM CST: Running seed=6, outputting to discover_dring_32disjoint_a2a_lppbr/0_49375_100000_200_6
+Sat 07 Jan 2023 01:34:38 PM CST: Experiment done
+Sat 07 Jan 2023 01:34:38 PM CST: Running seed=7, outputting to discover_dring_32disjoint_a2a_lppbr/0_49375_100000_200_7
+Sat 07 Jan 2023 02:14:24 PM CST: Experiment done
+Sat 07 Jan 2023 02:14:24 PM CST: Running seed=8, outputting to discover_dring_32disjoint_a2a_lppbr/0_49375_100000_200_8
+Sat 07 Jan 2023 02:53:49 PM CST: Experiment done
+Sat 07 Jan 2023 02:53:49 PM CST: Running seed=9, outputting to discover_dring_32disjoint_a2a_lppbr/0_49375_100000_200_9
+Sat 07 Jan 2023 03:33:00 PM CST: Experiment done
+Sat 07 Jan 2023 03:33:00 PM CST: Collecting stats for discover_dring_32disjoint_a2a_lppbr/0_49375_100000_200_
+Sat 07 Jan 2023 03:34:23 PM CST: n99fct=4.86335,totaltraffic=76894355250
+Sat 07 Jan 2023 03:34:23 PM CST: Calculating the cutoff point
+n99fct1=4.75707,totaltraffic1=76433797050,n99fct2=4.86335,totaltraffic2=76894355250
+m=2.30763e-10,b=-12.881,y=5,x=7.74864e+10
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================

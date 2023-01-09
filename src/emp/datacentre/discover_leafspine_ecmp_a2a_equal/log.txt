@@ -123,3 +123,117 @@ searchend: n99fct=5.20411,totaltraffic=84288891000
 =========[searchstart,searchmid]=========
 =========[0.50625,0.509375]=========
 ===============Close Interval Found==============
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Fri 06 Jan 2023 01:50:17 PM CST
+topology=leafspine
+routing=ecmp
+trafficmatrix=a2a
+mode=equal
+searchstart=
+searchend=
+threshold=5
+stime=200
+mstart=50
+mend=150
+precision=64
+Fri 06 Jan 2023 01:50:17 PM CST: Run experiment for p1
+mult=0,numerator=50625,denominator=100000
+Fri 06 Jan 2023 01:50:17 PM CST: Running seed=0, outputting to discover_leafspine_ecmp_a2a_equal/0_50625_100000_200_0
+Fri 06 Jan 2023 01:50:17 PM CST: Result already exists
+Fri 06 Jan 2023 01:50:17 PM CST: Running seed=1, outputting to discover_leafspine_ecmp_a2a_equal/0_50625_100000_200_1
+Fri 06 Jan 2023 02:39:38 PM CST: Experiment done
+Fri 06 Jan 2023 02:39:38 PM CST: Running seed=2, outputting to discover_leafspine_ecmp_a2a_equal/0_50625_100000_200_2
+Fri 06 Jan 2023 03:25:34 PM CST: Experiment done
+Fri 06 Jan 2023 03:25:34 PM CST: Running seed=3, outputting to discover_leafspine_ecmp_a2a_equal/0_50625_100000_200_3
+Fri 06 Jan 2023 04:09:24 PM CST: Experiment done
+Fri 06 Jan 2023 04:09:24 PM CST: Running seed=4, outputting to discover_leafspine_ecmp_a2a_equal/0_50625_100000_200_4
+Fri 06 Jan 2023 04:54:14 PM CST: Experiment done
+Fri 06 Jan 2023 04:54:14 PM CST: Running seed=5, outputting to discover_leafspine_ecmp_a2a_equal/0_50625_100000_200_5
+Fri 06 Jan 2023 05:40:00 PM CST: Experiment done
+Fri 06 Jan 2023 05:40:00 PM CST: Running seed=6, outputting to discover_leafspine_ecmp_a2a_equal/0_50625_100000_200_6
+Fri 06 Jan 2023 06:23:33 PM CST: Experiment done
+Fri 06 Jan 2023 06:23:33 PM CST: Running seed=7, outputting to discover_leafspine_ecmp_a2a_equal/0_50625_100000_200_7
+Fri 06 Jan 2023 07:07:21 PM CST: Experiment done
+Fri 06 Jan 2023 07:07:21 PM CST: Running seed=8, outputting to discover_leafspine_ecmp_a2a_equal/0_50625_100000_200_8
+Fri 06 Jan 2023 07:50:37 PM CST: Experiment done
+Fri 06 Jan 2023 07:50:37 PM CST: Running seed=9, outputting to discover_leafspine_ecmp_a2a_equal/0_50625_100000_200_9
+Fri 06 Jan 2023 08:28:49 PM CST: Experiment done
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sat 07 Jan 2023 09:29:59 AM CST
+topology=leafspine
+routing=ecmp
+trafficmatrix=a2a
+mode=equal
+searchstart=
+searchend=
+threshold=5
+stime=200
+mstart=50
+mend=150
+precision=64
+Sat 07 Jan 2023 09:29:59 AM CST: Run experiment for p1
+mult=0,numerator=50625,denominator=100000
+Sat 07 Jan 2023 09:29:59 AM CST: Running seed=0, outputting to discover_leafspine_ecmp_a2a_equal/0_50625_100000_200_0
+Sat 07 Jan 2023 09:29:59 AM CST: Result already exists
+Sat 07 Jan 2023 09:29:59 AM CST: Running seed=1, outputting to discover_leafspine_ecmp_a2a_equal/0_50625_100000_200_1
+Sat 07 Jan 2023 09:29:59 AM CST: Result already exists
+Sat 07 Jan 2023 09:29:59 AM CST: Running seed=2, outputting to discover_leafspine_ecmp_a2a_equal/0_50625_100000_200_2
+Sat 07 Jan 2023 09:29:59 AM CST: Result already exists
+Sat 07 Jan 2023 09:29:59 AM CST: Running seed=3, outputting to discover_leafspine_ecmp_a2a_equal/0_50625_100000_200_3
+Sat 07 Jan 2023 09:29:59 AM CST: Result already exists
+Sat 07 Jan 2023 09:29:59 AM CST: Running seed=4, outputting to discover_leafspine_ecmp_a2a_equal/0_50625_100000_200_4
+Sat 07 Jan 2023 09:29:59 AM CST: Result already exists
+Sat 07 Jan 2023 09:30:00 AM CST: Running seed=5, outputting to discover_leafspine_ecmp_a2a_equal/0_50625_100000_200_5
+Sat 07 Jan 2023 09:30:00 AM CST: Result already exists
+Sat 07 Jan 2023 09:30:00 AM CST: Running seed=6, outputting to discover_leafspine_ecmp_a2a_equal/0_50625_100000_200_6
+Sat 07 Jan 2023 09:30:00 AM CST: Result already exists
+Sat 07 Jan 2023 09:30:00 AM CST: Running seed=7, outputting to discover_leafspine_ecmp_a2a_equal/0_50625_100000_200_7
+Sat 07 Jan 2023 09:30:00 AM CST: Result already exists
+Sat 07 Jan 2023 09:30:00 AM CST: Running seed=8, outputting to discover_leafspine_ecmp_a2a_equal/0_50625_100000_200_8
+Sat 07 Jan 2023 09:30:00 AM CST: Result already exists
+Sat 07 Jan 2023 09:30:00 AM CST: Running seed=9, outputting to discover_leafspine_ecmp_a2a_equal/0_50625_100000_200_9
+Sat 07 Jan 2023 09:30:00 AM CST: Result already exists
+Sat 07 Jan 2023 09:30:00 AM CST: Collecting stats for discover_leafspine_ecmp_a2a_equal/0_50625_100000_200_
+Sat 07 Jan 2023 09:31:34 AM CST: n99fct=4.9463,totaltraffic=83397105600
+Sat 07 Jan 2023 09:31:34 AM CST: Run experiment for p2
+mult=0,numerator=509375,denominator=1000000
+Sat 07 Jan 2023 09:31:34 AM CST: Running seed=0, outputting to discover_leafspine_ecmp_a2a_equal/0_509375_1000000_200_0
+Sat 07 Jan 2023 09:31:34 AM CST: Result already exists
+Sat 07 Jan 2023 09:31:34 AM CST: Running seed=1, outputting to discover_leafspine_ecmp_a2a_equal/0_509375_1000000_200_1
+Sat 07 Jan 2023 10:15:36 AM CST: Experiment done
+Sat 07 Jan 2023 10:15:36 AM CST: Running seed=2, outputting to discover_leafspine_ecmp_a2a_equal/0_509375_1000000_200_2
+Sat 07 Jan 2023 10:56:19 AM CST: Experiment done
+Sat 07 Jan 2023 10:56:19 AM CST: Running seed=3, outputting to discover_leafspine_ecmp_a2a_equal/0_509375_1000000_200_3
+Sat 07 Jan 2023 11:40:08 AM CST: Experiment done
+Sat 07 Jan 2023 11:40:08 AM CST: Running seed=4, outputting to discover_leafspine_ecmp_a2a_equal/0_509375_1000000_200_4
+XXXXXXXXXXXX Sat Jan 7 12:07:32 CST 2023 XXXXXXXXXXXX
+trafficmatrix=a2a,A2A
+stime=200,mstart=50,mend=150
+numservers=3072
+Sat Jan 7 12:07:32 CST 2023: Run experiment
+load=0.1,mult=0,numerator=1,denominator=10
+Sat Jan 7 12:09:57 CST 2023: Experiment done
+n99fct=0.467999,totaltraffic=16311243000
+utillower=0.243108951434,utilupper=0.247188148201
+time=2m25s
+initialmem=22.4,peakmem=20.4,mem=-2.0
+Sat 07 Jan 2023 12:24:36 PM CST: Experiment done
+Sat 07 Jan 2023 12:24:36 PM CST: Running seed=5, outputting to discover_leafspine_ecmp_a2a_equal/0_509375_1000000_200_5
+Sat 07 Jan 2023 01:06:07 PM CST: Experiment done
+Sat 07 Jan 2023 01:06:07 PM CST: Running seed=6, outputting to discover_leafspine_ecmp_a2a_equal/0_509375_1000000_200_6
+Sat 07 Jan 2023 01:49:59 PM CST: Experiment done
+Sat 07 Jan 2023 01:49:59 PM CST: Running seed=7, outputting to discover_leafspine_ecmp_a2a_equal/0_509375_1000000_200_7
+Sat 07 Jan 2023 02:34:22 PM CST: Experiment done
+Sat 07 Jan 2023 02:34:22 PM CST: Running seed=8, outputting to discover_leafspine_ecmp_a2a_equal/0_509375_1000000_200_8
+Sat 07 Jan 2023 03:17:16 PM CST: Experiment done
+Sat 07 Jan 2023 03:17:16 PM CST: Running seed=9, outputting to discover_leafspine_ecmp_a2a_equal/0_509375_1000000_200_9
+Sat 07 Jan 2023 03:56:18 PM CST: Experiment done
+Sat 07 Jan 2023 03:56:18 PM CST: Collecting stats for discover_leafspine_ecmp_a2a_equal/0_509375_1000000_200_
+Sat 07 Jan 2023 03:57:46 PM CST: n99fct=5.08488,totaltraffic=83875767450
+Sat 07 Jan 2023 03:57:46 PM CST: Calculating the cutoff point
+n99fct1=4.9463,totaltraffic1=83397105600,n99fct2=5.08488,totaltraffic2=83875767450
+m=2.89515e-10,b=-19.1984,y=5,x=8.35825e+10
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================
