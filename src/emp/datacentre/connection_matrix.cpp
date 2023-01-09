@@ -2619,6 +2619,7 @@ void ConnectionMatrix::setTopoFlowsSomeToSome(string conn_matrix_str, double sim
     for (int dstrack : receiving_racks) {
       for (int srcsvr=srcrack*lsservers; srcsvr<(srcrack+1)*lsservers; srcsvr++) {
         for (int dstsvr=dstrack*lsservers; dstsvr<(dstrack+1)*lsservers; dstsvr++) {
+          if (srcsvr>=NHOST or dstsvr>=NHOST) continue;
           int bytes = genFlowBytes();
           while (bytes<0 or bytes>large_flow_threshold){
             bytes = genFlowBytes();
