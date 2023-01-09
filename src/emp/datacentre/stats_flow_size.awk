@@ -1,12 +1,12 @@
 #!/bin/awk -f
+BEGIN {
+    sum = 0
+    num_line = 0
+    sum_duration = 0
+}
 { 
     first_word = $1
-    if (first_word == "topology") {
-        sum = 0
-        num_line = 0
-        sum_duration = 0
-    }
-    else {
+    if (first_word == "FCT") {
         start = $4
         if (start >= mstart && start < mend) {
             sum += $2

@@ -207,10 +207,10 @@ TcpSrc::receivePacket(Packet& pkt)
 		if (is_in_measurement) {
         	cout << "FCT " << _flow_size << " " << timeAsMs(eventlist().now() - _start_time) 
 				<< " " << timeAsMs(_start_time) << " " << endl;
-			//for (vector<PacketSink*>::const_iterator it = _route->begin(); it != _route->end(); ++it) {
-			// 	cout << (*it)->nodename() << " ";
-			//}
-			//cout << endl;
+			for (vector<PacketSink*>::const_iterator it = _route->begin(); it != _route->end(); ++it) {
+			 	cout << (*it)->nodename() << " ";
+			}
+			cout << endl;
 		}
     }
   
