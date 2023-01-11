@@ -1,16 +1,20 @@
 #!/bin/bash
 # Set parameters.
-topology=$1
-routing=$2
-trafficmatrix=a2a
-mode=$3
-p1=$4
-p2=$5
-threshold=5
-stime=200
-mstart=50
-mend=150
-precision=64
+p1=$1
+p2=$2
+topology=$3
+routing=$4
+trafficmatrix=$5
+mode=$6
+threshold=$7
+stime=$8
+mstart=$9
+mend=${10}
+precision=${11}
+discoverseedfrom=${12}
+discoverseedto=${13}
+rigorousseedfrom=${14}
+rigorousseedto=${15}
 
 npfile=netpathfiles/netpath_${routing}_${topology}.txt
 
@@ -52,6 +56,9 @@ fi
 if [ $trafficmatrix = "a2a" ]
 then
   trafficmatrixparam=A2A
+elif [ $trafficmatrix = "r2r0" ]
+then
+  trafficmatrixparam=S2S_1_1_0_0
 else
   echo traffic matrix $trafficmatrix not recognized.
 fi
@@ -123,10 +130,8 @@ echo precision=$precision >> $logfile
 
 # Set up for experiments.
 suffix=${topology}_${routing}_${trafficmatrix}_${mode}
-tempoutputfile=${dir}/${suffix}_output
+tempoutputfile=${dir}/${suffix}_rigorous_output
 make=MAKE
-seedfrom=0
-seedto=9
 
 # Run experiments for p1.
 ./discover_aux_fraction.sh $p1 > $tempoutputfile
@@ -137,28 +142,52 @@ denominator1=$(cat $tempoutputfile | cut -d " " -f 3)
 echo $(date): Run experiment for p1 >> $logfile
 echo mult=${mult1},numerator=${numerator1},denominator=${denominator1} >> $logfile
 
-for seed in $(seq $seedfrom $seedto)
+outputfileprefix1=${dir}/${mult1}_${numerator1}_${denominator1}_${stime}
+
+calculateSeedFrom() {
+  awk -v rigorousseed="$1" -v discoverseedfrom="$2" -v discoverseedto="$3" 'BEGIN {printf (rigorousseed*(discoverseedto-discoverseedfrom+1))}'
+}
+
+calculateSeedTo() {
+  awk -v rigorousseed="$1" -v discoverseedfrom="$2" -v discoverseedto="$3" 'BEGIN {printf ((rigorousseed+1)*(discoverseedto-discoverseedfrom+1)-1)}'
+}
+
+for rigorousseed in $(seq $rigorousseedfrom $rigorousseedto)
 do
-  outputfile1=${dir}/${mult1}_${numerator1}_${denominator1}_${stime}_${seed}
-  echo $(date): Running seed=${seed}, outputting to ${outputfile1} >> $logfile
-  if [ ! -s $outputfile1 ]
-  then
-    time ./run.sh $graphname 1 64 16 $graphfile $numservers 1 1 $make $trafficmatrixparam $mult1 $numerator1 $denominator1 0 0 $routingparam $kornparam 0 0 $seed $suffix $npfile $pwfile 0 $mstart $mend $stime 0 0 0 0 | grep -e "FCT" -e "topology" > $outputfile1 &
-    sleep 30
-    wait
-    echo $(date): Experiment done >> $logfile
-    make=NOMAKE
-  else
-    echo $(date): Result already exists >> $logfile
-  fi
+  seedfrom=$(calculateSeedFrom $rigorousseed $discoverseedfrom $discoverseedto)
+  seedto=$(calculateSeedTo $rigorousseed $discoverseedfrom $discoverseedto)
+  echo $(date): rigorousseed=${rigorousseed},seedfrom=${seedfrom},seedto=${seedto} >> $logfile
+
+  for seed in $(seq $seedfrom $seedto)
+  do
+    outputfile1=${outputfileprefix1}_${seed}
+    echo $(date): Running seed=${seed} >> $logfile
+    if [ ! -s $outputfile1 ]
+    then
+      time ./run.sh $graphname 1 64 16 $graphfile $numservers 1 1 $make $trafficmatrixparam $mult1 $numerator1 $denominator1 0 0 $routingparam $kornparam 0 0 $seed $suffix $npfile $pwfile 0 $mstart $mend $stime 0 0 0 0 | grep -e "FCT" -e "topology" > $outputfile1 &
+      sleep 30
+      wait
+      echo $(date): Experiment done "("seed=$seed")" >> $logfile
+      make=NOMAKE
+    else
+      echo $(date): Result already exists "("seed=$seed")" >> $logfile
+    fi
+  done
+
+  combinedoutputfile1=${outputfileprefix1}_${seedfrom}_${seedto}
+  for seed in $(seq $seedfrom $seedto)
+  do
+    outputfile1=${outputfileprefix1}_${seed}
+    cat $outputfile1 >> $combinedoutputfile1
+  done
 done
 
-outputfileprefix1=${dir}/${mult1}_${numerator1}_${denominator1}_${stime}_
-echo $(date): Collecting stats for ${outputfileprefix1} >> $logfile
-./rigorous_aux_collect_n99fct_totaltraffic_from_multiple_stats.sh $outputfileprefix1 $seedfrom $seedto $mstart $mend ${outputfileprefix1}summary > $tempoutputfile
+echo $(date): Collecting stats for $outputfileprefix1 >> $logfile
+./rigorous_aux_collect_n99fct_totaltraffic_from_multiple_stats.sh $outputfileprefix1 $rigorousseedfrom $rigorousseedto $discoverseedfrom $discoverseedto $mstart $mend ${outputfileprefix1}_summary > $tempoutputfile
 n99fct1=$(cat $tempoutputfile | cut -d " " -f 1)
 totaltraffic1=$(cat $tempoutputfile | cut -d " " -f 2)
 echo $(date): n99fct=${n99fct1},totaltraffic=${totaltraffic1} >> $logfile
+
 
 # Run experiments for p2.
 ./discover_aux_fraction.sh $p2 > $tempoutputfile
@@ -169,25 +198,40 @@ denominator2=$(cat $tempoutputfile | cut -d " " -f 3)
 echo $(date): Run experiment for p2 >> $logfile
 echo mult=${mult2},numerator=${numerator2},denominator=${denominator2} >> $logfile
 
-for seed in $(seq $seedfrom $seedto)
+outputfileprefix2=${dir}/${mult2}_${numerator2}_${denominator2}_${stime}
+
+for rigorousseed in $(seq $rigorousseedfrom $rigorousseedto)
 do
-  outputfile2=${dir}/${mult2}_${numerator2}_${denominator2}_${stime}_${seed}
-  echo $(date): Running seed=${seed}, outputting to ${outputfile2} >> $logfile
-  if [ ! -s $outputfile2 ]
-  then
-    time ./run.sh $graphname 1 64 16 $graphfile $numservers 1 1 $make $trafficmatrixparam $mult2 $numerator2 $denominator2 0 0 $routingparam $kornparam 0 0 $seed $suffix $npfile $pwfile 0 $mstart $mend $stime 0 0 0 0 | grep -e "FCT" -e "topology" > $outputfile2 &
-    sleep 30
-    wait
-    echo $(date): Experiment done >> $logfile
-    make=NOMAKE
-  else
-    echo $(date): Result already exists >> $logfile
-  fi
+  seedfrom=$(calculateSeedFrom $rigorousseed $discoverseedfrom $discoverseedto)
+  seedto=$(calculateSeedTo $rigorousseed $discoverseedfrom $discoverseedto)
+  echo $(date): rigorousseed=${rigorousseed},seedfrom=${seedfrom},seedto=${seedto} >> $logfile
+
+  for seed in $(seq $seedfrom $seedto)
+  do
+    outputfile2=${outputfileprefix2}_${seed}
+    echo $(date): Running seed=${seed} >> $logfile
+    if [ ! -s $outputfile2 ]
+    then
+      time ./run.sh $graphname 1 64 16 $graphfile $numservers 1 1 $make $trafficmatrixparam $mult2 $numerator2 $denominator2 0 0 $routingparam $kornparam 0 0 $seed $suffix $npfile $pwfile 0 $mstart $mend $stime 0 0 0 0 | grep -e "FCT" -e "topology" > $outputfile2 &
+      sleep 30
+      wait
+      echo $(date): Experiment done "("seed=$seed")" >> $logfile
+      make=NOMAKE
+    else
+      echo $(date): Result already exists "("seed=$seed")" >> $logfile
+    fi
+  done
+
+  combinedoutputfile2=${outputfileprefix2}_${seedfrom}_${seedto}
+  for seed in $(seq $seedfrom $seedto)
+  do
+    outputfile2=${outputfileprefix2}_${seed}
+    cat $outputfile2 >> $combinedoutputfile2
+  done
 done
 
-outputfileprefix2=${dir}/${mult2}_${numerator2}_${denominator2}_${stime}_
 echo $(date): Collecting stats for ${outputfileprefix2} >> $logfile
-./rigorous_aux_collect_n99fct_totaltraffic_from_multiple_stats.sh $outputfileprefix2 $seedfrom $seedto $mstart $mend ${outputfileprefix2}summary > $tempoutputfile
+./rigorous_aux_collect_n99fct_totaltraffic_from_multiple_stats.sh $outputfileprefix2 $rigorousseedfrom $rigorousseedto $discoverseedfrom $discoverseedto $mstart $mend ${outputfileprefix2}_summary > $tempoutputfile
 n99fct2=$(cat $tempoutputfile | cut -d " " -f 1)
 totaltraffic2=$(cat $tempoutputfile | cut -d " " -f 2)
 echo $(date): n99fct=${n99fct2},totaltraffic=${totaltraffic2} >> $logfile
@@ -212,9 +256,10 @@ b=$(calculate_b $totaltraffic1 $n99fct1 $m)
 x=$(calculate_x_given_y $threshold $m $b)
 echo m=${m},b=${b},y=${threshold},x=${x} >> $logfile
 
-echo Finished.
-echo $suffix $x
-echo $n99fct1 $threshold $n99fct2
+#echo Finished.
+#echo $suffix $x
+#echo $n99fct1 $threshold $n99fct2
+echo ${x}
 
 rm $tempoutputfile
 echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ >> $logfile

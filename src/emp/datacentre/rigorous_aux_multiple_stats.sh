@@ -1,13 +1,24 @@
 fileprefix=$1
-seedfrom=$2
-seedto=$3
-mstart=$4
-mend=$5
+rigorrousseedfrom=$2
+rigorousseedto=$3
+discoverseedfrom=$4
+discoverseedto=$5
+mstart=$6
+mend=$7
 
-for seed in $(seq ${seedfrom} ${seedto})
+calculateSeedFrom() {
+  awk -v rigorousseed="$1" -v discoverseedfrom="$2" -v discoverseedto="$3" 'BEGIN {printf (rigorousseed*(discoverseedto-discoverseedfrom+1))}'
+}
+
+calculateSeedTo() {
+  awk -v rigorousseed="$1" -v discoverseedfrom="$2" -v discoverseedto="$3" 'BEGIN {printf ((rigorousseed+1)*(discoverseedto-discoverseedfrom+1)-1)}'
+}
+
+for rigorousseed in $(seq $rigorousseedfrom $rigorousseedto)
 do
-
-  file=${fileprefix}${seed}
+  seedfrom=$(calculateSeedFrom $rigorousseed $discoverseedfrom $discoverseedto)
+  seedto=$(calculateSeedTo $rigorousseed $discoverseedfrom $discoverseedto)
+  file=${fileprefix}_${seedfrom}_${seedto}
   filename=${file##*/}
 
   #echo -e "\nAVERAGE | MEDIAN | N95 | N99 | MAX | TAIL AVERAGE"

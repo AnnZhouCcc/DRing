@@ -56,17 +56,17 @@ do
     sleep 30
     wait
     make=NOMAKE
-    echo $(date): Experiment done >> $logfile
+    echo $(date): Experiment done "("seed=$seed")" >> $logfile
   else
-    echo $(date): Result already exists >> $logfile
+    echo $(date): Result already exists "("seed=$seed")" >> $logfile
   fi
 done
 
 # Process the output files.
-combinedfctoutputfile=${dir}/${mult}_${numerator}_${denominator}_${stime}_${seedfrom}_${seedto}
+combinedfctoutputfile=${outputfileprefix}_${seedfrom}_${seedto}
 for seed in $(seq $seedfrom $seedto)
 do
-  outputfile=${dir}/${mult}_${numerator}_${denominator}_${stime}_${seed}
+  outputfile=${dir}/${outputfileprefix}_${seed}
   fctoutputfile=${outputfile}_fct 
   cat $outputfile | grep -e "FCT" > $fctoutputfile
   parsedoutputfile=${outputfile}_parsed
@@ -78,21 +78,9 @@ do
 done
 
 # Calculate fct and flow size stats.
-./discover_aux_single_stats.sh $combinedfctoutputfile $mstart $mend > $tempoutputfile
-linecount=0
-while IFS= read -r line
-do
-  if [ $linecount -eq 0 ]
-  then
-    # fct stats
-    n99fct=$(echo $line | cut -d " " -f 7)
-  elif [ $linecount -eq 1 ]
-  then
-    # flow size stats
-    totaltraffic=$(echo $line | cut -d " " -f 6)
-  fi
-  ((linecount++))
-done < $tempoutputfile
+./discover_aux_collect_n99fct_totaltraffic_from_single_stats.sh $combinedfctoutputfile $mstart $mendi $tempoutputfile > $tempoutputfile
+n99fct=$(cat $tempoutputfile | cut -d " " -f 1)
+totaltraffic=$(cat $tempoutputfile | cut -d " " -f 2)
 echo n99fct=${n99fct},totaltraffic=${totaltraffic} >> $logfile
 
 # Calculate network utilization.

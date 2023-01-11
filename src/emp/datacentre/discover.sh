@@ -2,15 +2,18 @@
 # Set parameters.
 topology=$1 #rrg/dring/leafspine
 routing=$2
-trafficmatrix=a2a
+trafficmatrix=r2r0
 mode=$3 #equal/weighted/lppbr/lpdbr
 searchstart=$4
 searchend=$5
-threshold=5 #ms
-stime=200
-mstart=50
-mend=150
+threshold=60 #ms
+stime=1000
 precision=64
+seedfrom=0
+seedto=49
+
+let mstart=$stime/4
+let mend=3*$stime/4
 
 npfile=netpathfiles/netpath_${routing}_${topology}.txt
 
@@ -52,6 +55,9 @@ fi
 if [ $trafficmatrix = "a2a" ]
 then
   trafficmatrixparam=A2A
+elif [ $trafficmatrix = "r2r0" ]
+then
+  trafficmatrixparam=S2S_1_1_0_0
 else
   echo traffic matrix $trafficmatrix not recognized.
 fi
@@ -121,7 +127,6 @@ echo precision=$precision >> $logfile
 # Check initial interval.
 suffix=${topology}_${routing}_${trafficmatrix}_${mode}
 tempoutputfile=${dir}/${suffix}_output
-seed=0
 make=MAKE
 
 ./discover_aux_fraction.sh $searchstart > $tempoutputfile
@@ -138,19 +143,32 @@ denominatorend=$(cat $tempoutputfile | cut -d " " -f 3)
 echo $(date): Run experiment search start >> $logfile
 echo mult=${multstart},numerator=${numeratorstart},denominator=${denominatorstart} >> $logfile
 
-outputfilestart=${dir}/${multstart}_${numeratorstart}_${denominatorstart}_${stime}_${seed}
-if [ ! -s $outputfilestart ]
-then
-  time ./run.sh $graphname 1 64 16 $graphfile $numservers 1 1 $make $trafficmatrixparam $multstart $numeratorstart $denominatorstart 0 0 $routingparam $kornparam 0 0 $seed $suffix $npfile $pwfile 0 $mstart $mend $stime 0 0 0 0 | grep -e "FCT" -e "topology" > $outputfilestart &
-  sleep 5 
-  wait
-  echo $(date): Experiment done >> $logfile
-  make=NOMAKE
-else
-  echo $(date): Result already exists >> $logfile
-fi
+outputfileprefixstart=${dir}/${multstart}_${numeratorstart}_${denominatorstart}_${stime}
 
-./discover_aux_collect_n99fct_totaltraffic_from_single_stats.sh $outputfilestart $mstart $mend $tempoutputfile > $tempoutputfile
+for seed in $(seq $seedfrom $seedto)
+do
+  outputfilestart=${outputfileprefixstart}_${seed}
+  if [ ! -s $outputfilestart ]
+  then
+    time ./run.sh $graphname 1 64 16 $graphfile $numservers 1 1 $make $trafficmatrixparam $multstart $numeratorstart $denominatorstart 0 0 $routingparam $kornparam 0 0 $seed $suffix $npfile $pwfile 0 $mstart $mend $stime 0 0 0 0 | grep -e "FCT" -e "topology" > $outputfilestart &
+    sleep 5 
+    wait
+    echo $(date): Experiment done "("seed=$seed")" >> $logfile
+    make=NOMAKE
+  else
+    echo $(date): Result already exists "("seed=$seed")" >> $logfile
+  fi
+done
+
+combinedoutputfilestart=${outputfileprefixstart}_${seedfrom}_${seedto}
+rm $combinedoutputfilestart
+for seed in $(seq $seedfrom $seedto)
+do
+  outputfilestart=${outputfileprefixstart}_${seed}
+  cat $outputfilestart >> $combinedoutputfilestart
+done
+
+./discover_aux_collect_n99fct_totaltraffic_from_single_stats.sh $combinedoutputfilestart $mstart $mend $tempoutputfile > $tempoutputfile
 n99fctstart=$(cat $tempoutputfile | cut -d " " -f 1)
 totaltrafficstart=$(cat $tempoutputfile | cut -d " " -f 2)
 echo $(date): n99fct=${n99fctstart},totaltraffic=${totaltrafficstart} >> $logfile
@@ -159,19 +177,32 @@ echo $(date): n99fct=${n99fctstart},totaltraffic=${totaltrafficstart} >> $logfil
 echo $(date): Run experiment search end >> $logfile
 echo mult=${multend},numerator=${numeratorend},denominator=${denominatorend} >> $logfile
 
-outputfileend=${dir}/${multend}_${numeratorend}_${denominatorend}_${stime}_${seed}
-if [ ! -s $outputfileend ]
-then
-  time ./run.sh $graphname 1 64 16 $graphfile $numservers 1 1 $make $trafficmatrixparam $multend $numeratorend $denominatorend 0 0 $routingparam $kornparam 0 0 $seed $suffix $npfile $pwfile 0 $mstart $mend $stime 0 0 0 0 | grep -e "FCT" -e "topology" > $outputfileend &
-  sleep 5
-  wait
-  echo $(date): Experiment done >> $logfile
-  make=NOMAKE
-else
-  echo $(date): Result already exists >> $logfile
-fi
+outputfileprefixend=${dir}/${multend}_${numeratorend}_${denominatorend}_${stime}
 
-./discover_aux_collect_n99fct_totaltraffic_from_single_stats.sh $outputfileend $mstart $mend $tempoutputfile > $tempoutputfile
+for seed in $(seq $seedfrom $seedto)
+do
+  outputfileend=${outputfileprefixend}_${seed}
+  if [ ! -s $outputfileend ]
+  then
+    time ./run.sh $graphname 1 64 16 $graphfile $numservers 1 1 $make $trafficmatrixparam $multend $numeratorend $denominatorend 0 0 $routingparam $kornparam 0 0 $seed $suffix $npfile $pwfile 0 $mstart $mend $stime 0 0 0 0 | grep -e "FCT" -e "topology" > $outputfileend &
+    sleep 5
+    wait
+    echo $(date): Experiment done "("seed=$seed")" >> $logfile
+    make=NOMAKE
+  else
+    echo $(date): Result already exists "("seed=$seed")" >> $logfile
+  fi
+done
+
+combinedoutputfileend=${outputfileprefixend}_${seedfrom}_${seedto}
+rm $combinedoutputfileend
+for seed in $(seq $seedfrom $seedto)
+do
+  outputfileend=${outputfileprefixend}_${seed}
+  cat $outputfileend >> $combinedoutputfileend
+done
+
+./discover_aux_collect_n99fct_totaltraffic_from_single_stats.sh $combinedoutputfileend $mstart $mend $tempoutputfile > $tempoutputfile
 n99fctend=$(cat $tempoutputfile | cut -d " " -f 1)
 totaltrafficend=$(cat $tempoutputfile | cut -d " " -f 2)
 echo $(date): n99fct=${n99fctend},totaltraffic=${totaltrafficend} >> $logfile
@@ -199,7 +230,7 @@ takeMidPoint() {
 }
 
 isCloseEnough() {
-  awk -v start="$1" -v end="$2" 'BEGIN {printf ((end-start)/end < 0.02 ? "1" : "0")}'
+  awk -v start="$1" -v end="$2" 'BEGIN {printf ((end-start)/end < 0.04 ? "1" : "0")}'
 }
 
 shouldInOrder() {
@@ -221,20 +252,33 @@ do
   echo $(date): Run experiment >> $logfile
   echo mult=${mult},numerator=${numerator},denominator=${denominator} >> $logfile
 
-  outputfile=${dir}/${mult}_${numerator}_${denominator}_${stime}_${seed}
-  if [ ! -s $outputfile ]
-  then
-    time ./run.sh $graphname 1 64 16 $graphfile $numservers 1 1 $make $trafficmatrixparam $mult $numerator $denominator 0 0 $routingparam $kornparam 0 0 $seed $suffix $npfile $pwfile 0 $mstart $mend $stime 0 0 0 0 | grep -e "FCT" -e "topology" > $outputfile &
-    sleep 5
-    wait
-    echo $(date): Experiment done >> $logfile
-    make=NOMAKE
-  else
-    echo $(date): Result already exists >> $logfile
-  fi
+  outputfileprefix=${dir}/${mult}_${numerator}_${denominator}_${stime}
+
+  for seed in $(seq $seedfrom $seedto)
+  do
+    outputfile=${outputfileprefix}_${seed}
+    if [ ! -s $outputfile ]
+    then
+      time ./run.sh $graphname 1 64 16 $graphfile $numservers 1 1 $make $trafficmatrixparam $mult $numerator $denominator 0 0 $routingparam $kornparam 0 0 $seed $suffix $npfile $pwfile 0 $mstart $mend $stime 0 0 0 0 | grep -e "FCT" -e "topology" > $outputfile &
+      sleep 5
+      wait
+      echo $(date): Experiment done "("seed=$seed")" >> $logfile
+      make=NOMAKE
+    else
+      echo $(date): Result already exists "("seed=$seed")" >> $logfile
+    fi
+  done
+
+  combinedoutputfile=${outputfileprefix}_${seedfrom}_${seedto}
+  rm $combinedoutputfile
+  for seed in $(seq $seedfrom $seedto)
+  do
+    outputfile=${outputfileprefix}_${seed}
+    cat $outputfile >> $combinedoutputfile
+  done
 
   ### Collect stats.
-  ./discover_aux_collect_n99fct_totaltraffic_from_single_stats.sh $outputfile $mstart $mend $tempoutpufile > $tempoutputfile
+  ./discover_aux_collect_n99fct_totaltraffic_from_single_stats.sh $combinedoutputfile $mstart $mend $tempoutpufile > $tempoutputfile
   n99fct=$(cat $tempoutputfile | cut -d " " -f 1)
   totaltraffic=$(cat $tempoutputfile | cut -d " " -f 2)
   echo $(date): n99fct=${n99fct},totaltraffic=${totaltraffic} >> $logfile
@@ -252,10 +296,16 @@ do
     then
       echo ========='['searchstart,searchmid']'========= >> $logfile
       echo ========='['${searchstart},${searchmid}']'========= >> $logfile
+      ./rigorous.sh $searchstart $searchmid $topology $routing $trafficmatrix $mode $threshold $stime $mstart $mend $precision $seedfrom $seedto 0 9 > $tempoutputfile
+      x=$(cat $tempoutputfile | cut -d " " -f 1)
+      echo $x
     elif [ $(isLessThan $n99fct $threshold ) -eq 1 ]
     then
       echo ========='['searchmid,searchend']'========= >> $logfile
       echo ========='['${searchmid},${searchend}']'========= >> $logfile
+      ./rigorous.sh $searchmid $searchend $topology $routing $trafficmatrix $mode $threshold $stime $mstart $mend $precision $seedfrom $seedto 0 9 > $tempoutputfile
+      x=$(cat $tempoutputfile | cut -d " " -f 1)
+      echo $x
     else
       echo searchmid n99fct == threshold. >> $logfile
     fi
@@ -301,8 +351,5 @@ done
 
 echo Passed.
 echo ===============Close Interval Found============== >> $logfile
-
-# Repeated experiments.
-#set different seed
 
 rm $tempoutputfile

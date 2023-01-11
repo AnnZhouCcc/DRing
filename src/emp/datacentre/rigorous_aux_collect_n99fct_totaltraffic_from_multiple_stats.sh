@@ -1,19 +1,21 @@
 outputfileprefix=$1
-seedfrom=$2
-seedto=$3
-mstart=$4
-mend=$5
-statssummaryfile=$6
+rigorousseedfrom=$2
+rigorousseedto=$3
+discoverseedfrom=$4
+discoverseedto=$5
+mstart=$6
+mend=$7
+statssummaryfile=$8
 
 if [ ! -s $statssummaryfile ]
 then
-  ./rigorous_aux_multiple_stats.sh $outputfileprefix $seedfrom $seedto $mstart $mend > $statssummaryfile
+  ./rigorous_aux_multiple_stats.sh $outputfileprefix $rigorousseedfrom $rigorousseedto $discoverseedfrom $discoverseedto $mstart $mend > $statssummaryfile
 fi
 
 linecount=0
 n99fctsum=0
 totaltrafficsum=0
-let numruns=$seedto-$seedfrom+1
+let numruns=$rigorousseedto-$rigorousseedfrom+1
 while IFS= read -r line
 do
   let oddoreven=$linecount%2
