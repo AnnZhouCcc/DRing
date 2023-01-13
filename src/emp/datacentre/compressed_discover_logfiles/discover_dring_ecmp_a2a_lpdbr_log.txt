@@ -1,0 +1,176 @@
+Tue 03 Jan 2023 10:10:43 PM CST: Set up parameters
+topology=dring
+routing=ecmp
+trafficmatrix=a2a
+mode=lpdbr
+searchstart=0.1
+searchend=0.3
+threshold=5
+stime=200
+mstart=50
+mend=150
+precision=64
+Tue 03 Jan 2023 10:10:43 PM CST: Run experiment search start
+mult=0,numerator=1,denominator=10
+Tue 03 Jan 2023 10:13:56 PM CST: Experiment done
+Tue 03 Jan 2023 10:13:58 PM CST: n99fct=0.490283,totaltraffic=15884851500
+Tue 03 Jan 2023 10:13:58 PM CST: Run experiment search end
+mult=0,numerator=3,denominator=10
+Tue 03 Jan 2023 10:30:18 PM CST: Experiment done
+Tue 03 Jan 2023 10:30:23 PM CST: n99fct=1.06904,totaltraffic=47094865500
+5 > 1.06904 ? 1
+5 < 0.490283 ? 0
+Tue 03 Jan 2023 10:47:21 PM CST: Set up parameters
+topology=dring
+routing=ecmp
+trafficmatrix=a2a
+mode=lpdbr
+searchstart=0.3
+searchend=0.5
+threshold=5
+stime=200
+mstart=50
+mend=150
+precision=64
+Tue 03 Jan 2023 10:47:21 PM CST: Run experiment search start
+mult=0,numerator=3,denominator=10
+Tue 03 Jan 2023 10:47:21 PM CST: Result already exists
+Tue 03 Jan 2023 10:47:26 PM CST: n99fct=1.06904,totaltraffic=47094865500
+Tue 03 Jan 2023 10:47:26 PM CST: Run experiment search end
+mult=0,numerator=5,denominator=10
+Tue 03 Jan 2023 11:24:45 PM CST: Experiment done
+Tue 03 Jan 2023 11:24:53 PM CST: n99fct=6.70599,totaltraffic=78221920500
+Tue 03 Jan 2023 11:24:53 PM CST: Start binary search.
+searchmid=0.4,searchstart=0.3,searchend=0.5
+Tue 03 Jan 2023 11:24:53 PM CST: Run experiment
+mult=0,numerator=4,denominator=10
+Tue 03 Jan 2023 11:47:01 PM CST: Experiment done
+Tue 03 Jan 2023 11:47:08 PM CST: n99fct=2.26242,totaltraffic=62716342500
+Change searchstart to 0.4
+searchstart=0.4,searchend=0.5
+searchmid=0.45,searchstart=0.4,searchend=0.5
+Tue 03 Jan 2023 11:47:08 PM CST: Run experiment
+mult=0,numerator=45,denominator=100
+Wed 04 Jan 2023 12:22:18 AM CST: Experiment done
+Wed 04 Jan 2023 12:22:26 AM CST: n99fct=4.16147,totaltraffic=70111831500
+Change searchstart to 0.45
+searchstart=0.45,searchend=0.5
+searchmid=0.475,searchstart=0.45,searchend=0.5
+Wed 04 Jan 2023 12:22:26 AM CST: Run experiment
+mult=0,numerator=475,denominator=1000
+Wed 04 Jan 2023 12:53:22 AM CST: Experiment done
+Wed 04 Jan 2023 12:53:31 AM CST: n99fct=5.44147,totaltraffic=73800432000
+Change searchend to 0.475
+searchstart=0.45,searchend=0.475
+searchmid=0.4625,searchstart=0.45,searchend=0.475
+Wed 04 Jan 2023 12:53:31 AM CST: Run experiment
+mult=0,numerator=4625,denominator=10000
+Wed 04 Jan 2023 01:24:14 AM CST: Experiment done
+Wed 04 Jan 2023 01:24:22 AM CST: n99fct=4.83465,totaltraffic=71964094500
+Change searchstart to 0.4625
+searchstart=0.4625,searchend=0.475
+searchmid=0.46875,searchstart=0.4625,searchend=0.475
+Wed 04 Jan 2023 01:24:22 AM CST: Run experiment
+mult=0,numerator=46875,denominator=100000
+Wed 04 Jan 2023 01:53:10 AM CST: Experiment done
+Wed 04 Jan 2023 01:53:18 AM CST: n99fct=5.24924,totaltraffic=73119822000
+Change searchend to 0.46875
+searchstart=0.4625,searchend=0.46875
+searchmid=0.465625,searchstart=0.4625,searchend=0.46875
+Wed 04 Jan 2023 01:53:18 AM CST: Run experiment
+mult=0,numerator=465625,denominator=1000000
+Wed 04 Jan 2023 02:20:26 AM CST: Experiment done
+Wed 04 Jan 2023 02:20:33 AM CST: n99fct=4.86064,totaltraffic=72607182000
+Wed 04 Jan 2023 02:20:33 AM CST: isCloseEnough searchstart=0.4625,searchmid=0.465625,searchend=0.46875
+searchstart: n99fct=4.83465,totaltraffic=71964094500
+searchmid: n99fct=4.86064,totaltraffic=72607182000
+searchend: n99fct=5.24924,totaltraffic=73119822000
+=========[searchmid,searchend]=========
+=========[0.465625,0.46875]=========
+===============Close Interval Found==============
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Thu Jan 5 14:02:24 CST 2023
+topology=dring
+routing=ecmp
+trafficmatrix=a2a
+mode=lpdbr
+searchstart=
+searchend=
+threshold=5
+stime=200
+mstart=50
+mend=150
+precision=64
+Thu Jan 5 14:02:24 CST 2023: Run experiment for p1
+mult=0,numerator=465625,denominator=1000000
+Thu Jan 5 14:02:24 CST 2023: Running seed=0, outputting to discover_dring_ecmp_a2a_lpdbr/0_465625_1000000_200_0
+Thu Jan 5 14:02:24 CST 2023: Result already exists
+Thu Jan 5 14:02:24 CST 2023: Running seed=1, outputting to discover_dring_ecmp_a2a_lpdbr/0_465625_1000000_200_1
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Thu Jan 5 18:37:03 CST 2023
+topology=dring
+routing=ecmp
+trafficmatrix=a2a
+mode=lpdbr
+searchstart=
+searchend=
+threshold=5
+stime=200
+mstart=50
+mend=150
+precision=64
+Thu Jan 5 18:37:03 CST 2023: Run experiment for p1
+mult=0,numerator=465625,denominator=1000000
+Thu Jan 5 18:37:03 CST 2023: Running seed=0, outputting to discover_dring_ecmp_a2a_lpdbr/0_465625_1000000_200_0
+Thu Jan 5 18:37:03 CST 2023: Result already exists
+Thu Jan 5 18:37:03 CST 2023: Running seed=1, outputting to discover_dring_ecmp_a2a_lpdbr/0_465625_1000000_200_1
+Thu Jan 5 18:57:30 CST 2023: Experiment done
+Thu Jan 5 18:57:30 CST 2023: Running seed=2, outputting to discover_dring_ecmp_a2a_lpdbr/0_465625_1000000_200_2
+Thu Jan 5 19:19:05 CST 2023: Experiment done
+Thu Jan 5 19:19:05 CST 2023: Running seed=3, outputting to discover_dring_ecmp_a2a_lpdbr/0_465625_1000000_200_3
+Thu Jan 5 19:40:17 CST 2023: Experiment done
+Thu Jan 5 19:40:17 CST 2023: Running seed=4, outputting to discover_dring_ecmp_a2a_lpdbr/0_465625_1000000_200_4
+Thu Jan 5 19:59:02 CST 2023: Experiment done
+Thu Jan 5 19:59:02 CST 2023: Running seed=5, outputting to discover_dring_ecmp_a2a_lpdbr/0_465625_1000000_200_5
+Thu Jan 5 20:18:22 CST 2023: Experiment done
+Thu Jan 5 20:18:22 CST 2023: Running seed=6, outputting to discover_dring_ecmp_a2a_lpdbr/0_465625_1000000_200_6
+Thu Jan 5 20:39:52 CST 2023: Experiment done
+Thu Jan 5 20:39:52 CST 2023: Running seed=7, outputting to discover_dring_ecmp_a2a_lpdbr/0_465625_1000000_200_7
+Thu Jan 5 20:58:53 CST 2023: Experiment done
+Thu Jan 5 20:58:53 CST 2023: Running seed=8, outputting to discover_dring_ecmp_a2a_lpdbr/0_465625_1000000_200_8
+Thu Jan 5 21:18:39 CST 2023: Experiment done
+Thu Jan 5 21:18:39 CST 2023: Running seed=9, outputting to discover_dring_ecmp_a2a_lpdbr/0_465625_1000000_200_9
+Thu Jan 5 21:37:48 CST 2023: Experiment done
+Thu Jan 5 21:37:48 CST 2023: Collecting stats for
+Thu Jan 5 21:39:15 CST 2023: n99fct=4.91799,totaltraffic=72517851450
+Thu Jan 5 21:39:15 CST 2023: Run experiment for p2
+mult=0,numerator=46875,denominator=100000
+Thu Jan 5 21:39:16 CST 2023: Running seed=0, outputting to discover_dring_ecmp_a2a_lpdbr/0_46875_100000_200_0
+Thu Jan 5 21:39:16 CST 2023: Result already exists
+Thu Jan 5 21:39:16 CST 2023: Running seed=1, outputting to discover_dring_ecmp_a2a_lpdbr/0_46875_100000_200_1
+Thu Jan 5 21:57:26 CST 2023: Experiment done
+Thu Jan 5 21:57:26 CST 2023: Running seed=2, outputting to discover_dring_ecmp_a2a_lpdbr/0_46875_100000_200_2
+Thu Jan 5 22:16:37 CST 2023: Experiment done
+Thu Jan 5 22:16:37 CST 2023: Running seed=3, outputting to discover_dring_ecmp_a2a_lpdbr/0_46875_100000_200_3
+Thu Jan 5 22:32:28 CST 2023: Experiment done
+Thu Jan 5 22:32:28 CST 2023: Running seed=4, outputting to discover_dring_ecmp_a2a_lpdbr/0_46875_100000_200_4
+Thu Jan 5 22:48:16 CST 2023: Experiment done
+Thu Jan 5 22:48:16 CST 2023: Running seed=5, outputting to discover_dring_ecmp_a2a_lpdbr/0_46875_100000_200_5
+Thu Jan 5 23:04:08 CST 2023: Experiment done
+Thu Jan 5 23:04:08 CST 2023: Running seed=6, outputting to discover_dring_ecmp_a2a_lpdbr/0_46875_100000_200_6
+Thu Jan 5 23:20:02 CST 2023: Experiment done
+Thu Jan 5 23:20:02 CST 2023: Running seed=7, outputting to discover_dring_ecmp_a2a_lpdbr/0_46875_100000_200_7
+Thu Jan 5 23:35:51 CST 2023: Experiment done
+Thu Jan 5 23:35:51 CST 2023: Running seed=8, outputting to discover_dring_ecmp_a2a_lpdbr/0_46875_100000_200_8
+Thu Jan 5 23:51:52 CST 2023: Experiment done
+Thu Jan 5 23:51:52 CST 2023: Running seed=9, outputting to discover_dring_ecmp_a2a_lpdbr/0_46875_100000_200_9
+Fri Jan 6 00:08:01 CST 2023: Experiment done
+Fri Jan 6 00:08:01 CST 2023: Collecting stats for discover_dring_ecmp_a2a_lpdbr/0_46875_100000_200_
+Fri Jan 6 00:09:16 CST 2023: n99fct=5.08768,totaltraffic=72973546950
+Fri Jan 6 00:09:16 CST 2023: Calculating the cutoff point
+n99fct1=4.91799,totaltraffic1=72517851450,n99fct2=5.08768,totaltraffic2=72973546950
+m=3.72376e-10,b=-22.0859,y=5,x=7.2738e+10
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================
