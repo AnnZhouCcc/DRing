@@ -172,6 +172,7 @@ done
 n99fctstart=$(cat $tempoutputfile | cut -d " " -f 1)
 totaltrafficstart=$(cat $tempoutputfile | cut -d " " -f 2)
 echo $(date): n99fct=${n99fctstart},totaltraffic=${totaltrafficstart} >> $logfile
+rm $combinedoutputfilestart
 
 ### Search end.
 echo $(date): Run experiment search end >> $logfile
@@ -206,6 +207,7 @@ done
 n99fctend=$(cat $tempoutputfile | cut -d " " -f 1)
 totaltrafficend=$(cat $tempoutputfile | cut -d " " -f 2)
 echo $(date): n99fct=${n99fctend},totaltraffic=${totaltrafficend} >> $logfile
+rm $combinedoutputfileend
 
 ### Compare n99fct.
 isLessThan() {
@@ -278,10 +280,11 @@ do
   done
 
   ### Collect stats.
-  ./discover_aux_collect_n99fct_totaltraffic_from_single_stats.sh $combinedoutputfile $mstart $mend $tempoutpufile > $tempoutputfile
+  ./discover_aux_collect_n99fct_totaltraffic_from_single_stats.sh $combinedoutputfile $mstart $mend $tempoutputfile > $tempoutputfile
   n99fct=$(cat $tempoutputfile | cut -d " " -f 1)
   totaltraffic=$(cat $tempoutputfile | cut -d " " -f 2)
   echo $(date): n99fct=${n99fct},totaltraffic=${totaltraffic} >> $logfile
+  rm $combinedoutputfile
 
   ### End or continue with binary search.
   if [ $( isCloseEnough $totaltrafficstart $totaltrafficend ) -eq 1 ]

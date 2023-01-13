@@ -175,6 +175,7 @@ do
   done
 
   combinedoutputfile1=${outputfileprefix1}_${seedfrom}_${seedto}
+  rm $combinedoutputfile1
   for seed in $(seq $seedfrom $seedto)
   do
     outputfile1=${outputfileprefix1}_${seed}
@@ -223,6 +224,7 @@ do
   done
 
   combinedoutputfile2=${outputfileprefix2}_${seedfrom}_${seedto}
+  rm $combinedoutputfile2
   for seed in $(seq $seedfrom $seedto)
   do
     outputfile2=${outputfileprefix2}_${seed}
@@ -262,5 +264,7 @@ echo m=${m},b=${b},y=${threshold},x=${x} >> $logfile
 echo ${x}
 
 rm $tempoutputfile
+rm $combinedoutputfile1
+rm $combinedoutputfile2
 echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ >> $logfile
 echo ================================================= >> $logfile
