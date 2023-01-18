@@ -2442,7 +2442,7 @@ void ConnectionMatrix::setTopoFlowsClusterX(Topology* top, string cluster, int s
   }
 
   // read in traffic for each pair of racks
-  int numintervals = (solveend-solvestart) / solveinterval;
+  int numintervals = (solveend-solvestart) / solveinterval +1;
   uint64_t*** traffic_per_rack_pair_per_interval = new uint64_t**[numintervals];
   for (int k=0; k<numintervals; k++) {
     traffic_per_rack_pair_per_interval[k] = new uint64_t*[numracks];
@@ -2487,10 +2487,11 @@ void ConnectionMatrix::setTopoFlowsClusterX(Topology* top, string cluster, int s
   for (int k=0; k<numintervals; k++) {
     for (int i=0; i<numracks; i++) {
       for (int j=0; j<numracks; j++) {
-        if (i==j) {
-          traffic_per_rack_pair_per_interval[k][i][j] = 0;
-          continue;
-        }
+        //AnnC: allow intra-rack traffic
+        //if (i==j) {
+        //  traffic_per_rack_pair_per_interval[k][i][j] = 0;
+        //  continue;
+        //}
         if (traffic_per_rack_pair_per_interval[k][i][j] == 0) continue;
 
         uint64_t total_traffic = traffic_per_rack_pair_per_interval[k][i][j];
