@@ -159,7 +159,7 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
 	// Initialize path_weights_rack_based
 	int numintervals = 1;
 	if (conn_matrix == "CLUSTERX") {
-		numintervals = (solveend-solvestart) / solveinterval;
+		numintervals = (solveend-solvestart) / solveinterval +1;
 	}
 	cout << "numintervals=" << numintervals << endl;
 
