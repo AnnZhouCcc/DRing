@@ -15,89 +15,22 @@ discoverseedfrom=${12}
 discoverseedto=${13}
 rigorousseedfrom=${14}
 rigorousseedto=${15}
-
-npfile=netpathfiles/netpath_${routing}_${topology}.txt
-
-if [ $mode = "equal" ]
-then
-  pwfile=pathweightfiles/${topology}/${routing}/pathweight_${topology}_${routing}_equal_${precision}.txt
-elif [ $mode = "weighted" ]
-then
-  pwfile=pathweightfiles/${topology}/${routing}/pathweight_${topology}_${routing}_weighted_${precision}.txt
-elif [ $mode = "lppbr" ]
-then
-  pwfile=pathweightfiles/${topology}/${routing}/${trafficmatrix}/pathweight_${topology}_${routing}_${trafficmatrix}_lp1_barrierwithcrossover_${precision}.txt
-elif [ $mode = "lpdbr" ]
-then
-  pwfile=pathweightfiles/${topology}/${routing}/${trafficmatrix}/pathweight_pbr1_${topology}_${routing}_${trafficmatrix}_lp1_barrierwithcrossover_${precision}.txt
-else
-  echo mode $mode not recognized.
-fi
-
-if [ $topology = "rrg" ]
-then
-  graphname=RRG
-  graphfile=graphfiles/ring_supergraph/rrg/instance1_80_64.edgelist
-  numservers=3072
-elif [ $topology = "dring" ]
-then
-  graphname=RRG
-  graphfile=graphfiles/ring_supergraph/double_ring/instance1_80_64.edgelist
-  numservers=2988
-elif [ $topology = "leafspine" ]
-then
-  graphname=LEAFSPINE
-  graphfile=null
-  numservers=3072
-else
-  echo topology $topology not recognized.
-fi
-
-if [ $trafficmatrix = "a2a" ]
-then
-  trafficmatrixparam=A2A
-elif [ $trafficmatrix = "r2r0" ]
-then
-  trafficmatrixparam=S2S_1_1_0_0
-else
-  echo traffic matrix $trafficmatrix not recognized.
-fi
-
-if [ $routing = "ecmp" ]
-then
-  routingparam=ecmp
-  kornparam=0
-elif [ $routing = "su2" ]
-then
-  routingparam=su
-  kornparam=2
-elif [ $routing = "su3" ]
-then
-  routingparam=su
-  kornparam=3
-elif [ $routing = "32disjoint" ]
-then
-  routingparam=kdisjoint
-  kornparam=32
-elif [ $routing = "32short" ]
-then
-  routingparam=kshort
-  kornparam=32
-elif [ $routing = "racke0" ]
-then
-  routingparam=racke
-  kornparam=0
-elif [ $routing = "racke1" ]
-then
-  routingparam=racke
-  kornparam=1
-elif [ $routing = "racke2" ]
-then
-  routingparam=racke
-  kornparam=2
-else
-  echo routing $routing not recognized.
-fi
+npfile=${16}
+pwfile=${17}
+graphname=${18}
+graphfile=${19}
+numservers=${20}
+trafficmatrixparam=${21}
+routingparam=${22}
+kornparam=${23}
+solvestart=${24}
+solveend=${25}
+trafficfilename=${26}
+dp=${27}
+solveinterval=${28}
+computestart=${29}
+computeend=${30}
+computeinterval=${31}
 
 # Check the directory and logfile are present.
 dir=discover_${topology}_${routing}_${trafficmatrix}_${mode}
@@ -164,7 +97,7 @@ do
     echo $(date): Running seed=${seed} >> $logfile
     if [ ! -s $outputfile1 ]
     then
-      time ./run.sh $graphname 1 64 16 $graphfile $numservers 1 1 $make $trafficmatrixparam $mult1 $numerator1 $denominator1 0 0 $routingparam $kornparam 0 0 $seed $suffix $npfile $pwfile 0 $mstart $mend $stime 0 0 0 0 | grep -e "FCT" -e "topology" > $outputfile1 &
+      time ./run.sh $graphname 1 64 16 $graphfile $numservers 1 1 $make $trafficmatrixparam $mult1 $numerator1 $denominator1 $solvestart $solveend $routingparam $kornparam $trafficfilename 0 $seed $suffix $npfile $pwfile $dp $mstart $mend $stime $solveinterval $computestart $computeend $computeinterval | grep -e "FCT" -e "topology" > $outputfile1 &
       sleep 30
       wait
       echo $(date): Experiment done "("seed=$seed")" >> $logfile
@@ -213,7 +146,7 @@ do
     echo $(date): Running seed=${seed} >> $logfile
     if [ ! -s $outputfile2 ]
     then
-      time ./run.sh $graphname 1 64 16 $graphfile $numservers 1 1 $make $trafficmatrixparam $mult2 $numerator2 $denominator2 0 0 $routingparam $kornparam 0 0 $seed $suffix $npfile $pwfile 0 $mstart $mend $stime 0 0 0 0 | grep -e "FCT" -e "topology" > $outputfile2 &
+      time ./run.sh $graphname 1 64 16 $graphfile $numservers 1 1 $make $trafficmatrixparam $mult2 $numerator2 $denominator2 $solvestart $solveend $routingparam $kornparam $trafficfilename 0 $seed $suffix $npfile $pwfile $dp $mstart $mend $stime $solveinterval $computestart $computeend $computeinterval | grep -e "FCT" -e "topology" > $outputfile2 &
       sleep 30
       wait
       echo $(date): Experiment done "("seed=$seed")" >> $logfile

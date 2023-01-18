@@ -1,5 +1,5 @@
 fileprefix=$1
-rigorrousseedfrom=$2
+rigorousseedfrom=$2
 rigorousseedto=$3
 discoverseedfrom=$4
 discoverseedto=$5

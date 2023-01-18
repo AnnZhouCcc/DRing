@@ -2,35 +2,60 @@
 # Set parameters.
 topology=$1 #rrg/dring/leafspine
 routing=$2
-trafficmatrix=r2r0
-mode=$3 #equal/weighted/lppbr/lpdbr
-searchstart=$4
-searchend=$5
-threshold=60 #ms
-stime=1000
+trafficmatrix=clusterb
+mode=$3 #equal/weighted/lppbr/lpdbr/lppbr-optimal/lpdbr-optimal
+lpsolvermode=$4
+searchstart=$5
+searchend=$6
+threshold=15 #ms
+stime=400
 precision=64
 seedfrom=0
-seedto=49
+seedto=0
+solvestart=0
+solveend=84600
+trafficfilename=b
+dp=$precision
+solveinterval=1800
+computestart=0
+computeend=84600
+computeinterval=$7
 
 let mstart=$stime/4
 let mend=3*$stime/4
 
 npfile=netpathfiles/netpath_${routing}_${topology}.txt
 
-if [ $mode = "equal" ]
+if [ $computeinterval -eq 0 ]
 then
-  pwfile=pathweightfiles/${topology}/${routing}/pathweight_${topology}_${routing}_equal_${precision}.txt
-elif [ $mode = "weighted" ]
-then
-  pwfile=pathweightfiles/${topology}/${routing}/pathweight_${topology}_${routing}_weighted_${precision}.txt
-elif [ $mode = "lppbr" ]
-then
-  pwfile=pathweightfiles/${topology}/${routing}/${trafficmatrix}/pathweight_${topology}_${routing}_${trafficmatrix}_lp1_barrierwithcrossover_${precision}.txt
-elif [ $mode = "lpdbr" ]
-then
-  pwfile=pathweightfiles/${topology}/${routing}/${trafficmatrix}/pathweight_pbr1_${topology}_${routing}_${trafficmatrix}_lp1_barrierwithcrossover_${precision}.txt
+  if [ $mode = "equal" ]
+  then
+    pwfile=pathweightfiles/${topology}/${routing}/pathweight_${topology}_${routing}_equal_${precision}.txt
+  elif [ $mode = "weighted" ]
+  then
+    pwfile=pathweightfiles/${topology}/${routing}/pathweight_${topology}_${routing}_weighted_${precision}.txt
+  elif [ $mode = "lppbr" ] || [ $mode = "lppbr-nox" ]
+  then
+    pwfile=pathweightfiles/${topology}/${routing}/${trafficmatrix}/pathweight_${topology}_${routing}_${trafficmatrix}_lp1_${lpsolvermode}_${precision}.txt
+  elif [ $mode = "lpdbr" ] || [ $mode = "lpdbr-nox" ]
+  then
+    pwfile=pathweightfiles/${topology}/${routing}/${trafficmatrix}/pathweight_pbr1_${topology}_${routing}_${trafficmatrix}_lp1_${lpsolvermode}_${precision}.txt
+  else
+    echo mode $mode not recognized.
+  fi
 else
-  echo mode $mode not recognized.
+  if [ $mode = "equal" ]
+  then
+    pwfile=pathweightfiles/${topology}/${routing}/pathweight_${topology}_${routing}_equal_${precision}.txt
+  elif [ $mode = "lppbr-optimal" ] || [ $mode = "lppbr-nox-optimal" ]
+  then
+    pwfile=pathweightfiles/${topology}/${routing}/${trafficmatrix}/pathweight_${topology}_${routing}_${trafficmatrix}_lp1_${lpsolvermode}_
+  elif [ $mode = "lpdbr-optimal" ] || [ $mode = "lpdbr-nox-optimal" ]
+  then
+    pwfile=pathweightfiles/${topology}/${routing}/${trafficmatrix}/pathweight_pbr1_${topology}_${routing}_${trafficmatrix}_lp1_${lpsolvermode}_
+  else
+    echo mode $mode not recognized.
+  fi
 fi
 
 if [ $topology = "rrg" ]
@@ -58,6 +83,12 @@ then
 elif [ $trafficmatrix = "r2r0" ]
 then
   trafficmatrixparam=S2S_1_1_0_0
+elif [ $trafficmatrix = "r2r1" ]
+then
+  trafficmatrixparam=S2S_1_1_0_1
+elif [ $trafficmatrix = "clusterb" ]
+then
+  trafficmatrixparam=CLUSTERX
 else
   echo traffic matrix $trafficmatrix not recognized.
 fi
@@ -150,7 +181,7 @@ do
   outputfilestart=${outputfileprefixstart}_${seed}
   if [ ! -s $outputfilestart ]
   then
-    time ./run.sh $graphname 1 64 16 $graphfile $numservers 1 1 $make $trafficmatrixparam $multstart $numeratorstart $denominatorstart 0 0 $routingparam $kornparam 0 0 $seed $suffix $npfile $pwfile 0 $mstart $mend $stime 0 0 0 0 | grep -e "FCT" -e "topology" > $outputfilestart &
+    time ./run.sh $graphname 1 64 16 $graphfile $numservers 1 1 $make $trafficmatrixparam $multstart $numeratorstart $denominatorstart $solvestart $solveend $routingparam $kornparam $trafficfilename 0 $seed $suffix $npfile $pwfile $dp $mstart $mend $stime $solveinterval $computestart $computeend $computeinterval | grep -e "FCT" -e "topology" > $outputfilestart &
     sleep 5 
     wait
     echo $(date): Experiment done "("seed=$seed")" >> $logfile
@@ -185,7 +216,7 @@ do
   outputfileend=${outputfileprefixend}_${seed}
   if [ ! -s $outputfileend ]
   then
-    time ./run.sh $graphname 1 64 16 $graphfile $numservers 1 1 $make $trafficmatrixparam $multend $numeratorend $denominatorend 0 0 $routingparam $kornparam 0 0 $seed $suffix $npfile $pwfile 0 $mstart $mend $stime 0 0 0 0 | grep -e "FCT" -e "topology" > $outputfileend &
+    time ./run.sh $graphname 1 64 16 $graphfile $numservers 1 1 $make $trafficmatrixparam $multend $numeratorend $denominatorend $solvestart $solveend $routingparam $kornparam $trafficfilename 0 $seed $suffix $npfile $pwfile $dp $mstart $mend $stime $solveinterval $computestart $computeend $computeinterval | grep -e "FCT" -e "topology" > $outputfileend &
     sleep 5
     wait
     echo $(date): Experiment done "("seed=$seed")" >> $logfile
@@ -261,7 +292,7 @@ do
     outputfile=${outputfileprefix}_${seed}
     if [ ! -s $outputfile ]
     then
-      time ./run.sh $graphname 1 64 16 $graphfile $numservers 1 1 $make $trafficmatrixparam $mult $numerator $denominator 0 0 $routingparam $kornparam 0 0 $seed $suffix $npfile $pwfile 0 $mstart $mend $stime 0 0 0 0 | grep -e "FCT" -e "topology" > $outputfile &
+      time ./run.sh $graphname 1 64 16 $graphfile $numservers 1 1 $make $trafficmatrixparam $mult $numerator $denominator $solvestart $solveend $routingparam $kornparam $trafficfilename 0 $seed $suffix $npfile $pwfile $dp $mstart $mend $stime $solveinterval $computestart $computeend $computeinterval | grep -e "FCT" -e "topology" > $outputfile &
       sleep 5
       wait
       echo $(date): Experiment done "("seed=$seed")" >> $logfile
@@ -299,14 +330,14 @@ do
     then
       echo ========='['searchstart,searchmid']'========= >> $logfile
       echo ========='['${searchstart},${searchmid}']'========= >> $logfile
-      ./rigorous.sh $searchstart $searchmid $topology $routing $trafficmatrix $mode $threshold $stime $mstart $mend $precision $seedfrom $seedto 0 9 > $tempoutputfile
+      ./rigorous.sh $searchstart $searchmid $topology $routing $trafficmatrix $mode $threshold $stime $mstart $mend $precision $seedfrom $seedto 0 9 $npfile $pwfile $graphname $graphfile $numservers $trafficmatrixparam $routingparam $kornparam $solvestart $solveend $trafficfilename $dp $solveinterval $computestart $computeend $computeinterval> $tempoutputfile
       x=$(cat $tempoutputfile | cut -d " " -f 1)
       echo $x
     elif [ $(isLessThan $n99fct $threshold ) -eq 1 ]
     then
       echo ========='['searchmid,searchend']'========= >> $logfile
       echo ========='['${searchmid},${searchend}']'========= >> $logfile
-      ./rigorous.sh $searchmid $searchend $topology $routing $trafficmatrix $mode $threshold $stime $mstart $mend $precision $seedfrom $seedto 0 9 > $tempoutputfile
+      ./rigorous.sh $searchmid $searchend $topology $routing $trafficmatrix $mode $threshold $stime $mstart $mend $precision $seedfrom $seedto 0 9 $npfile $pwfile $graphname $graphfile $numservers $trafficmatrixparam $routingparam $kornparam $solvestart $solveend $trafficfilename $dp $solveinterval $computestart $computeend $computeinterval > $tempoutputfile
       x=$(cat $tempoutputfile | cut -d " " -f 1)
       echo $x
     else
