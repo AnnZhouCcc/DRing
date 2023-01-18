@@ -1,0 +1,262 @@
+Mon 16 Jan 2023 12:02:54 AM CST: Set up parameters
+topology=rrg
+routing=su2
+trafficmatrix=clusterb
+mode=lppbr-optimal
+searchstart=1.5
+searchend=2
+threshold=15
+stime=400
+mstart=100
+mend=300
+precision=64
+Mon 16 Jan 2023 12:02:54 AM CST: Run experiment search start
+mult=1,numerator=5,denominator=10
+Mon 16 Jan 2023 12:37:35 AM CST: Experiment done (seed=0)
+Mon 16 Jan 2023 12:37:53 AM CST: n99fct=1.6022,totaltraffic=90911014500
+Mon 16 Jan 2023 12:37:53 AM CST: Run experiment search end
+mult=2,numerator=0,denominator=0
+Mon 16 Jan 2023 12:51:54 AM CST: Experiment done (seed=0)
+Mon 16 Jan 2023 12:51:54 AM CST: n99fct=0,totaltraffic=0
+15 > 0 ? 1
+15 < 1.6022 ? 0
+Mon 16 Jan 2023 07:59:24 AM CST: Set up parameters
+topology=rrg
+routing=su2
+trafficmatrix=clusterb
+mode=lppbr-optimal
+searchstart=1.5
+searchend=2
+threshold=15
+stime=400
+mstart=100
+mend=300
+precision=64
+Mon 16 Jan 2023 07:59:24 AM CST: Run experiment search start
+mult=1,numerator=5,denominator=10
+Mon 16 Jan 2023 07:59:24 AM CST: Result already exists (seed=0)
+Mon 16 Jan 2023 07:59:40 AM CST: n99fct=1.6022,totaltraffic=90911014500
+Mon 16 Jan 2023 07:59:40 AM CST: Run experiment search end
+mult=2,numerator=0,denominator=0
+Mon 16 Jan 2023 07:59:40 AM CST: Result already exists (seed=0)
+Mon 16 Jan 2023 07:59:40 AM CST: n99fct=0,totaltraffic=0
+15 > 0 ? 1
+15 < 1.6022 ? 0
+Mon 16 Jan 2023 08:00:42 AM CST: Set up parameters
+topology=rrg
+routing=su2
+trafficmatrix=clusterb
+mode=lppbr-optimal
+searchstart=1.5
+searchend=2
+threshold=15
+stime=400
+mstart=100
+mend=300
+precision=64
+Mon 16 Jan 2023 08:00:42 AM CST: Run experiment search start
+mult=1,numerator=5,denominator=10
+Mon 16 Jan 2023 08:00:42 AM CST: Result already exists (seed=0)
+Mon 16 Jan 2023 08:00:58 AM CST: n99fct=1.6022,totaltraffic=90911014500
+Mon 16 Jan 2023 08:00:58 AM CST: Run experiment search end
+mult=2,numerator=0,denominator=0
+Mon 16 Jan 2023 08:49:59 AM CST: Experiment done (seed=0)
+Mon 16 Jan 2023 08:50:20 AM CST: n99fct=7.54746,totaltraffic=121131081000
+15 > 7.54746 ? 1
+15 < 1.6022 ? 0
+Mon 16 Jan 2023 10:08:03 AM CST: Set up parameters
+topology=rrg
+routing=su2
+trafficmatrix=clusterb
+mode=lppbr-optimal
+searchstart=2
+searchend=2.2
+threshold=15
+stime=400
+mstart=100
+mend=300
+precision=64
+Mon 16 Jan 2023 10:08:04 AM CST: Run experiment search start
+mult=2,numerator=0,denominator=0
+Mon 16 Jan 2023 10:08:04 AM CST: Result already exists (seed=0)
+Mon 16 Jan 2023 10:08:26 AM CST: n99fct=7.54746,totaltraffic=121131081000
+Mon 16 Jan 2023 10:08:26 AM CST: Run experiment search end
+mult=2,numerator=2,denominator=10
+Mon 16 Jan 2023 11:03:58 AM CST: Experiment done (seed=0)
+Mon 16 Jan 2023 11:04:24 AM CST: n99fct=9.61143,totaltraffic=133170804000
+15 > 9.61143 ? 1
+15 < 7.54746 ? 0
+Mon 16 Jan 2023 12:55:20 PM CST: Set up parameters
+topology=rrg
+routing=su2
+trafficmatrix=clusterb
+mode=lppbr-optimal
+searchstart=2.2
+searchend=2.5
+threshold=15
+stime=400
+mstart=100
+mend=300
+precision=64
+Mon 16 Jan 2023 12:55:20 PM CST: Run experiment search start
+mult=2,numerator=2,denominator=10
+Mon 16 Jan 2023 12:55:20 PM CST: Result already exists (seed=0)
+Mon 16 Jan 2023 12:55:44 PM CST: n99fct=9.61143,totaltraffic=133170804000
+Mon 16 Jan 2023 12:55:44 PM CST: Run experiment search end
+mult=2,numerator=5,denominator=10
+Mon 16 Jan 2023 02:01:07 PM CST: Experiment done (seed=0)
+Mon 16 Jan 2023 02:01:36 PM CST: n99fct=11.6153,totaltraffic=151476558000
+15 > 11.6153 ? 1
+15 < 9.61143 ? 0
+Mon 16 Jan 2023 03:56:03 PM CST: Set up parameters
+topology=rrg
+routing=su2
+trafficmatrix=clusterb
+mode=lppbr-optimal
+searchstart=2.8
+searchend=3
+threshold=15
+stime=400
+mstart=100
+mend=300
+precision=64
+Mon 16 Jan 2023 03:56:03 PM CST: Run experiment search start
+mult=2,numerator=8,denominator=10
+Mon 16 Jan 2023 05:06:50 PM CST: Experiment done (seed=0)
+Mon 16 Jan 2023 05:07:19 PM CST: n99fct=20.484,totaltraffic=169710787500
+Mon 16 Jan 2023 05:07:19 PM CST: Run experiment search end
+mult=3,numerator=0,denominator=0
+Mon 16 Jan 2023 05:08:51 PM CST: Set up parameters
+topology=rrg
+routing=su2
+trafficmatrix=clusterb
+mode=lppbr-optimal
+searchstart=2.5
+searchend=2.8
+threshold=15
+stime=400
+mstart=100
+mend=300
+precision=64
+Mon 16 Jan 2023 05:08:51 PM CST: Run experiment search start
+mult=2,numerator=5,denominator=10
+Mon 16 Jan 2023 05:08:51 PM CST: Result already exists (seed=0)
+Mon 16 Jan 2023 05:09:18 PM CST: n99fct=11.6153,totaltraffic=151476558000
+Mon 16 Jan 2023 05:09:18 PM CST: Run experiment search end
+mult=2,numerator=8,denominator=10
+Mon 16 Jan 2023 05:09:18 PM CST: Result already exists (seed=0)
+Mon 16 Jan 2023 05:09:47 PM CST: n99fct=20.484,totaltraffic=169710787500
+Mon 16 Jan 2023 05:09:48 PM CST: Start binary search.
+searchmid=2.65,searchstart=2.5,searchend=2.8
+Mon 16 Jan 2023 05:09:48 PM CST: Run experiment
+mult=2,numerator=65,denominator=100
+Mon 16 Jan 2023 06:25:20 PM CST: Experiment done (seed=0)
+Mon 16 Jan 2023 06:25:51 PM CST: n99fct=16.0878,totaltraffic=160515703500
+Change searchend to 2.65
+searchstart=2.5,searchend=2.65
+searchmid=2.575,searchstart=2.5,searchend=2.65
+Mon 16 Jan 2023 06:25:52 PM CST: Run experiment
+mult=2,numerator=575,denominator=1000
+Mon 16 Jan 2023 07:29:00 PM CST: Experiment done (seed=0)
+Mon 16 Jan 2023 07:29:28 PM CST: n99fct=13.2003,totaltraffic=156160218000
+Change searchstart to 2.575
+searchstart=2.575,searchend=2.65
+searchmid=2.6125,searchstart=2.575,searchend=2.65
+Mon 16 Jan 2023 07:29:28 PM CST: Run experiment
+mult=2,numerator=6125,denominator=10000
+Mon 16 Jan 2023 08:32:04 PM CST: Experiment done (seed=0)
+Mon 16 Jan 2023 08:32:31 PM CST: n99fct=14.404,totaltraffic=158094780000
+Mon 16 Jan 2023 08:32:31 PM CST: isCloseEnough searchstart=2.575,searchmid=2.6125,searchend=2.65
+searchstart: n99fct=13.2003,totaltraffic=156160218000
+searchmid: n99fct=14.404,totaltraffic=158094780000
+searchend: n99fct=16.0878,totaltraffic=160515703500
+=========[searchmid,searchend]=========
+=========[2.6125,2.65]=========
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Mon 16 Jan 2023 08:32:32 PM CST
+topology=rrg
+routing=su2
+trafficmatrix=clusterb
+mode=lppbr-optimal
+p1=2.6125
+p2=2.65
+threshold=15
+stime=400
+mstart=100
+mend=300
+precision=64
+Mon 16 Jan 2023 08:32:32 PM CST: Run experiment for p1
+mult=2,numerator=6125,denominator=10000
+Mon 16 Jan 2023 08:32:32 PM CST: rigorousseed=0,seedfrom=0,seedto=0
+Mon 16 Jan 2023 08:32:32 PM CST: Running seed=0
+Mon 16 Jan 2023 08:32:32 PM CST: Result already exists (seed=0)
+Mon 16 Jan 2023 08:32:33 PM CST: rigorousseed=1,seedfrom=1,seedto=1
+Mon 16 Jan 2023 08:32:33 PM CST: Running seed=1
+Mon 16 Jan 2023 09:43:32 PM CST: Experiment done (seed=1)
+Mon 16 Jan 2023 09:43:35 PM CST: rigorousseed=2,seedfrom=2,seedto=2
+Mon 16 Jan 2023 09:43:35 PM CST: Running seed=2
+Mon 16 Jan 2023 10:49:53 PM CST: Experiment done (seed=2)
+Mon 16 Jan 2023 10:49:56 PM CST: rigorousseed=3,seedfrom=3,seedto=3
+Mon 16 Jan 2023 10:49:56 PM CST: Running seed=3
+Mon 16 Jan 2023 11:57:46 PM CST: Experiment done (seed=3)
+Mon 16 Jan 2023 11:57:49 PM CST: rigorousseed=4,seedfrom=4,seedto=4
+Mon 16 Jan 2023 11:57:49 PM CST: Running seed=4
+Tue 17 Jan 2023 01:03:29 AM CST: Experiment done (seed=4)
+Tue 17 Jan 2023 01:03:32 AM CST: rigorousseed=5,seedfrom=5,seedto=5
+Tue 17 Jan 2023 01:03:32 AM CST: Running seed=5
+Tue 17 Jan 2023 02:05:27 AM CST: Experiment done (seed=5)
+Tue 17 Jan 2023 02:05:30 AM CST: rigorousseed=6,seedfrom=6,seedto=6
+Tue 17 Jan 2023 02:05:30 AM CST: Running seed=6
+Tue 17 Jan 2023 03:04:37 AM CST: Experiment done (seed=6)
+Tue 17 Jan 2023 03:04:40 AM CST: rigorousseed=7,seedfrom=7,seedto=7
+Tue 17 Jan 2023 03:04:40 AM CST: Running seed=7
+Tue 17 Jan 2023 04:03:16 AM CST: Experiment done (seed=7)
+Tue 17 Jan 2023 04:03:19 AM CST: rigorousseed=8,seedfrom=8,seedto=8
+Tue 17 Jan 2023 04:03:19 AM CST: Running seed=8
+Tue 17 Jan 2023 05:02:54 AM CST: Experiment done (seed=8)
+Tue 17 Jan 2023 05:02:58 AM CST: rigorousseed=9,seedfrom=9,seedto=9
+Tue 17 Jan 2023 05:02:58 AM CST: Running seed=9
+Tue 17 Jan 2023 05:57:54 AM CST: Experiment done (seed=9)
+Tue 17 Jan 2023 05:57:57 AM CST: Collecting stats for discover_rrg_su2_clusterb_lppbr-optimal/2_6125_10000_400
+Tue 17 Jan 2023 06:01:31 AM CST: n99fct=13.1594,totaltraffic=142386666000
+Tue 17 Jan 2023 06:01:31 AM CST: Run experiment for p2
+mult=2,numerator=65,denominator=100
+Tue 17 Jan 2023 06:01:31 AM CST: rigorousseed=0,seedfrom=0,seedto=0
+Tue 17 Jan 2023 06:01:31 AM CST: Running seed=0
+Tue 17 Jan 2023 06:01:31 AM CST: Result already exists (seed=0)
+Tue 17 Jan 2023 06:01:34 AM CST: rigorousseed=1,seedfrom=1,seedto=1
+Tue 17 Jan 2023 06:01:34 AM CST: Running seed=1
+Tue 17 Jan 2023 06:58:36 AM CST: Experiment done (seed=1)
+Tue 17 Jan 2023 06:58:40 AM CST: rigorousseed=2,seedfrom=2,seedto=2
+Tue 17 Jan 2023 06:58:40 AM CST: Running seed=2
+Tue 17 Jan 2023 07:51:52 AM CST: Experiment done (seed=2)
+Tue 17 Jan 2023 07:51:55 AM CST: rigorousseed=3,seedfrom=3,seedto=3
+Tue 17 Jan 2023 07:51:55 AM CST: Running seed=3
+Tue 17 Jan 2023 08:47:10 AM CST: Experiment done (seed=3)
+Tue 17 Jan 2023 08:47:14 AM CST: rigorousseed=4,seedfrom=4,seedto=4
+Tue 17 Jan 2023 08:47:14 AM CST: Running seed=4
+Tue 17 Jan 2023 09:43:17 AM CST: Experiment done (seed=4)
+Tue 17 Jan 2023 09:43:20 AM CST: rigorousseed=5,seedfrom=5,seedto=5
+Tue 17 Jan 2023 09:43:20 AM CST: Running seed=5
+Tue 17 Jan 2023 10:39:21 AM CST: Experiment done (seed=5)
+Tue 17 Jan 2023 10:39:24 AM CST: rigorousseed=6,seedfrom=6,seedto=6
+Tue 17 Jan 2023 10:39:24 AM CST: Running seed=6
+Tue 17 Jan 2023 11:35:45 AM CST: Experiment done (seed=6)
+Tue 17 Jan 2023 11:35:48 AM CST: rigorousseed=7,seedfrom=7,seedto=7
+Tue 17 Jan 2023 11:35:48 AM CST: Running seed=7
+Tue 17 Jan 2023 12:31:50 PM CST: Experiment done (seed=7)
+Tue 17 Jan 2023 12:31:53 PM CST: rigorousseed=8,seedfrom=8,seedto=8
+Tue 17 Jan 2023 12:31:53 PM CST: Running seed=8
+Tue 17 Jan 2023 01:28:16 PM CST: Experiment done (seed=8)
+Tue 17 Jan 2023 01:28:19 PM CST: rigorousseed=9,seedfrom=9,seedto=9
+Tue 17 Jan 2023 01:28:19 PM CST: Running seed=9
+Tue 17 Jan 2023 02:26:28 PM CST: Experiment done (seed=9)
+Tue 17 Jan 2023 02:26:31 PM CST: Collecting stats for discover_rrg_su2_clusterb_lppbr-optimal/2_65_100_400
+Tue 17 Jan 2023 02:30:11 PM CST: n99fct=14.547,totaltraffic=144467528400
+Tue 17 Jan 2023 02:30:11 PM CST: Calculating the cutoff point
+n99fct1=13.1594,totaltraffic1=142386666000,n99fct2=14.547,totaltraffic2=144467528400
+m=6.66839e-10,b=-81.7896,y=15,x=1.45147e+11
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================
+===============Close Interval Found==============

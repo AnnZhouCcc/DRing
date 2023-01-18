@@ -305,3 +305,461 @@ n99fct1=4.73735,totaltraffic1=67152325350,n99fct2=4.91804,totaltraffic2=67653583
 m=3.60473e-10,b=-19.4693,y=5,x=6.78811e+10
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 =================================================
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Tue 17 Jan 2023 10:52:13 PM CST
+topology=dring
+routing=su2
+trafficmatrix=a2a
+mode=equal
+p1=0.434375
+p2=0.4375
+threshold=5
+stime=200
+mstart=50
+mend=150
+precision=64
+Tue 17 Jan 2023 10:52:13 PM CST: Run experiment for p1
+mult=0,numerator=434375,denominator=1000000
+Tue 17 Jan 2023 10:52:13 PM CST: rigorousseed=0,seedfrom=0,seedto=0
+Tue 17 Jan 2023 10:52:13 PM CST: Running seed=0
+Tue 17 Jan 2023 10:52:14 PM CST: Result already exists (seed=0)
+Tue 17 Jan 2023 10:52:15 PM CST: rigorousseed=1,seedfrom=1,seedto=1
+Tue 17 Jan 2023 10:52:15 PM CST: Running seed=1
+Tue 17 Jan 2023 10:52:15 PM CST: Result already exists (seed=1)
+Tue 17 Jan 2023 10:52:16 PM CST: rigorousseed=2,seedfrom=2,seedto=2
+Tue 17 Jan 2023 10:52:16 PM CST: Running seed=2
+Tue 17 Jan 2023 10:52:16 PM CST: Result already exists (seed=2)
+Tue 17 Jan 2023 10:52:18 PM CST: rigorousseed=3,seedfrom=3,seedto=3
+Tue 17 Jan 2023 10:52:18 PM CST: Running seed=3
+Tue 17 Jan 2023 10:52:18 PM CST: Result already exists (seed=3)
+Tue 17 Jan 2023 10:52:19 PM CST: rigorousseed=4,seedfrom=4,seedto=4
+Tue 17 Jan 2023 10:52:19 PM CST: Running seed=4
+Tue 17 Jan 2023 10:52:19 PM CST: Result already exists (seed=4)
+Tue 17 Jan 2023 10:52:20 PM CST: rigorousseed=5,seedfrom=5,seedto=5
+Tue 17 Jan 2023 10:52:20 PM CST: Running seed=5
+Tue 17 Jan 2023 10:52:20 PM CST: Result already exists (seed=5)
+Tue 17 Jan 2023 10:52:22 PM CST: rigorousseed=6,seedfrom=6,seedto=6
+Tue 17 Jan 2023 10:52:22 PM CST: Running seed=6
+Tue 17 Jan 2023 10:52:22 PM CST: Result already exists (seed=6)
+Tue 17 Jan 2023 10:52:23 PM CST: rigorousseed=7,seedfrom=7,seedto=7
+Tue 17 Jan 2023 10:52:23 PM CST: Running seed=7
+Tue 17 Jan 2023 10:52:23 PM CST: Result already exists (seed=7)
+Tue 17 Jan 2023 10:52:24 PM CST: rigorousseed=8,seedfrom=8,seedto=8
+Tue 17 Jan 2023 10:52:24 PM CST: Running seed=8
+Tue 17 Jan 2023 10:52:24 PM CST: Result already exists (seed=8)
+Tue 17 Jan 2023 10:52:26 PM CST: rigorousseed=9,seedfrom=9,seedto=9
+Tue 17 Jan 2023 10:52:26 PM CST: Running seed=9
+Tue 17 Jan 2023 10:52:26 PM CST: Result already exists (seed=9)
+Tue 17 Jan 2023 10:52:27 PM CST: Collecting stats for discover_dring_su2_a2a_equal/0_434375_1000000_200
+Tue 17 Jan 2023 10:52:27 PM CST: n99fct=4.91804,totaltraffic=67653583050
+Tue 17 Jan 2023 10:52:27 PM CST: Run experiment for p2
+mult=0,numerator=4375,denominator=10000
+Tue 17 Jan 2023 10:52:27 PM CST: rigorousseed=0,seedfrom=0,seedto=0
+Tue 17 Jan 2023 10:52:27 PM CST: Running seed=0
+Tue 17 Jan 2023 10:52:27 PM CST: Result already exists (seed=0)
+Tue 17 Jan 2023 10:52:29 PM CST: rigorousseed=1,seedfrom=1,seedto=1
+Tue 17 Jan 2023 10:52:29 PM CST: Running seed=1
+Tue 17 Jan 2023 10:53:52 PM CST: Experiment done (seed=1)
+Tue 17 Jan 2023 10:53:52 PM CST: rigorousseed=2,seedfrom=2,seedto=2
+Tue 17 Jan 2023 10:53:52 PM CST: Running seed=2
+Tue 17 Jan 2023 10:55:10 PM CST: Experiment done (seed=2)
+Tue 17 Jan 2023 10:55:10 PM CST: rigorousseed=3,seedfrom=3,seedto=3
+Tue 17 Jan 2023 10:55:10 PM CST: Running seed=3
+Tue 17 Jan 2023 10:56:19 PM CST: Experiment done (seed=3)
+Tue 17 Jan 2023 10:56:19 PM CST: rigorousseed=4,seedfrom=4,seedto=4
+Tue 17 Jan 2023 10:56:19 PM CST: Running seed=4
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Tue 17 Jan 2023 10:58:31 PM CST
+topology=dring
+routing=su2
+trafficmatrix=a2a
+mode=equal
+p1=0.434375
+p2=0.4375
+threshold=5
+stime=200
+mstart=50
+mend=150
+precision=64
+Tue 17 Jan 2023 10:58:31 PM CST: Run experiment for p1
+mult=0,numerator=434375,denominator=1000000
+Tue 17 Jan 2023 10:58:31 PM CST: rigorousseed=0,seedfrom=0,seedto=0
+Tue 17 Jan 2023 10:58:31 PM CST: Running seed=0
+Tue 17 Jan 2023 10:58:31 PM CST: Result already exists (seed=0)
+Tue 17 Jan 2023 10:58:32 PM CST: rigorousseed=1,seedfrom=1,seedto=1
+Tue 17 Jan 2023 10:58:32 PM CST: Running seed=1
+Tue 17 Jan 2023 10:58:32 PM CST: Result already exists (seed=1)
+Tue 17 Jan 2023 10:58:32 PM CST: rigorousseed=2,seedfrom=2,seedto=2
+Tue 17 Jan 2023 10:58:32 PM CST: Running seed=2
+Tue 17 Jan 2023 10:58:32 PM CST: Result already exists (seed=2)
+Tue 17 Jan 2023 10:58:33 PM CST: rigorousseed=3,seedfrom=3,seedto=3
+Tue 17 Jan 2023 10:58:33 PM CST: Running seed=3
+Tue 17 Jan 2023 10:58:33 PM CST: Result already exists (seed=3)
+Tue 17 Jan 2023 10:58:34 PM CST: rigorousseed=4,seedfrom=4,seedto=4
+Tue 17 Jan 2023 10:58:34 PM CST: Running seed=4
+Tue 17 Jan 2023 10:58:34 PM CST: Result already exists (seed=4)
+Tue 17 Jan 2023 10:58:34 PM CST: rigorousseed=5,seedfrom=5,seedto=5
+Tue 17 Jan 2023 10:58:34 PM CST: Running seed=5
+Tue 17 Jan 2023 10:58:34 PM CST: Result already exists (seed=5)
+Tue 17 Jan 2023 10:58:35 PM CST: rigorousseed=6,seedfrom=6,seedto=6
+Tue 17 Jan 2023 10:58:35 PM CST: Running seed=6
+Tue 17 Jan 2023 10:58:35 PM CST: Result already exists (seed=6)
+Tue 17 Jan 2023 10:58:35 PM CST: rigorousseed=7,seedfrom=7,seedto=7
+Tue 17 Jan 2023 10:58:35 PM CST: Running seed=7
+Tue 17 Jan 2023 10:58:35 PM CST: Result already exists (seed=7)
+Tue 17 Jan 2023 10:58:36 PM CST: rigorousseed=8,seedfrom=8,seedto=8
+Tue 17 Jan 2023 10:58:36 PM CST: Running seed=8
+Tue 17 Jan 2023 10:58:36 PM CST: Result already exists (seed=8)
+Tue 17 Jan 2023 10:58:37 PM CST: rigorousseed=9,seedfrom=9,seedto=9
+Tue 17 Jan 2023 10:58:37 PM CST: Running seed=9
+Tue 17 Jan 2023 10:58:37 PM CST: Result already exists (seed=9)
+Tue 17 Jan 2023 10:58:37 PM CST: Collecting stats for discover_dring_su2_a2a_equal/0_434375_1000000_200
+Tue 17 Jan 2023 10:58:38 PM CST: n99fct=4.91804,totaltraffic=67653583050
+Tue 17 Jan 2023 10:58:38 PM CST: Run experiment for p2
+mult=0,numerator=4375,denominator=10000
+Tue 17 Jan 2023 10:58:38 PM CST: rigorousseed=0,seedfrom=0,seedto=0
+Tue 17 Jan 2023 10:58:38 PM CST: Running seed=0
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Tue 17 Jan 2023 10:59:59 PM CST
+topology=dring
+routing=su2
+trafficmatrix=a2a
+mode=equal
+p1=0.434375
+p2=0.4375
+threshold=5
+stime=200
+mstart=50
+mend=150
+precision=64
+Tue 17 Jan 2023 10:59:59 PM CST: Run experiment for p1
+mult=0,numerator=434375,denominator=1000000
+Tue 17 Jan 2023 10:59:59 PM CST: rigorousseed=0,seedfrom=0,seedto=0
+Tue 17 Jan 2023 10:59:59 PM CST: Running seed=0
+Tue 17 Jan 2023 10:59:59 PM CST: Result already exists (seed=0)
+Tue 17 Jan 2023 11:00:00 PM CST: rigorousseed=1,seedfrom=1,seedto=1
+Tue 17 Jan 2023 11:00:00 PM CST: Running seed=1
+Tue 17 Jan 2023 11:00:00 PM CST: Result already exists (seed=1)
+Tue 17 Jan 2023 11:00:00 PM CST: rigorousseed=2,seedfrom=2,seedto=2
+Tue 17 Jan 2023 11:00:00 PM CST: Running seed=2
+Tue 17 Jan 2023 11:00:00 PM CST: Result already exists (seed=2)
+Tue 17 Jan 2023 11:00:01 PM CST: rigorousseed=3,seedfrom=3,seedto=3
+Tue 17 Jan 2023 11:00:01 PM CST: Running seed=3
+Tue 17 Jan 2023 11:00:01 PM CST: Result already exists (seed=3)
+Tue 17 Jan 2023 11:00:02 PM CST: rigorousseed=4,seedfrom=4,seedto=4
+Tue 17 Jan 2023 11:00:02 PM CST: Running seed=4
+Tue 17 Jan 2023 11:00:02 PM CST: Result already exists (seed=4)
+Tue 17 Jan 2023 11:00:02 PM CST: rigorousseed=5,seedfrom=5,seedto=5
+Tue 17 Jan 2023 11:00:02 PM CST: Running seed=5
+Tue 17 Jan 2023 11:00:02 PM CST: Result already exists (seed=5)
+Tue 17 Jan 2023 11:00:03 PM CST: rigorousseed=6,seedfrom=6,seedto=6
+Tue 17 Jan 2023 11:00:03 PM CST: Running seed=6
+Tue 17 Jan 2023 11:00:03 PM CST: Result already exists (seed=6)
+Tue 17 Jan 2023 11:00:04 PM CST: rigorousseed=7,seedfrom=7,seedto=7
+Tue 17 Jan 2023 11:00:04 PM CST: Running seed=7
+Tue 17 Jan 2023 11:00:04 PM CST: Result already exists (seed=7)
+Tue 17 Jan 2023 11:00:04 PM CST: rigorousseed=8,seedfrom=8,seedto=8
+Tue 17 Jan 2023 11:00:04 PM CST: Running seed=8
+Tue 17 Jan 2023 11:00:04 PM CST: Result already exists (seed=8)
+Tue 17 Jan 2023 11:00:05 PM CST: rigorousseed=9,seedfrom=9,seedto=9
+Tue 17 Jan 2023 11:00:05 PM CST: Running seed=9
+Tue 17 Jan 2023 11:00:05 PM CST: Result already exists (seed=9)
+Tue 17 Jan 2023 11:00:06 PM CST: Collecting stats for discover_dring_su2_a2a_equal/0_434375_1000000_200
+Tue 17 Jan 2023 11:00:06 PM CST: n99fct=4.91804,totaltraffic=67653583050
+Tue 17 Jan 2023 11:00:06 PM CST: Run experiment for p2
+mult=0,numerator=4375,denominator=10000
+Tue 17 Jan 2023 11:00:06 PM CST: rigorousseed=0,seedfrom=0,seedto=0
+Tue 17 Jan 2023 11:00:06 PM CST: Running seed=0
+Tue 17 Jan 2023 11:30:15 PM CST: Experiment done (seed=0)
+Tue 17 Jan 2023 11:30:16 PM CST: rigorousseed=1,seedfrom=1,seedto=1
+Tue 17 Jan 2023 11:30:16 PM CST: Running seed=1
+Tue 17 Jan 2023 11:57:33 PM CST: Experiment done (seed=1)
+Tue 17 Jan 2023 11:57:34 PM CST: rigorousseed=2,seedfrom=2,seedto=2
+Tue 17 Jan 2023 11:57:34 PM CST: Running seed=2
+Wed 18 Jan 2023 12:23:57 AM CST: Experiment done (seed=2)
+Wed 18 Jan 2023 12:23:58 AM CST: rigorousseed=3,seedfrom=3,seedto=3
+Wed 18 Jan 2023 12:23:58 AM CST: Running seed=3
+Wed 18 Jan 2023 12:47:38 AM CST: Experiment done (seed=3)
+Wed 18 Jan 2023 12:47:39 AM CST: rigorousseed=4,seedfrom=4,seedto=4
+Wed 18 Jan 2023 12:47:39 AM CST: Running seed=4
+Wed 18 Jan 2023 01:12:35 AM CST: Experiment done (seed=4)
+Wed 18 Jan 2023 01:12:35 AM CST: rigorousseed=5,seedfrom=5,seedto=5
+Wed 18 Jan 2023 01:12:35 AM CST: Running seed=5
+Wed 18 Jan 2023 01:42:03 AM CST: Experiment done (seed=5)
+Wed 18 Jan 2023 01:42:04 AM CST: rigorousseed=6,seedfrom=6,seedto=6
+Wed 18 Jan 2023 01:42:04 AM CST: Running seed=6
+Wed 18 Jan 2023 02:10:17 AM CST: Experiment done (seed=6)
+Wed 18 Jan 2023 02:10:18 AM CST: rigorousseed=7,seedfrom=7,seedto=7
+Wed 18 Jan 2023 02:10:18 AM CST: Running seed=7
+Wed 18 Jan 2023 02:37:06 AM CST: Experiment done (seed=7)
+Wed 18 Jan 2023 02:37:07 AM CST: rigorousseed=8,seedfrom=8,seedto=8
+Wed 18 Jan 2023 02:37:07 AM CST: Running seed=8
+Wed 18 Jan 2023 03:06:23 AM CST: Experiment done (seed=8)
+Wed 18 Jan 2023 03:06:24 AM CST: rigorousseed=9,seedfrom=9,seedto=9
+Wed 18 Jan 2023 03:06:24 AM CST: Running seed=9
+Wed 18 Jan 2023 03:35:55 AM CST: Experiment done (seed=9)
+Wed 18 Jan 2023 03:35:56 AM CST: Collecting stats for discover_dring_su2_a2a_equal/0_4375_10000_200
+Wed 18 Jan 2023 03:37:06 AM CST: n99fct=4.61818,totaltraffic=61363624500
+Wed 18 Jan 2023 03:37:06 AM CST: Calculating the cutoff point
+n99fct1=4.91804,totaltraffic1=67653583050,n99fct2=4.61818,totaltraffic2=61363624500
+m=4.76728e-11,b=1.6928,y=5,x=6.93729e+10
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Wed 18 Jan 2023 10:11:51 AM CST
+topology=dring
+routing=su2
+trafficmatrix=a2a
+mode=equal
+p1=0.434375
+p2=0.4375
+threshold=5
+stime=200
+mstart=50
+mend=150
+precision=64
+Wed 18 Jan 2023 10:11:51 AM CST: Run experiment for p1
+mult=0,numerator=434375,denominator=1000000
+Wed 18 Jan 2023 10:11:51 AM CST: rigorousseed=0,seedfrom=0,seedto=0
+Wed 18 Jan 2023 10:11:51 AM CST: Running seed=0
+Wed 18 Jan 2023 10:11:51 AM CST: Result already exists (seed=0)
+Wed 18 Jan 2023 10:11:52 AM CST: rigorousseed=1,seedfrom=1,seedto=1
+Wed 18 Jan 2023 10:11:52 AM CST: Running seed=1
+Wed 18 Jan 2023 10:11:52 AM CST: Result already exists (seed=1)
+Wed 18 Jan 2023 10:11:53 AM CST: rigorousseed=2,seedfrom=2,seedto=2
+Wed 18 Jan 2023 10:11:53 AM CST: Running seed=2
+Wed 18 Jan 2023 10:11:53 AM CST: Result already exists (seed=2)
+Wed 18 Jan 2023 10:11:54 AM CST: rigorousseed=3,seedfrom=3,seedto=3
+Wed 18 Jan 2023 10:11:54 AM CST: Running seed=3
+Wed 18 Jan 2023 10:11:54 AM CST: Result already exists (seed=3)
+Wed 18 Jan 2023 10:11:54 AM CST: rigorousseed=4,seedfrom=4,seedto=4
+Wed 18 Jan 2023 10:11:54 AM CST: Running seed=4
+Wed 18 Jan 2023 10:11:54 AM CST: Result already exists (seed=4)
+Wed 18 Jan 2023 10:11:55 AM CST: rigorousseed=5,seedfrom=5,seedto=5
+Wed 18 Jan 2023 10:11:55 AM CST: Running seed=5
+Wed 18 Jan 2023 10:11:55 AM CST: Result already exists (seed=5)
+Wed 18 Jan 2023 10:11:56 AM CST: rigorousseed=6,seedfrom=6,seedto=6
+Wed 18 Jan 2023 10:11:56 AM CST: Running seed=6
+Wed 18 Jan 2023 10:11:56 AM CST: Result already exists (seed=6)
+Wed 18 Jan 2023 10:11:57 AM CST: rigorousseed=7,seedfrom=7,seedto=7
+Wed 18 Jan 2023 10:11:57 AM CST: Running seed=7
+Wed 18 Jan 2023 10:11:57 AM CST: Result already exists (seed=7)
+Wed 18 Jan 2023 10:11:58 AM CST: rigorousseed=8,seedfrom=8,seedto=8
+Wed 18 Jan 2023 10:11:58 AM CST: Running seed=8
+Wed 18 Jan 2023 10:11:58 AM CST: Result already exists (seed=8)
+Wed 18 Jan 2023 10:11:58 AM CST: rigorousseed=9,seedfrom=9,seedto=9
+Wed 18 Jan 2023 10:11:58 AM CST: Running seed=9
+Wed 18 Jan 2023 10:11:58 AM CST: Result already exists (seed=9)
+Wed 18 Jan 2023 10:11:59 AM CST: Collecting stats for discover_dring_su2_a2a_equal/0_434375_1000000_200
+Wed 18 Jan 2023 10:11:59 AM CST: n99fct=4.91804,totaltraffic=67653583050
+Wed 18 Jan 2023 10:11:59 AM CST: Run experiment for p2
+mult=0,numerator=4375,denominator=10000
+Wed 18 Jan 2023 10:11:59 AM CST: rigorousseed=0,seedfrom=0,seedto=0
+Wed 18 Jan 2023 10:11:59 AM CST: Running seed=0
+Wed 18 Jan 2023 10:11:59 AM CST: Result already exists (seed=0)
+Wed 18 Jan 2023 10:12:00 AM CST: rigorousseed=1,seedfrom=1,seedto=1
+Wed 18 Jan 2023 10:12:00 AM CST: Running seed=1
+Wed 18 Jan 2023 10:12:00 AM CST: Result already exists (seed=1)
+Wed 18 Jan 2023 10:12:01 AM CST: rigorousseed=2,seedfrom=2,seedto=2
+Wed 18 Jan 2023 10:12:01 AM CST: Running seed=2
+Wed 18 Jan 2023 10:12:01 AM CST: Result already exists (seed=2)
+Wed 18 Jan 2023 10:12:02 AM CST: rigorousseed=3,seedfrom=3,seedto=3
+Wed 18 Jan 2023 10:12:02 AM CST: Running seed=3
+Wed 18 Jan 2023 10:12:02 AM CST: Result already exists (seed=3)
+Wed 18 Jan 2023 10:12:03 AM CST: rigorousseed=4,seedfrom=4,seedto=4
+Wed 18 Jan 2023 10:12:03 AM CST: Running seed=4
+Wed 18 Jan 2023 10:12:03 AM CST: Result already exists (seed=4)
+Wed 18 Jan 2023 10:12:04 AM CST: rigorousseed=5,seedfrom=5,seedto=5
+Wed 18 Jan 2023 10:12:04 AM CST: Running seed=5
+Wed 18 Jan 2023 10:12:04 AM CST: Result already exists (seed=5)
+Wed 18 Jan 2023 10:12:04 AM CST: rigorousseed=6,seedfrom=6,seedto=6
+Wed 18 Jan 2023 10:12:04 AM CST: Running seed=6
+Wed 18 Jan 2023 10:12:04 AM CST: Result already exists (seed=6)
+Wed 18 Jan 2023 10:12:05 AM CST: rigorousseed=7,seedfrom=7,seedto=7
+Wed 18 Jan 2023 10:12:05 AM CST: Running seed=7
+Wed 18 Jan 2023 10:12:05 AM CST: Result already exists (seed=7)
+Wed 18 Jan 2023 10:12:06 AM CST: rigorousseed=8,seedfrom=8,seedto=8
+Wed 18 Jan 2023 10:12:06 AM CST: Running seed=8
+Wed 18 Jan 2023 10:12:06 AM CST: Result already exists (seed=8)
+Wed 18 Jan 2023 10:12:07 AM CST: rigorousseed=9,seedfrom=9,seedto=9
+Wed 18 Jan 2023 10:12:07 AM CST: Running seed=9
+Wed 18 Jan 2023 10:12:07 AM CST: Result already exists (seed=9)
+Wed 18 Jan 2023 10:12:08 AM CST: Collecting stats for discover_dring_su2_a2a_equal/0_4375_10000_200
+Wed 18 Jan 2023 10:12:08 AM CST: n99fct=4.61818,totaltraffic=61363624500
+Wed 18 Jan 2023 10:12:08 AM CST: Calculating the cutoff point
+n99fct1=4.91804,totaltraffic1=67653583050,n99fct2=4.61818,totaltraffic2=61363624500
+m=4.76728e-11,b=1.6928,y=5,x=6.93729e+10
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Wed 18 Jan 2023 10:13:23 AM CST
+topology=dring
+routing=su2
+trafficmatrix=a2a
+mode=equal
+p1=0.434375
+p2=0.4375
+threshold=5
+stime=200
+mstart=50
+mend=150
+precision=64
+Wed 18 Jan 2023 10:13:23 AM CST: Run experiment for p1
+mult=0,numerator=434375,denominator=1000000
+Wed 18 Jan 2023 10:13:23 AM CST: rigorousseed=0,seedfrom=0,seedto=0
+Wed 18 Jan 2023 10:13:23 AM CST: Running seed=0
+Wed 18 Jan 2023 10:13:23 AM CST: Result already exists (seed=0)
+Wed 18 Jan 2023 10:13:24 AM CST: rigorousseed=1,seedfrom=1,seedto=1
+Wed 18 Jan 2023 10:13:24 AM CST: Running seed=1
+Wed 18 Jan 2023 10:13:24 AM CST: Result already exists (seed=1)
+Wed 18 Jan 2023 10:13:25 AM CST: rigorousseed=2,seedfrom=2,seedto=2
+Wed 18 Jan 2023 10:13:25 AM CST: Running seed=2
+Wed 18 Jan 2023 10:13:25 AM CST: Result already exists (seed=2)
+Wed 18 Jan 2023 10:13:25 AM CST: rigorousseed=3,seedfrom=3,seedto=3
+Wed 18 Jan 2023 10:13:25 AM CST: Running seed=3
+Wed 18 Jan 2023 10:13:25 AM CST: Result already exists (seed=3)
+Wed 18 Jan 2023 10:13:26 AM CST: rigorousseed=4,seedfrom=4,seedto=4
+Wed 18 Jan 2023 10:13:26 AM CST: Running seed=4
+Wed 18 Jan 2023 10:13:26 AM CST: Result already exists (seed=4)
+Wed 18 Jan 2023 10:13:27 AM CST: rigorousseed=5,seedfrom=5,seedto=5
+Wed 18 Jan 2023 10:13:27 AM CST: Running seed=5
+Wed 18 Jan 2023 10:13:27 AM CST: Result already exists (seed=5)
+Wed 18 Jan 2023 10:13:27 AM CST: rigorousseed=6,seedfrom=6,seedto=6
+Wed 18 Jan 2023 10:13:27 AM CST: Running seed=6
+Wed 18 Jan 2023 10:13:27 AM CST: Result already exists (seed=6)
+Wed 18 Jan 2023 10:13:28 AM CST: rigorousseed=7,seedfrom=7,seedto=7
+Wed 18 Jan 2023 10:13:28 AM CST: Running seed=7
+Wed 18 Jan 2023 10:13:28 AM CST: Result already exists (seed=7)
+Wed 18 Jan 2023 10:13:28 AM CST: rigorousseed=8,seedfrom=8,seedto=8
+Wed 18 Jan 2023 10:13:28 AM CST: Running seed=8
+Wed 18 Jan 2023 10:13:28 AM CST: Result already exists (seed=8)
+Wed 18 Jan 2023 10:13:29 AM CST: rigorousseed=9,seedfrom=9,seedto=9
+Wed 18 Jan 2023 10:13:29 AM CST: Running seed=9
+Wed 18 Jan 2023 10:13:29 AM CST: Result already exists (seed=9)
+Wed 18 Jan 2023 10:13:30 AM CST: Collecting stats for discover_dring_su2_a2a_equal/0_434375_1000000_200
+Wed 18 Jan 2023 10:14:32 AM CST: n99fct=60880491600,totaltraffic=60880491600
+Wed 18 Jan 2023 10:14:32 AM CST: Run experiment for p2
+mult=0,numerator=4375,denominator=10000
+Wed 18 Jan 2023 10:14:32 AM CST: rigorousseed=0,seedfrom=0,seedto=0
+Wed 18 Jan 2023 10:14:32 AM CST: Running seed=0
+Wed 18 Jan 2023 10:14:32 AM CST: Result already exists (seed=0)
+Wed 18 Jan 2023 10:14:33 AM CST: rigorousseed=1,seedfrom=1,seedto=1
+Wed 18 Jan 2023 10:14:33 AM CST: Running seed=1
+Wed 18 Jan 2023 10:14:33 AM CST: Result already exists (seed=1)
+Wed 18 Jan 2023 10:14:33 AM CST: rigorousseed=2,seedfrom=2,seedto=2
+Wed 18 Jan 2023 10:14:33 AM CST: Running seed=2
+Wed 18 Jan 2023 10:14:33 AM CST: Result already exists (seed=2)
+Wed 18 Jan 2023 10:14:34 AM CST: rigorousseed=3,seedfrom=3,seedto=3
+Wed 18 Jan 2023 10:14:34 AM CST: Running seed=3
+Wed 18 Jan 2023 10:14:34 AM CST: Result already exists (seed=3)
+Wed 18 Jan 2023 10:14:35 AM CST: rigorousseed=4,seedfrom=4,seedto=4
+Wed 18 Jan 2023 10:14:35 AM CST: Running seed=4
+Wed 18 Jan 2023 10:14:35 AM CST: Result already exists (seed=4)
+Wed 18 Jan 2023 10:14:35 AM CST: rigorousseed=5,seedfrom=5,seedto=5
+Wed 18 Jan 2023 10:14:35 AM CST: Running seed=5
+Wed 18 Jan 2023 10:14:35 AM CST: Result already exists (seed=5)
+Wed 18 Jan 2023 10:14:36 AM CST: rigorousseed=6,seedfrom=6,seedto=6
+Wed 18 Jan 2023 10:14:36 AM CST: Running seed=6
+Wed 18 Jan 2023 10:14:36 AM CST: Result already exists (seed=6)
+Wed 18 Jan 2023 10:14:36 AM CST: rigorousseed=7,seedfrom=7,seedto=7
+Wed 18 Jan 2023 10:14:36 AM CST: Running seed=7
+Wed 18 Jan 2023 10:14:36 AM CST: Result already exists (seed=7)
+Wed 18 Jan 2023 10:14:37 AM CST: rigorousseed=8,seedfrom=8,seedto=8
+Wed 18 Jan 2023 10:14:37 AM CST: Running seed=8
+Wed 18 Jan 2023 10:14:37 AM CST: Result already exists (seed=8)
+Wed 18 Jan 2023 10:14:38 AM CST: rigorousseed=9,seedfrom=9,seedto=9
+Wed 18 Jan 2023 10:14:38 AM CST: Running seed=9
+Wed 18 Jan 2023 10:14:38 AM CST: Result already exists (seed=9)
+Wed 18 Jan 2023 10:14:38 AM CST: Collecting stats for discover_dring_su2_a2a_equal/0_4375_10000_200
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Wed 18 Jan 2023 10:17:50 AM CST
+topology=dring
+routing=su2
+trafficmatrix=a2a
+mode=equal
+p1=0.434375
+p2=0.4375
+threshold=5
+stime=200
+mstart=50
+mend=150
+precision=64
+Wed 18 Jan 2023 10:17:50 AM CST: Run experiment for p1
+mult=0,numerator=434375,denominator=1000000
+Wed 18 Jan 2023 10:17:50 AM CST: rigorousseed=0,seedfrom=0,seedto=0
+Wed 18 Jan 2023 10:17:50 AM CST: Running seed=0
+Wed 18 Jan 2023 10:17:50 AM CST: Result already exists (seed=0)
+Wed 18 Jan 2023 10:17:51 AM CST: rigorousseed=1,seedfrom=1,seedto=1
+Wed 18 Jan 2023 10:17:51 AM CST: Running seed=1
+Wed 18 Jan 2023 10:17:51 AM CST: Result already exists (seed=1)
+Wed 18 Jan 2023 10:17:51 AM CST: rigorousseed=2,seedfrom=2,seedto=2
+Wed 18 Jan 2023 10:17:51 AM CST: Running seed=2
+Wed 18 Jan 2023 10:17:51 AM CST: Result already exists (seed=2)
+Wed 18 Jan 2023 10:17:52 AM CST: rigorousseed=3,seedfrom=3,seedto=3
+Wed 18 Jan 2023 10:17:52 AM CST: Running seed=3
+Wed 18 Jan 2023 10:17:52 AM CST: Result already exists (seed=3)
+Wed 18 Jan 2023 10:17:52 AM CST: rigorousseed=4,seedfrom=4,seedto=4
+Wed 18 Jan 2023 10:17:52 AM CST: Running seed=4
+Wed 18 Jan 2023 10:17:52 AM CST: Result already exists (seed=4)
+Wed 18 Jan 2023 10:17:53 AM CST: rigorousseed=5,seedfrom=5,seedto=5
+Wed 18 Jan 2023 10:17:53 AM CST: Running seed=5
+Wed 18 Jan 2023 10:17:53 AM CST: Result already exists (seed=5)
+Wed 18 Jan 2023 10:17:54 AM CST: rigorousseed=6,seedfrom=6,seedto=6
+Wed 18 Jan 2023 10:17:54 AM CST: Running seed=6
+Wed 18 Jan 2023 10:17:54 AM CST: Result already exists (seed=6)
+Wed 18 Jan 2023 10:17:54 AM CST: rigorousseed=7,seedfrom=7,seedto=7
+Wed 18 Jan 2023 10:17:54 AM CST: Running seed=7
+Wed 18 Jan 2023 10:17:54 AM CST: Result already exists (seed=7)
+Wed 18 Jan 2023 10:17:55 AM CST: rigorousseed=8,seedfrom=8,seedto=8
+Wed 18 Jan 2023 10:17:55 AM CST: Running seed=8
+Wed 18 Jan 2023 10:17:55 AM CST: Result already exists (seed=8)
+Wed 18 Jan 2023 10:17:56 AM CST: rigorousseed=9,seedfrom=9,seedto=9
+Wed 18 Jan 2023 10:17:56 AM CST: Running seed=9
+Wed 18 Jan 2023 10:17:56 AM CST: Result already exists (seed=9)
+Wed 18 Jan 2023 10:17:56 AM CST: Collecting stats for discover_dring_su2_a2a_equal/0_434375_1000000_200
+Wed 18 Jan 2023 10:19:05 AM CST: n99fct=4.91804,totaltraffic=67653583050
+Wed 18 Jan 2023 10:19:05 AM CST: Run experiment for p2
+mult=0,numerator=4375,denominator=10000
+Wed 18 Jan 2023 10:19:05 AM CST: rigorousseed=0,seedfrom=0,seedto=0
+Wed 18 Jan 2023 10:19:05 AM CST: Running seed=0
+Wed 18 Jan 2023 10:19:05 AM CST: Result already exists (seed=0)
+Wed 18 Jan 2023 10:19:05 AM CST: rigorousseed=1,seedfrom=1,seedto=1
+Wed 18 Jan 2023 10:19:05 AM CST: Running seed=1
+Wed 18 Jan 2023 10:19:05 AM CST: Result already exists (seed=1)
+Wed 18 Jan 2023 10:19:06 AM CST: rigorousseed=2,seedfrom=2,seedto=2
+Wed 18 Jan 2023 10:19:06 AM CST: Running seed=2
+Wed 18 Jan 2023 10:19:06 AM CST: Result already exists (seed=2)
+Wed 18 Jan 2023 10:19:07 AM CST: rigorousseed=3,seedfrom=3,seedto=3
+Wed 18 Jan 2023 10:19:07 AM CST: Running seed=3
+Wed 18 Jan 2023 10:19:07 AM CST: Result already exists (seed=3)
+Wed 18 Jan 2023 10:19:07 AM CST: rigorousseed=4,seedfrom=4,seedto=4
+Wed 18 Jan 2023 10:19:07 AM CST: Running seed=4
+Wed 18 Jan 2023 10:19:07 AM CST: Result already exists (seed=4)
+Wed 18 Jan 2023 10:19:08 AM CST: rigorousseed=5,seedfrom=5,seedto=5
+Wed 18 Jan 2023 10:19:08 AM CST: Running seed=5
+Wed 18 Jan 2023 10:19:08 AM CST: Result already exists (seed=5)
+Wed 18 Jan 2023 10:19:09 AM CST: rigorousseed=6,seedfrom=6,seedto=6
+Wed 18 Jan 2023 10:19:09 AM CST: Running seed=6
+Wed 18 Jan 2023 10:19:09 AM CST: Result already exists (seed=6)
+Wed 18 Jan 2023 10:19:09 AM CST: rigorousseed=7,seedfrom=7,seedto=7
+Wed 18 Jan 2023 10:19:09 AM CST: Running seed=7
+Wed 18 Jan 2023 10:19:09 AM CST: Result already exists (seed=7)
+Wed 18 Jan 2023 10:19:10 AM CST: rigorousseed=8,seedfrom=8,seedto=8
+Wed 18 Jan 2023 10:19:10 AM CST: Running seed=8
+Wed 18 Jan 2023 10:19:10 AM CST: Result already exists (seed=8)
+Wed 18 Jan 2023 10:19:10 AM CST: rigorousseed=9,seedfrom=9,seedto=9
+Wed 18 Jan 2023 10:19:10 AM CST: Running seed=9
+Wed 18 Jan 2023 10:19:10 AM CST: Result already exists (seed=9)
+Wed 18 Jan 2023 10:19:11 AM CST: Collecting stats for discover_dring_su2_a2a_equal/0_4375_10000_200
+Wed 18 Jan 2023 10:20:22 AM CST: n99fct=5.12896,totaltraffic=68163952200
+Wed 18 Jan 2023 10:20:22 AM CST: Calculating the cutoff point
+n99fct1=4.91804,totaltraffic1=67653583050,n99fct2=5.12896,totaltraffic2=68163952200
+m=4.13269e-10,b=-23.0411,y=5,x=6.78519e+10
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================
