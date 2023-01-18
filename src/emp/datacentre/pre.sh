@@ -1,11 +1,19 @@
 #!/bin/bash
 # Set parameters.
-trafficmatrix=r2r0
-trafficmatrixparam=S2S_1_1_0_0
+trafficmatrix=clusterb
+trafficmatrixparam=CLUSTERX
 stime=$1
 load=$2
 seedfrom=0
-seedto=49
+seedto=0
+solvestart=0
+solveend=84600
+trafficfilename=b
+dp=64
+solveinterval=1800
+computestart=0
+computeend=84600
+computeinterval=0
 
 let mstart=$stime/4
 let mend=3*$stime/4
@@ -52,7 +60,7 @@ do
   outputfile=${outputfileprefix}_${seed}
   if [ ! -s $outputfile ]
   then
-    time ./run.sh LEAFSPINE 1 64 16 null $numservers 1 1 $make $trafficmatrixparam $mult $numerator $denominator 0 0 ecmp 0 0 0 $seed $suffix $npfile $pwfile 0 $mstart $mend $stime 0 0 0 0 | grep -e "FCT" -e "topology" -e "^queue" > $outputfile &
+    time ./run.sh LEAFSPINE 1 64 16 null $numservers 1 1 $make $trafficmatrixparam $mult $numerator $denominator $solvestart $solveend ecmp 0 $trafficfilename 0 $seed $suffix $npfile $pwfile $dp $mstart $mend $stime $solveinterval $computestart $computeend $computeinterval | grep -e "FCT" -e "topology" -e "^queue" > $outputfile &
     sleep 30
     wait
     make=NOMAKE
@@ -66,7 +74,7 @@ done
 combinedfctoutputfile=${outputfileprefix}_${seedfrom}_${seedto}
 for seed in $(seq $seedfrom $seedto)
 do
-  outputfile=${dir}/${outputfileprefix}_${seed}
+  outputfile=${outputfileprefix}_${seed}
   fctoutputfile=${outputfile}_fct 
   cat $outputfile | grep -e "FCT" > $fctoutputfile
   parsedoutputfile=${outputfile}_parsed
@@ -90,17 +98,17 @@ utilupper=$(cat $tempoutputfile | cut -d " " -f 2)
 echo utillower=${utillower},utilupper=${utilupper} >> $logfile
 
 # Ask for user inputs for time and memory usage.
-#read -p 'Time: ' timevar
-#read -p 'Initial memory: ' initialmem
-#read -p 'Peak memory: ' peakmem
-#memvar=$(echo $peakmem - $initialmem | bc)
-#echo time=$timevar >> $logfile
-#echo initialmem=${initialmem},peakmem=${peakmem},mem=${memvar} >> $logfile
+read -p 'Time: ' timevar
+read -p 'Initial memory: ' initialmem
+read -p 'Peak memory: ' peakmem
+memvar=$(echo $peakmem - $initialmem | bc)
+echo time=$timevar >> $logfile
+echo initialmem=${initialmem},peakmem=${peakmem},mem=${memvar} >> $logfile
 
 # Write out to terminal.
 echo n99fct=${n99fct},totaltraffic=${totaltraffic}
 echo utillower=${utillower},utilupper=${utilupper}
-#echo time=${timevar},mem=${memvar}
+echo time=${timevar},mem=${memvar}
 
 # Remove some output files.
 rm $tempoutputfile
