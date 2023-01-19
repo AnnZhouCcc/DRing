@@ -7,5 +7,9 @@ topoflowsfiles/
 topoflows_flowsize_*/fct_results_*/
 discover_*_*_*_*/*_*_*_*_*
 discover_*_*_*_*/*_output
+compressed_discover_logfiles/discover_*_*_*_*/*_*_*_*_*
+!compressed_discover_logfiles/discover_*_*_*_*/*_*_*_*_summary
+!compressed_discover_logfiles/discover_*_*_*_*/log.txt
+compressed_discover_logfiles/discover_*_*_*_*/*_output
 *.tar.gz
 trafficfiles/cluster_*/
