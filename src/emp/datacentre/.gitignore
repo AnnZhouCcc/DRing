@@ -1,11 +1,11 @@
-pathweightfiles/
 netpathfiles/netpath_fhi_dring.txt
 compute_fb_skewed/
 some_stats/
 traces/
-trafficfiles/cluster*
 synthetictrafficfiles/
 topoflowsfiles/
 topoflows_flowsize_*/fct_results_*/
 discover_*_*_*_*/*_*_*_*_*
 discover_*_*_*_*/*_output
+*.tar.gz
+trafficfiles/cluster_*/
