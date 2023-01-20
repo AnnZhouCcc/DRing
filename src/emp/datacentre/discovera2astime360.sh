@@ -2,23 +2,23 @@
 # Set parameters.
 topology=$1 #rrg/dring/leafspine
 routing=$2
-trafficmatrix=clusterb
-mode=$3 #equal/weighted/lppbr/lpdbr/lppbr-optimal/lpdbr-optimal/lppbr-nox-optimal/lpdbr-nox-optimal/lppbr-nox-delay/lpdbr-nox-delay
+trafficmatrix=a2a
+mode=$3 #equal/weighted/lppbr/lpdbr/lppbr-optimal/lpdbr-optimal
 lpsolvermode=$4
 searchstart=$5
 searchend=$6
-threshold=15 #ms
-stime=400
+threshold=10 #ms
+stime=360
 precision=64
 seedfrom=0
 seedto=0
 solvestart=0
-solveend=84600
-trafficfilename=b
+solveend=0
+trafficfilename=null
 dp=$precision
-solveinterval=1800
+solveinterval=0
 computestart=0
-computeend=84600
+computeend=0
 computeinterval=$7
 
 let mstart=$stime/4
@@ -47,10 +47,10 @@ else
   if [ $mode = "equal" ]
   then
     pwfile=pathweightfiles/${topology}/${routing}/pathweight_${topology}_${routing}_equal_${precision}.txt
-  elif [ $mode = "lppbr-optimal" ] || [ $mode = "lppbr-nox-optimal" ] || [ $mode = "lppbr-nox-delay" ]
+  elif [ $mode = "lppbr-optimal" ] || [ $mode = "lppbr-nox-optimal" ]
   then
     pwfile=pathweightfiles/${topology}/${routing}/${trafficmatrix}/pathweight_${topology}_${routing}_${trafficmatrix}_lp1_${lpsolvermode}_
-  elif [ $mode = "lpdbr-optimal" ] || [ $mode = "lpdbr-nox-optimal" ] || [ $mode = "lpdbr-nox-delay" ]
+  elif [ $mode = "lpdbr-optimal" ] || [ $mode = "lpdbr-nox-optimal" ]
   then
     pwfile=pathweightfiles/${topology}/${routing}/${trafficmatrix}/pathweight_pbr1_${topology}_${routing}_${trafficmatrix}_lp1_${lpsolvermode}_
   else

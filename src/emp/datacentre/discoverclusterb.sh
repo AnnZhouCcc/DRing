@@ -13,11 +13,11 @@ precision=64
 seedfrom=0
 seedto=0
 solvestart=0
-solveend=84600
+solveend=82800
 trafficfilename=b
 dp=$precision
 solveinterval=1800
-computestart=0
+computestart=1800
 computeend=84600
 computeinterval=$7
 
