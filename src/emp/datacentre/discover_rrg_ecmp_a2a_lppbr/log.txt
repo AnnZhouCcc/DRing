@@ -171,3 +171,15 @@ Sat 21 Jan 2023 09:20:04 AM CST: Running seed=7
 Sat 21 Jan 2023 10:16:56 AM CST: Experiment done (seed=7)
 Sat 21 Jan 2023 10:16:58 AM CST: rigorousseed=8,seedfrom=8,seedto=8
 Sat 21 Jan 2023 10:16:58 AM CST: Running seed=8
+Sat 21 Jan 2023 11:17:20 AM CST: Experiment done (seed=8)
+Sat 21 Jan 2023 11:17:22 AM CST: rigorousseed=9,seedfrom=9,seedto=9
+Sat 21 Jan 2023 11:17:22 AM CST: Running seed=9
+Sat 21 Jan 2023 12:15:40 PM CST: Experiment done (seed=9)
+Sat 21 Jan 2023 12:15:42 PM CST: Collecting stats for discover_rrg_ecmp_a2a_lppbr/0_78375_100000_200
+Sat 21 Jan 2023 12:18:05 PM CST: n99fct=10.015,totaltraffic=129086228400
+Sat 21 Jan 2023 12:18:05 PM CST: Calculating the cutoff point
+n99fct1=9.83049,totaltraffic1=127796738700,n99fct2=10.015,totaltraffic2=129086228400
+m=1.43088e-10,b=-8.45569,y=10,x=1.28981e+11
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================
+===============Close Interval Found==============
