@@ -108,7 +108,10 @@ do
   done
 
   combinedoutputfile1=${outputfileprefix1}_${seedfrom}_${seedto}
-  rm $combinedoutputfile1
+  if [ -e $combinedoutputfile1 ]
+  then
+    rm $combinedoutputfile1
+  fi
   for seed in $(seq $seedfrom $seedto)
   do
     outputfile1=${outputfileprefix1}_${seed}
@@ -122,6 +125,13 @@ n99fct1=$(cat $tempoutputfile | cut -d " " -f 1)
 totaltraffic1=$(cat $tempoutputfile | cut -d " " -f 2)
 echo $(date): n99fct=${n99fct1},totaltraffic=${totaltraffic1} >> $logfile
 
+for rigorousseed in $(seq $rigorousseedfrom $rigorousseedto)
+do
+  seedfrom=$(calculateSeedFrom $rigorousseed $discoverseedfrom $discoverseedto)
+  seedto=$(calculateSeedTo $rigorousseed $discoverseedfrom $discoverseedto)
+  combinedoutputfile1=${outputfileprefix1}_${seedfrom}_${seedto}
+  rm $combinedoutputfile1
+done
 
 # Run experiments for p2.
 ./discover_aux_fraction.sh $p2 > $tempoutputfile
@@ -157,7 +167,10 @@ do
   done
 
   combinedoutputfile2=${outputfileprefix2}_${seedfrom}_${seedto}
-  rm $combinedoutputfile2
+  if [ -e $combinedoutputfile2 ]
+  then
+    rm $combinedoutputfile2
+  fi
   for seed in $(seq $seedfrom $seedto)
   do
     outputfile2=${outputfileprefix2}_${seed}
@@ -170,6 +183,14 @@ echo $(date): Collecting stats for ${outputfileprefix2} >> $logfile
 n99fct2=$(cat $tempoutputfile | cut -d " " -f 1)
 totaltraffic2=$(cat $tempoutputfile | cut -d " " -f 2)
 echo $(date): n99fct=${n99fct2},totaltraffic=${totaltraffic2} >> $logfile
+
+for rigorousseed in $(seq $rigorousseedfrom $rigorousseedto)
+do
+  seedfrom=$(calculateSeedFrom $rigorousseed $discoverseedfrom $discoverseedto)
+  seedto=$(calculateSeedTo $rigorousseed $discoverseedfrom $discoverseedto)
+  combinedoutputfile2=${outputfileprefix2}_${seedfrom}_${seedto}
+  rm $combinedoutputfile2
+done
 
 # Calculate the cutoff point.
 calculate_m() {
@@ -197,7 +218,5 @@ echo m=${m},b=${b},y=${threshold},x=${x} >> $logfile
 echo ${x}
 
 rm $tempoutputfile
-rm $combinedoutputfile1
-rm $combinedoutputfile2
 echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ >> $logfile
 echo ================================================= >> $logfile

@@ -1,0 +1,189 @@
+Thu Jan 19 23:22:05 CST 2023: Set up parameters
+topology=rrg
+routing=su2
+trafficmatrix=clusterb
+mode=lppbr-nox-delay
+searchstart=2
+searchend=2.6
+threshold=15
+stime=400
+mstart=100
+mend=300
+precision=64
+Thu Jan 19 23:22:05 CST 2023: Run experiment search start
+mult=2,numerator=0,denominator=0
+Thu Jan 19 23:47:08 CST 2023: Experiment done (seed=0)
+Thu Jan 19 23:47:27 CST 2023: n99fct=4.89217,totaltraffic=118981108500
+Thu Jan 19 23:47:27 CST 2023: Run experiment search end
+mult=2,numerator=6,denominator=10
+Fri Jan 20 00:23:49 CST 2023: Experiment done (seed=0)
+Fri Jan 20 00:24:16 CST 2023: n99fct=10.5443,totaltraffic=154655485500
+15 > 10.5443 ? 1
+15 < 4.89217 ? 0
+Fri Jan 20 00:33:32 CST 2023: Set up parameters
+topology=rrg
+routing=su2
+trafficmatrix=clusterb
+mode=lppbr-nox-delay
+searchstart=2.6
+searchend=2.8
+threshold=15
+stime=400
+mstart=100
+mend=300
+precision=64
+Fri Jan 20 00:33:32 CST 2023: Run experiment search start
+mult=2,numerator=6,denominator=10
+Fri Jan 20 00:33:32 CST 2023: Result already exists (seed=0)
+Fri Jan 20 00:33:56 CST 2023: n99fct=10.5443,totaltraffic=154655485500
+Fri Jan 20 00:33:56 CST 2023: Run experiment search end
+mult=2,numerator=8,denominator=10
+Fri Jan 20 00:45:57 CST 2023: Set up parameters
+topology=rrg
+routing=su2
+trafficmatrix=clusterb
+mode=lppbr-nox-delay
+searchstart=2.6
+searchend=2.8
+threshold=15
+stime=400
+mstart=100
+mend=300
+precision=64
+Fri Jan 20 00:45:57 CST 2023: Run experiment search start
+mult=2,numerator=6,denominator=10
+Fri Jan 20 00:45:57 CST 2023: Result already exists (seed=0)
+Fri Jan 20 00:46:38 CST 2023: n99fct=10.5443,totaltraffic=154655485500
+Fri Jan 20 00:46:38 CST 2023: Run experiment search end
+mult=2,numerator=8,denominator=10
+Fri Jan 20 01:49:43 CST 2023: Experiment done (seed=0)
+Fri Jan 20 01:50:24 CST 2023: n99fct=12.5408,totaltraffic=166585030500
+15 > 12.5408 ? 1
+15 < 10.5443 ? 0
+Fri Jan 20 07:00:16 CST 2023: Set up parameters
+topology=rrg
+routing=su2
+trafficmatrix=clusterb
+mode=lppbr-nox-delay
+searchstart=2.8
+searchend=3
+threshold=15
+stime=400
+mstart=100
+mend=300
+precision=64
+Fri Jan 20 07:00:16 CST 2023: Run experiment search start
+mult=2,numerator=8,denominator=10
+Fri Jan 20 07:00:16 CST 2023: Result already exists (seed=0)
+Fri Jan 20 07:00:56 CST 2023: n99fct=12.5408,totaltraffic=166585030500
+Fri Jan 20 07:00:56 CST 2023: Run experiment search end
+mult=3,numerator=0,denominator=0
+Fri Jan 20 08:12:09 CST 2023: Experiment done (seed=0)
+Fri Jan 20 08:12:52 CST 2023: n99fct=18.9349,totaltraffic=178471662000
+Fri Jan 20 08:12:52 CST 2023: Start binary search.
+searchmid=2.9,searchstart=2.8,searchend=3
+Fri Jan 20 08:12:52 CST 2023: Run experiment
+mult=2,numerator=9,denominator=10
+Fri Jan 20 09:17:57 CST 2023: Experiment done (seed=0)
+Fri Jan 20 09:18:39 CST 2023: n99fct=15.8929,totaltraffic=172537035000
+Change searchend to 2.9
+searchstart=2.8,searchend=2.9
+searchmid=2.85,searchstart=2.8,searchend=2.9
+Fri Jan 20 09:18:40 CST 2023: Run experiment
+mult=2,numerator=85,denominator=100
+Fri Jan 20 10:21:51 CST 2023: Experiment done (seed=0)
+Fri Jan 20 10:22:30 CST 2023: n99fct=14.1966,totaltraffic=169486363500
+Fri Jan 20 10:22:30 CST 2023: isCloseEnough searchstart=2.8,searchmid=2.85,searchend=2.9
+searchstart: n99fct=12.5408,totaltraffic=166585030500
+searchmid: n99fct=14.1966,totaltraffic=169486363500
+searchend: n99fct=15.8929,totaltraffic=172537035000
+=========[searchmid,searchend]=========
+=========[2.85,2.9]=========
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Fri Jan 20 10:22:30 CST 2023
+topology=rrg
+routing=su2
+trafficmatrix=clusterb
+mode=lppbr-nox-delay
+p1=2.85
+p2=2.9
+threshold=15
+stime=400
+mstart=100
+mend=300
+precision=64
+Fri Jan 20 10:22:30 CST 2023: Run experiment for p1
+mult=2,numerator=85,denominator=100
+Fri Jan 20 10:22:30 CST 2023: rigorousseed=0,seedfrom=0,seedto=0
+Fri Jan 20 10:22:30 CST 2023: Running seed=0
+Fri Jan 20 10:22:30 CST 2023: Result already exists (seed=0)
+Fri Jan 20 10:22:32 CST 2023: rigorousseed=1,seedfrom=1,seedto=1
+Fri Jan 20 10:22:32 CST 2023: Running seed=1
+Fri Jan 20 11:25:51 CST 2023: Experiment done (seed=1)
+Fri Jan 20 11:25:54 CST 2023: rigorousseed=2,seedfrom=2,seedto=2
+Fri Jan 20 11:25:54 CST 2023: Running seed=2
+Fri Jan 20 12:28:31 CST 2023: Experiment done (seed=2)
+Fri Jan 20 12:28:35 CST 2023: rigorousseed=3,seedfrom=3,seedto=3
+Fri Jan 20 12:28:35 CST 2023: Running seed=3
+Fri Jan 20 13:29:03 CST 2023: Experiment done (seed=3)
+Fri Jan 20 13:29:07 CST 2023: rigorousseed=4,seedfrom=4,seedto=4
+Fri Jan 20 13:29:07 CST 2023: Running seed=4
+Fri Jan 20 14:31:10 CST 2023: Experiment done (seed=4)
+Fri Jan 20 14:31:13 CST 2023: rigorousseed=5,seedfrom=5,seedto=5
+Fri Jan 20 14:31:13 CST 2023: Running seed=5
+Fri Jan 20 15:31:52 CST 2023: Experiment done (seed=5)
+Fri Jan 20 15:31:55 CST 2023: rigorousseed=6,seedfrom=6,seedto=6
+Fri Jan 20 15:31:55 CST 2023: Running seed=6
+Fri Jan 20 16:33:57 CST 2023: Experiment done (seed=6)
+Fri Jan 20 16:34:00 CST 2023: rigorousseed=7,seedfrom=7,seedto=7
+Fri Jan 20 16:34:00 CST 2023: Running seed=7
+Fri Jan 20 17:36:37 CST 2023: Experiment done (seed=7)
+Fri Jan 20 17:36:40 CST 2023: rigorousseed=8,seedfrom=8,seedto=8
+Fri Jan 20 17:36:40 CST 2023: Running seed=8
+Fri Jan 20 18:40:32 CST 2023: Experiment done (seed=8)
+Fri Jan 20 18:40:35 CST 2023: rigorousseed=9,seedfrom=9,seedto=9
+Fri Jan 20 18:40:35 CST 2023: Running seed=9
+Fri Jan 20 19:43:40 CST 2023: Experiment done (seed=9)
+Fri Jan 20 19:43:44 CST 2023: Collecting stats for discover_rrg_su2_clusterb_lppbr-nox-delay/2_85_100_400
+Fri Jan 20 19:50:14 CST 2023: n99fct=14.1121,totaltraffic=169566913650
+Fri Jan 20 19:50:14 CST 2023: Run experiment for p2
+mult=2,numerator=9,denominator=10
+Fri Jan 20 19:50:14 CST 2023: rigorousseed=0,seedfrom=0,seedto=0
+Fri Jan 20 19:50:14 CST 2023: Running seed=0
+Fri Jan 20 19:50:14 CST 2023: Result already exists (seed=0)
+Fri Jan 20 19:50:17 CST 2023: rigorousseed=1,seedfrom=1,seedto=1
+Fri Jan 20 19:50:17 CST 2023: Running seed=1
+Fri Jan 20 20:51:26 CST 2023: Experiment done (seed=1)
+Fri Jan 20 20:51:30 CST 2023: rigorousseed=2,seedfrom=2,seedto=2
+Fri Jan 20 20:51:30 CST 2023: Running seed=2
+Fri Jan 20 21:58:44 CST 2023: Experiment done (seed=2)
+Fri Jan 20 21:58:48 CST 2023: rigorousseed=3,seedfrom=3,seedto=3
+Fri Jan 20 21:58:48 CST 2023: Running seed=3
+Fri Jan 20 23:03:05 CST 2023: Experiment done (seed=3)
+Fri Jan 20 23:03:08 CST 2023: rigorousseed=4,seedfrom=4,seedto=4
+Fri Jan 20 23:03:08 CST 2023: Running seed=4
+Sat Jan 21 00:07:56 CST 2023: Experiment done (seed=4)
+Sat Jan 21 00:07:59 CST 2023: rigorousseed=5,seedfrom=5,seedto=5
+Sat Jan 21 00:07:59 CST 2023: Running seed=5
+Sat Jan 21 01:13:32 CST 2023: Experiment done (seed=5)
+Sat Jan 21 01:13:36 CST 2023: rigorousseed=6,seedfrom=6,seedto=6
+Sat Jan 21 01:13:36 CST 2023: Running seed=6
+Sat Jan 21 02:17:11 CST 2023: Experiment done (seed=6)
+Sat Jan 21 02:17:15 CST 2023: rigorousseed=7,seedfrom=7,seedto=7
+Sat Jan 21 02:17:15 CST 2023: Running seed=7
+Sat Jan 21 03:22:20 CST 2023: Experiment done (seed=7)
+Sat Jan 21 03:22:24 CST 2023: rigorousseed=8,seedfrom=8,seedto=8
+Sat Jan 21 03:22:24 CST 2023: Running seed=8
+Sat Jan 21 04:27:10 CST 2023: Experiment done (seed=8)
+Sat Jan 21 04:27:13 CST 2023: rigorousseed=9,seedfrom=9,seedto=9
+Sat Jan 21 04:27:13 CST 2023: Running seed=9
+Sat Jan 21 05:30:29 CST 2023: Experiment done (seed=9)
+Sat Jan 21 05:30:33 CST 2023: Collecting stats for discover_rrg_su2_clusterb_lppbr-nox-delay/2_9_10_400
+Sat Jan 21 05:37:12 CST 2023: n99fct=15.8598,totaltraffic=172576126500
+Sat Jan 21 05:37:12 CST 2023: Calculating the cutoff point
+n99fct1=14.1121,totaltraffic1=169566913650,n99fct2=15.8598,totaltraffic2=172576126500
+m=5.80783e-10,b=-84.3695,y=15,x=1.71096e+11
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================
+===============Close Interval Found==============
