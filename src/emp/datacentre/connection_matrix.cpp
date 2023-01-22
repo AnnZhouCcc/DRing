@@ -2472,6 +2472,7 @@ void ConnectionMatrix::setTopoFlowsClusterX(Topology* top, string cluster, int s
         ss >> start_time_s >> bytes >> fromserver >> toserver;
         if (start_time_s < solvestart) continue;
         if (start_time_s >= solveend) break; // the traffic data is sorted
+        if (fromserver>=NHOST || toserver>=NHOST) continue;
 
         fromrack = top->ConvertHostToRack(fromserver);
         torack = top->ConvertHostToRack(toserver);
