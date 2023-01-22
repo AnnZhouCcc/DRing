@@ -374,7 +374,10 @@ do
   done
 
   combinedoutputfile=${outputfileprefix}_${seedfrom}_${seedto}
-  rm $combinedoutputfile
+  if [ -e $combinedoutputfile ]
+  then
+    rm $combinedoutputfile
+  fi
   for seed in $(seq $seedfrom $seedto)
   do
     outputfile=${outputfileprefix}_${seed}
