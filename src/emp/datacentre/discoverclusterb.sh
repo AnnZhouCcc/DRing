@@ -3,24 +3,89 @@
 topology=$1 #rrg/dring/leafspine
 routing=$2
 trafficmatrix=clusterb
-mode=$3 #equal/weighted/lppbr/lpdbr/lppbr-optimal/lpdbr-optimal/lppbr-nox-optimal/lpdbr-nox-optimal/lppbr-nox-delay/lpdbr-nox-delay
+mode=$3 #equal/weighted/lppbr/lpdbr/lppbr-optimal/lpdbr-optimal/lppbr-nox-optimal/lpdbr-nox-optimal/lppbr-nox-delay/lpdbr-nox-delay/lppbr-delay/lpdbr-delay/lppbr-nox/lpdbr-nox
 lpsolvermode=$4
 searchstart=$5
 searchend=$6
-threshold=15 #ms
-stime=400
+threshold=10 #ms
+stime=320
 precision=64
 seedfrom=0
 seedto=0
 solvestart=0
-solveend=82800
+solveend=84600
 trafficfilename=b
 dp=$precision
 solveinterval=1800
-computestart=1800
+computestart=0
 computeend=84600
 computeinterval=$7
 
+# Check for input parameter error
+if [ ! $threshold -eq 10 ]
+then
+  echo threshold!=10, threshold=$threshold
+  exit 1
+fi
+
+if [ ! $lpsolvermode = "barriernocrossover" ] && [ ! $lpsolvermode = "null" ]
+then
+  echo lpsolvermode $lpsolvermode is not recognized
+  exit 1
+fi
+
+if [ ! $trafficmatrix = "clustera" ] && [ ! $trafficmatrix = "clusterb" ] && [ ! $trafficmatrix = "clusterc" ] && [ ! $computeinterval -eq 0 ]
+then
+  echo traffic $trafficmatrix has computeinterval!=0, computeinterval=$computeinterval
+  exit 1
+fi
+
+if [ ! $( echo $solveend - $solvestart - $computeend + $computestart | bc ) -eq 0 ]
+then
+  echo solveend-solvestart!=computeend-computestart, solveend=${solveend}, solvestart=${solvestart}, computeend=${computeend}, computestart=${computestart}
+  exit 1
+fi
+
+if [ $mode = "lppbr-optimal" ] || [ $mode = "lpdbr-optimal" ] || [ $mode = "lppbr-nox-optimal" ] || [ $mode = "lpdbr-nox-optimal" ]
+then
+  if [ ! $( echo $solvestart - $computestart | bc ) -eq 0 ] || [ ! $( echo $solveend - $computeend | bc ) -eq 0 ]
+  then
+    echo solvestart!=computestart or solveend!=computeend, solveend=${solveend}, solvestart=${solvestart}, computeend=${computeend}, computestart=${computestart}
+    exit 1
+  fi
+fi
+
+if [ $mode = "lppbr-delay" ] || [ $mode = "lpdbr-delay" ] || [ $mode = "lppbr-nox-delay" ] || [ $mode = "lpdbr-nox-delay" ]
+then
+  if [ ! $computestart -lt $solvestart ] || [ ! $computeend -lt $solveend ]
+  then 
+    echo computestart gte solvestart or computeend gte solveend, solveend=${solveend}, solvestart=${solvestart}, computeend=${computeend}, computestart=${computestart}
+    exit 1
+  fi    
+fi
+
+if [ ! $trafficmatrix = "clustera" ] && [ ! $trafficmatrix = "clusterb" ] && [ ! $trafficmatrix = "clusterc" ]
+then
+  if [ $mode = "lppbr-optimal" ] || [ $mode = "lpdbr-optimal" ] || [ $mode = "lppbr-nox-optimal" ] || [ $mode = "lpdbr-nox-optimal" ] || [ $mode = "lppbr-delay" ] || [ $mode = "lpdbr-delay" ] || [ $mode = "lppbr-nox-delay" ] || [ $mode = "lpdbr-nox-delay" ]
+  then
+    echo traffic $trafficmatrix should not have mode $mode
+    exit 1
+  fi
+else
+  if [ $mode = "lppbr" ] || [ $mode = "lpdbr" ] || [ $mode = "lppbr-nox" ] || [ $mode = "lpdbr-nox" ]
+  then
+    echo traffic $trafficmatrix should not have mode $mode
+    exit 1
+  fi
+fi
+
+if [ ! $computeinterval -eq 0 ] && [ $mode = "equal" ]
+then
+  echo mode is equal but computeinterval!=0, computeinterval=$computeinterval
+  exit 1
+fi
+
+# Generate other parameters
 let mstart=$stime/4
 let mend=3*$stime/4
 
@@ -47,10 +112,10 @@ else
   if [ $mode = "equal" ]
   then
     pwfile=pathweightfiles/${topology}/${routing}/pathweight_${topology}_${routing}_equal_${precision}.txt
-  elif [ $mode = "lppbr-optimal" ] || [ $mode = "lppbr-nox-optimal" ] || [ $mode = "lppbr-nox-delay" ]
+  elif [ $mode = "lppbr-optimal" ] || [ $mode = "lppbr-nox-optimal" ] || [ $mode = "lppbr-nox-delay" ] || [ $mode = "lppbr-delay" ]
   then
     pwfile=pathweightfiles/${topology}/${routing}/${trafficmatrix}/pathweight_${topology}_${routing}_${trafficmatrix}_lp1_${lpsolvermode}_
-  elif [ $mode = "lpdbr-optimal" ] || [ $mode = "lpdbr-nox-optimal" ] || [ $mode = "lpdbr-nox-delay" ]
+  elif [ $mode = "lpdbr-optimal" ] || [ $mode = "lpdbr-nox-optimal" ] || [ $mode = "lpdbr-nox-delay" ] || [ $mode = "lpdbr-delay" ]
   then
     pwfile=pathweightfiles/${topology}/${routing}/${trafficmatrix}/pathweight_pbr1_${topology}_${routing}_${trafficmatrix}_lp1_${lpsolvermode}_
   else
@@ -192,7 +257,10 @@ do
 done
 
 combinedoutputfilestart=${outputfileprefixstart}_${seedfrom}_${seedto}
-rm $combinedoutputfilestart
+if [ -e $combinedoutputfilestart ]
+then
+  rm $combinedoutputfilestart
+fi
 for seed in $(seq $seedfrom $seedto)
 do
   outputfilestart=${outputfileprefixstart}_${seed}
@@ -227,7 +295,10 @@ do
 done
 
 combinedoutputfileend=${outputfileprefixend}_${seedfrom}_${seedto}
-rm $combinedoutputfileend
+if [ -e $combinedoutputfileend ]
+then
+  rm $combinedoutputfileend
+fi
 for seed in $(seq $seedfrom $seedto)
 do
   outputfileend=${outputfileprefixend}_${seed}
@@ -383,7 +454,14 @@ do
   fi
 done
 
+echo $dir
 echo Passed.
 echo ===============Close Interval Found============== >> $logfile
 
 rm $tempoutputfile
+if [ $topology = "leafspine" ]
+then
+  rm leafspine_${topology}_${routing}_${trafficmatrix}_${mode}
+else
+  rm rrg_${topology}_${routing}_${trafficmatrix}_${mode}
+fi
