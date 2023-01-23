@@ -1,17 +1,22 @@
-runls=0
+runls=1
 runrrgequal=0
 runrrglppbr=0
 rundringequal=0
 rundringlppbr=0
 seedfrom=0
 seedto=4
-mult=
-numerator=
-denominator=
+mult=0
+numerator=65125
+denominator=100000
 name=jan23
 stime=200
 mstart=50
 mend=150
+
+if [ ! -d sanity_check_$name ]
+then
+  mkdir sanity_check_$name
+fi
 
 if [ $runls -gt 0 ]
 then
