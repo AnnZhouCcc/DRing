@@ -11,6 +11,10 @@ utiluppersum=0
 let numruns=$seedto-$seedfrom+1
 for seed in $(seq $seedfrom $seedto)
 do
+  outputfile=${outputfileprefix}_${seed}
+  fctoutputfile=${outputfile}_fct
+  cat $outputfile | grep -e "FCT" > $fctoutputfile
+  python pre_aux_parse_ls_report_generically.py $outputfile
   parsedoutputfile=${outputfileprefix}_${seed}_parsed
   python sanity_aux_calculate_network_util.py $parsedoutputfile $mstart $mend > $tempoutputfile
   utillower=$(cat $tempoutputfile | cut -d " " -f 1)
