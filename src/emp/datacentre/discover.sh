@@ -151,7 +151,16 @@ then
 elif [ $trafficmatrix = "r2r1" ]
 then
   trafficmatrixparam=S2S_1_1_0_1
-elif [ $trafficmatrix = "clusterb" ]
+elif [ $trafficmatrix = "16to4_0" ]
+then
+  trafficmatrixparam=S2S_16_4_0_0
+elif [ $trafficmatrix = "16to4_1" ]
+then
+  trafficmatrixparam=S2S_16_4_0_1
+elif [ $trafficmatrix = "16to4_2" ]
+then
+  trafficmatrixparam=S2S_16_4_0_2
+elif [ $trafficmatrix = "clusterb" ] || [ $trafficmatrix = "clustera" ] || [ $trafficmatrix = "clusterc" ]
 then
   trafficmatrixparam=CLUSTERX
 else
