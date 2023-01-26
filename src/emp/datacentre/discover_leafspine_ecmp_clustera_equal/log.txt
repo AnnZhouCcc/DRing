@@ -1,0 +1,224 @@
+Mon Jan 23 22:26:44 CST 2023: Set up parameters
+topology=leafspine
+routing=ecmp
+trafficmatrix=clustera
+mode=equal
+searchstart=1
+searchend=2
+threshold=10
+stime=1000
+mstart=250
+mend=750
+precision=64
+Mon Jan 23 22:26:44 CST 2023: Run experiment search start
+mult=1,numerator=0,denominator=0
+Mon Jan 23 22:27:47 CST 2023: Set up parameters
+topology=leafspine
+routing=ecmp
+trafficmatrix=clustera
+mode=equal
+searchstart=1
+searchend=2
+threshold=10
+stime=1000
+mstart=250
+mend=750
+precision=64
+Mon Jan 23 22:27:47 CST 2023: Run experiment search start
+mult=1,numerator=0,denominator=0
+Mon Jan 23 22:28:32 CST 2023: Experiment done (seed=0)
+Mon Jan 23 22:28:33 CST 2023: n99fct=0.127794,totaltraffic=3982464000
+Mon Jan 23 22:28:33 CST 2023: Run experiment search end
+mult=2,numerator=0,denominator=0
+Mon Jan 23 22:29:43 CST 2023: Experiment done (seed=0)
+Mon Jan 23 22:29:44 CST 2023: n99fct=0.198214,totaltraffic=7965165000
+10 > 0.198214 ? 1
+10 < 0.127794 ? 0
+Mon Jan 23 22:30:20 CST 2023: Set up parameters
+topology=leafspine
+routing=ecmp
+trafficmatrix=clustera
+mode=equal
+searchstart=15
+searchend=20
+threshold=10
+stime=1000
+mstart=250
+mend=750
+precision=64
+Mon Jan 23 22:30:20 CST 2023: Run experiment search start
+mult=15,numerator=0,denominator=0
+Mon Jan 23 22:46:35 CST 2023: Experiment done (seed=0)
+Mon Jan 23 22:46:49 CST 2023: n99fct=10.9772,totaltraffic=59740488000
+Mon Jan 23 22:46:49 CST 2023: Run experiment search end
+mult=20,numerator=0,denominator=0
+Mon Jan 23 22:49:30 CST 2023: Set up parameters
+topology=leafspine
+routing=ecmp
+trafficmatrix=clustera
+mode=equal
+searchstart=14
+searchend=15
+threshold=10
+stime=1000
+mstart=250
+mend=750
+precision=64
+Mon Jan 23 22:49:30 CST 2023: Run experiment search start
+mult=14,numerator=0,denominator=0
+Mon Jan 23 23:02:33 CST 2023: Experiment done (seed=0)
+Mon Jan 23 23:02:46 CST 2023: n99fct=10.8678,totaltraffic=55757797500
+Mon Jan 23 23:02:47 CST 2023: Run experiment search end
+mult=15,numerator=0,denominator=0
+Mon Jan 23 23:02:47 CST 2023: Result already exists (seed=0)
+Mon Jan 23 23:03:00 CST 2023: n99fct=10.9772,totaltraffic=59740488000
+10 > 10.9772 ? 0
+10 < 10.8678 ? 1
+Mon Jan 23 23:07:41 CST 2023: Set up parameters
+topology=leafspine
+routing=ecmp
+trafficmatrix=clustera
+mode=equal
+searchstart=10
+searchend=14
+threshold=10
+stime=1000
+mstart=250
+mend=750
+precision=64
+Mon Jan 23 23:07:41 CST 2023: Run experiment search start
+mult=10,numerator=0,denominator=0
+Mon Jan 23 23:14:57 CST 2023: Experiment done (seed=0)
+Mon Jan 23 23:15:07 CST 2023: n99fct=9.37261,totaltraffic=39826983000
+Mon Jan 23 23:15:07 CST 2023: Run experiment search end
+mult=14,numerator=0,denominator=0
+Mon Jan 23 23:15:07 CST 2023: Result already exists (seed=0)
+Mon Jan 23 23:15:19 CST 2023: n99fct=10.8678,totaltraffic=55757797500
+Mon Jan 23 23:15:19 CST 2023: Start binary search.
+searchmid=12,searchstart=10,searchend=14
+Mon Jan 23 23:15:19 CST 2023: Run experiment
+mult=12,numerator=0,denominator=0
+Mon Jan 23 23:25:43 CST 2023: Experiment done (seed=0)
+Mon Jan 23 23:25:54 CST 2023: n99fct=10.523,totaltraffic=47792392500
+Change searchend to 12
+searchstart=10,searchend=12
+searchmid=11,searchstart=10,searchend=12
+Mon Jan 23 23:25:54 CST 2023: Run experiment
+mult=11,numerator=0,denominator=0
+Mon Jan 23 23:33:46 CST 2023: Experiment done (seed=0)
+Mon Jan 23 23:33:57 CST 2023: n99fct=10.1646,totaltraffic=43809693000
+Change searchend to 11
+searchstart=10,searchend=11
+searchmid=10.5,searchstart=10,searchend=11
+Mon Jan 23 23:33:59 CST 2023: Run experiment
+mult=10,numerator=5,denominator=10
+Mon Jan 23 23:42:46 CST 2023: Experiment done (seed=0)
+Mon Jan 23 23:42:56 CST 2023: n99fct=9.88731,totaltraffic=41817831000
+Change searchstart to 10.5
+searchstart=10.5,searchend=11
+searchmid=10.75,searchstart=10.5,searchend=11
+Mon Jan 23 23:42:56 CST 2023: Run experiment
+mult=10,numerator=75,denominator=100
+Mon Jan 23 23:51:19 CST 2023: Experiment done (seed=0)
+Mon Jan 23 23:51:31 CST 2023: n99fct=10.0445,totaltraffic=42812512500
+Change searchend to 10.75
+searchstart=10.5,searchend=10.75
+searchmid=10.625,searchstart=10.5,searchend=10.75
+Mon Jan 23 23:51:32 CST 2023: Run experiment
+mult=10,numerator=625,denominator=1000
+Tue Jan 24 00:01:34 CST 2023: Experiment done (seed=0)
+Tue Jan 24 00:01:46 CST 2023: n99fct=9.94481,totaltraffic=42314659500
+Tue Jan 24 00:01:46 CST 2023: isCloseEnough searchstart=10.5,searchmid=10.625,searchend=10.75
+searchstart: n99fct=9.88731,totaltraffic=41817831000
+searchmid: n99fct=9.94481,totaltraffic=42314659500
+searchend: n99fct=10.0445,totaltraffic=42812512500
+=========[searchmid,searchend]=========
+=========[10.625,10.75]=========
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Tue Jan 24 00:01:46 CST 2023
+topology=leafspine
+routing=ecmp
+trafficmatrix=clustera
+mode=equal
+p1=10.625
+p2=10.75
+threshold=10
+stime=1000
+mstart=250
+mend=750
+precision=64
+Tue Jan 24 00:01:46 CST 2023: Run experiment for p1
+mult=10,numerator=625,denominator=1000
+Tue Jan 24 00:01:46 CST 2023: rigorousseed=0,seedfrom=0,seedto=0
+Tue Jan 24 00:01:46 CST 2023: Running seed=0
+Tue Jan 24 00:01:46 CST 2023: Result already exists (seed=0)
+Tue Jan 24 00:01:48 CST 2023: rigorousseed=1,seedfrom=1,seedto=1
+Tue Jan 24 00:01:48 CST 2023: Running seed=1
+Tue Jan 24 00:11:33 CST 2023: Experiment done (seed=1)
+Tue Jan 24 00:11:34 CST 2023: rigorousseed=2,seedfrom=2,seedto=2
+Tue Jan 24 00:11:34 CST 2023: Running seed=2
+Tue Jan 24 00:20:05 CST 2023: Experiment done (seed=2)
+Tue Jan 24 00:20:07 CST 2023: rigorousseed=3,seedfrom=3,seedto=3
+Tue Jan 24 00:20:07 CST 2023: Running seed=3
+Tue Jan 24 00:28:28 CST 2023: Experiment done (seed=3)
+Tue Jan 24 00:28:29 CST 2023: rigorousseed=4,seedfrom=4,seedto=4
+Tue Jan 24 00:28:29 CST 2023: Running seed=4
+Tue Jan 24 00:37:08 CST 2023: Experiment done (seed=4)
+Tue Jan 24 00:37:09 CST 2023: rigorousseed=5,seedfrom=5,seedto=5
+Tue Jan 24 00:37:09 CST 2023: Running seed=5
+Tue Jan 24 00:46:31 CST 2023: Experiment done (seed=5)
+Tue Jan 24 00:46:34 CST 2023: rigorousseed=6,seedfrom=6,seedto=6
+Tue Jan 24 00:46:34 CST 2023: Running seed=6
+Tue Jan 24 00:54:15 CST 2023: Experiment done (seed=6)
+Tue Jan 24 00:54:16 CST 2023: rigorousseed=7,seedfrom=7,seedto=7
+Tue Jan 24 00:54:16 CST 2023: Running seed=7
+Tue Jan 24 01:02:47 CST 2023: Experiment done (seed=7)
+Tue Jan 24 01:02:48 CST 2023: rigorousseed=8,seedfrom=8,seedto=8
+Tue Jan 24 01:02:48 CST 2023: Running seed=8
+Tue Jan 24 01:11:53 CST 2023: Experiment done (seed=8)
+Tue Jan 24 01:11:54 CST 2023: rigorousseed=9,seedfrom=9,seedto=9
+Tue Jan 24 01:11:54 CST 2023: Running seed=9
+Tue Jan 24 01:20:28 CST 2023: Experiment done (seed=9)
+Tue Jan 24 01:20:30 CST 2023: Collecting stats for discover_leafspine_ecmp_clustera_equal/10_625_1000_1000
+Tue Jan 24 01:22:07 CST 2023: n99fct=9.93834,totaltraffic=42316395600
+Tue Jan 24 01:22:07 CST 2023: Run experiment for p2
+mult=10,numerator=75,denominator=100
+Tue Jan 24 01:22:07 CST 2023: rigorousseed=0,seedfrom=0,seedto=0
+Tue Jan 24 01:22:07 CST 2023: Running seed=0
+Tue Jan 24 01:22:07 CST 2023: Result already exists (seed=0)
+Tue Jan 24 01:22:09 CST 2023: rigorousseed=1,seedfrom=1,seedto=1
+Tue Jan 24 01:22:10 CST 2023: Running seed=1
+Tue Jan 24 01:31:03 CST 2023: Experiment done (seed=1)
+Tue Jan 24 01:31:05 CST 2023: rigorousseed=2,seedfrom=2,seedto=2
+Tue Jan 24 01:31:05 CST 2023: Running seed=2
+Tue Jan 24 01:39:48 CST 2023: Experiment done (seed=2)
+Tue Jan 24 01:39:49 CST 2023: rigorousseed=3,seedfrom=3,seedto=3
+Tue Jan 24 01:39:49 CST 2023: Running seed=3
+Tue Jan 24 01:49:55 CST 2023: Experiment done (seed=3)
+Tue Jan 24 01:49:57 CST 2023: rigorousseed=4,seedfrom=4,seedto=4
+Tue Jan 24 01:49:57 CST 2023: Running seed=4
+Tue Jan 24 01:58:00 CST 2023: Experiment done (seed=4)
+Tue Jan 24 01:58:02 CST 2023: rigorousseed=5,seedfrom=5,seedto=5
+Tue Jan 24 01:58:02 CST 2023: Running seed=5
+Tue Jan 24 02:05:48 CST 2023: Experiment done (seed=5)
+Tue Jan 24 02:05:50 CST 2023: rigorousseed=6,seedfrom=6,seedto=6
+Tue Jan 24 02:05:50 CST 2023: Running seed=6
+Tue Jan 24 02:14:01 CST 2023: Experiment done (seed=6)
+Tue Jan 24 02:14:02 CST 2023: rigorousseed=7,seedfrom=7,seedto=7
+Tue Jan 24 02:14:02 CST 2023: Running seed=7
+Tue Jan 24 02:22:24 CST 2023: Experiment done (seed=7)
+Tue Jan 24 02:22:26 CST 2023: rigorousseed=8,seedfrom=8,seedto=8
+Tue Jan 24 02:22:26 CST 2023: Running seed=8
+Tue Jan 24 02:31:58 CST 2023: Experiment done (seed=8)
+Tue Jan 24 02:32:00 CST 2023: rigorousseed=9,seedfrom=9,seedto=9
+Tue Jan 24 02:32:00 CST 2023: Running seed=9
+Tue Jan 24 02:40:09 CST 2023: Experiment done (seed=9)
+Tue Jan 24 02:40:10 CST 2023: Collecting stats for discover_leafspine_ecmp_clustera_equal/10_75_100_1000
+Tue Jan 24 02:41:48 CST 2023: n99fct=10.0356,totaltraffic=42814061550
+Tue Jan 24 02:41:48 CST 2023: Calculating the cutoff point
+n99fct1=9.93834,totaltraffic1=42316395600,n99fct2=10.0356,totaltraffic2=42814061550
+m=1.95432e-10,b=1.66836,y=10,x=4.26319e+10
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================
+===============Close Interval Found==============
