@@ -1,0 +1,141 @@
+Tue Jan 24 10:09:53 MST 2023: Set up parameters
+topology=dring
+routing=su2
+trafficmatrix=clusterb
+mode=lppbr-optimal
+searchstart=1.8
+searchend=2.2
+threshold=10
+stime=320
+mstart=80
+mend=240
+precision=64
+Tue Jan 24 10:09:53 MST 2023: Run experiment search start
+mult=1,numerator=8,denominator=10
+Tue Jan 24 10:30:09 MST 2023: Experiment done (seed=0)
+Tue Jan 24 10:30:22 MST 2023: n99fct=5.92303,totaltraffic=105505398000
+Tue Jan 24 10:30:22 MST 2023: Run experiment search end
+mult=2,numerator=2,denominator=10
+Tue Jan 24 10:59:51 MST 2023: Experiment done (seed=0)
+Tue Jan 24 11:00:07 MST 2023: n99fct=10.3982,totaltraffic=129056083500
+Tue Jan 24 11:00:07 MST 2023: Start binary search.
+searchmid=2,searchstart=1.8,searchend=2.2
+Tue Jan 24 11:00:07 MST 2023: Run experiment
+mult=2,numerator=0,denominator=0
+Tue Jan 24 11:24:19 MST 2023: Experiment done (seed=0)
+Tue Jan 24 11:24:33 MST 2023: n99fct=8.30177,totaltraffic=117313672500
+Change searchstart to 2
+searchstart=2,searchend=2.2
+searchmid=2.1,searchstart=2,searchend=2.2
+Tue Jan 24 11:24:33 MST 2023: Run experiment
+mult=2,numerator=1,denominator=10
+Tue Jan 24 11:51:15 MST 2023: Experiment done (seed=0)
+Tue Jan 24 11:51:30 MST 2023: n99fct=9.51381,totaltraffic=123187293000
+Change searchstart to 2.1
+searchstart=2.1,searchend=2.2
+searchmid=2.15,searchstart=2.1,searchend=2.2
+Tue Jan 24 11:51:30 MST 2023: Run experiment
+mult=2,numerator=15,denominator=100
+Tue Jan 24 12:19:34 MST 2023: Experiment done (seed=0)
+Tue Jan 24 12:19:49 MST 2023: n99fct=9.99138,totaltraffic=125966446500
+Change searchstart to 2.15
+searchstart=2.15,searchend=2.2
+searchmid=2.175,searchstart=2.15,searchend=2.2
+Tue Jan 24 12:19:49 MST 2023: Run experiment
+mult=2,numerator=175,denominator=1000
+Tue Jan 24 12:48:28 MST 2023: Experiment done (seed=0)
+Tue Jan 24 12:48:44 MST 2023: n99fct=10.1742,totaltraffic=127642158000
+Tue Jan 24 12:48:44 MST 2023: isCloseEnough searchstart=2.15,searchmid=2.175,searchend=2.2
+searchstart: n99fct=9.99138,totaltraffic=125966446500
+searchmid: n99fct=10.1742,totaltraffic=127642158000
+searchend: n99fct=10.3982,totaltraffic=129056083500
+=========[searchstart,searchmid]=========
+=========[2.15,2.175]=========
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Tue Jan 24 12:48:44 MST 2023
+topology=dring
+routing=su2
+trafficmatrix=clusterb
+mode=lppbr-optimal
+p1=2.15
+p2=2.175
+threshold=10
+stime=320
+mstart=80
+mend=240
+precision=64
+Tue Jan 24 12:48:44 MST 2023: Run experiment for p1
+mult=2,numerator=15,denominator=100
+Tue Jan 24 12:48:44 MST 2023: rigorousseed=0,seedfrom=0,seedto=0
+Tue Jan 24 12:48:44 MST 2023: Running seed=0
+Tue Jan 24 12:48:44 MST 2023: Result already exists (seed=0)
+Tue Jan 24 12:48:44 MST 2023: rigorousseed=1,seedfrom=1,seedto=1
+Tue Jan 24 12:48:44 MST 2023: Running seed=1
+Tue Jan 24 13:17:08 MST 2023: Experiment done (seed=1)
+Tue Jan 24 13:17:08 MST 2023: rigorousseed=2,seedfrom=2,seedto=2
+Tue Jan 24 13:17:08 MST 2023: Running seed=2
+Tue Jan 24 13:45:10 MST 2023: Experiment done (seed=2)
+Tue Jan 24 13:45:10 MST 2023: rigorousseed=3,seedfrom=3,seedto=3
+Tue Jan 24 13:45:10 MST 2023: Running seed=3
+Tue Jan 24 14:13:14 MST 2023: Experiment done (seed=3)
+Tue Jan 24 14:13:14 MST 2023: rigorousseed=4,seedfrom=4,seedto=4
+Tue Jan 24 14:13:14 MST 2023: Running seed=4
+Tue Jan 24 14:42:00 MST 2023: Experiment done (seed=4)
+Tue Jan 24 14:42:00 MST 2023: rigorousseed=5,seedfrom=5,seedto=5
+Tue Jan 24 14:42:00 MST 2023: Running seed=5
+Tue Jan 24 15:11:04 MST 2023: Experiment done (seed=5)
+Tue Jan 24 15:11:04 MST 2023: rigorousseed=6,seedfrom=6,seedto=6
+Tue Jan 24 15:11:04 MST 2023: Running seed=6
+Tue Jan 24 15:39:13 MST 2023: Experiment done (seed=6)
+Tue Jan 24 15:39:13 MST 2023: rigorousseed=7,seedfrom=7,seedto=7
+Tue Jan 24 15:39:13 MST 2023: Running seed=7
+Tue Jan 24 16:07:30 MST 2023: Experiment done (seed=7)
+Tue Jan 24 16:07:30 MST 2023: rigorousseed=8,seedfrom=8,seedto=8
+Tue Jan 24 16:07:30 MST 2023: Running seed=8
+Tue Jan 24 16:35:41 MST 2023: Experiment done (seed=8)
+Tue Jan 24 16:35:41 MST 2023: rigorousseed=9,seedfrom=9,seedto=9
+Tue Jan 24 16:35:41 MST 2023: Running seed=9
+Tue Jan 24 17:05:07 MST 2023: Experiment done (seed=9)
+Tue Jan 24 17:05:07 MST 2023: Collecting stats for discover_dring_su2_clusterb_lppbr-optimal/2_15_100_320
+Tue Jan 24 17:07:39 MST 2023: n99fct=9.98551,totaltraffic=126083153100
+Tue Jan 24 17:07:39 MST 2023: Run experiment for p2
+mult=2,numerator=175,denominator=1000
+Tue Jan 24 17:07:39 MST 2023: rigorousseed=0,seedfrom=0,seedto=0
+Tue Jan 24 17:07:39 MST 2023: Running seed=0
+Tue Jan 24 17:07:39 MST 2023: Result already exists (seed=0)
+Tue Jan 24 17:07:39 MST 2023: rigorousseed=1,seedfrom=1,seedto=1
+Tue Jan 24 17:07:40 MST 2023: Running seed=1
+Tue Jan 24 17:36:10 MST 2023: Experiment done (seed=1)
+Tue Jan 24 17:36:11 MST 2023: rigorousseed=2,seedfrom=2,seedto=2
+Tue Jan 24 17:36:11 MST 2023: Running seed=2
+Tue Jan 24 18:05:03 MST 2023: Experiment done (seed=2)
+Tue Jan 24 18:05:04 MST 2023: rigorousseed=3,seedfrom=3,seedto=3
+Tue Jan 24 18:05:04 MST 2023: Running seed=3
+Tue Jan 24 18:34:05 MST 2023: Experiment done (seed=3)
+Tue Jan 24 18:34:05 MST 2023: rigorousseed=4,seedfrom=4,seedto=4
+Tue Jan 24 18:34:05 MST 2023: Running seed=4
+Tue Jan 24 19:02:35 MST 2023: Experiment done (seed=4)
+Tue Jan 24 19:02:35 MST 2023: rigorousseed=5,seedfrom=5,seedto=5
+Tue Jan 24 19:02:35 MST 2023: Running seed=5
+Tue Jan 24 19:31:35 MST 2023: Experiment done (seed=5)
+Tue Jan 24 19:31:35 MST 2023: rigorousseed=6,seedfrom=6,seedto=6
+Tue Jan 24 19:31:35 MST 2023: Running seed=6
+Tue Jan 24 20:00:41 MST 2023: Experiment done (seed=6)
+Tue Jan 24 20:00:41 MST 2023: rigorousseed=7,seedfrom=7,seedto=7
+Tue Jan 24 20:00:41 MST 2023: Running seed=7
+Tue Jan 24 20:29:30 MST 2023: Experiment done (seed=7)
+Tue Jan 24 20:29:30 MST 2023: rigorousseed=8,seedfrom=8,seedto=8
+Tue Jan 24 20:29:30 MST 2023: Running seed=8
+Tue Jan 24 20:58:15 MST 2023: Experiment done (seed=8)
+Tue Jan 24 20:58:15 MST 2023: rigorousseed=9,seedfrom=9,seedto=9
+Tue Jan 24 20:58:15 MST 2023: Running seed=9
+Tue Jan 24 21:26:59 MST 2023: Experiment done (seed=9)
+Tue Jan 24 21:26:59 MST 2023: Collecting stats for discover_dring_su2_clusterb_lppbr-optimal/2_175_1000_320
+Tue Jan 24 21:29:33 MST 2023: n99fct=10.163,totaltraffic=127590723300
+Tue Jan 24 21:29:33 MST 2023: Calculating the cutoff point
+n99fct1=9.98551,totaltraffic1=126083153100,n99fct2=10.163,totaltraffic2=127590723300
+m=1.17732e-10,b=-4.85851,y=10,x=1.26206e+11
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================
+===============Close Interval Found==============

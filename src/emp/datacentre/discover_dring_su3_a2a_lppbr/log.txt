@@ -175,3 +175,12 @@ Mon Jan 23 19:13:52 MST 2023: Running seed=8
 Mon Jan 23 19:38:17 MST 2023: Experiment done (seed=8)
 Mon Jan 23 19:38:17 MST 2023: rigorousseed=9,seedfrom=9,seedto=9
 Mon Jan 23 19:38:17 MST 2023: Running seed=9
+Mon Jan 23 20:02:20 MST 2023: Experiment done (seed=9)
+Mon Jan 23 20:02:20 MST 2023: Collecting stats for discover_dring_su3_a2a_lppbr/0_55_100_200
+Mon Jan 23 20:03:34 MST 2023: n99fct=10.3054,totaltraffic=85731199650
+Mon Jan 23 20:03:35 MST 2023: Calculating the cutoff point
+n99fct1=9.96519,totaltraffic1=84171745950,n99fct2=10.3054,totaltraffic2=85731199650
+m=2.1816e-10,b=-8.39772,y=10,x=8.43313e+10
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================
+===============Close Interval Found==============
