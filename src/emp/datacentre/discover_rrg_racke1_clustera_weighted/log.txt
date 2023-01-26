@@ -1,0 +1,163 @@
+Tue Jan 24 11:58:46 CST 2023: Set up parameters
+topology=rrg
+routing=racke1
+trafficmatrix=clustera
+mode=weighted
+searchstart=10
+searchend=12
+threshold=10
+stime=1000
+mstart=250
+mend=750
+precision=64
+Tue Jan 24 11:58:46 CST 2023: Run experiment search start
+mult=10,numerator=0,denominator=0
+Tue Jan 24 12:02:03 CST 2023: Set up parameters
+topology=rrg
+routing=racke1
+trafficmatrix=clustera
+mode=weighted
+searchstart=10
+searchend=12
+threshold=10
+stime=1000
+mstart=250
+mend=750
+precision=64
+Tue Jan 24 12:02:03 CST 2023: Run experiment search start
+mult=10,numerator=0,denominator=0
+Tue Jan 24 12:14:10 CST 2023: Experiment done (seed=0)
+Tue Jan 24 12:14:23 CST 2023: n99fct=6.07386,totaltraffic=41566204500
+Tue Jan 24 12:14:23 CST 2023: Run experiment search end
+mult=12,numerator=0,denominator=0
+Tue Jan 24 12:30:59 CST 2023: Experiment done (seed=0)
+Tue Jan 24 12:31:13 CST 2023: n99fct=9.61429,totaltraffic=49879585500
+10 > 9.61429 ? 1
+10 < 6.07386 ? 0
+Tue Jan 24 14:18:11 CST 2023: Set up parameters
+topology=rrg
+routing=racke1
+trafficmatrix=clustera
+mode=weighted
+searchstart=12
+searchend=13
+threshold=10
+stime=1000
+mstart=250
+mend=750
+precision=64
+Tue Jan 24 14:18:11 CST 2023: Run experiment search start
+mult=12,numerator=0,denominator=0
+Tue Jan 24 14:18:11 CST 2023: Result already exists (seed=0)
+Tue Jan 24 14:18:25 CST 2023: n99fct=9.61429,totaltraffic=49879585500
+Tue Jan 24 14:18:25 CST 2023: Run experiment search end
+mult=13,numerator=0,denominator=0
+Tue Jan 24 14:38:32 CST 2023: Experiment done (seed=0)
+Tue Jan 24 14:38:48 CST 2023: n99fct=10.1862,totaltraffic=54036214500
+Tue Jan 24 14:38:48 CST 2023: Start binary search.
+searchmid=12.5,searchstart=12,searchend=13
+Tue Jan 24 14:38:48 CST 2023: Run experiment
+mult=12,numerator=5,denominator=10
+Tue Jan 24 14:55:43 CST 2023: Experiment done (seed=0)
+Tue Jan 24 14:56:00 CST 2023: n99fct=9.90933,totaltraffic=51958401000
+Change searchstart to 12.5
+searchstart=12.5,searchend=13
+searchmid=12.75,searchstart=12.5,searchend=13
+Tue Jan 24 14:56:00 CST 2023: Run experiment
+mult=12,numerator=75,denominator=100
+Tue Jan 24 15:15:48 CST 2023: Experiment done (seed=0)
+Tue Jan 24 15:16:04 CST 2023: n99fct=10.0764,totaltraffic=52991647500
+Tue Jan 24 15:16:05 CST 2023: isCloseEnough searchstart=12.5,searchmid=12.75,searchend=13
+searchstart: n99fct=9.90933,totaltraffic=51958401000
+searchmid: n99fct=10.0764,totaltraffic=52991647500
+searchend: n99fct=10.1862,totaltraffic=54036214500
+=========[searchstart,searchmid]=========
+=========[12.5,12.75]=========
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Tue Jan 24 15:16:05 CST 2023
+topology=rrg
+routing=racke1
+trafficmatrix=clustera
+mode=weighted
+p1=12.5
+p2=12.75
+threshold=10
+stime=1000
+mstart=250
+mend=750
+precision=64
+Tue Jan 24 15:16:05 CST 2023: Run experiment for p1
+mult=12,numerator=5,denominator=10
+Tue Jan 24 15:16:05 CST 2023: rigorousseed=0,seedfrom=0,seedto=0
+Tue Jan 24 15:16:05 CST 2023: Running seed=0
+Tue Jan 24 15:16:05 CST 2023: Result already exists (seed=0)
+Tue Jan 24 15:16:05 CST 2023: rigorousseed=1,seedfrom=1,seedto=1
+Tue Jan 24 15:16:05 CST 2023: Running seed=1
+Tue Jan 24 15:32:45 CST 2023: Experiment done (seed=1)
+Tue Jan 24 15:32:45 CST 2023: rigorousseed=2,seedfrom=2,seedto=2
+Tue Jan 24 15:32:45 CST 2023: Running seed=2
+Tue Jan 24 15:52:40 CST 2023: Experiment done (seed=2)
+Tue Jan 24 15:52:40 CST 2023: rigorousseed=3,seedfrom=3,seedto=3
+Tue Jan 24 15:52:40 CST 2023: Running seed=3
+Tue Jan 24 16:08:51 CST 2023: Experiment done (seed=3)
+Tue Jan 24 16:08:51 CST 2023: rigorousseed=4,seedfrom=4,seedto=4
+Tue Jan 24 16:08:51 CST 2023: Running seed=4
+Tue Jan 24 16:30:55 CST 2023: Experiment done (seed=4)
+Tue Jan 24 16:30:55 CST 2023: rigorousseed=5,seedfrom=5,seedto=5
+Tue Jan 24 16:30:55 CST 2023: Running seed=5
+Tue Jan 24 16:50:22 CST 2023: Experiment done (seed=5)
+Tue Jan 24 16:50:22 CST 2023: rigorousseed=6,seedfrom=6,seedto=6
+Tue Jan 24 16:50:22 CST 2023: Running seed=6
+Tue Jan 24 17:09:17 CST 2023: Experiment done (seed=6)
+Tue Jan 24 17:09:17 CST 2023: rigorousseed=7,seedfrom=7,seedto=7
+Tue Jan 24 17:09:17 CST 2023: Running seed=7
+Tue Jan 24 17:26:41 CST 2023: Experiment done (seed=7)
+Tue Jan 24 17:26:41 CST 2023: rigorousseed=8,seedfrom=8,seedto=8
+Tue Jan 24 17:26:41 CST 2023: Running seed=8
+Tue Jan 24 17:45:35 CST 2023: Experiment done (seed=8)
+Tue Jan 24 17:45:35 CST 2023: rigorousseed=9,seedfrom=9,seedto=9
+Tue Jan 24 17:45:35 CST 2023: Running seed=9
+Tue Jan 24 18:01:11 CST 2023: Experiment done (seed=9)
+Tue Jan 24 18:01:11 CST 2023: Collecting stats for discover_rrg_racke1_clustera_weighted/12_5_10_1000
+Tue Jan 24 18:03:35 CST 2023: n99fct=9.91567,totaltraffic=51958233450
+Tue Jan 24 18:03:36 CST 2023: Run experiment for p2
+mult=12,numerator=75,denominator=100
+Tue Jan 24 18:03:36 CST 2023: rigorousseed=0,seedfrom=0,seedto=0
+Tue Jan 24 18:03:36 CST 2023: Running seed=0
+Tue Jan 24 18:03:36 CST 2023: Result already exists (seed=0)
+Tue Jan 24 18:03:36 CST 2023: rigorousseed=1,seedfrom=1,seedto=1
+Tue Jan 24 18:03:36 CST 2023: Running seed=1
+Tue Jan 24 18:21:49 CST 2023: Experiment done (seed=1)
+Tue Jan 24 18:21:49 CST 2023: rigorousseed=2,seedfrom=2,seedto=2
+Tue Jan 24 18:21:49 CST 2023: Running seed=2
+Tue Jan 24 18:39:59 CST 2023: Experiment done (seed=2)
+Tue Jan 24 18:39:59 CST 2023: rigorousseed=3,seedfrom=3,seedto=3
+Tue Jan 24 18:39:59 CST 2023: Running seed=3
+Tue Jan 24 18:58:22 CST 2023: Experiment done (seed=3)
+Tue Jan 24 18:58:22 CST 2023: rigorousseed=4,seedfrom=4,seedto=4
+Tue Jan 24 18:58:22 CST 2023: Running seed=4
+Tue Jan 24 19:17:34 CST 2023: Experiment done (seed=4)
+Tue Jan 24 19:17:34 CST 2023: rigorousseed=5,seedfrom=5,seedto=5
+Tue Jan 24 19:17:34 CST 2023: Running seed=5
+Tue Jan 24 19:34:45 CST 2023: Experiment done (seed=5)
+Tue Jan 24 19:34:46 CST 2023: rigorousseed=6,seedfrom=6,seedto=6
+Tue Jan 24 19:34:46 CST 2023: Running seed=6
+Tue Jan 24 19:50:46 CST 2023: Experiment done (seed=6)
+Tue Jan 24 19:50:46 CST 2023: rigorousseed=7,seedfrom=7,seedto=7
+Tue Jan 24 19:50:46 CST 2023: Running seed=7
+Tue Jan 24 20:06:09 CST 2023: Experiment done (seed=7)
+Tue Jan 24 20:06:09 CST 2023: rigorousseed=8,seedfrom=8,seedto=8
+Tue Jan 24 20:06:09 CST 2023: Running seed=8
+Tue Jan 24 20:22:49 CST 2023: Experiment done (seed=8)
+Tue Jan 24 20:22:49 CST 2023: rigorousseed=9,seedfrom=9,seedto=9
+Tue Jan 24 20:22:49 CST 2023: Running seed=9
+Tue Jan 24 20:41:46 CST 2023: Experiment done (seed=9)
+Tue Jan 24 20:41:46 CST 2023: Collecting stats for discover_rrg_racke1_clustera_weighted/12_75_100_1000
+Tue Jan 24 20:44:11 CST 2023: n99fct=10.0867,totaltraffic=52993759800
+Tue Jan 24 20:44:11 CST 2023: Calculating the cutoff point
+n99fct1=9.91567,totaltraffic1=51958233450,n99fct2=10.0867,totaltraffic2=52993759800
+m=1.65162e-10,b=1.33414,y=10,x=5.24688e+10
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================
+===============Close Interval Found==============
