@@ -1,0 +1,134 @@
+Wed Jan 25 21:15:56 CST 2023: Set up parameters
+topology=dring
+routing=su3
+trafficmatrix=clusterc
+mode=lppbr-delay
+searchstart=1.1
+searchend=1.3
+threshold=10
+stime=240
+mstart=60
+mend=180
+precision=64
+Wed Jan 25 21:15:56 CST 2023: Run experiment search start
+mult=1,numerator=1,denominator=10
+Wed Jan 25 21:46:15 CST 2023: Experiment done (seed=0)
+Wed Jan 25 21:46:27 CST 2023: n99fct=7.44566,totaltraffic=85317237000
+Wed Jan 25 21:46:27 CST 2023: Run experiment search end
+mult=1,numerator=3,denominator=10
+Wed Jan 25 22:28:40 CST 2023: Experiment done (seed=0)
+Wed Jan 25 22:28:54 CST 2023: n99fct=15.2704,totaltraffic=100832601000
+Wed Jan 25 22:28:54 CST 2023: Start binary search.
+searchmid=1.2,searchstart=1.1,searchend=1.3
+Wed Jan 25 22:28:54 CST 2023: Run experiment
+mult=1,numerator=2,denominator=10
+Wed Jan 25 23:01:13 CST 2023: Experiment done (seed=0)
+Wed Jan 25 23:01:26 CST 2023: n99fct=9.91531,totaltraffic=93104631000
+Change searchstart to 1.2
+searchstart=1.2,searchend=1.3
+searchmid=1.25,searchstart=1.2,searchend=1.3
+Wed Jan 25 23:01:27 CST 2023: Run experiment
+mult=1,numerator=25,denominator=100
+Wed Jan 25 23:34:42 CST 2023: Experiment done (seed=0)
+Wed Jan 25 23:34:56 CST 2023: n99fct=11.0543,totaltraffic=96873183000
+Change searchend to 1.25
+searchstart=1.2,searchend=1.25
+searchmid=1.225,searchstart=1.2,searchend=1.25
+Wed Jan 25 23:34:56 CST 2023: Run experiment
+mult=1,numerator=225,denominator=1000
+Thu Jan 26 00:10:49 CST 2023: Experiment done (seed=0)
+Thu Jan 26 00:11:04 CST 2023: n99fct=10.5448,totaltraffic=95050255500
+Thu Jan 26 00:11:04 CST 2023: isCloseEnough searchstart=1.2,searchmid=1.225,searchend=1.25
+searchstart: n99fct=9.91531,totaltraffic=93104631000
+searchmid: n99fct=10.5448,totaltraffic=95050255500
+searchend: n99fct=11.0543,totaltraffic=96873183000
+=========[searchstart,searchmid]=========
+=========[1.2,1.225]=========
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Thu Jan 26 00:11:04 CST 2023
+topology=dring
+routing=su3
+trafficmatrix=clusterc
+mode=lppbr-delay
+p1=1.2
+p2=1.225
+threshold=10
+stime=240
+mstart=60
+mend=180
+precision=64
+Thu Jan 26 00:11:04 CST 2023: Run experiment for p1
+mult=1,numerator=2,denominator=10
+Thu Jan 26 00:11:04 CST 2023: rigorousseed=0,seedfrom=0,seedto=0
+Thu Jan 26 00:11:04 CST 2023: Running seed=0
+Thu Jan 26 00:11:04 CST 2023: Result already exists (seed=0)
+Thu Jan 26 00:11:04 CST 2023: rigorousseed=1,seedfrom=1,seedto=1
+Thu Jan 26 00:11:04 CST 2023: Running seed=1
+Thu Jan 26 00:49:50 CST 2023: Experiment done (seed=1)
+Thu Jan 26 00:49:50 CST 2023: rigorousseed=2,seedfrom=2,seedto=2
+Thu Jan 26 00:49:50 CST 2023: Running seed=2
+Thu Jan 26 01:28:04 CST 2023: Experiment done (seed=2)
+Thu Jan 26 01:28:05 CST 2023: rigorousseed=3,seedfrom=3,seedto=3
+Thu Jan 26 01:28:05 CST 2023: Running seed=3
+Thu Jan 26 02:06:44 CST 2023: Experiment done (seed=3)
+Thu Jan 26 02:06:44 CST 2023: rigorousseed=4,seedfrom=4,seedto=4
+Thu Jan 26 02:06:44 CST 2023: Running seed=4
+Thu Jan 26 02:45:57 CST 2023: Experiment done (seed=4)
+Thu Jan 26 02:45:57 CST 2023: rigorousseed=5,seedfrom=5,seedto=5
+Thu Jan 26 02:45:57 CST 2023: Running seed=5
+Thu Jan 26 03:26:06 CST 2023: Experiment done (seed=5)
+Thu Jan 26 03:26:06 CST 2023: rigorousseed=6,seedfrom=6,seedto=6
+Thu Jan 26 03:26:06 CST 2023: Running seed=6
+Thu Jan 26 04:05:04 CST 2023: Experiment done (seed=6)
+Thu Jan 26 04:05:05 CST 2023: rigorousseed=7,seedfrom=7,seedto=7
+Thu Jan 26 04:05:05 CST 2023: Running seed=7
+Thu Jan 26 04:43:32 CST 2023: Experiment done (seed=7)
+Thu Jan 26 04:43:33 CST 2023: rigorousseed=8,seedfrom=8,seedto=8
+Thu Jan 26 04:43:33 CST 2023: Running seed=8
+Thu Jan 26 05:21:16 CST 2023: Experiment done (seed=8)
+Thu Jan 26 05:21:16 CST 2023: rigorousseed=9,seedfrom=9,seedto=9
+Thu Jan 26 05:21:16 CST 2023: Running seed=9
+Thu Jan 26 05:58:18 CST 2023: Experiment done (seed=9)
+Thu Jan 26 05:58:18 CST 2023: Collecting stats for discover_dring_su3_clusterc_lppbr-delay/1_2_10_240
+Thu Jan 26 06:00:36 CST 2023: n99fct=9.98768,totaltraffic=92989440000
+Thu Jan 26 06:00:37 CST 2023: Run experiment for p2
+mult=1,numerator=225,denominator=1000
+Thu Jan 26 06:00:37 CST 2023: rigorousseed=0,seedfrom=0,seedto=0
+Thu Jan 26 06:00:37 CST 2023: Running seed=0
+Thu Jan 26 06:00:37 CST 2023: Result already exists (seed=0)
+Thu Jan 26 06:00:37 CST 2023: rigorousseed=1,seedfrom=1,seedto=1
+Thu Jan 26 06:00:37 CST 2023: Running seed=1
+Thu Jan 26 06:41:22 CST 2023: Experiment done (seed=1)
+Thu Jan 26 06:41:22 CST 2023: rigorousseed=2,seedfrom=2,seedto=2
+Thu Jan 26 06:41:22 CST 2023: Running seed=2
+Thu Jan 26 07:20:52 CST 2023: Experiment done (seed=2)
+Thu Jan 26 07:20:52 CST 2023: rigorousseed=3,seedfrom=3,seedto=3
+Thu Jan 26 07:20:52 CST 2023: Running seed=3
+Thu Jan 26 08:00:48 CST 2023: Experiment done (seed=3)
+Thu Jan 26 08:00:49 CST 2023: rigorousseed=4,seedfrom=4,seedto=4
+Thu Jan 26 08:00:49 CST 2023: Running seed=4
+Thu Jan 26 08:38:13 CST 2023: Experiment done (seed=4)
+Thu Jan 26 08:38:13 CST 2023: rigorousseed=5,seedfrom=5,seedto=5
+Thu Jan 26 08:38:13 CST 2023: Running seed=5
+Thu Jan 26 09:17:01 CST 2023: Experiment done (seed=5)
+Thu Jan 26 09:17:01 CST 2023: rigorousseed=6,seedfrom=6,seedto=6
+Thu Jan 26 09:17:01 CST 2023: Running seed=6
+Thu Jan 26 09:57:29 CST 2023: Experiment done (seed=6)
+Thu Jan 26 09:57:29 CST 2023: rigorousseed=7,seedfrom=7,seedto=7
+Thu Jan 26 09:57:29 CST 2023: Running seed=7
+Thu Jan 26 10:35:43 CST 2023: Experiment done (seed=7)
+Thu Jan 26 10:35:43 CST 2023: rigorousseed=8,seedfrom=8,seedto=8
+Thu Jan 26 10:35:43 CST 2023: Running seed=8
+Thu Jan 26 11:14:09 CST 2023: Experiment done (seed=8)
+Thu Jan 26 11:14:09 CST 2023: rigorousseed=9,seedfrom=9,seedto=9
+Thu Jan 26 11:14:09 CST 2023: Running seed=9
+Thu Jan 26 11:53:11 CST 2023: Experiment done (seed=9)
+Thu Jan 26 11:53:11 CST 2023: Collecting stats for discover_dring_su3_clusterc_lppbr-delay/1_225_1000_240
+Thu Jan 26 11:55:39 CST 2023: n99fct=10.4915,totaltraffic=94964022600
+Thu Jan 26 11:55:40 CST 2023: Calculating the cutoff point
+n99fct1=9.98768,totaltraffic1=92989440000,n99fct2=10.4915,totaltraffic2=94964022600
+m=2.55153e-10,b=-13.7389,y=10,x=9.30379e+10
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================
+===============Close Interval Found==============
