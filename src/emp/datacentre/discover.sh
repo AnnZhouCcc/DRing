@@ -160,6 +160,9 @@ then
 elif [ $trafficmatrix = "16to4-2" ]
 then
   trafficmatrixparam=S2S_16_4_0_2
+elif [ $trafficmatrix = "flat-16to4-0" ]
+then
+  trafficmatrixparam=F2F_16_4_0_0
 elif [ $trafficmatrix = "clusterb" ] || [ $trafficmatrix = "clustera" ] || [ $trafficmatrix = "clusterc" ]
 then
   trafficmatrixparam=CLUSTERX
@@ -331,6 +334,7 @@ isGreaterThan() {
 
 if [ $( isGreaterThan $threshold $n99fctend ) -eq 1 ] || [ $( isLessThan $threshold $n99fctstart ) -eq 1 ]
 then
+  echo $dir
   echo Initial search interval is not appropriate. Check logfile.
   echo $threshold '>' $n99fctend ? $( isGreaterThan $threshold $n99fctend ) >> $logfile
   echo $threshold '<' $n99fctstart ? $( isLessThan $threshold $n99fctstart ) >> $logfile
