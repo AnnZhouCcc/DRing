@@ -15,6 +15,9 @@
 #include <iostream>
 #include <set>
 #include <queue>
+#include <map>
+
+typedef map<int, int> BasePairMap;
 
 int large_flow_threshold = 10 * 1024 * 1024;
 
@@ -2652,6 +2655,197 @@ void ConnectionMatrix::setTopoFlowsSomeToSome(string conn_matrix_str, double sim
       }
     }
   }
+}
+
+
+void ConnectionMatrix::setTopoFlowsSomeToSomeFlat(string conn_matrix_str, double simtime_ms) {
+  cout << "Topo flows some to some" << endl;
+
+  // Parse conn_matrix_str
+  string delimiter = "_";
+  size_t position = 0;
+  size_t count = 0;
+  string token;
+  int numsendingracks,numreceivingracks,basetrafficpattern,configfilenumber;
+  while ((position = conn_matrix_str.find(delimiter)) != string::npos) {
+    token = conn_matrix_str.substr(0, position);
+    switch (count) {
+      case 0:
+        // pass
+        break;
+      case 1:
+        numsendingracks = stoi(token);
+        break;
+      case 2:
+        numreceivingracks = stoi(token);
+        break;
+      case 3:
+        basetrafficpattern = stoi(token);
+        break;
+      default:
+        break;
+    }
+    conn_matrix_str.erase(0, position+delimiter.length());
+    count++;
+  }
+  configfilenumber = stoi(conn_matrix_str);
+  cout << "numsendingracks=" << numsendingracks << ",numreceivingracks=" << numreceivingracks << ",basetrafficpattern=" << basetrafficpattern << ",configfilenumber=" << configfilenumber << endl;
+
+  // Read traffic from config file
+  string trafficfilename = "trafficfiles/s2s_"+to_string(numsendingracks)+"_"+to_string(numreceivingracks)+"/"+to_string(configfilenumber)+".txt";
+  cout << "trafficfilename: " << trafficfilename << endl;
+  ifstream TMFile(trafficfilename.c_str());
+  string line;
+  int racknumber;
+  bool is_sending_racks = false, is_receiving_racks = false;
+  vector<int> sending_racks;
+  vector<int> receiving_racks;
+  line.clear();
+  if (TMFile.is_open()){
+    while(TMFile.good()){
+      getline(TMFile, line);
+      //Whitespace line
+      if (line.find_first_not_of(' ') == string::npos) break;
+      stringstream ss(line);
+
+      ss >> token;
+      if (token == "sending") {
+        is_sending_racks = true;
+      } else if (token == "receiving") {
+        is_receiving_racks = true;
+        is_sending_racks = false;
+      } else {
+        racknumber = stoi(token);
+        if (is_sending_racks) {
+          sending_racks.push_back(racknumber);
+        }
+        if (is_receiving_racks) {
+          receiving_racks.push_back(racknumber);
+        }
+      }
+    }
+    TMFile.close();
+  }
+  cout << "sending_racks:";
+  for (int rack : sending_racks) {
+    cout << " " << rack;
+  }
+  cout << endl;
+  cout << "receiving_racks:";
+  for (int rack : receiving_racks) {
+    cout << " " << rack;
+  }
+  cout << endl;
+
+  // Generate flows
+  // AnnC: lsservers is hard-coded; should find a way to circumvent this
+  int lsservers = 48; // number of servers per rack in leafspine
+  BasePairMap swsvrmapping;
+  cout << "lsservers=" << lsservers << endl;
+  for (int srcrack : sending_racks) { 
+    for (int dstrack : receiving_racks) {
+      if (basetrafficpattern == 0) { // based on leafspine
+	      for (int srcsvr=srcrack*lsservers; srcsvr<(srcrack+1)*lsservers; srcsvr++) {
+		for (int dstsvr=dstrack*lsservers; dstsvr<(dstrack+1)*lsservers; dstsvr++) {
+		  if (srcsvr>=NHOST or dstsvr>=NHOST) continue;
+		  int bytes = genFlowBytes();
+		  while (bytes<0 or bytes>large_flow_threshold){
+		    bytes = genFlowBytes();
+		  }
+		  bytes = adjustBytesByPacketSize(bytes);
+		  double start_time_ms = drand() * simtime_ms;
+		  base_flows.push_back(Flow(srcsvr, dstsvr, bytes, start_time_ms));
+		}
+	      } 
+      }
+      else if (basetrafficpattern==1 || basetrafficpattern==2) {
+        string mappingfilename;
+        if (basetrafficpattern==1) {
+          mappingfilename = "topoflowsfiles/sw-svr-mapping_rrg.txt";
+        } else if (basetrafficpattern==2) {
+          mappingfilename = "topoflowsfiles/sw-svr-mapping_dring.txt";
+        } else {
+          cout << "***Error: basetrafficpattern " << basetrafficpattern << " not recognized" << endl;
+          exit(1);
+        }
+
+	  ifstream swsvrmappingFile(mappingfilename);
+	  string line;
+	  line.clear();
+	  if (swsvrmappingFile.is_open()){
+	    while(swsvrmappingFile.good()){
+	      getline(swsvrmappingFile, line);
+	      //Whitespace line
+	      if (line.find_first_not_of(' ') == string::npos) break;
+	      stringstream ss(line);
+              int thisswitch,thisserver;
+	      ss >> thisswitch >> thisserver;
+              swsvrmapping[thisserver] = thisswitch;
+	    }
+	    swsvrmappingFile.close();
+	  }
+
+	      vector<int> this_sending_servers;
+	      vector<int> this_receiving_servers;
+	      for (int s=0; s<N; s++) {
+		int r = swsvrmapping[s];
+		if (r == srcrack) {
+		  this_sending_servers.push_back(s);
+		}
+		if (r == dstrack) {
+		  this_receiving_servers.push_back(s);
+		}
+	      }
+	      for (int srcsvr : this_sending_servers) {
+		for (int dstsvr : this_receiving_servers) {
+		  if (srcsvr>=NHOST or dstsvr>=NHOST) {
+		    cout << "***Error: srcsvr or dstsvr >= NHOST" << endl;
+		    exit(1);
+		  }
+		  int bytes = genFlowBytes();
+		  while (bytes<0 or bytes>large_flow_threshold){
+		    bytes = genFlowBytes();
+		  }    
+		  bytes = adjustBytesByPacketSize(bytes);
+		  double start_time_ms = drand() * simtime_ms;
+		  base_flows.push_back(Flow(srcsvr, dstsvr, bytes, start_time_ms));
+		}
+	      }
+
+              cout << "sending_servers:";
+              for (int rack : this_sending_servers) {
+                cout << " " << rack;
+              }
+              cout << endl;
+              cout << "receiving_servers:";
+              for (int rack : this_receiving_servers) {
+                cout << " " << rack;
+              }
+              cout << endl;
+      }
+      else {
+        cout << "***Error: basetrafficpattern " << basetrafficpattern << " not recognized" << endl;
+        exit(1);
+      }
+    }
+  }
+}
+
+
+void ConnectionMatrix::tempGenerateSwitchServerMapping(Topology *top) {
+  string filename;
+#if NHOST == 2988
+  filename = "topoflowsfiles/sw-svr-mapping_dring.txt";
+#elif NHOST == 3072
+  filename = "topoflowsfiles/sw-svr-mapping_rrg.txt";
+#endif
+  ofstream outputFile(filename);
+
+  for (int s=0; s<NHOST; s++) {
+    int r = top->ConvertHostToRack(s);
+    outputFile << r << " " << s << "\n";
+  }
+  outputFile.close();
 }
 
 

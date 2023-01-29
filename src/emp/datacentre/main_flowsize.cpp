@@ -369,6 +369,11 @@ int main(int argc, char **argv) {
     else if (conn_matrix.substr(0,3) == "S2S") {
         conns->setTopoFlowsSomeToSome(conn_matrix, simtime_ms);
     }
+    else if (conn_matrix.substr(0,3) == "F2F") {
+        conns->setTopoFlowsSomeToSomeFlat(conn_matrix, simtime_ms);
+        //conns->tempGenerateSwitchServerMapping(top);
+        //exit(1);
+    }
     else if (conn_matrix == "CLUSTERX") {
         // conns->setFlowsFromClusterXSmallInterval(top, paramstring, multiplier, numerator, denominator, solvestart, solveend, solveinterval, simtime_ms);
         conns->setTopoFlowsClusterX(top, paramstring, solvestart, solveend, solveinterval, simtime_ms);
