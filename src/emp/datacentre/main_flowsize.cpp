@@ -374,6 +374,9 @@ int main(int argc, char **argv) {
         //conns->tempGenerateSwitchServerMapping(top);
         //exit(1);
     }
+    else if (conn_matrix.substr(0,3) == "V2V") {
+        conns->setTopoFlowsSomeToSomeServer(conn_matrix, simtime_ms);
+    }
     else if (conn_matrix == "CLUSTERX") {
         // conns->setFlowsFromClusterXSmallInterval(top, paramstring, multiplier, numerator, denominator, solvestart, solveend, solveinterval, simtime_ms);
         conns->setTopoFlowsClusterX(top, paramstring, solvestart, solveend, solveinterval, simtime_ms);
