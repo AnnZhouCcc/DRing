@@ -207,7 +207,7 @@ else
 fi
 
 # Set up a logfile.
-dir=discover_${topology}_${routing}_${trafficmatrix}_${mode}
+dir=rediscover_${topology}_${routing}_${trafficmatrix}_${mode}
 if [ ! -d $dir ]
 then
   mkdir $dir
