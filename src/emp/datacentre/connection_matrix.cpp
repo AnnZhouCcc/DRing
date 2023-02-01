@@ -2398,6 +2398,43 @@ void ConnectionMatrix::multiplyFlows(int multiplier, int numerator, int denomina
 }
 
 
+void ConnectionMatrix::multiplyFlowsRandomize(int multiplier, int numerator, int denominator, double simtime_ms) {
+  if (numerator>denominator) {
+    cout << "***Error multiplyFlows: numerator>denominator, numerator=" << numerator << ", denominator=" << denominator << endl;
+    exit(1);
+  }
+  
+  if (multiplier>0) {
+    for (int m=0; m<multiplier; m++) {
+      for (Flow& flow: base_flows) {
+	int bytes = genFlowBytes();
+        while (bytes<0 or bytes>large_flow_threshold){
+          bytes = genFlowBytes();
+        }
+        bytes = adjustBytesByPacketSize(bytes);
+        double start_time_ms = drand() * simtime_ms;
+        flows.push_back(Flow(flow.src, flow.dst, bytes, start_time_ms));
+      }
+    }
+  }
+
+  if (denominator>0) {
+    for (Flow& flow: base_flows) {
+      int should_add = rand()%denominator;
+      if (should_add<numerator) {
+	int bytes = genFlowBytes();
+        while (bytes<0 or bytes>large_flow_threshold){
+          bytes = genFlowBytes();
+        }
+        bytes = adjustBytesByPacketSize(bytes);
+        double start_time_ms = drand() * simtime_ms;
+        flows.push_back(Flow(flow.src, flow.dst, bytes, start_time_ms));
+      }
+    }
+  }
+}
+
+
 void ConnectionMatrix::setTopoFlowsAllToAll(double simtime_ms) {
   cout<<"Topo flows all to all" << endl;
   for (int srcsvr=0; srcsvr<NHOST; srcsvr++) {

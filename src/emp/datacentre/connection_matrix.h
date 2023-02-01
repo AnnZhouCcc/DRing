@@ -92,6 +92,7 @@ class ConnectionMatrix{
 
   int adjustBytesByPacketSize(int bytes);
   void multiplyFlows(int multiplier, int numerator, int denominator);
+  void multiplyFlowsRandomize(int multiplier, int numerator, int denominator, double simtime_ms);
   void setTopoFlowsAllToAll(double simtime_ms);
   void setTopoFlowsSomeToSome(string conn_matrix_str, double simtime_ms);
   void setTopoFlowsSomeToSomeFlat(string conn_matrix_str, double simtime_ms);

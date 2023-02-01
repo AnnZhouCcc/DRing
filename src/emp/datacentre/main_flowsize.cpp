@@ -450,7 +450,8 @@ int main(int argc, char **argv) {
             return 0;
         }
     }
-    conns->multiplyFlows(multiplier,numerator,denominator);
+    //conns->multiplyFlows(multiplier,numerator,denominator);
+    conns->multiplyFlowsRandomize(multiplier,numerator,denominator,simtime_ms);
     conns->printTopoFlows(top, "topoflowsfiles/topoflows_" + conn_matrix + ".txt");
     map<int,vector<int>*>::iterator it;
 
