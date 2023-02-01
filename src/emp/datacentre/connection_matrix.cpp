@@ -20,6 +20,7 @@
 typedef map<int, int> BasePairMap;
 
 int large_flow_threshold = 10 * 1024 * 1024;
+int active_servers_per_rack = 36;
 
 ConnectionMatrix::ConnectionMatrix(int n)
 {
@@ -2691,6 +2692,121 @@ void ConnectionMatrix::setTopoFlowsSomeToSome(string conn_matrix_str, double sim
         } 
       }
     }
+  }
+}
+
+
+void ConnectionMatrix::setTopoFlowsSomeToSomeRandom(Topology *top, string conn_matrix_str, double simtime_ms) {
+  cout << "Topo flows some to some" << endl;
+
+  // Parse conn_matrix_str
+  string delimiter = "_";
+  size_t position = 0;
+  size_t count = 0;
+  string token;
+  int numsendingracks,numreceivingracks,isbidirectionaltraffic,configfilenumber;
+  while ((position = conn_matrix_str.find(delimiter)) != string::npos) {
+    token = conn_matrix_str.substr(0, position);
+    switch (count) {
+      case 0:
+        // pass
+        break;
+      case 1:
+        numsendingracks = stoi(token);
+        break;
+      case 2:
+        numreceivingracks = stoi(token);
+        break;
+      case 3:
+        isbidirectionaltraffic = stoi(token);
+        break;
+      default:
+        break;
+    }
+    conn_matrix_str.erase(0, position+delimiter.length());
+    count++;
+  }
+  configfilenumber = stoi(conn_matrix_str);
+  cout << "numsendingracks=" << numsendingracks << ",numreceivingracks=" << numreceivingracks << ",isbidirectionaltraffic=" << isbidirectionaltraffic << ",configfilenumber=" << configfilenumber << endl;
+
+  // Read traffic from config file
+  string trafficfilename = "trafficfiles/s2s_"+to_string(numsendingracks)+"_"+to_string(numreceivingracks)+"/"+to_string(configfilenumber)+".txt";
+  cout << "trafficfilename: " << trafficfilename << endl;
+  ifstream TMFile(trafficfilename.c_str());
+  string line;
+  int racknumber;
+  bool is_sending_racks = false, is_receiving_racks = false;
+  vector<int> sending_racks;
+  vector<int> receiving_racks;
+  line.clear();
+  if (TMFile.is_open()){
+    while(TMFile.good()){
+      getline(TMFile, line);
+      //Whitespace line
+      if (line.find_first_not_of(' ') == string::npos) break;
+      stringstream ss(line);
+
+      ss >> token;
+      if (token == "sending") {
+        is_sending_racks = true;
+      } else if (token == "receiving") {
+        is_receiving_racks = true;
+        is_sending_racks = false;
+      } else {
+        racknumber = stoi(token);
+        if (is_sending_racks) {
+          sending_racks.push_back(racknumber);
+        }
+        if (is_receiving_racks) {
+          receiving_racks.push_back(racknumber);
+        }
+      }
+    }
+    TMFile.close();
+  }
+  cout << "sending_racks:";
+  for (int rack : sending_racks) {
+    cout << " " << rack;
+  }
+  cout << endl;
+  cout << "receiving_racks:";
+  for (int rack : receiving_racks) {
+    cout << " " << rack;
+  }
+  cout << endl;
+
+  // Generate flows
+  for (int srcrack : sending_racks) { 
+    for (int dstrack : receiving_racks) {
+      vector<int> sending_servers;
+      vector<int> receiving_servers;
+      for (int s=0; s<NHOST; s++) {
+        int r = top->ConvertHostToRack(s);
+	if (r == srcrack and sending_servers.size() < active_servers_per_rack) {
+	  sending_servers.push_back(s);
+	}
+        if (r == dstrack and receiving_servers.size() < active_servers_per_rack) {
+          receiving_servers.push_back(s);
+        }
+      }
+
+      for (int srcsvr : sending_servers) {
+        for (int dstsvr : receiving_servers) {
+          if (srcsvr>=NHOST or dstsvr>=NHOST) continue;
+          int bytes = genFlowBytes();
+          while (bytes<0 or bytes>large_flow_threshold){
+            bytes = genFlowBytes();
+          }
+          bytes = adjustBytesByPacketSize(bytes);
+          double start_time_ms = drand() * simtime_ms;
+          base_flows.push_back(Flow(srcsvr, dstsvr, bytes, start_time_ms));
+        }
+      } 
+    }
+  }
+
+  if (isbidirectionaltraffic == 1) {
+    cout << "***Error: bidirectional traffic not implemented" << endl;
   }
 }
 

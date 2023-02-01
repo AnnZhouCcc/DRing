@@ -367,7 +367,8 @@ int main(int argc, char **argv) {
         conns->setTopoFlowsAllToAll(simtime_ms);
     }
     else if (conn_matrix.substr(0,3) == "S2S") {
-        conns->setTopoFlowsSomeToSome(conn_matrix, simtime_ms);
+        conns->setTopoFlowsSomeToSomeRandom(top, conn_matrix, simtime_ms);
+        //conns->setTopoFlowsSomeToSome(conn_matrix, simtime_ms);
     }
     else if (conn_matrix.substr(0,3) == "F2F") {
         conns->setTopoFlowsSomeToSomeFlat(conn_matrix, simtime_ms);
