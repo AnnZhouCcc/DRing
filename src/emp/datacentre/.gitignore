@@ -9,6 +9,10 @@ discover_*_*_*_*/*_*_*_*_*
 discover_*_*_*_*/*_output
 !discover_*_*_*_*/*_*_*_*_summary
 !discover_*_*_*_*/log.txt
+rediscover_*_*_*_*/*_*_*_*_*
+rediscover_*_*_*_*/*_output
+!rediscover_*_*_*_*/*_*_*_*_summary
+!rediscover_*_*_*_*/log.txt
 compressed_discover_logfiles/discover_*_*_*_*/*_*_*_*_*
 !compressed_discover_logfiles/discover_*_*_*_*/*_*_*_*_summary
 !compressed_discover_logfiles/discover_*_*_*_*/log.txt
