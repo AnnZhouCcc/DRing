@@ -2436,6 +2436,13 @@ void ConnectionMatrix::multiplyFlowsRandomize(int multiplier, int numerator, int
 }
 
 
+void ConnectionMatrix::simplyCopyFlows() {
+  for (Flow& flow: base_flows) {
+    flows.push_back(Flow(flow.src, flow.dst, flow.bytes, flow.start_time_ms));
+  }
+}
+
+
 void ConnectionMatrix::setTopoFlowsAllToAll(double simtime_ms) {
   cout<<"Topo flows all to all" << endl;
   for (int srcsvr=0; srcsvr<NHOST; srcsvr++) {
@@ -2453,7 +2460,7 @@ void ConnectionMatrix::setTopoFlowsAllToAll(double simtime_ms) {
 }
 
 
-void ConnectionMatrix::setTopoFlowsClusterX(Topology* top, string cluster, int solvestart, int solveend, int solveinterval, double simtime_ms) {
+void ConnectionMatrix::setTopoFlowsClusterX(Topology* top, string cluster, int solvestart, int solveend, int solveinterval, double simtime_ms, int multiplier, int numerator, int denominator) {
   cout << "Topo flows clusterX" << endl;
   int numservers = NHOST;
   int numracks;
@@ -2525,6 +2532,14 @@ void ConnectionMatrix::setTopoFlowsClusterX(Topology* top, string cluster, int s
     }
   }
 
+  double scaleup = 0;
+  if (denominator == 0) {
+    scaleup = multiplier;
+  } else {
+    scaleup = multiplier + numerator/(double)denominator;
+  }
+  cout << "scaleup = " << scaleup << endl;
+
   double simtime_per_interval_ms = simtime_ms / numintervals;
   for (int k=0; k<numintervals; k++) {
     for (int i=0; i<numracks; i++) {
@@ -2536,7 +2551,7 @@ void ConnectionMatrix::setTopoFlowsClusterX(Topology* top, string cluster, int s
         //}
         if (traffic_per_rack_pair_per_interval[k][i][j] == 0) continue;
 
-        uint64_t total_traffic = traffic_per_rack_pair_per_interval[k][i][j];
+        uint64_t total_traffic = uint64_t(traffic_per_rack_pair_per_interval[k][i][j]*scaleup);
         uint64_t traffic_till_now = 0;
         bool have_sufficient_flows = false;
         while (!have_sufficient_flows) {

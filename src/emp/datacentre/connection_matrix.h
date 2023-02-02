@@ -93,12 +93,13 @@ class ConnectionMatrix{
   int adjustBytesByPacketSize(int bytes);
   void multiplyFlows(int multiplier, int numerator, int denominator);
   void multiplyFlowsRandomize(int multiplier, int numerator, int denominator, double simtime_ms);
+  void simplyCopyFlows();
   void setTopoFlowsAllToAll(double simtime_ms);
   void setTopoFlowsSomeToSome(string conn_matrix_str, double simtime_ms);
   void setTopoFlowsSomeToSomeRandom(Topology *top, string conn_matrix_str, double simtime_ms);
   void setTopoFlowsSomeToSomeFlat(string conn_matrix_str, double simtime_ms);
   void setTopoFlowsSomeToSomeServer(string conn_matrix_str, double simtime_ms);
-  void setTopoFlowsClusterX(Topology* top, string cluster, int solvestart, int solveend, int solveinterval, double simtime_ms);
+  void setTopoFlowsClusterX(Topology* top, string cluster, int solvestart, int solveend, int solveinterval, double simtime_ms, int multiplier, int numerator, int denominator);
   void printTopoFlows(Topology* top, string topoflowsfilename);
   void tempGenerateSwitchServerMapping(Topology* top);
 };

@@ -380,7 +380,7 @@ int main(int argc, char **argv) {
     }
     else if (conn_matrix == "CLUSTERX") {
         // conns->setFlowsFromClusterXSmallInterval(top, paramstring, multiplier, numerator, denominator, solvestart, solveend, solveinterval, simtime_ms);
-        conns->setTopoFlowsClusterX(top, paramstring, solvestart, solveend, solveinterval, simtime_ms);
+        conns->setTopoFlowsClusterX(top, paramstring, solvestart, solveend, solveinterval, simtime_ms, multiplier, numerator, denominator);
     }
     else if(conn_matrix == "PERM") {
         conns->setRackLevelPermutationFlowsHardCoding(multiplier, simtime_ms);
@@ -451,8 +451,14 @@ int main(int argc, char **argv) {
             return 0;
         }
     }
+
     //conns->multiplyFlows(multiplier,numerator,denominator);
-    conns->multiplyFlowsRandomize(multiplier,numerator,denominator,simtime_ms);
+    if (conn_matrix!="CLUSTERX") {
+      conns->multiplyFlowsRandomize(multiplier,numerator,denominator,simtime_ms);
+    } else {
+      conns->simplyCopyFlows();
+    }
+
     conns->printTopoFlows(top, "topoflowsfiles/topoflows_" + conn_matrix + ".txt");
     map<int,vector<int>*>::iterator it;
 
