@@ -2551,7 +2551,11 @@ void ConnectionMatrix::setTopoFlowsClusterX(Topology* top, string cluster, int s
         //}
         if (traffic_per_rack_pair_per_interval[k][i][j] == 0) continue;
 
-        uint64_t total_traffic = uint64_t(traffic_per_rack_pair_per_interval[k][i][j]*scaleup);
+        uint64_t total_traffic = (uint64_t)traffic_per_rack_pair_per_interval[k][i][j]*scaleup;
+        // Check to make sure that the conversion is correct.
+        if (traffic_per_rack_pair_per_interval[k][i][j]*scaleup-total_traffic>=1) {
+            cout << "***Error: routing of traffic*scaleup" << endl;
+        }
         uint64_t traffic_till_now = 0;
         bool have_sufficient_flows = false;
         while (!have_sufficient_flows) {
