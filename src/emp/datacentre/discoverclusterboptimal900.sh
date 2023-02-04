@@ -8,17 +8,17 @@ lpsolvermode=$4
 searchstart=$5
 searchend=$6
 threshold=10 #ms
-stime=400
+stime=320
 precision=64
 seedfrom=0
 seedto=0
 solvestart=0
-solveend=84600
+solveend=85500
 trafficfilename=b
 dp=$precision
-solveinterval=1800
+solveinterval=900
 computestart=0
-computeend=84600
+computeend=85500
 computeinterval=$7
 
 # Check for input parameter error

@@ -2,23 +2,23 @@
 # Set parameters.
 topology=$1 #rrg/dring/leafspine
 routing=$2
-trafficmatrix=clusterb
+trafficmatrix=clusterc
 mode=$3 #equal/weighted/lppbr/lpdbr/lppbr-optimal/lpdbr-optimal/lppbr-nox-optimal/lpdbr-nox-optimal/lppbr-nox-delay/lpdbr-nox-delay/lppbr-delay/lpdbr-delay/lppbr-nox/lpdbr-nox
 lpsolvermode=$4
 searchstart=$5
 searchend=$6
 threshold=10 #ms
-stime=400
+stime=240
 precision=64
 seedfrom=0
 seedto=0
-solvestart=0
-solveend=84600
-trafficfilename=b
+solvestart=3600
+solveend=82800
+trafficfilename=c
 dp=$precision
-solveinterval=1800
+solveinterval=3600
 computestart=0
-computeend=84600
+computeend=79200
 computeinterval=$7
 
 # Check for input parameter error
