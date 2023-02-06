@@ -2,7 +2,7 @@ topology=$1
 
 name=jan31-randomize-server-r2r-0
 #name=jan31-util-server-r2r-0
-values='10 20 30 40 50 60 70 80 90 100'
+values='100 150 200 250 300 350 400 450 500'
 #values='40'
 
 stime=1000

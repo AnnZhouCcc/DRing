@@ -1,9 +1,9 @@
-topology=leafspine
-routing=ecmp
-traffic=flat-16to4-0
-mode=equal
-values='1.95 3.9 5.85 7.8 9.75 11.7 13.65 15.6 17.55 19.5 21.45 23.4'
-dir=debug_curve_jan29_flat-16to4-0
+topology=rrg
+routing=su3
+traffic=server-r2r-0
+mode=lpdbr
+values='40'
+dir=ir2r_jan31-util-server-r2r-0
 
 stime=1000
 mstart=250

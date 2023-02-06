@@ -86,7 +86,7 @@ fi
 
 seed=0
 make=MAKE
-tempoutputfile=debug_curve_temp
+tempoutputfile=debug_curve_${name}/debug_curve_temp
 for value in $values
 do
   ./discover_aux_fraction.sh $value > ${tempoutputfile}_${value}
@@ -95,7 +95,7 @@ do
   denominator=$(cat ${tempoutputfile}_${value} | cut -d " " -f 3)
   echo value=${value},mult=${mult},numerator=${numerator},denominator=${denominator}
 
-  time ./run.sh $topologyname 1 64 16 $graphfile $numservers 1 1 $make $trafficname $mult $numerator $denominator $solvestart $solveend $routingname $routingnumber $trafficparam 0 $seed leafspine_$suffix $netpathfile $pwfile $precision $mstart $mend $stime $solveinterval $computestart $computeend $computeinterval | grep -e "FCT" -e "topology" -e "^queue" > debug_curve_${name}/${topology}_${routing}_${mode}_${mult}_${numerator}_${denominator}_${stime}_${seed} &
+  time ./run.sh $topologyname 1 64 16 $graphfile $numservers 1 1 $make $trafficname $mult $numerator $denominator $solvestart $solveend $routingname $routingnumber $trafficparam 0 $seed ${topology}_$suffix $netpathfile $pwfile $precision $mstart $mend $stime $solveinterval $computestart $computeend $computeinterval | grep -e "FCT" -e "topology" -e "^queue" > debug_curve_${name}/${topology}_${routing}_${mode}_${mult}_${numerator}_${denominator}_${stime}_${seed} &
   sleep 30
   make=NOMAKE
 done
