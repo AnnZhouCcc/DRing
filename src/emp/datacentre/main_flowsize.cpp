@@ -487,7 +487,7 @@ int main(int argc, char **argv) {
 
     #if CHOSEN_TOPO == RRG
         if (conn_matrix == "CLUSTERX") {
-            numintervals = (solveend-solvestart) / solveinterval;
+            numintervals = ((solveend-solvestart) / solveinterval) + 1;
             double intervallen = simtime_ms / numintervals;
             whichinterval = int(flow.start_time_ms / intervallen);
         }

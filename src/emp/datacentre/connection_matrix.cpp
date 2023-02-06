@@ -2471,6 +2471,10 @@ void ConnectionMatrix::setTopoFlowsClusterX(Topology* top, string cluster, int s
   #endif
   cout << "numservers=" << numservers << ", numracks=" << numracks << endl;
 
+  solvestart=7200;
+  solveend=84600;
+  solveinterval=1800;
+
   // collect all TM files
   if (cluster.compare("a") != 0 and cluster.compare("b") != 0 and cluster.compare("c") != 0) {
     cout << "An unknown cluster is indicated as input: " << cluster << endl;
