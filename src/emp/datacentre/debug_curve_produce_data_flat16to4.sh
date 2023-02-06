@@ -1,9 +1,7 @@
 topology=$1
 
-name=jan31-randomize-server-r2r-0
-#name=jan31-util-server-r2r-0
-values='10 20 30 40 50 60 70 80 90 100'
-#values='40'
+name=jan29_flat-16to4-0
+values='1.95 3.9 5.85 7.8 9.75 11.7 13.65 15.6 17.55 19.5 21.45 23.4'
 
 stime=1000
 mstart=250
@@ -14,8 +12,8 @@ routingname=$3
 routingnumber=$4
 mode=$5
 
-trafficmatrix=server-r2r-0
-trafficname=V2V_1_1_0_0
+trafficmatrix=flat-16to4-0
+trafficname=F2F_16_4_1_0
 trafficparam=null
 solvestart=0
 solveend=0
@@ -24,17 +22,12 @@ computestart=0
 computeend=0
 computeinterval=0
 
-seedfrom=0
-seedto=49
-#seedto=0
-
 precision=64
 lpsolvermode=barriernocrossover
 
-dir=ir2r_${name}/
-if [ ! -d $dir ]
+if [ ! -d debug_curve_$name ]
 then
-  mkdir $dir
+  mkdir debug_curve_$name
 fi
 
 suffix=${routing}_${trafficmatrix}_${mode}
@@ -91,8 +84,9 @@ else
   fi
 fi
 
+seed=0
 make=MAKE
-tempoutputfile=${dir}ir2r_${topology}_${routing}_${mode}_temp
+tempoutputfile=debug_curve_temp
 for value in $values
 do
   ./discover_aux_fraction.sh $value > ${tempoutputfile}_${value}
@@ -101,15 +95,11 @@ do
   denominator=$(cat ${tempoutputfile}_${value} | cut -d " " -f 3)
   echo value=${value},mult=${mult},numerator=${numerator},denominator=${denominator}
 
-  for seed in $( seq $seedfrom $seedto )
-  do
-  time ./run.sh $topologyname 1 64 16 $graphfile $numservers 1 1 $make $trafficname $mult $numerator $denominator $solvestart $solveend $routingname $routingnumber $trafficparam 0 $seed ${topology}_$suffix $netpathfile $pwfile $precision $mstart $mend $stime $solveinterval $computestart $computeend $computeinterval | grep -e "FCT" -e "topology" > ${dir}${topology}_${routing}_${mode}_${mult}_${numerator}_${denominator}_${stime}_${seed} &
-  #time ./run.sh $topologyname 1 64 16 $graphfile $numservers 1 1 $make $trafficname $mult $numerator $denominator $solvestart $solveend $routingname $routingnumber $trafficparam 0 $seed ${topology}_$suffix $netpathfile $pwfile $precision $mstart $mend $stime $solveinterval $computestart $computeend $computeinterval | grep -e "FCT" -e "topology" -e "^queue" > ${dir}${topology}_${routing}_${mode}_${mult}_${numerator}_${denominator}_${stime}_${seed} &
-  sleep 5
-  wait
+  time ./run.sh $topologyname 1 64 16 $graphfile $numservers 1 1 $make $trafficname $mult $numerator $denominator $solvestart $solveend $routingname $routingnumber $trafficparam 0 $seed leafspine_$suffix $netpathfile $pwfile $precision $mstart $mend $stime $solveinterval $computestart $computeend $computeinterval | grep -e "FCT" -e "topology" -e "^queue" > debug_curve_${name}/${topology}_${routing}_${mode}_${mult}_${numerator}_${denominator}_${stime}_${seed} &
+  sleep 30
   make=NOMAKE
-  done
 done
+wait
 
 for value in $values
 do
