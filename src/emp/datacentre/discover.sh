@@ -112,10 +112,10 @@ else
   if [ $mode = "equal" ]
   then
     pwfile=pathweightfiles/${topology}/${routing}/pathweight_${topology}_${routing}_equal_${precision}.txt
-  elif [ $mode = "lppbr-optimal" ] || [ $mode = "lppbr-nox-optimal" ] || [ $mode = "lppbr-nox-delay" ] || [ $mode = "lppbr-delay" ]
+  elif [ $mode = "lppbr-optimal" ] || [ $mode = "lppbr-nox-optimal" ] || [ $mode = "lppbr-nox-delay" ] || [ $mode = "lppbr-delay" ] || [ $mode = "lppbr-optimal-"${solveinterval}"-"${computeinterval} ] || [ $mode = "lppbr-delay-"${solveinterval}"-"${computeinterval} ]
   then
     pwfile=pathweightfiles/${topology}/${routing}/${trafficmatrix}/pathweight_${topology}_${routing}_${trafficmatrix}_lp1_${lpsolvermode}_
-  elif [ $mode = "lpdbr-optimal" ] || [ $mode = "lpdbr-nox-optimal" ] || [ $mode = "lpdbr-nox-delay" ] || [ $mode = "lpdbr-delay" ] || [ $mode = "lpdbr-optimal-"${solveinterval}"-"${computeinterval} ] || [ $mode = "lppbr-optimal-"${solveinterval}"-"${computeinterval} ] || [ $mode = "lpdbr-delay-"${solveinterval}"-"${computeinterval} ] || [ $mode = "lppbr-delay-"${solveinterval}"-"${computeinterval} ]
+  elif [ $mode = "lpdbr-optimal" ] || [ $mode = "lpdbr-nox-optimal" ] || [ $mode = "lpdbr-nox-delay" ] || [ $mode = "lpdbr-delay" ] || [ $mode = "lpdbr-optimal-"${solveinterval}"-"${computeinterval} ] || [ $mode = "lpdbr-delay-"${solveinterval}"-"${computeinterval} ]
   then
     pwfile=pathweightfiles/${topology}/${routing}/${trafficmatrix}/pathweight_pbr1_${topology}_${routing}_${trafficmatrix}_lp1_${lpsolvermode}_
   else
