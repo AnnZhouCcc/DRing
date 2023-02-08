@@ -1,0 +1,141 @@
+Mon Feb 6 20:21:49 EST 2023: Set up parameters
+topology=leafspine
+routing=ecmp
+trafficmatrix=clusterb
+mode=equal-late
+searchstart=1.4
+searchend=1.8
+threshold=10
+stime=320
+mstart=80
+mend=240
+precision=64
+Mon Feb 6 20:21:49 EST 2023: Run experiment search start
+mult=1,numerator=4,denominator=10
+Mon Feb 6 20:35:53 EST 2023: Experiment done (seed=0)
+Mon Feb 6 20:36:02 EST 2023: n99fct=3.5777,totaltraffic=74711001000
+Mon Feb 6 20:36:02 EST 2023: Run experiment search end
+mult=1,numerator=8,denominator=10
+Mon Feb 6 21:10:45 EST 2023: Experiment done (seed=0)
+Mon Feb 6 21:10:57 EST 2023: n99fct=11.6373,totaltraffic=95882251500
+Mon Feb 6 21:10:57 EST 2023: Start binary search.
+searchmid=1.6,searchstart=1.4,searchend=1.8
+Mon Feb 6 21:10:57 EST 2023: Run experiment
+mult=1,numerator=6,denominator=10
+Mon Feb 6 21:35:23 EST 2023: Experiment done (seed=0)
+Mon Feb 6 21:35:34 EST 2023: n99fct=7.90482,totaltraffic=85300126500
+Change searchstart to 1.6
+searchstart=1.6,searchend=1.8
+searchmid=1.7,searchstart=1.6,searchend=1.8
+Mon Feb 6 21:35:34 EST 2023: Run experiment
+mult=1,numerator=7,denominator=10
+Mon Feb 6 22:04:48 EST 2023: Experiment done (seed=0)
+Mon Feb 6 22:05:00 EST 2023: n99fct=9.77061,totaltraffic=90586089000
+Change searchstart to 1.7
+searchstart=1.7,searchend=1.8
+searchmid=1.75,searchstart=1.7,searchend=1.8
+Mon Feb 6 22:05:00 EST 2023: Run experiment
+mult=1,numerator=75,denominator=100
+Mon Feb 6 22:31:26 EST 2023: Experiment done (seed=0)
+Mon Feb 6 22:31:38 EST 2023: n99fct=10.6549,totaltraffic=93239770500
+Change searchend to 1.75
+searchstart=1.7,searchend=1.75
+searchmid=1.725,searchstart=1.7,searchend=1.75
+Mon Feb 6 22:31:38 EST 2023: Run experiment
+mult=1,numerator=725,denominator=1000
+Mon Feb 6 23:02:34 EST 2023: Experiment done (seed=0)
+Mon Feb 6 23:02:45 EST 2023: n99fct=10.204,totaltraffic=91893460500
+Mon Feb 6 23:02:45 EST 2023: isCloseEnough searchstart=1.7,searchmid=1.725,searchend=1.75
+searchstart: n99fct=9.77061,totaltraffic=90586089000
+searchmid: n99fct=10.204,totaltraffic=91893460500
+searchend: n99fct=10.6549,totaltraffic=93239770500
+=========[searchstart,searchmid]=========
+=========[1.7,1.725]=========
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Mon Feb 6 23:02:45 EST 2023
+topology=leafspine
+routing=ecmp
+trafficmatrix=clusterb
+mode=equal-late
+p1=1.7
+p2=1.725
+threshold=10
+stime=320
+mstart=80
+mend=240
+precision=64
+Mon Feb 6 23:02:45 EST 2023: Run experiment for p1
+mult=1,numerator=7,denominator=10
+Mon Feb 6 23:02:45 EST 2023: rigorousseed=0,seedfrom=0,seedto=0
+Mon Feb 6 23:02:45 EST 2023: Running seed=0
+Mon Feb 6 23:02:45 EST 2023: Result already exists (seed=0)
+Mon Feb 6 23:02:45 EST 2023: rigorousseed=1,seedfrom=1,seedto=1
+Mon Feb 6 23:02:45 EST 2023: Running seed=1
+Mon Feb 6 23:34:50 EST 2023: Experiment done (seed=1)
+Mon Feb 6 23:34:50 EST 2023: rigorousseed=2,seedfrom=2,seedto=2
+Mon Feb 6 23:34:50 EST 2023: Running seed=2
+Tue Feb 7 00:04:34 EST 2023: Experiment done (seed=2)
+Tue Feb 7 00:04:34 EST 2023: rigorousseed=3,seedfrom=3,seedto=3
+Tue Feb 7 00:04:34 EST 2023: Running seed=3
+Tue Feb 7 00:32:33 EST 2023: Experiment done (seed=3)
+Tue Feb 7 00:32:33 EST 2023: rigorousseed=4,seedfrom=4,seedto=4
+Tue Feb 7 00:32:33 EST 2023: Running seed=4
+Tue Feb 7 01:02:03 EST 2023: Experiment done (seed=4)
+Tue Feb 7 01:02:04 EST 2023: rigorousseed=5,seedfrom=5,seedto=5
+Tue Feb 7 01:02:04 EST 2023: Running seed=5
+Tue Feb 7 01:34:32 EST 2023: Experiment done (seed=5)
+Tue Feb 7 01:34:32 EST 2023: rigorousseed=6,seedfrom=6,seedto=6
+Tue Feb 7 01:34:32 EST 2023: Running seed=6
+Tue Feb 7 02:05:12 EST 2023: Experiment done (seed=6)
+Tue Feb 7 02:05:12 EST 2023: rigorousseed=7,seedfrom=7,seedto=7
+Tue Feb 7 02:05:12 EST 2023: Running seed=7
+Tue Feb 7 02:37:12 EST 2023: Experiment done (seed=7)
+Tue Feb 7 02:37:12 EST 2023: rigorousseed=8,seedfrom=8,seedto=8
+Tue Feb 7 02:37:12 EST 2023: Running seed=8
+Tue Feb 7 03:07:53 EST 2023: Experiment done (seed=8)
+Tue Feb 7 03:07:53 EST 2023: rigorousseed=9,seedfrom=9,seedto=9
+Tue Feb 7 03:07:53 EST 2023: Running seed=9
+Tue Feb 7 03:39:04 EST 2023: Experiment done (seed=9)
+Tue Feb 7 03:39:04 EST 2023: Collecting stats for rediscover_leafspine_ecmp_clusterb_equal-late/1_7_10_320
+Tue Feb 7 03:41:00 EST 2023: n99fct=9.79306,totaltraffic=90584414550
+Tue Feb 7 03:41:01 EST 2023: Run experiment for p2
+mult=1,numerator=725,denominator=1000
+Tue Feb 7 03:41:01 EST 2023: rigorousseed=0,seedfrom=0,seedto=0
+Tue Feb 7 03:41:01 EST 2023: Running seed=0
+Tue Feb 7 03:41:01 EST 2023: Result already exists (seed=0)
+Tue Feb 7 03:41:01 EST 2023: rigorousseed=1,seedfrom=1,seedto=1
+Tue Feb 7 03:41:01 EST 2023: Running seed=1
+Tue Feb 7 04:10:41 EST 2023: Experiment done (seed=1)
+Tue Feb 7 04:10:41 EST 2023: rigorousseed=2,seedfrom=2,seedto=2
+Tue Feb 7 04:10:41 EST 2023: Running seed=2
+Tue Feb 7 04:40:24 EST 2023: Experiment done (seed=2)
+Tue Feb 7 04:40:24 EST 2023: rigorousseed=3,seedfrom=3,seedto=3
+Tue Feb 7 04:40:24 EST 2023: Running seed=3
+Tue Feb 7 05:13:08 EST 2023: Experiment done (seed=3)
+Tue Feb 7 05:13:08 EST 2023: rigorousseed=4,seedfrom=4,seedto=4
+Tue Feb 7 05:13:08 EST 2023: Running seed=4
+Tue Feb 7 05:41:44 EST 2023: Experiment done (seed=4)
+Tue Feb 7 05:41:45 EST 2023: rigorousseed=5,seedfrom=5,seedto=5
+Tue Feb 7 05:41:45 EST 2023: Running seed=5
+Tue Feb 7 06:12:01 EST 2023: Experiment done (seed=5)
+Tue Feb 7 06:12:01 EST 2023: rigorousseed=6,seedfrom=6,seedto=6
+Tue Feb 7 06:12:01 EST 2023: Running seed=6
+Tue Feb 7 06:43:57 EST 2023: Experiment done (seed=6)
+Tue Feb 7 06:43:57 EST 2023: rigorousseed=7,seedfrom=7,seedto=7
+Tue Feb 7 06:43:57 EST 2023: Running seed=7
+Tue Feb 7 07:14:04 EST 2023: Experiment done (seed=7)
+Tue Feb 7 07:14:04 EST 2023: rigorousseed=8,seedfrom=8,seedto=8
+Tue Feb 7 07:14:04 EST 2023: Running seed=8
+Tue Feb 7 07:47:23 EST 2023: Experiment done (seed=8)
+Tue Feb 7 07:47:23 EST 2023: rigorousseed=9,seedfrom=9,seedto=9
+Tue Feb 7 07:47:23 EST 2023: Running seed=9
+Tue Feb 7 08:17:28 EST 2023: Experiment done (seed=9)
+Tue Feb 7 08:17:29 EST 2023: Collecting stats for rediscover_leafspine_ecmp_clusterb_equal-late/1_725_1000_320
+Tue Feb 7 08:19:22 EST 2023: n99fct=10.1766,totaltraffic=91893236400
+Tue Feb 7 08:19:22 EST 2023: Calculating the cutoff point
+n99fct1=9.79306,totaltraffic1=90584414550,n99fct2=10.1766,totaltraffic2=91893236400
+m=2.93042e-10,b=-16.752,y=10,x=9.12907e+10
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================
+===============Close Interval Found==============
