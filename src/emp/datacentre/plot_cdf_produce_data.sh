@@ -1,19 +1,19 @@
 topology=$1
 
-name=plot_cdf_16to4-1
-values='14.5 7'
+name=plot_cdf_a2a
+values='0.63 0.3'
 
-stime=640
-mstart=160
-mend=480
+stime=200
+mstart=50
+mend=150
 
 routing=$2
 routingname=$3
 routingnumber=$4
 mode=$5
 
-trafficmatrix=16to4-1
-trafficname=S2S_16_4_0_1
+trafficmatrix=a2a
+trafficname=A2A
 trafficparam=null
 solvestart=0
 solveend=0
