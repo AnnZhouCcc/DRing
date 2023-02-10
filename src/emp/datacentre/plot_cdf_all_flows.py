@@ -12,13 +12,12 @@ def values_to_cdf(values):
     return cdf_list
 
 
-fileprefix = "rediscover_"
-filesuffixlist = ["leafspine_ecmp_16to4-1_equal/14_5_10_640_0","rrg_su3_16to4-1_lpdbr/23_0_0_640_0"]
-colorlist=['red','blue']
-labellist=['leafspine,ecmp,oblivious','rrg,su3,semi-oblivious']
+filelist = ["rediscover_leafspine_ecmp_16to4-1_equal/14_5_10_640_0","plot_cdf_16to4-1/dring_su3_lpdbr_14_5_10_640_0","plot_cdf_16to4-1/rrg_su3_lpdbr_14_5_10_640_0","plot_cdf_16to4-1/leafspine_ecmp_equal_7_0_0_640_0","plot_cdf_16to4-1/dring_su3_lpdbr_7_0_0_640_0","plot_cdf_16to4-1/rrg_su3_lpdbr_7_0_0_640_0"]
+colorlist=['red','orange','pink','blue','green','purple']
+labellist=['medium-ls-ecmp-ob','medium-dring-su3-sob','medium-rrg-su3-sob','low-ls-ecmp-ob','low-dring-su3-sob','low-rrg-su3-sob']
     
-for i in range(len(filesuffixlist)):
-    filename = fileprefix + filesuffixlist[i]
+for i in range(len(filelist)):
+    filename = filelist[i]
     data = list()
     with open(filename) as f:
         for line in f:
@@ -36,4 +35,4 @@ plt.ylabel('%')
 
 plt.title('CDF of all FCTs') 
 
-plt.savefig("test_cdf.pdf") 
+plt.savefig("cdf_16to4-1.pdf") 
