@@ -22,7 +22,7 @@ else:
 numrows = numswitches
 numcolumns = numswitches
 numintervals = int((solveend-solvestart)/solveinterval)+1
-pathlengthlist = [[[dict() for z in range(numintervals)] for y in range(numcolumns)] for x in range(numrows)]
+pathlengthlist = [[dict() for y in range(numcolumns)] for x in range(numrows)]
 
 with open(netpathfile,'r') as netpathfile:
     while True:
