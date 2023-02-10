@@ -2,13 +2,14 @@
 # Set parameters.
 topology=$1 #rrg/dring/leafspine
 graphfile=$2
+numservers=$3
 graphname=RRG
 routing=su3
 trafficmatrix=16to4-5
 mode=lpdbr #equal/weighted/lppbr/lpdbr/lppbr-optimal/lpdbr-optimal/lppbr-nox-optimal/lpdbr-nox-optimal/lppbr-nox-delay/lpdbr-nox-delay/lppbr-delay/lpdbr-delay/lppbr-nox/lpdbr-nox
 lpsolvermode=barriernocrossover
-searchstart=$3
-searchend=$4
+searchstart=$4
+searchend=$5
 threshold=10 #ms
 stime=640
 precision=64
