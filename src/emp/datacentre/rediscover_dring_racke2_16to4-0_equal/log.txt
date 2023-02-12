@@ -1,0 +1,141 @@
+Fri Feb 10 22:57:36 CST 2023: Set up parameters
+topology=dring
+routing=racke2
+trafficmatrix=16to4-0
+mode=equal
+searchstart=14
+searchend=18
+threshold=10
+stime=640
+mstart=160
+mend=480
+precision=64
+Fri Feb 10 22:57:36 CST 2023: Run experiment search start
+mult=14,numerator=0,denominator=0
+Fri Feb 10 23:04:09 CST 2023: Experiment done (seed=0)
+Fri Feb 10 23:04:12 CST 2023: n99fct=5.36675,totaltraffic=20312071500
+Fri Feb 10 23:04:12 CST 2023: Run experiment search end
+mult=18,numerator=0,denominator=0
+Fri Feb 10 23:19:07 CST 2023: Experiment done (seed=0)
+Fri Feb 10 23:19:12 CST 2023: n99fct=27.1172,totaltraffic=26125549500
+Fri Feb 10 23:19:12 CST 2023: Start binary search.
+searchmid=16,searchstart=14,searchend=18
+Fri Feb 10 23:19:12 CST 2023: Run experiment
+mult=16,numerator=0,denominator=0
+Fri Feb 10 23:31:58 CST 2023: Experiment done (seed=0)
+Fri Feb 10 23:32:01 CST 2023: n99fct=10.6786,totaltraffic=23171019000
+Change searchend to 16
+searchstart=14,searchend=16
+searchmid=15,searchstart=14,searchend=16
+Fri Feb 10 23:32:01 CST 2023: Run experiment
+mult=15,numerator=0,denominator=0
+Fri Feb 10 23:41:28 CST 2023: Experiment done (seed=0)
+Fri Feb 10 23:41:32 CST 2023: n99fct=8.34325,totaltraffic=21760869000
+Change searchstart to 15
+searchstart=15,searchend=16
+searchmid=15.5,searchstart=15,searchend=16
+Fri Feb 10 23:41:32 CST 2023: Run experiment
+mult=15,numerator=5,denominator=10
+Fri Feb 10 23:53:00 CST 2023: Experiment done (seed=0)
+Fri Feb 10 23:53:03 CST 2023: n99fct=9.1279,totaltraffic=22476903000
+Change searchstart to 15.5
+searchstart=15.5,searchend=16
+searchmid=15.75,searchstart=15.5,searchend=16
+Fri Feb 10 23:53:03 CST 2023: Run experiment
+mult=15,numerator=75,denominator=100
+Sat Feb 11 00:03:40 CST 2023: Experiment done (seed=0)
+Sat Feb 11 00:03:44 CST 2023: n99fct=10.1942,totaltraffic=22859776500
+Sat Feb 11 00:03:44 CST 2023: isCloseEnough searchstart=15.5,searchmid=15.75,searchend=16
+searchstart: n99fct=9.1279,totaltraffic=22476903000
+searchmid: n99fct=10.1942,totaltraffic=22859776500
+searchend: n99fct=10.6786,totaltraffic=23171019000
+=========[searchstart,searchmid]=========
+=========[15.5,15.75]=========
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sat Feb 11 00:03:44 CST 2023
+topology=dring
+routing=racke2
+trafficmatrix=16to4-0
+mode=equal
+p1=15.5
+p2=15.75
+threshold=10
+stime=640
+mstart=160
+mend=480
+precision=64
+Sat Feb 11 00:03:44 CST 2023: Run experiment for p1
+mult=15,numerator=5,denominator=10
+Sat Feb 11 00:03:44 CST 2023: rigorousseed=0,seedfrom=0,seedto=0
+Sat Feb 11 00:03:44 CST 2023: Running seed=0
+Sat Feb 11 00:03:44 CST 2023: Result already exists (seed=0)
+Sat Feb 11 00:03:44 CST 2023: rigorousseed=1,seedfrom=1,seedto=1
+Sat Feb 11 00:03:44 CST 2023: Running seed=1
+Sat Feb 11 00:13:33 CST 2023: Experiment done (seed=1)
+Sat Feb 11 00:13:33 CST 2023: rigorousseed=2,seedfrom=2,seedto=2
+Sat Feb 11 00:13:33 CST 2023: Running seed=2
+Sat Feb 11 00:23:11 CST 2023: Experiment done (seed=2)
+Sat Feb 11 00:23:11 CST 2023: rigorousseed=3,seedfrom=3,seedto=3
+Sat Feb 11 00:23:11 CST 2023: Running seed=3
+Sat Feb 11 00:33:34 CST 2023: Experiment done (seed=3)
+Sat Feb 11 00:33:34 CST 2023: rigorousseed=4,seedfrom=4,seedto=4
+Sat Feb 11 00:33:34 CST 2023: Running seed=4
+Sat Feb 11 00:42:38 CST 2023: Experiment done (seed=4)
+Sat Feb 11 00:42:38 CST 2023: rigorousseed=5,seedfrom=5,seedto=5
+Sat Feb 11 00:42:38 CST 2023: Running seed=5
+Sat Feb 11 00:52:36 CST 2023: Experiment done (seed=5)
+Sat Feb 11 00:52:36 CST 2023: rigorousseed=6,seedfrom=6,seedto=6
+Sat Feb 11 00:52:36 CST 2023: Running seed=6
+Sat Feb 11 01:02:59 CST 2023: Experiment done (seed=6)
+Sat Feb 11 01:03:00 CST 2023: rigorousseed=7,seedfrom=7,seedto=7
+Sat Feb 11 01:03:00 CST 2023: Running seed=7
+Sat Feb 11 01:11:25 CST 2023: Experiment done (seed=7)
+Sat Feb 11 01:11:25 CST 2023: rigorousseed=8,seedfrom=8,seedto=8
+Sat Feb 11 01:11:25 CST 2023: Running seed=8
+Sat Feb 11 01:20:48 CST 2023: Experiment done (seed=8)
+Sat Feb 11 01:20:48 CST 2023: rigorousseed=9,seedfrom=9,seedto=9
+Sat Feb 11 01:20:48 CST 2023: Running seed=9
+Sat Feb 11 01:29:23 CST 2023: Experiment done (seed=9)
+Sat Feb 11 01:29:23 CST 2023: Collecting stats for rediscover_dring_racke2_16to4-0_equal/15_5_10_640
+Sat Feb 11 01:30:01 CST 2023: n99fct=9.43609,totaltraffic=22492948500
+Sat Feb 11 01:30:01 CST 2023: Run experiment for p2
+mult=15,numerator=75,denominator=100
+Sat Feb 11 01:30:01 CST 2023: rigorousseed=0,seedfrom=0,seedto=0
+Sat Feb 11 01:30:01 CST 2023: Running seed=0
+Sat Feb 11 01:30:01 CST 2023: Result already exists (seed=0)
+Sat Feb 11 01:30:01 CST 2023: rigorousseed=1,seedfrom=1,seedto=1
+Sat Feb 11 01:30:01 CST 2023: Running seed=1
+Sat Feb 11 01:40:51 CST 2023: Experiment done (seed=1)
+Sat Feb 11 01:40:51 CST 2023: rigorousseed=2,seedfrom=2,seedto=2
+Sat Feb 11 01:40:51 CST 2023: Running seed=2
+Sat Feb 11 01:50:41 CST 2023: Experiment done (seed=2)
+Sat Feb 11 01:50:41 CST 2023: rigorousseed=3,seedfrom=3,seedto=3
+Sat Feb 11 01:50:41 CST 2023: Running seed=3
+Sat Feb 11 02:00:28 CST 2023: Experiment done (seed=3)
+Sat Feb 11 02:00:28 CST 2023: rigorousseed=4,seedfrom=4,seedto=4
+Sat Feb 11 02:00:28 CST 2023: Running seed=4
+Sat Feb 11 02:11:07 CST 2023: Experiment done (seed=4)
+Sat Feb 11 02:11:07 CST 2023: rigorousseed=5,seedfrom=5,seedto=5
+Sat Feb 11 02:11:07 CST 2023: Running seed=5
+Sat Feb 11 02:22:01 CST 2023: Experiment done (seed=5)
+Sat Feb 11 02:22:01 CST 2023: rigorousseed=6,seedfrom=6,seedto=6
+Sat Feb 11 02:22:01 CST 2023: Running seed=6
+Sat Feb 11 02:30:14 CST 2023: Experiment done (seed=6)
+Sat Feb 11 02:30:14 CST 2023: rigorousseed=7,seedfrom=7,seedto=7
+Sat Feb 11 02:30:14 CST 2023: Running seed=7
+Sat Feb 11 02:39:56 CST 2023: Experiment done (seed=7)
+Sat Feb 11 02:39:56 CST 2023: rigorousseed=8,seedfrom=8,seedto=8
+Sat Feb 11 02:39:56 CST 2023: Running seed=8
+Sat Feb 11 02:49:03 CST 2023: Experiment done (seed=8)
+Sat Feb 11 02:49:03 CST 2023: rigorousseed=9,seedfrom=9,seedto=9
+Sat Feb 11 02:49:03 CST 2023: Running seed=9
+Sat Feb 11 02:57:17 CST 2023: Experiment done (seed=9)
+Sat Feb 11 02:57:17 CST 2023: Collecting stats for rediscover_dring_racke2_16to4-0_equal/15_75_100_640
+Sat Feb 11 02:57:56 CST 2023: n99fct=10.0223,totaltraffic=22848717000
+Sat Feb 11 02:57:56 CST 2023: Calculating the cutoff point
+n99fct1=9.43609,totaltraffic1=22492948500,n99fct2=10.0223,totaltraffic2=22848717000
+m=1.64773e-09,b=-27.6262,y=10,x=2.28352e+10
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================
+===============Close Interval Found==============
