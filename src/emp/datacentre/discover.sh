@@ -178,6 +178,9 @@ then
 elif [ $trafficmatrix = "flat-16to4-0" ]
 then
   trafficmatrixparam=F2F_16_4_0_0
+elif [ $trafficmatrix = "permutation0" ]
+then
+  trafficmatrixparam=PERM
 elif [ $trafficmatrix = "clusterb" ] || [ $trafficmatrix = "clustera" ] || [ $trafficmatrix = "clusterc" ]
 then
   trafficmatrixparam=CLUSTERX
