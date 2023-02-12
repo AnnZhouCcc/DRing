@@ -2,7 +2,7 @@
 # Set parameters.
 topology=$1 #rrg/dring/leafspine
 routing=$2
-trafficmatrix=clustera
+trafficmatrix=permutation0
 mode=$3 #equal/weighted/lppbr/lpdbr/lppbr-optimal/lpdbr-optimal/lppbr-nox-optimal/lpdbr-nox-optimal/lppbr-nox-delay/lpdbr-nox-delay/lppbr-delay/lpdbr-delay/lppbr-nox/lpdbr-nox
 lpsolvermode=$4
 searchstart=$5
@@ -12,14 +12,14 @@ stime=200
 precision=64
 seedfrom=0
 seedto=0
-solvestart=7200
-trafficfilename=a
+solvestart=0
+trafficfilename=null
 dp=$precision
-solveinterval=$7
-let solveend=86400-$solveinterval
-computestart=$9
+solveinterval=0
+let solveend=0
+computestart=0
 computeend=0
-computeinterval=$8
+computeinterval=0
 
 # Check for input parameter error
 if [ ! $threshold -eq 10 ]

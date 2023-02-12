@@ -2719,6 +2719,80 @@ void ConnectionMatrix::setTopoFlowsSomeToSome(string conn_matrix_str, double sim
 }
 
 
+void ConnectionMatrix::setTopoFlowsPermutation(Topology *top, double simtime_ms) {
+  cout << "Topo flows permutation" << endl;
+  int active_servers_per_rack = 36;
+
+  // Read traffic from config file
+  string trafficfilename = "trafficfiles/permutation_0";
+  cout << "trafficfilename: " << trafficfilename << endl;
+  ifstream TMFile(trafficfilename.c_str());
+  string line;
+  int srcrack, dstrack;
+  vector<int> sending_racks;
+  vector<int> receiving_racks;
+  line.clear();
+  if (TMFile.is_open()){
+    while(TMFile.good()){
+      getline(TMFile, line);
+      //Whitespace line
+      if (line.find_first_not_of(' ') == string::npos) break;
+      stringstream ss(line);
+
+      ss >> srcrack >> dstrack;
+      sending_racks.push_back(srcrack);
+      receiving_racks.push_back(dstrack);
+    }
+    TMFile.close();
+  }
+  cout << "sending_racks:";
+  for (int rack : sending_racks) {
+    cout << " " << rack;
+  }
+  cout << endl;
+  cout << "receiving_racks:";
+  for (int rack : receiving_racks) {
+    cout << " " << rack;
+  }
+  cout << endl;
+
+  if (sending_racks.size() != receiving_racks.size()) {
+    cout << "sending and receiving racks size difference for permutation traffic" << endl;
+  }
+
+  // Generate flows
+  for (int i=0; i<sending_racks.size(); i++) {
+    int srcrack = sending_racks[i];
+    int dstrack = receiving_racks[i];
+
+    vector<int> sending_servers;
+    vector<int> receiving_servers;
+    for (int s=0; s<NHOST; s++) {
+      int r = top->ConvertHostToRack(s);
+      if (r == srcrack and sending_servers.size() < active_servers_per_rack) {
+	sending_servers.push_back(s);
+      }
+      if (r == dstrack and receiving_servers.size() < active_servers_per_rack) {
+        receiving_servers.push_back(s);
+      }
+    }
+
+    for (int srcsvr : sending_servers) {
+      for (int dstsvr : receiving_servers) {
+        if (srcsvr>=NHOST or dstsvr>=NHOST) continue;
+        int bytes = genFlowBytes();
+        while (bytes<0 or bytes>large_flow_threshold){
+          bytes = genFlowBytes();
+        }
+        bytes = adjustBytesByPacketSize(bytes);
+        double start_time_ms = drand() * simtime_ms;
+        base_flows.push_back(Flow(srcsvr, dstsvr, bytes, start_time_ms));
+      }
+    } 
+  }
+}
+
+
 void ConnectionMatrix::setTopoFlowsSomeToSomeRandom(Topology *top, string conn_matrix_str, double simtime_ms) {
   cout << "Topo flows some to some" << endl;
 
