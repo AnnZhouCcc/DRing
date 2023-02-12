@@ -248,7 +248,7 @@ echo mend=$mend >> $logfile
 echo precision=$precision >> $logfile
 
 # Check initial interval.
-suffix=${topology}_${routing}_${trafficmatrix}_${mode}
+suffix=${topology}_${routing}_${trafficmatrix}_${mode}_${precision}
 tempoutputfile=${dir}/${suffix}_output
 make=MAKE
 
@@ -266,7 +266,7 @@ denominatorend=$(cat $tempoutputfile | cut -d " " -f 3)
 echo $(date): Run experiment search start >> $logfile
 echo mult=${multstart},numerator=${numeratorstart},denominator=${denominatorstart} >> $logfile
 
-outputfileprefixstart=${dir}/${multstart}_${numeratorstart}_${denominatorstart}_${stime}
+outputfileprefixstart=${dir}/${multstart}_${numeratorstart}_${denominatorstart}_${stime}_${precision}
 
 for seed in $(seq $seedfrom $seedto)
 do
@@ -304,7 +304,7 @@ rm $combinedoutputfilestart
 echo $(date): Run experiment search end >> $logfile
 echo mult=${multend},numerator=${numeratorend},denominator=${denominatorend} >> $logfile
 
-outputfileprefixend=${dir}/${multend}_${numeratorend}_${denominatorend}_${stime}
+outputfileprefixend=${dir}/${multend}_${numeratorend}_${denominatorend}_${stime}_${precision}
 
 for seed in $(seq $seedfrom $seedto)
 do
@@ -384,7 +384,7 @@ do
   echo $(date): Run experiment >> $logfile
   echo mult=${mult},numerator=${numerator},denominator=${denominator} >> $logfile
 
-  outputfileprefix=${dir}/${mult}_${numerator}_${denominator}_${stime}
+  outputfileprefix=${dir}/${mult}_${numerator}_${denominator}_${stime}_${precision}
 
   for seed in $(seq $seedfrom $seedto)
   do
@@ -432,14 +432,14 @@ do
     then
       echo ========='['searchstart,searchmid']'========= >> $logfile
       echo ========='['${searchstart},${searchmid}']'========= >> $logfile
-      ./rigorous.sh $searchstart $searchmid $topology $routing $trafficmatrix $mode $threshold $stime $mstart $mend $precision $seedfrom $seedto 0 9 $npfile $pwfile $graphname $graphfile $numservers $trafficmatrixparam $routingparam $kornparam $solvestart $solveend $trafficfilename $dp $solveinterval $computestart $computeend $computeinterval> $tempoutputfile
+      ./quantization_rigorous.sh $searchstart $searchmid $topology $routing $trafficmatrix $mode $threshold $stime $mstart $mend $precision $seedfrom $seedto 0 9 $npfile $pwfile $graphname $graphfile $numservers $trafficmatrixparam $routingparam $kornparam $solvestart $solveend $trafficfilename $dp $solveinterval $computestart $computeend $computeinterval> $tempoutputfile
       x=$(cat $tempoutputfile | cut -d " " -f 1)
       echo $x
     elif [ $(isLessThan $n99fct $threshold ) -eq 1 ]
     then
       echo ========='['searchmid,searchend']'========= >> $logfile
       echo ========='['${searchmid},${searchend}']'========= >> $logfile
-      ./rigorous.sh $searchmid $searchend $topology $routing $trafficmatrix $mode $threshold $stime $mstart $mend $precision $seedfrom $seedto 0 9 $npfile $pwfile $graphname $graphfile $numservers $trafficmatrixparam $routingparam $kornparam $solvestart $solveend $trafficfilename $dp $solveinterval $computestart $computeend $computeinterval > $tempoutputfile
+      ./quantization_rigorous.sh $searchmid $searchend $topology $routing $trafficmatrix $mode $threshold $stime $mstart $mend $precision $seedfrom $seedto 0 9 $npfile $pwfile $graphname $graphfile $numservers $trafficmatrixparam $routingparam $kornparam $solvestart $solveend $trafficfilename $dp $solveinterval $computestart $computeend $computeinterval > $tempoutputfile
       x=$(cat $tempoutputfile | cut -d " " -f 1)
       echo $x
     else
