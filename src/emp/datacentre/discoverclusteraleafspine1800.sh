@@ -13,11 +13,11 @@ precision=64
 seedfrom=0
 seedto=0
 solvestart=7200
-solveend=85500
+solveend=84600
 trafficfilename=a
 dp=$precision
-solveinterval=900
-computestart=6300
+solveinterval=1800
+computestart=7200
 computeend=84600
 computeinterval=$7
 
@@ -46,7 +46,7 @@ then
   exit 1
 fi
 
-if [ $mode = "lppbr-optimal" ] || [ $mode = "lpdbr-optimal" ] || [ $mode = "lppbr-nox-optimal" ] || [ $mode = "lpdbr-nox-optimal" ] || [ $mode = "lpdbr-optimal-900" ] || [ $mode = "lpdbr-optimal-1800" ] || [ $mode = "lpdbr-optimal-3600" ] || [ $mode = "lpdbr-optimal-7200" ]
+if [ $mode = "lppbr-optimal" ] || [ $mode = "lpdbr-optimal" ] || [ $mode = "lppbr-nox-optimal" ] || [ $mode = "lpdbr-nox-optimal" ] || [ $mode = "lpdbr-optimal-900" ] || [ $mode = "lpdbr-optimal-1800-rerun" ] || [ $mode = "lpdbr-optimal-3600" ] || [ $mode = "lpdbr-optimal-7200" ]
 then
   if [ ! $( echo $solvestart - $computestart | bc ) -eq 0 ] || [ ! $( echo $solveend - $computeend | bc ) -eq 0 ]
   then
@@ -55,7 +55,7 @@ then
   fi
 fi
 
-if [ $mode = "lppbr-delay" ] || [ $mode = "lpdbr-delay" ] || [ $mode = "lppbr-nox-delay" ] || [ $mode = "lpdbr-nox-delay" ] || [ $mode = "lpdbr-delay-900-rerun" ] || [ $mode = "lpdbr-delay-1800" ] || [ $mode = "lpdbr-delay-3600" ] || [ $mode = "lpdbr-delay-7200" ]
+if [ $mode = "lppbr-delay" ] || [ $mode = "lpdbr-delay" ] || [ $mode = "lppbr-nox-delay" ] || [ $mode = "lpdbr-nox-delay" ] || [ $mode = "lpdbr-delay-900" ] || [ $mode = "lpdbr-delay-1800-rerun" ] || [ $mode = "lpdbr-delay-3600" ] || [ $mode = "lpdbr-delay-7200" ]
 then
   if [ ! $computestart -lt $solvestart ] || [ ! $computeend -lt $solveend ]
   then 
@@ -93,7 +93,7 @@ npfile=netpathfiles/netpath_${routing}_${topology}.txt
 
 if [ $computeinterval -eq 0 ]
 then
-  if [ $mode = "equal" ]
+  if [ $mode = "equal-1800" ]
   then
     pwfile=pathweightfiles/${topology}/${routing}/pathweight_${topology}_${routing}_equal_${precision}.txt
   elif [ $mode = "weighted" ]
@@ -115,7 +115,7 @@ else
   elif [ $mode = "lppbr-optimal" ] || [ $mode = "lppbr-nox-optimal" ] || [ $mode = "lppbr-nox-delay" ] || [ $mode = "lppbr-delay" ]
   then
     pwfile=pathweightfiles/${topology}/${routing}/${trafficmatrix}/pathweight_${topology}_${routing}_${trafficmatrix}_lp1_${lpsolvermode}_
-  elif [ $mode = "lpdbr-optimal" ] || [ $mode = "lpdbr-nox-optimal" ] || [ $mode = "lpdbr-nox-delay" ] || [ $mode = "lpdbr-delay" ] || [ $mode = "lpdbr-optimal-900" ] || [ $mode = "lpdbr-optimal-1800" ] || [ $mode = "lpdbr-optimal-3600" ] || [ $mode = "lpdbr-optimal-7200" ] || [ $mode = "lpdbr-delay-900-rerun" ] || [ $mode = "lpdbr-delay-1800" ] || [ $mode = "lpdbr-delay-3600" ] || [ $mode = "lpdbr-delay-7200" ]
+  elif [ $mode = "lpdbr-optimal" ] || [ $mode = "lpdbr-nox-optimal" ] || [ $mode = "lpdbr-nox-delay" ] || [ $mode = "lpdbr-delay" ] || [ $mode = "lpdbr-optimal-900" ] || [ $mode = "lpdbr-optimal-1800-rerun" ] || [ $mode = "lpdbr-optimal-3600" ] || [ $mode = "lpdbr-optimal-7200" ] || [ $mode = "lpdbr-delay-900" ] || [ $mode = "lpdbr-delay-1800-rerun" ] || [ $mode = "lpdbr-delay-3600" ] || [ $mode = "lpdbr-delay-7200" ]
   then
     pwfile=pathweightfiles/${topology}/${routing}/${trafficmatrix}/pathweight_pbr1_${topology}_${routing}_${trafficmatrix}_lp1_${lpsolvermode}_
   else
