@@ -28,11 +28,11 @@ then
   exit 1
 fi
 
-if [ ! $lpsolvermode = "barriernocrossover" ] && [ ! $lpsolvermode = "null" ]
-then
-  echo lpsolvermode $lpsolvermode is not recognized
-  exit 1
-fi
+#if [ ! $lpsolvermode = "barriernocrossover" ] && [ ! $lpsolvermode = "null" ]
+#then
+#  echo lpsolvermode $lpsolvermode is not recognized
+#  exit 1
+#fi
 
 if [ ! $trafficmatrix = "clustera" ] && [ ! $trafficmatrix = "clusterb" ] && [ ! $trafficmatrix = "clusterc" ] && [ ! $computeinterval -eq 0 ]
 then

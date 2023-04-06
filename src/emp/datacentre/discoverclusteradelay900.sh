@@ -12,12 +12,12 @@ stime=200
 precision=64
 seedfrom=0
 seedto=0
-solvestart=900
+solvestart=7200
 solveend=85500
 trafficfilename=a
 dp=$precision
 solveinterval=900
-computestart=0
+computestart=6300
 computeend=84600
 computeinterval=$7
 
@@ -55,7 +55,7 @@ then
   fi
 fi
 
-if [ $mode = "lppbr-delay" ] || [ $mode = "lpdbr-delay" ] || [ $mode = "lppbr-nox-delay" ] || [ $mode = "lpdbr-nox-delay" ] || [ $mode = "lpdbr-delay-900" ] || [ $mode = "lpdbr-delay-1800" ] || [ $mode = "lpdbr-delay-3600" ] || [ $mode = "lpdbr-delay-7200" ]
+if [ $mode = "lppbr-delay" ] || [ $mode = "lpdbr-delay" ] || [ $mode = "lppbr-nox-delay" ] || [ $mode = "lpdbr-nox-delay" ] || [ $mode = "lpdbr-delay-900-rerun" ] || [ $mode = "lpdbr-delay-1800" ] || [ $mode = "lpdbr-delay-3600" ] || [ $mode = "lpdbr-delay-7200" ]
 then
   if [ ! $computestart -lt $solvestart ] || [ ! $computeend -lt $solveend ]
   then 
@@ -115,7 +115,7 @@ else
   elif [ $mode = "lppbr-optimal" ] || [ $mode = "lppbr-nox-optimal" ] || [ $mode = "lppbr-nox-delay" ] || [ $mode = "lppbr-delay" ]
   then
     pwfile=pathweightfiles/${topology}/${routing}/${trafficmatrix}/pathweight_${topology}_${routing}_${trafficmatrix}_lp1_${lpsolvermode}_
-  elif [ $mode = "lpdbr-optimal" ] || [ $mode = "lpdbr-nox-optimal" ] || [ $mode = "lpdbr-nox-delay" ] || [ $mode = "lpdbr-delay" ] || [ $mode = "lpdbr-optimal-900" ] || [ $mode = "lpdbr-optimal-1800" ] || [ $mode = "lpdbr-optimal-3600" ] || [ $mode = "lpdbr-optimal-7200" ] || [ $mode = "lpdbr-delay-900" ] || [ $mode = "lpdbr-delay-1800" ] || [ $mode = "lpdbr-delay-3600" ] || [ $mode = "lpdbr-delay-7200" ]
+  elif [ $mode = "lpdbr-optimal" ] || [ $mode = "lpdbr-nox-optimal" ] || [ $mode = "lpdbr-nox-delay" ] || [ $mode = "lpdbr-delay" ] || [ $mode = "lpdbr-optimal-900" ] || [ $mode = "lpdbr-optimal-1800" ] || [ $mode = "lpdbr-optimal-3600" ] || [ $mode = "lpdbr-optimal-7200" ] || [ $mode = "lpdbr-delay-900-rerun" ] || [ $mode = "lpdbr-delay-1800" ] || [ $mode = "lpdbr-delay-3600" ] || [ $mode = "lpdbr-delay-7200" ]
   then
     pwfile=pathweightfiles/${topology}/${routing}/${trafficmatrix}/pathweight_pbr1_${topology}_${routing}_${trafficmatrix}_lp1_${lpsolvermode}_
   else

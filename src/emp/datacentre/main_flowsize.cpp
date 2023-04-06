@@ -452,7 +452,8 @@ int main(int argc, char **argv) {
         conns->setTopoFlowsClusterX(top, paramstring, solvestart, solveend, solveinterval, simtime_ms, multiplier, numerator, denominator);
     }
     else if(conn_matrix == "PERM") {
-        conns->setRackLevelPermutationFlowsHardCoding(multiplier, simtime_ms);
+        //conns->setRackLevelPermutationFlowsHardCoding(multiplier, simtime_ms);
+        conns->setTopoFlowsPermutation(top, simtime_ms);
     }
     else if(conn_matrix == "MIX"){
         conns->setMixFlows(top, param, multiplier, numerator, denominator);

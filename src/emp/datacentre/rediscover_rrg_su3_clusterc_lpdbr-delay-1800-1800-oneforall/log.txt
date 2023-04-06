@@ -160,3 +160,36 @@ Thu Feb 9 12:53:02 EST 2023: Running seed=0
 Thu Feb 9 12:53:02 EST 2023: Result already exists (seed=0)
 Thu Feb 9 12:53:02 EST 2023: rigorousseed=1,seedfrom=1,seedto=1
 Thu Feb 9 12:53:02 EST 2023: Running seed=1
+Thu Feb 9 14:03:42 EST 2023: Experiment done (seed=1)
+Thu Feb 9 14:03:42 EST 2023: rigorousseed=2,seedfrom=2,seedto=2
+Thu Feb 9 14:03:42 EST 2023: Running seed=2
+Thu Feb 9 15:12:53 EST 2023: Experiment done (seed=2)
+Thu Feb 9 15:12:53 EST 2023: rigorousseed=3,seedfrom=3,seedto=3
+Thu Feb 9 15:12:53 EST 2023: Running seed=3
+Thu Feb 9 16:22:36 EST 2023: Experiment done (seed=3)
+Thu Feb 9 16:22:36 EST 2023: rigorousseed=4,seedfrom=4,seedto=4
+Thu Feb 9 16:22:36 EST 2023: Running seed=4
+Thu Feb 9 17:32:39 EST 2023: Experiment done (seed=4)
+Thu Feb 9 17:32:39 EST 2023: rigorousseed=5,seedfrom=5,seedto=5
+Thu Feb 9 17:32:39 EST 2023: Running seed=5
+Thu Feb 9 18:42:55 EST 2023: Experiment done (seed=5)
+Thu Feb 9 18:42:55 EST 2023: rigorousseed=6,seedfrom=6,seedto=6
+Thu Feb 9 18:42:55 EST 2023: Running seed=6
+Thu Feb 9 19:53:17 EST 2023: Experiment done (seed=6)
+Thu Feb 9 19:53:17 EST 2023: rigorousseed=7,seedfrom=7,seedto=7
+Thu Feb 9 19:53:17 EST 2023: Running seed=7
+Thu Feb 9 21:02:34 EST 2023: Experiment done (seed=7)
+Thu Feb 9 21:02:34 EST 2023: rigorousseed=8,seedfrom=8,seedto=8
+Thu Feb 9 21:02:34 EST 2023: Running seed=8
+Thu Feb 9 22:12:58 EST 2023: Experiment done (seed=8)
+Thu Feb 9 22:12:58 EST 2023: rigorousseed=9,seedfrom=9,seedto=9
+Thu Feb 9 22:12:58 EST 2023: Running seed=9
+Thu Feb 9 23:23:37 EST 2023: Experiment done (seed=9)
+Thu Feb 9 23:23:37 EST 2023: Collecting stats for rediscover_rrg_su3_clusterc_lpdbr-delay-1800-1800-oneforall/0_7625_10000_240
+Thu Feb 9 23:24:50 EST 2023: n99fct=10.3145,totaltraffic=58804234050
+Thu Feb 9 23:24:50 EST 2023: Calculating the cutoff point
+n99fct1=9.76695,totaltraffic1=57862830750,n99fct2=10.3145,totaltraffic2=58804234050
+m=5.81632e-10,b=-23.8879,y=10,x=5.82635e+10
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================
+===============Close Interval Found==============
