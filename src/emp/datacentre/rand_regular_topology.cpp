@@ -655,25 +655,29 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(i
 						shortest_path.push_back(next_hop);
 						shortest_paths.push_back(shortest_path);
 					}
-					else if (path_till_now.size() <= (korn-1)){ // n-1 for shortest-union(n)
-						bool new_hop = true;
-						for (BaseVertex* path_vertex: path_till_now){
-							new_hop = new_hop and (path_vertex->getID() != next_hop->getID());
-						}
-						if (new_hop){
+					//else if
+					if (path_till_now.size() <= (korn-1)){ // n-1 for shortest-union(n)
+						//bool new_hop = true;
+						//for (BaseVertex* path_vertex: path_till_now){
+						//	new_hop = new_hop and (path_vertex->getID() != next_hop->getID());
+						//}
+						//if (new_hop){
 							vector<BaseVertex*> shortest_path_till_now(path_till_now);
 							shortest_path_till_now.push_back(next_hop);
 							shortest_paths_till_now.push(shortest_path_till_now);
-						}
+						//}
 					}
 					//evaluate this case only for shortest paths
-					else if(shortestPathLen[src_sw][dest_sw] == (path_till_now.size() - 1)
+                                        //else if
+                                        if (next_hop != myGraph->get_vertex(dest_sw) and path_till_now.size() > (korn-1)) {
+					if(shortestPathLen[src_sw][dest_sw] == (path_till_now.size() - 1)
 																+ shortestPathLen[last_vertex->getID()][dest_sw] &&
 							shortestPathLen[last_vertex->getID()][dest_sw] == 1 + shortestPathLen[next_hop->getID()][dest_sw]){
 						vector<BaseVertex*> shortest_path_till_now(path_till_now);
 						shortest_path_till_now.push_back(next_hop);
 						shortest_paths_till_now.push(shortest_path_till_now);
 					}
+                                        }
 				}
 			}
 

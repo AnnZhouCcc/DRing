@@ -118,6 +118,67 @@ int choose_a_path(vector< pair<int,double> >* path_weights, vector<route_t*>* ne
 #endif
 }
 
+pair<int, int> extractSwitchIDCopy(string nodename) {
+    int src_sw, dst_sw, src_sw_back_start_index;
+    int last_index = nodename.length()-1;
+
+    char dst_sw_second_char = nodename[last_index];
+    char dst_sw_first_char = nodename[last_index-1];
+    if (dst_sw_first_char == '_') {
+        string dst_sw_str(1, dst_sw_second_char);
+        dst_sw = stoi(dst_sw_str);
+        src_sw_back_start_index = last_index-5;
+    } else {
+        dst_sw = stoi(nodename.substr(last_index-1, 2));
+        src_sw_back_start_index = last_index-6;
+    }
+
+    char src_sw_second_char = nodename[src_sw_back_start_index];
+    char src_sw_first_char = nodename[src_sw_back_start_index-1];
+    if (src_sw_first_char == '_') {
+        string src_sw_str(1, src_sw_second_char);
+        src_sw = stoi(src_sw_str);
+    } else {
+        src_sw = stoi(nodename.substr(src_sw_back_start_index-1, 2));
+    }
+
+    return pair<int, int>(src_sw, dst_sw);
+}
+
+void store_netpath(vector<route_t*>*** net_paths) {
+    cout << "Writing net_path" << endl;
+    string npfile = "netpath_su3_rrg96-3.txt";
+
+    ofstream file;
+    file.open(npfile);
+    vector<route_t*>* net_path_a_pair;
+    int num_path, src_sw, dst_sw;
+    string nodename;
+    for (int ssw=0; ssw<NSW; ssw++) {
+        for (int dsw=0; dsw<NSW; dsw++) {
+            if (ssw == dsw) {
+                file << ssw << " " << dsw << " " << 0 << "\n";
+                continue;
+            }
+            net_path_a_pair = net_paths[ssw][dsw];
+            num_path = net_path_a_pair->size();
+            file << ssw << " " << dsw << " " << num_path << "\n";
+
+            for (int i=0; i<num_path; i++) {
+                for (int j=0; j<net_path_a_pair->at(i)->size(); j=j+2) {
+                    nodename = net_path_a_pair->at(i)->at(j)->nodename();
+                    src_sw = extractSwitchIDCopy(nodename).first;
+                    dst_sw = extractSwitchIDCopy(nodename).second;
+                    file << " " << src_sw << "->" << dst_sw;
+                }
+                file << "\n";
+            }
+        }
+    }
+
+    file.close();
+}
+
 int main(int argc, char **argv) {
     eventlist.setEndtime(timeFromSec(SIMTIME));
     Clock c(timeFromSec(50 / 100.), eventlist);
@@ -360,6 +421,14 @@ int main(int argc, char **argv) {
         top = new RandRegularTopology(&logfile, &eventlist, rfile, RANDOM, conn_matrix, routing, korn, npfile, pwfile, "", solvestart, solveend, solveinterval, computestart, computeend, computeinterval);
     }
 #endif
+
+//    for (int srcsw=0; srcsw<N; srcsw++) {
+//        for (int dstsw=0; dstsw<N; dstsw++) {
+//            top->net_paths_rack_based[srcsw][dstsw] = top->get_paths(srcsw, dstsw).second;
+//        }
+//    }
+//    store_netpath(top->net_paths_rack_based);
+//    exit(0);
 
     ConnectionMatrix* conns = new ConnectionMatrix(NHOST);
 
