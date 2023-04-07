@@ -80,11 +80,65 @@ Example: `150 string npfile = "netpath_40short_rrg.txt";`
 `22 #define PATHWEIGHTS false`
 
 ## Experiment 3: (effective network capacity) 
-1. `./discover.sh`
+1. `./discover.sh [topology] [routing] [mode] [lpsolvermode] [searchstart] [searchend] [solveinterval] [computeinterval] [computestart]`
 Parameters used:
+- clustera (optimal)
+```
+5 trafficmatrix=clustera
+11 stime=200
+16 trafficfilename=a
+```
+Example (optimal at granularity of 3600s): `./discover.sh rrg su3 lpdbr-optimal-3600-3600 barriernocrossover 22.25 22.5 3600 3600 7200`
+- clusterb (optimal)
+```
+5 trafficmatrix=clusterb
+11 stime=320
+16 trafficfilename=b
+```
+- clusterc (optimal)
+```
+5 trafficmatrix=clusterc
+11 stime=240
+16 trafficfilename=c
+```
+- a2a
+```
+5 trafficmatrix=a2a
+11 stime=200
+16 trafficfilename=null
+```
+Example: `./discover.sh rrg su3 lppbr barriernocrossover 0.78 0.79 0 0 0` 
+- r2r
+```
+5 trafficmatrix=r2r0/r2r1/r2r2/r2r3/r2r4
+11 stime=200
+16 trafficfilename=null
+```
+- 16to4
+```
+5 trafficmatrix=16to4-0/16to4-1/16to4-2/16to4-3/16to4-4
+11 stime=640
+16 trafficfilename=null
+```
 
-
-## Experiment 4:
+## Experiment 4: (optimal vs delay vs lazy)
+An example configurations of how to set optimal vs delay vs lazy:
+| solvelen | computelen | computestart |
+| ----------- | ----------- | ----------- |
+| optimal | 900 | 900 | 7200 |
+| delay | 900 | 900 | 6300 |
+| optimal | 1800 | 1800 | 7200 |
+| delay | 1800 | 900 | 6300 |
+| delay | 1800 | 1800 | 5400 |
+| optimal | 3600 | 3600 | 7200 |
+| delay | 3600 | 900 | 6300 |
+| delay | 3600 | 1800 | 5400 |
+| delay | 3600 | 3600 | 3600 |
+| optimal | 7200 | 7200 | 7200 |
+| delay | 7200 | 900 | 6300 |
+| delay | 7200 | 1800 | 5400 |
+| delay | 7200 | 3600 | 3600 |
+| delay | 7200 | 7200 | 0 |
 
 ## Experiment 5:
 

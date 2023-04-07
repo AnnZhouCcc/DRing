@@ -2,7 +2,7 @@
 # Set parameters.
 topology=$1 #rrg/dring/leafspine
 routing=$2
-trafficmatrix=clustera
+trafficmatrix=a2a
 mode=$3 #equal/weighted/lppbr/lpdbr/lppbr-optimal/lpdbr-optimal/lppbr-nox-optimal/lpdbr-nox-optimal/lppbr-nox-delay/lpdbr-nox-delay/lppbr-delay/lpdbr-delay/lppbr-nox/lpdbr-nox
 lpsolvermode=$4
 searchstart=$5
@@ -13,7 +13,7 @@ precision=64
 seedfrom=0
 seedto=0
 solvestart=7200
-trafficfilename=a
+trafficfilename=null
 dp=$precision
 solveinterval=$7
 let solveend=86400-$solveinterval
