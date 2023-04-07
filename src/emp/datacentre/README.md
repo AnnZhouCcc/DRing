@@ -140,13 +140,33 @@ An example configurations of how to set optimal vs delay vs lazy:
 | delay | 7200 | 3600 | 3600 |
 | delay | 7200 | 7200 | 0 |
 
-## Experiment 5:
+## Experiment 5: calculate path stats
+1. `netpathfile` and `pathweightfile` need to be set up.
+2. If synthetic traffic, use in `calculate_path_stats_in_bulk.sh`:
+```
+11 python3 calculate_path_stats_for_synthetic_traffic.py $topology $routing $traffic 0
+12 #python3 calculate_path_stats_for_cluster_traffic.py $topology $routing $traffic 0
+
+16 python3 calculate_path_stats_for_synthetic_traffic.py $topology $routing $traffic 1
+17 #python3 calculate_path_stats_for_cluster_traffic.py $topology $routing $traffic 1
+```
+If cluster traffic, use:
+```
+11 #python3 calculate_path_stats_for_synthetic_traffic.py $topology $routing $traffic 0
+12 python3 calculate_path_stats_for_cluster_traffic.py $topology $routing $traffic 0
+
+16 #python3 calculate_path_stats_for_synthetic_traffic.py $topology $routing $traffic 1
+17 python3 calculate_path_stats_for_cluster_traffic.py $topology $routing $traffic 1
+```
+3. Run `./calculate_path_stats_in_bulk.sh [traffic]`
+[traffic] can be a2a, r2r0, 16to4-0, clustera, etc.
 
 ## Repos involved in the Starfish project
 | Repo | Description | Local | GitHub |
+| ----------- | ----------- | ----------- | ----------- |
 | DRing | The packet simulator. | Y | Y |
-| Header | Title |
-| Paragraph | Text | 
+| Header | Title | Y/N | Y/N |
+| Paragraph | Text | Y/N | Y/N |
 
 ---
 
