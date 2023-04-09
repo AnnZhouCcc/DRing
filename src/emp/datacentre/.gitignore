@@ -26,4 +26,6 @@ compressed_discover_logfiles/discover_*_*_*_*/*_*_*_*_*
 !compressed_discover_logfiles/discover_*_*_*_*/log.txt
 compressed_discover_logfiles/discover_*_*_*_*/*_output
 *.tar.gz
+!pathweightfiles/*/*.tar.gz
+!pathweightfiles/*/*/*.tar.gz
 trafficfiles/cluster_*/
