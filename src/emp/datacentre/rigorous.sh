@@ -33,7 +33,7 @@ computeend=${30}
 computeinterval=${31}
 
 # Check the directory and logfile are present.
-dir=rediscover_${topology}_${routing}_${trafficmatrix}_${mode}
+dir=suddiscover_${topology}_${routing}_${trafficmatrix}_${mode}
 if [ ! -d $dir ]
 then
   echo Directory $dir not found.
