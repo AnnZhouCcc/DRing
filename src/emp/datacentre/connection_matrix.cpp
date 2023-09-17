@@ -3185,7 +3185,8 @@ void ConnectionMatrix::setTopoFlowsServerFile(string conn_matrix_str, double sim
   size_t position = 0;
   size_t count = 0;
   string token;
-  int numsendingservers,numreceivingservers,trafficpattern,configfilenumber;
+  int numsendingservers,numreceivingservers,configfilenumber;
+  string trafficpattern;
   while ((position = conn_matrix_str.find(delimiter)) != string::npos) {
     token = conn_matrix_str.substr(0, position);
     switch (count) {
@@ -3213,13 +3214,11 @@ void ConnectionMatrix::setTopoFlowsServerFile(string conn_matrix_str, double sim
   // Read traffic from config file
   string trafficfilename;
   if (configfilenumber == 0) {
-    trafficfilename = "trafficfiles/sud_robustness/traffic_server_"+to_string(numsendingservers)+"to"+to_string(numreceivingservers)+"_"+trafficpattern+".txt";
+    trafficfilename = "trafficfiles/sud_robustness/traffic_server_"+to_string(numsendingservers)+"to"+to_string(numreceivingservers)+"_"+trafficpattern;
   } else {
-    trafficfilename = "trafficfiles/sud_robustness/traffic_server_"+to_string(numsendingservers)+"to"+to_string(numreceivingservers)+"_"+trafficpattern+"_"+to_string(configfilenumber)+".txt";
+    trafficfilename = "trafficfiles/sud_robustness/traffic_server_"+to_string(numsendingservers)+"to"+to_string(numreceivingservers)+"_"+trafficpattern+"_"+to_string(configfilenumber);
   }
   cout << "trafficfilename: " << trafficfilename << endl;
-  string srcsvr;
-  string dstsvr;
   ifstream TMFile(trafficfilename.c_str());
   string line;
   line.clear();
@@ -3229,15 +3228,16 @@ void ConnectionMatrix::setTopoFlowsServerFile(string conn_matrix_str, double sim
       //Whitespace line
       if (line.find_first_not_of(' ') == string::npos) break;
       stringstream ss(line);
-
-      ss >> srcsvr >> dstsvr;
-      int bytes = genFlowBytes();
+      int srcsvr,dstsvr;
+      float discards;
+      ss >> srcsvr >> dstsvr >> discards;
+      uint64_t bytes = genFlowBytes();
       while (bytes<0 or bytes>large_flow_threshold){
         bytes = genFlowBytes();
       }
       bytes = adjustBytesByPacketSize(bytes);
       double start_time_ms = drand() * simtime_ms;
-      base_flows.push_back(Flow(stoi(srcsvr), stoi(dstsvr), bytes, start_time_ms));
+      base_flows.push_back(Flow(srcsvr, dstsvr, bytes, start_time_ms));
     }
     TMFile.close();
   }
