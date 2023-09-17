@@ -99,6 +99,7 @@ class ConnectionMatrix{
   void setTopoFlowsSomeToSomeRandom(Topology *top, string conn_matrix_str, double simtime_ms);
   void setTopoFlowsSomeToSomeFlat(string conn_matrix_str, double simtime_ms);
   void setTopoFlowsSomeToSomeServer(string conn_matrix_str, double simtime_ms);
+  void setTopoFlowsServerFile(string conn_matrix_str, double simtime_ms);
   void setTopoFlowsClusterX(Topology* top, string cluster, int solvestart, int solveend, int solveinterval, double simtime_ms, int multiplier, int numerator, int denominator);
   void setTopoFlowsPermutation(Topology *top, double simtime_ms);
   void printTopoFlows(Topology* top, string topoflowsfilename);

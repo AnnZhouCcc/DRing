@@ -3177,6 +3177,73 @@ void ConnectionMatrix::setTopoFlowsSomeToSomeServer(string conn_matrix_str, doub
 }
 
 
+void ConnectionMatrix::setTopoFlowsServerFile(string conn_matrix_str, double simtime_ms) {
+  cout << "Topo flows server file" << endl;
+
+  // Parse conn_matrix_str
+  string delimiter = "_";
+  size_t position = 0;
+  size_t count = 0;
+  string token;
+  int numsendingservers,numreceivingservers,trafficpattern,configfilenumber;
+  while ((position = conn_matrix_str.find(delimiter)) != string::npos) {
+    token = conn_matrix_str.substr(0, position);
+    switch (count) {
+      case 0:
+        // pass
+        break;
+      case 1:
+        numsendingservers = stoi(token);
+        break;
+      case 2:
+        numreceivingservers = stoi(token);
+        break;
+      case 3:
+        trafficpattern = token;
+        break;
+      default:
+        break;
+    }
+    conn_matrix_str.erase(0, position+delimiter.length());
+    count++;
+  }
+  configfilenumber = stoi(conn_matrix_str);
+  cout << "numsendingservers=" << numsendingservers << ",numreceivingservers=" << numreceivingservers << ",trafficpattern=" << trafficpattern << ",configfilenumber=" << configfilenumber << endl;
+
+  // Read traffic from config file
+  string trafficfilename;
+  if (configfilenumber == 0) {
+    trafficfilename = "trafficfiles/sud_robustness/traffic_server_"+to_string(numsendingservers)+"to"+to_string(numreceivingservers)+"_"+trafficpattern+".txt";
+  } else {
+    trafficfilename = "trafficfiles/sud_robustness/traffic_server_"+to_string(numsendingservers)+"to"+to_string(numreceivingservers)+"_"+trafficpattern+"_"+to_string(configfilenumber)+".txt";
+  }
+  cout << "trafficfilename: " << trafficfilename << endl;
+  string srcsvr;
+  string dstsvr;
+  ifstream TMFile(trafficfilename.c_str());
+  string line;
+  line.clear();
+  if (TMFile.is_open()){
+    while(TMFile.good()){
+      getline(TMFile, line);
+      //Whitespace line
+      if (line.find_first_not_of(' ') == string::npos) break;
+      stringstream ss(line);
+
+      ss >> srcsvr >> dstsvr;
+      int bytes = genFlowBytes();
+      while (bytes<0 or bytes>large_flow_threshold){
+        bytes = genFlowBytes();
+      }
+      bytes = adjustBytesByPacketSize(bytes);
+      double start_time_ms = drand() * simtime_ms;
+      base_flows.push_back(Flow(stoi(srcsvr), stoi(dstsvr), bytes, start_time_ms));
+    }
+    TMFile.close();
+  }
+}
+
+
 void ConnectionMatrix::tempGenerateSwitchServerMapping(Topology *top) {
   string filename;
 #if NHOST == 2988

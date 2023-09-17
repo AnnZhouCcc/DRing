@@ -2,24 +2,25 @@
 # Set parameters.
 topology=$1 #rrg/dring/leafspine
 routing=$2
-trafficmatrix=clustera
+trafficmatrix=clusterc
 mode=$3 #equal/weighted/lppbr/lpdbr/lppbr-optimal/lpdbr-optimal/lppbr-nox-optimal/lpdbr-nox-optimal/lppbr-nox-delay/lpdbr-nox-delay/lppbr-delay/lpdbr-delay/lppbr-nox/lpdbr-nox
 lpsolvermode=$4
 searchstart=$5
 searchend=$6
 threshold=10 #ms
-stime=200
+stime=240
 precision=64
 seedfrom=0
 seedto=0
 solvestart=7200
-solveend=84600
-trafficfilename=a
+trafficfilename=c
 dp=$precision
-solveinterval=1800
-computestart=5400
-computeend=82800
-computeinterval=$7
+solveinterval=$7
+let solveend=86400-$solveinterval
+computestart=$9
+computeend=0
+computeinterval=$8
+decaymode=${10}
 
 # Check for input parameter error
 if [ ! $threshold -eq 10 ]
@@ -28,7 +29,7 @@ then
   exit 1
 fi
 
-if [ ! $lpsolvermode = "barriernocrossover" ] && [ ! $lpsolvermode = "null" ] && [ ! $lpsolvermode = "barrierwithcrossover" ] && [ ! $lpsolvermode = "dualsimplex" ]
+if [ ! $lpsolvermode = "barriernocrossover" ] && [ ! $lpsolvermode = "null" ]
 then
   echo lpsolvermode $lpsolvermode is not recognized
   exit 1
@@ -40,33 +41,33 @@ then
   exit 1
 fi
 
-if [ ! $( echo $solveend - $solvestart - $computeend + $computestart | bc ) -eq 0 ]
-then
-  echo solveend-solvestart!=computeend-computestart, solveend=${solveend}, solvestart=${solvestart}, computeend=${computeend}, computestart=${computestart}
-  exit 1
-fi
+#if [ ! $( echo $solveend - $solvestart - $computeend + $computestart | bc ) -eq 0 ]
+#then
+#  echo solveend-solvestart!=computeend-computestart, solveend=${solveend}, solvestart=${solvestart}, computeend=${computeend}, computestart=${computestart}
+#  exit 1
+#fi
 
-if [ $mode = "lppbr-optimal" ] || [ $mode = "lpdbr-optimal" ] || [ $mode = "lppbr-nox-optimal" ] || [ $mode = "lpdbr-nox-optimal" ] || [ $mode = "lpdbr-optimal-900" ] || [ $mode = "lpdbr-optimal-1800" ] || [ $mode = "lpdbr-optimal-3600" ] || [ $mode = "lpdbr-optimal-7200" ]
-then
-  if [ ! $( echo $solvestart - $computestart | bc ) -eq 0 ] || [ ! $( echo $solveend - $computeend | bc ) -eq 0 ]
-  then
-    echo solvestart!=computestart or solveend!=computeend, solveend=${solveend}, solvestart=${solvestart}, computeend=${computeend}, computestart=${computestart}
-    exit 1
-  fi
-fi
+#if [ $mode = "lppbr-optimal" ] || [ $mode = "lpdbr-optimal" ] || [ $mode = "lppbr-nox-optimal" ] || [ $mode = "lpdbr-nox-optimal" ] || [ $mode = "lpdbr-optimal-"${solveinterval}"-"${computeinterval} ] || [ $mode = "lppbr-optimal-"${solveinterval}"-"${computeinterval} ]
+#then
+#  if [ ! $( echo $solvestart - $computestart | bc ) -eq 0 ] || [ ! $( echo $solveend - $computeend | bc ) -eq 0 ]
+#  then
+#    echo solvestart!=computestart or solveend!=computeend, solveend=${solveend}, solvestart=${solvestart}, computeend=${computeend}, computestart=${computestart}
+#    exit 1
+#  fi
+#fi
 
-if [ $mode = "lppbr-delay" ] || [ $mode = "lpdbr-delay" ] || [ $mode = "lppbr-nox-delay" ] || [ $mode = "lpdbr-nox-delay" ] || [ $mode = "lpdbr-delay-900" ] || [ $mode = "lpdbr-delay-1800-rerun" ] || [ $mode = "lpdbr-delay-3600" ] || [ $mode = "lpdbr-delay-7200" ] || [ $mode = "lppbr-delay-1800-1800" ] || [ $mode = "lpdbr-delay-1800-1800" ] || [ $mode = "lppbr-delay-1800-1800-ds" ]
-then
-  if [ ! $computestart -lt $solvestart ] || [ ! $computeend -lt $solveend ]
-  then 
-    echo computestart gte solvestart or computeend gte solveend, solveend=${solveend}, solvestart=${solvestart}, computeend=${computeend}, computestart=${computestart}
-    exit 1
-  fi    
-fi
+#if [ $mode = "lppbr-delay" ] || [ $mode = "lpdbr-delay" ] || [ $mode = "lppbr-nox-delay" ] || [ $mode = "lpdbr-nox-delay" ] || [ $mode = "lpdbr-delay-"${solveinterval}"-"${computeinterval} ] || [ $mode = "lppbr-delay-"${solveinterval}"-"${computeinterval} ]
+#then
+#  if [ ! $computestart -lt $solvestart ] || [ ! $computeend -lt $solveend ]
+#  then 
+#    echo computestart gte solvestart or computeend gte solveend, solveend=${solveend}, solvestart=${solvestart}, computeend=${computeend}, computestart=${computestart}
+#    exit 1
+#  fi    
+#fi
 
 if [ ! $trafficmatrix = "clustera" ] && [ ! $trafficmatrix = "clusterb" ] && [ ! $trafficmatrix = "clusterc" ]
 then
-  if [ $mode = "lppbr-optimal" ] || [ $mode = "lpdbr-optimal" ] || [ $mode = "lppbr-nox-optimal" ] || [ $mode = "lpdbr-nox-optimal" ] || [ $mode = "lppbr-delay" ] || [ $mode = "lpdbr-delay" ] || [ $mode = "lppbr-nox-delay" ] || [ $mode = "lpdbr-nox-delay" ]
+  if [ $mode = "lppbr-optimal" ] || [ $mode = "lpdbr-optimal" ] || [ $mode = "lppbr-nox-optimal" ] || [ $mode = "lpdbr-nox-optimal" ] || [ $mode = "lppbr-delay" ] || [ $mode = "lpdbr-delay" ] || [ $mode = "lppbr-nox-delay" ] || [ $mode = "lpdbr-nox-delay" ] || [ $mode = "lpdbr-optimal-"${solveinterval}"-"${computeinterval} ] || [ $mode = "lppbr-optimal-"${solveinterval}"-"${computeinterval} ] || [ $mode = "lpdbr-delay-"${solveinterval}"-"${computeinterval} ] || [ $mode = "lppbr-delay-"${solveinterval}"-"${computeinterval} ] || [ $mode = "lppbr-delay-"${solveinterval}"-"${computeinterval}"-decay"${decaymode} ] || [ $mode = "lpdbr-delay-"${solveinterval}"-"${computeinterval}"-decay"${decaymode} ]
   then
     echo traffic $trafficmatrix should not have mode $mode
     exit 1
@@ -93,7 +94,7 @@ npfile=netpathfiles/netpath_${routing}_${topology}.txt
 
 if [ $computeinterval -eq 0 ]
 then
-  if [ $mode = "equal" ]
+  if [ $mode = "equal" ] || [ $mode = "equal-late" ]
   then
     pwfile=pathweightfiles/${topology}/${routing}/pathweight_${topology}_${routing}_equal_${precision}.txt
   elif [ $mode = "weighted" ]
@@ -105,6 +106,9 @@ then
   elif [ $mode = "lpdbr" ] || [ $mode = "lpdbr-nox" ]
   then
     pwfile=pathweightfiles/${topology}/${routing}/${trafficmatrix}/pathweight_pbr1_${topology}_${routing}_${trafficmatrix}_lp1_${lpsolvermode}_${precision}.txt
+  elif [ $mode = "tera" ]
+  then
+    pwfile=pathweightfiles/${topology}/${routing}/a2a/pathweight_${topology}_${routing}_a2a_lp1_${lpsolvermode}_${precision}.txt
   else
     echo mode $mode not recognized.
   fi
@@ -112,12 +116,22 @@ else
   if [ $mode = "equal" ]
   then
     pwfile=pathweightfiles/${topology}/${routing}/pathweight_${topology}_${routing}_equal_${precision}.txt
-  elif [ $mode = "lppbr-optimal" ] || [ $mode = "lppbr-nox-optimal" ] || [ $mode = "lppbr-nox-delay" ] || [ $mode = "lppbr-delay" ] || [ $mode = "lppbr-delay-1800-1800" ] || [ $mode = "lppbr-delay-1800-1800-ds" ]
+  elif [ $mode = "lppbr-optimal" ] || [ $mode = "lppbr-nox-optimal" ] || [ $mode = "lppbr-nox-delay" ] || [ $mode = "lppbr-delay" ] || [ $mode = "lppbr-optimal-"${solveinterval}"-"${computeinterval} ] || [ $mode = "lppbr-delay-"${solveinterval}"-"${computeinterval} ] || [ $mode = "lppbr-delay-"${solveinterval}"-"${computeinterval}"-decay"${decaymode} ]
   then
-    pwfile=pathweightfiles/${topology}/${routing}/${trafficmatrix}/pathweight_${topology}_${routing}_${trafficmatrix}_lp1_${lpsolvermode}_
-  elif [ $mode = "lpdbr-optimal" ] || [ $mode = "lpdbr-nox-optimal" ] || [ $mode = "lpdbr-nox-delay" ] || [ $mode = "lpdbr-delay" ] || [ $mode = "lpdbr-optimal-900" ] || [ $mode = "lpdbr-optimal-1800" ] || [ $mode = "lpdbr-optimal-3600" ] || [ $mode = "lpdbr-optimal-7200" ] || [ $mode = "lpdbr-delay-900" ] || [ $mode = "lpdbr-delay-1800-rerun" ] || [ $mode = "lpdbr-delay-3600" ] || [ $mode = "lpdbr-delay-7200" ] || [ $mode = "lpdbr-delay-1800-1800" ]
+    if [ $decaymode -eq 0 ]
+    then
+      pwfile=pathweightfiles/${topology}/${routing}/${trafficmatrix}/pathweight_${topology}_${routing}_${trafficmatrix}_lp1_${lpsolvermode}_
+    else
+      pwfile=pathweightfiles/${topology}/${routing}/${trafficmatrix}/pathweight_decay${decaymode}_${topology}_${routing}_${trafficmatrix}_lp1_${lpsolvermode}_
+    fi
+  elif [ $mode = "lpdbr-optimal" ] || [ $mode = "lpdbr-nox-optimal" ] || [ $mode = "lpdbr-nox-delay" ] || [ $mode = "lpdbr-delay" ] || [ $mode = "lpdbr-optimal-"${solveinterval}"-"${computeinterval} ] || [ $mode = "lpdbr-delay-"${solveinterval}"-"${computeinterval} ] || [ $mode = "lpdbr-delay-"${solveinterval}"-"${computeinterval}"-decay"${decaymode} ]
   then
-    pwfile=pathweightfiles/${topology}/${routing}/${trafficmatrix}/pathweight_pbr1_${topology}_${routing}_${trafficmatrix}_lp1_${lpsolvermode}_
+    if [ $decaymode -eq 0 ]
+    then
+      pwfile=pathweightfiles/${topology}/${routing}/${trafficmatrix}/pathweight_pbr1_${topology}_${routing}_${trafficmatrix}_lp1_${lpsolvermode}_
+    else
+      pwfile=pathweightfiles/${topology}/${routing}/${trafficmatrix}/pathweight_pbr1_decay${decaymode}_${topology}_${routing}_${trafficmatrix}_lp1_${lpsolvermode}_
+    fi
   else
     echo mode $mode not recognized.
   fi
@@ -151,6 +165,15 @@ then
 elif [ $trafficmatrix = "r2r1" ]
 then
   trafficmatrixparam=S2S_1_1_0_1
+elif [ $trafficmatrix = "r2r2" ]
+then
+  trafficmatrixparam=S2S_1_1_0_2
+elif [ $trafficmatrix = "r2r3" ]
+then
+  trafficmatrixparam=S2S_1_1_0_3
+elif [ $trafficmatrix = "r2r4" ]
+then
+  trafficmatrixparam=S2S_1_1_0_4
 elif [ $trafficmatrix = "16to4-0" ]
 then
   trafficmatrixparam=S2S_16_4_0_0
@@ -160,12 +183,24 @@ then
 elif [ $trafficmatrix = "16to4-2" ]
 then
   trafficmatrixparam=S2S_16_4_0_2
+elif [ $trafficmatrix = "16to4-3" ]
+then
+  trafficmatrixparam=S2S_16_4_0_3
+elif [ $trafficmatrix = "16to4-4" ]
+then
+  trafficmatrixparam=S2S_16_4_0_4
 elif [ $trafficmatrix = "flat-16to4-0" ]
 then
   trafficmatrixparam=F2F_16_4_0_0
+elif [ $trafficmatrix = "permutation0" ]
+then
+  trafficmatrixparam=PERM
 elif [ $trafficmatrix = "clusterb" ] || [ $trafficmatrix = "clustera" ] || [ $trafficmatrix = "clusterc" ]
 then
   trafficmatrixparam=CLUSTERX
+elif [ $trafficmatrix = "1536to1536_standard" ]
+then
+  trafficmatrixparam=SVR_1536_1536_standard_0
 else
   echo traffic matrix $trafficmatrix not recognized.
 fi
@@ -207,7 +242,7 @@ else
 fi
 
 # Set up a logfile.
-dir=suddiscover_${topology}_${routing}_${trafficmatrix}_${mode}
+dir=suddiscover_${topology}_${routing}_${trafficmatrix}_${mode}_${decaymode}
 if [ ! -d $dir ]
 then
   mkdir $dir
@@ -417,14 +452,14 @@ do
     then
       echo ========='['searchstart,searchmid']'========= >> $logfile
       echo ========='['${searchstart},${searchmid}']'========= >> $logfile
-      ./rigorous.sh $searchstart $searchmid $topology $routing $trafficmatrix $mode $threshold $stime $mstart $mend $precision $seedfrom $seedto 0 9 $npfile $pwfile $graphname $graphfile $numservers $trafficmatrixparam $routingparam $kornparam $solvestart $solveend $trafficfilename $dp $solveinterval $computestart $computeend $computeinterval> $tempoutputfile
+      ./sudrigorous.sh $searchstart $searchmid $topology $routing $trafficmatrix $mode $threshold $stime $mstart $mend $precision $seedfrom $seedto 0 9 $npfile $pwfile $graphname $graphfile $numservers $trafficmatrixparam $routingparam $kornparam $solvestart $solveend $trafficfilename $dp $solveinterval $computestart $computeend $computeinterval $decaymode > $tempoutputfile
       x=$(cat $tempoutputfile | cut -d " " -f 1)
       echo $x
     elif [ $(isLessThan $n99fct $threshold ) -eq 1 ]
     then
       echo ========='['searchmid,searchend']'========= >> $logfile
       echo ========='['${searchmid},${searchend}']'========= >> $logfile
-      ./rigorous.sh $searchmid $searchend $topology $routing $trafficmatrix $mode $threshold $stime $mstart $mend $precision $seedfrom $seedto 0 9 $npfile $pwfile $graphname $graphfile $numservers $trafficmatrixparam $routingparam $kornparam $solvestart $solveend $trafficfilename $dp $solveinterval $computestart $computeend $computeinterval > $tempoutputfile
+      ./sudrigorous.sh $searchmid $searchend $topology $routing $trafficmatrix $mode $threshold $stime $mstart $mend $precision $seedfrom $seedto 0 9 $npfile $pwfile $graphname $graphfile $numservers $trafficmatrixparam $routingparam $kornparam $solvestart $solveend $trafficfilename $dp $solveinterval $computestart $computeend $computeinterval $decaymode > $tempoutputfile
       x=$(cat $tempoutputfile | cut -d " " -f 1)
       echo $x
     else
