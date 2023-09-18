@@ -3231,6 +3231,7 @@ void ConnectionMatrix::setTopoFlowsServerFile(string conn_matrix_str, double sim
       int srcsvr,dstsvr;
       float discards;
       ss >> srcsvr >> dstsvr >> discards;
+      if (srcsvr>=NHOST || dstsvr>=NHOST) continue;
       uint64_t bytes = genFlowBytes();
       while (bytes<0 or bytes>large_flow_threshold){
         bytes = genFlowBytes();
