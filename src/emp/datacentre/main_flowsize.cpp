@@ -526,7 +526,7 @@ int main(int argc, char **argv) {
     }
 
     //conns->multiplyFlows(multiplier,numerator,denominator);
-    if (conn_matrix!="CLUSTERX") {
+    if (conn_matrix!="CLUSTERX" && conn_matrix!="CLUSTERT") {
       conns->multiplyFlowsRandomize(multiplier,numerator,denominator,simtime_ms);
     } else {
       conns->simplyCopyFlows();
