@@ -2,18 +2,18 @@
 # Set parameters.
 topology=$1 #rrg/dring/leafspine
 routing=$2
-trafficmatrix=1536to1536_standard
+trafficmatrix=teraclusterb
 mode=$3 #equal/weighted/lppbr/lpdbr/lppbr-optimal/lpdbr-optimal/lppbr-nox-optimal/lpdbr-nox-optimal/lppbr-nox-delay/lpdbr-nox-delay/lppbr-delay/lpdbr-delay/lppbr-nox/lpdbr-nox
 lpsolvermode=$4
 searchstart=$5
 searchend=$6
 threshold=10 #ms
-stime=100
+stime=320
 precision=64
 seedfrom=0
 seedto=0
 solvestart=7200
-trafficfilename=null
+trafficfilename=b
 dp=$precision
 solveinterval=$7
 let solveend=86400-$solveinterval
@@ -198,6 +198,9 @@ then
 elif [ $trafficmatrix = "clusterb" ] || [ $trafficmatrix = "clustera" ] || [ $trafficmatrix = "clusterc" ]
 then
   trafficmatrixparam=CLUSTERX
+elif [ $trafficmatrix = "teraclusterb" ] || [ $trafficmatrix = "teraclustera" ] || [ $trafficmatrix = "teraclusterc" ]
+then
+  trafficmatrixparam=CLUSTERT
 elif [ $trafficmatrix = "1536to1536_standard" ]
 then
   trafficmatrixparam=SVR_1536_1536_standard_0
