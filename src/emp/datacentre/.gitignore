@@ -35,4 +35,5 @@ compressed_discover_logfiles/discover_*_*_*_*/*_output
 !pathweightfiles/*/*/*.tar.gz
 !pathweightfiles/*/*/*/*.tar.gz
 trafficfiles/cluster_*/
+trafficfiles/sud_robustness/
 archive_suddiscover_*_*_cluster*_*/
