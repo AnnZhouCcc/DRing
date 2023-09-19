@@ -2,7 +2,7 @@
 # Set parameters.
 topology=$1 #rrg/dring/leafspine
 routing=$2
-trafficmatrix=192to192
+trafficmatrix=${11}
 mode=$3 #equal/weighted/lppbr/lpdbr/lppbr-optimal/lpdbr-optimal/lppbr-nox-optimal/lpdbr-nox-optimal/lppbr-nox-delay/lpdbr-nox-delay/lppbr-delay/lpdbr-delay/lppbr-nox/lpdbr-nox
 lpsolvermode=$4
 searchstart=$5
@@ -13,7 +13,7 @@ precision=64
 seedfrom=0
 seedto=0
 solvestart=7200
-trafficfilename=standard_1
+trafficfilename=${12}
 dp=$precision
 solveinterval=$7
 let solveend=86400-$solveinterval
@@ -263,7 +263,7 @@ else
 fi
 
 # Set up a logfile.
-dir=suddiscover_${topology}_${routing}_${trafficmatrix}_${mode}_${decaymode}
+dir=suddiscover_${topology}_${routing}_${trafficmatrix}_${trafficfilename}_${mode}_${decaymode}
 if [ ! -d $dir ]
 then
   mkdir $dir
@@ -473,14 +473,14 @@ do
     then
       echo ========='['searchstart,searchmid']'========= >> $logfile
       echo ========='['${searchstart},${searchmid}']'========= >> $logfile
-      ./sudrigorous.sh $searchstart $searchmid $topology $routing $trafficmatrix $mode $threshold $stime $mstart $mend $precision $seedfrom $seedto 0 9 $npfile $pwfile $graphname $graphfile $numservers $trafficmatrixparam $routingparam $kornparam $solvestart $solveend $trafficfilename $dp $solveinterval $computestart $computeend $computeinterval $decaymode > $tempoutputfile
+      ./sudrigorouskawa.sh $searchstart $searchmid $topology $routing $trafficmatrix $mode $threshold $stime $mstart $mend $precision $seedfrom $seedto 0 9 $npfile $pwfile $graphname $graphfile $numservers $trafficmatrixparam $routingparam $kornparam $solvestart $solveend $trafficfilename $dp $solveinterval $computestart $computeend $computeinterval $decaymode $trafficfilename > $tempoutputfile
       x=$(cat $tempoutputfile | cut -d " " -f 1)
       echo $x
     elif [ $(isLessThan $n99fct $threshold ) -eq 1 ]
     then
       echo ========='['searchmid,searchend']'========= >> $logfile
       echo ========='['${searchmid},${searchend}']'========= >> $logfile
-      ./sudrigorous.sh $searchmid $searchend $topology $routing $trafficmatrix $mode $threshold $stime $mstart $mend $precision $seedfrom $seedto 0 9 $npfile $pwfile $graphname $graphfile $numservers $trafficmatrixparam $routingparam $kornparam $solvestart $solveend $trafficfilename $dp $solveinterval $computestart $computeend $computeinterval $decaymode > $tempoutputfile
+      ./sudrigorouskawa.sh $searchmid $searchend $topology $routing $trafficmatrix $mode $threshold $stime $mstart $mend $precision $seedfrom $seedto 0 9 $npfile $pwfile $graphname $graphfile $numservers $trafficmatrixparam $routingparam $kornparam $solvestart $solveend $trafficfilename $dp $solveinterval $computestart $computeend $computeinterval $decaymode $trafficfilename > $tempoutputfile
       x=$(cat $tempoutputfile | cut -d " " -f 1)
       echo $x
     else
