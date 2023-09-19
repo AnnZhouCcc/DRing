@@ -1,0 +1,111 @@
+Mon Sep 18 19:04:11 CDT 2023: Set up parameters
+topology=leafspine
+routing=ecmp
+trafficmatrix=192to192
+mode=kawa1
+searchstart=20
+searchend=28
+threshold=10
+stime=200
+mstart=50
+mend=150
+precision=64
+Mon Sep 18 19:04:11 CDT 2023: Run experiment search start
+mult=20,numerator=0,denominator=0
+Mon Sep 18 19:18:03 CDT 2023: Experiment done (seed=0)
+Mon Sep 18 19:18:09 CDT 2023: n99fct=7.72972,totaltraffic=25733910000
+Mon Sep 18 19:18:09 CDT 2023: Run experiment search end
+mult=28,numerator=0,denominator=0
+Mon Sep 18 19:18:14 CDT 2023: Experiment done (seed=0)
+Mon Sep 18 19:18:14 CDT 2023: n99fct=0,totaltraffic=0
+10 > 0 ? 1
+10 < 7.72972 ? 0
+Mon Sep 18 19:19:04 CDT 2023: Set up parameters
+topology=leafspine
+routing=ecmp
+trafficmatrix=192to192
+mode=kawa1
+searchstart=20
+searchend=24
+threshold=10
+stime=200
+mstart=50
+mend=150
+precision=64
+Mon Sep 18 19:19:04 CDT 2023: Run experiment search start
+mult=20,numerator=0,denominator=0
+Mon Sep 18 19:19:04 CDT 2023: Result already exists (seed=0)
+Mon Sep 18 19:19:11 CDT 2023: n99fct=7.72972,totaltraffic=25733910000
+Mon Sep 18 19:19:11 CDT 2023: Run experiment search end
+mult=24,numerator=0,denominator=0
+Mon Sep 18 19:37:28 CDT 2023: Experiment done (seed=0)
+Mon Sep 18 19:37:36 CDT 2023: n99fct=16.9954,totaltraffic=30932868000
+Mon Sep 18 19:37:37 CDT 2023: Start binary search.
+searchmid=22,searchstart=20,searchend=24
+Mon Sep 18 19:37:37 CDT 2023: Run experiment
+mult=22,numerator=0,denominator=0
+Mon Sep 18 19:53:06 CDT 2023: Experiment done (seed=0)
+Mon Sep 18 19:53:13 CDT 2023: n99fct=10.5511,totaltraffic=28379832000
+Change searchend to 22
+searchstart=20,searchend=22
+searchmid=21,searchstart=20,searchend=22
+Mon Sep 18 19:53:13 CDT 2023: Run experiment
+mult=21,numerator=0,denominator=0
+Mon Sep 18 20:08:14 CDT 2023: Experiment done (seed=0)
+Mon Sep 18 20:08:21 CDT 2023: n99fct=9.09531,totaltraffic=27072378000
+Change searchstart to 21
+searchstart=21,searchend=22
+searchmid=21.5,searchstart=21,searchend=22
+Mon Sep 18 20:08:21 CDT 2023: Run experiment
+mult=21,numerator=5,denominator=10
+Mon Sep 18 20:23:10 CDT 2023: Experiment done (seed=0)
+Mon Sep 18 20:23:16 CDT 2023: n99fct=10.0157,totaltraffic=27737157000
+Change searchend to 21.5
+searchstart=21,searchend=21.5
+searchmid=21.25,searchstart=21,searchend=21.5
+Mon Sep 18 20:23:16 CDT 2023: Run experiment
+mult=21,numerator=25,denominator=100
+Mon Sep 18 20:38:17 CDT 2023: Experiment done (seed=0)
+Mon Sep 18 20:38:23 CDT 2023: n99fct=9.58065,totaltraffic=27405852000
+Mon Sep 18 20:38:23 CDT 2023: isCloseEnough searchstart=21,searchmid=21.25,searchend=21.5
+searchstart: n99fct=9.09531,totaltraffic=27072378000
+searchmid: n99fct=9.58065,totaltraffic=27405852000
+searchend: n99fct=10.0157,totaltraffic=27737157000
+=========[searchmid,searchend]=========
+=========[21.25,21.5]=========
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Mon Sep 18 20:38:24 CDT 2023
+topology=leafspine
+routing=ecmp
+trafficmatrix=192to192
+mode=kawa1
+p1=21.25
+p2=21.5
+threshold=10
+stime=200
+mstart=50
+mend=150
+precision=64
+Mon Sep 18 20:38:24 CDT 2023: Run experiment for p1
+mult=21,numerator=25,denominator=100
+Mon Sep 18 20:38:24 CDT 2023: rigorousseed=0,seedfrom=0,seedto=0
+Mon Sep 18 20:38:24 CDT 2023: Running seed=0
+Mon Sep 18 20:38:24 CDT 2023: Result already exists (seed=0)
+Mon Sep 18 20:38:24 CDT 2023: rigorousseed=1,seedfrom=1,seedto=1
+Mon Sep 18 20:38:24 CDT 2023: Running seed=1
+Mon Sep 18 20:52:48 CDT 2023: Experiment done (seed=1)
+Mon Sep 18 20:52:48 CDT 2023: rigorousseed=2,seedfrom=2,seedto=2
+Mon Sep 18 20:52:48 CDT 2023: Running seed=2
+Mon Sep 18 21:06:50 CDT 2023: Experiment done (seed=2)
+Mon Sep 18 21:06:50 CDT 2023: rigorousseed=3,seedfrom=3,seedto=3
+Mon Sep 18 21:06:50 CDT 2023: Running seed=3
+Mon Sep 18 21:19:25 CDT 2023: Experiment done (seed=3)
+Mon Sep 18 21:19:25 CDT 2023: rigorousseed=4,seedfrom=4,seedto=4
+Mon Sep 18 21:19:26 CDT 2023: Running seed=4
+Mon Sep 18 21:28:32 CDT 2023: Experiment done (seed=4)
+Mon Sep 18 21:28:32 CDT 2023: rigorousseed=5,seedfrom=5,seedto=5
+Mon Sep 18 21:28:32 CDT 2023: Running seed=5
+Mon Sep 18 21:37:46 CDT 2023: Experiment done (seed=5)
+Mon Sep 18 21:37:46 CDT 2023: rigorousseed=6,seedfrom=6,seedto=6
+Mon Sep 18 21:37:46 CDT 2023: Running seed=6
