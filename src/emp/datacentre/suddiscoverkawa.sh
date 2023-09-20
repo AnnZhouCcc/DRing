@@ -8,7 +8,7 @@ lpsolvermode=$4
 searchstart=$5
 searchend=$6
 threshold=10 #ms
-stime=200
+stime=100
 precision=64
 seedfrom=0
 seedto=0
@@ -219,9 +219,27 @@ then
 elif [ $trafficmatrix = "3072to3072_standard" ]
 then
   trafficmatrixparam=SVR_3072_3072_standard_0
+elif [ $trafficmatrix = "96to96" ]
+then
+  trafficmatrixparam=SVR_96_96_$trafficfilename
+elif [ $trafficmatrix = "97to97" ]
+then
+  trafficmatrixparam=SVR_97_97_$trafficfilename
 elif [ $trafficmatrix = "192to192" ]
 then
   trafficmatrixparam=SVR_192_192_$trafficfilename
+elif [ $trafficmatrix = "576to576" ]
+then
+  trafficmatrixparam=SVR_576_576_$trafficfilename
+elif [ $trafficmatrix = "95to95" ]
+then
+  trafficmatrixparam=SVR_95_95_$trafficfilename
+elif [ $trafficmatrix = "575to575" ]
+then
+  trafficmatrixparam=SVR_575_575_$trafficfilename
+elif [ $trafficmatrix = "1535to1535" ]
+then
+  trafficmatrixparam=SVR_1535_1535_$trafficfilename
 else
   echo traffic matrix $trafficmatrix not recognized.
 fi
@@ -289,7 +307,7 @@ echo mend=$mend >> $logfile
 echo precision=$precision >> $logfile
 
 # Check initial interval.
-suffix=${topology}_${routing}_${trafficmatrix}_${mode}
+suffix=${topology}_${routing}_${trafficmatrix}_${trafficfilename}_${mode}
 tempoutputfile=${dir}/${suffix}_output
 make=MAKE
 
