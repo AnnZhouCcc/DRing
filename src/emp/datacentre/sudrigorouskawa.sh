@@ -64,7 +64,7 @@ echo mend=$mend >> $logfile
 echo precision=$precision >> $logfile
 
 # Set up for experiments.
-suffix=${topology}_${routing}_${trafficmatrix}_${mode}
+suffix=${topology}_${routing}_${trafficmatrix}_${trafficfilename}_${mode}
 tempoutputfile=${dir}/${suffix}_rigorous_output
 make=MAKE
 
