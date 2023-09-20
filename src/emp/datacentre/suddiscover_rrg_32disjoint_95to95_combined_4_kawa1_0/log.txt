@@ -1,0 +1,22 @@
+Tue 19 Sep 2023 06:57:13 PM CDT: Set up parameters
+topology=rrg
+routing=32disjoint
+trafficmatrix=95to95
+mode=kawa1
+searchstart=22
+searchend=24
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Tue 19 Sep 2023 06:57:13 PM CDT: Run experiment search start
+mult=22,numerator=0,denominator=0
+Tue 19 Sep 2023 06:57:32 PM CDT: Experiment done (seed=0)
+Tue 19 Sep 2023 06:57:32 PM CDT: n99fct=0,totaltraffic=0
+Tue 19 Sep 2023 06:57:32 PM CDT: Run experiment search end
+mult=24,numerator=0,denominator=0
+Tue 19 Sep 2023 06:57:37 PM CDT: Experiment done (seed=0)
+Tue 19 Sep 2023 06:57:37 PM CDT: n99fct=0,totaltraffic=0
+10 > 0 ? 1
+10 < 0 ? 0

@@ -325,3 +325,12 @@ Mon 18 Sep 2023 11:07:18 PM CDT: Running seed=8
 Mon 18 Sep 2023 11:14:07 PM CDT: Experiment done (seed=8)
 Mon 18 Sep 2023 11:14:08 PM CDT: rigorousseed=9,seedfrom=9,seedto=9
 Mon 18 Sep 2023 11:14:08 PM CDT: Running seed=9
+Mon 18 Sep 2023 11:21:06 PM CDT: Experiment done (seed=9)
+Mon 18 Sep 2023 11:21:07 PM CDT: Collecting stats for suddiscover_leafspine_ecmp_192to192_combined_3_kawa1_0/23_5_10_200
+Mon 18 Sep 2023 11:21:20 PM CDT: n99fct=4.00473,totaltraffic=12129546150
+Mon 18 Sep 2023 11:21:21 PM CDT: Calculating the cutoff point
+n99fct1=9.87776,totaltraffic1=29995542150,n99fct2=4.00473,totaltraffic2=12129546150
+m=3.28727e-10,b=0.0174154,y=10,x=3.03674e+10
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================
+===============Close Interval Found==============
