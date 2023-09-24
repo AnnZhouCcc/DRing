@@ -1,0 +1,277 @@
+Tue 19 Sep 2023 05:29:46 PM CDT: Set up parameters
+topology=rrg
+routing=32disjoint
+trafficmatrix=575to575
+mode=kawa1
+searchstart=4
+searchend=5
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Tue 19 Sep 2023 05:29:47 PM CDT: Run experiment search start
+mult=4,numerator=0,denominator=0
+Tue 19 Sep 2023 05:36:04 PM CDT: Experiment done (seed=0)
+Tue 19 Sep 2023 05:36:07 PM CDT: n99fct=5.69778,totaltraffic=23224401000
+Tue 19 Sep 2023 05:36:07 PM CDT: Run experiment search end
+mult=5,numerator=0,denominator=0
+Tue 19 Sep 2023 05:45:02 PM CDT: Experiment done (seed=0)
+Tue 19 Sep 2023 05:45:05 PM CDT: n99fct=9.62226,totaltraffic=29064745500
+10 > 9.62226 ? 1
+10 < 5.69778 ? 0
+Tue 19 Sep 2023 06:05:24 PM CDT: Set up parameters
+topology=rrg
+routing=32disjoint
+trafficmatrix=575to575
+mode=kawa1
+searchstart=5
+searchend=6
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Tue 19 Sep 2023 06:05:24 PM CDT: Run experiment search start
+mult=5,numerator=0,denominator=0
+Tue 19 Sep 2023 06:05:24 PM CDT: Result already exists (seed=0)
+Tue 19 Sep 2023 06:05:28 PM CDT: n99fct=9.62226,totaltraffic=29064745500
+Tue 19 Sep 2023 06:05:28 PM CDT: Run experiment search end
+mult=6,numerator=0,denominator=0
+Tue 19 Sep 2023 06:05:45 PM CDT: Experiment done (seed=0)
+Tue 19 Sep 2023 06:05:45 PM CDT: n99fct=0,totaltraffic=0
+10 > 0 ? 1
+10 < 9.62226 ? 0
+Tue 19 Sep 2023 06:27:16 PM CDT: Set up parameters
+topology=rrg
+routing=32disjoint
+trafficmatrix=575to575
+mode=kawa1
+searchstart=5
+searchend=6
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Tue 19 Sep 2023 06:27:16 PM CDT: Run experiment search start
+mult=5,numerator=0,denominator=0
+Tue 19 Sep 2023 06:27:16 PM CDT: Result already exists (seed=0)
+Tue 19 Sep 2023 06:27:20 PM CDT: n99fct=9.62226,totaltraffic=29064745500
+Tue 19 Sep 2023 06:27:20 PM CDT: Run experiment search end
+mult=6,numerator=0,denominator=0
+Tue 19 Sep 2023 06:43:33 PM CDT: Experiment done (seed=0)
+Tue 19 Sep 2023 06:43:38 PM CDT: n99fct=15.543,totaltraffic=34986538500
+Tue 19 Sep 2023 06:43:38 PM CDT: Start binary search.
+searchmid=5.5,searchstart=5,searchend=6
+Tue 19 Sep 2023 06:43:38 PM CDT: Run experiment
+mult=5,numerator=5,denominator=10
+Tue 19 Sep 2023 06:59:17 PM CDT: Experiment done (seed=0)
+Tue 19 Sep 2023 06:59:20 PM CDT: n99fct=10.8907,totaltraffic=32038734000
+Change searchend to 5.5
+searchstart=5,searchend=5.5
+searchmid=5.25,searchstart=5,searchend=5.5
+Tue 19 Sep 2023 06:59:21 PM CDT: Run experiment
+mult=5,numerator=25,denominator=100
+Tue 19 Sep 2023 07:12:04 PM CDT: Experiment done (seed=0)
+Tue 19 Sep 2023 07:12:08 PM CDT: n99fct=10.2417,totaltraffic=30547464000
+Change searchend to 5.25
+searchstart=5,searchend=5.25
+searchmid=5.125,searchstart=5,searchend=5.25
+Tue 19 Sep 2023 07:12:08 PM CDT: Run experiment
+mult=5,numerator=125,denominator=1000
+Tue 19 Sep 2023 07:24:15 PM CDT: Experiment done (seed=0)
+Tue 19 Sep 2023 07:24:19 PM CDT: n99fct=9.88353,totaltraffic=29831268000
+Change searchstart to 5.125
+searchstart=5.125,searchend=5.25
+searchmid=5.1875,searchstart=5.125,searchend=5.25
+Tue 19 Sep 2023 07:24:19 PM CDT: Run experiment
+mult=5,numerator=1875,denominator=10000
+Tue 19 Sep 2023 07:36:30 PM CDT: Experiment done (seed=0)
+Tue 19 Sep 2023 07:36:34 PM CDT: n99fct=10.122,totaltraffic=30159192000
+Tue 19 Sep 2023 07:36:34 PM CDT: isCloseEnough searchstart=5.125,searchmid=5.1875,searchend=5.25
+searchstart: n99fct=9.88353,totaltraffic=29831268000
+searchmid: n99fct=10.122,totaltraffic=30159192000
+searchend: n99fct=10.2417,totaltraffic=30547464000
+=========[searchstart,searchmid]=========
+=========[5.125,5.1875]=========
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Tue 19 Sep 2023 07:36:34 PM CDT
+topology=rrg
+routing=32disjoint
+trafficmatrix=575to575
+mode=kawa1
+p1=5.125
+p2=5.1875
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Tue 19 Sep 2023 07:36:34 PM CDT: Run experiment for p1
+mult=5,numerator=125,denominator=1000
+Tue 19 Sep 2023 07:36:34 PM CDT: rigorousseed=0,seedfrom=0,seedto=0
+Tue 19 Sep 2023 07:36:34 PM CDT: Running seed=0
+Tue 19 Sep 2023 07:36:34 PM CDT: Result already exists (seed=0)
+Tue 19 Sep 2023 07:36:35 PM CDT: rigorousseed=1,seedfrom=1,seedto=1
+Tue 19 Sep 2023 07:36:35 PM CDT: Running seed=1
+Tue 19 Sep 2023 07:48:09 PM CDT: Experiment done (seed=1)
+Tue 19 Sep 2023 07:48:10 PM CDT: rigorousseed=2,seedfrom=2,seedto=2
+Tue 19 Sep 2023 07:48:10 PM CDT: Running seed=2
+Tue 19 Sep 2023 08:01:42 PM CDT: Experiment done (seed=2)
+Tue 19 Sep 2023 08:01:43 PM CDT: rigorousseed=3,seedfrom=3,seedto=3
+Tue 19 Sep 2023 08:01:43 PM CDT: Running seed=3
+Tue 19 Sep 2023 08:17:23 PM CDT: Experiment done (seed=3)
+Tue 19 Sep 2023 08:17:23 PM CDT: rigorousseed=4,seedfrom=4,seedto=4
+Tue 19 Sep 2023 08:17:23 PM CDT: Running seed=4
+Tue 19 Sep 2023 08:30:40 PM CDT: Experiment done (seed=4)
+Tue 19 Sep 2023 08:30:40 PM CDT: rigorousseed=5,seedfrom=5,seedto=5
+Tue 19 Sep 2023 08:30:40 PM CDT: Running seed=5
+Tue 19 Sep 2023 08:44:32 PM CDT: Experiment done (seed=5)
+Tue 19 Sep 2023 08:44:32 PM CDT: rigorousseed=6,seedfrom=6,seedto=6
+Tue 19 Sep 2023 08:44:32 PM CDT: Running seed=6
+Tue 19 Sep 2023 09:02:22 PM CDT: Experiment done (seed=6)
+Tue 19 Sep 2023 09:02:23 PM CDT: rigorousseed=7,seedfrom=7,seedto=7
+Tue 19 Sep 2023 09:02:23 PM CDT: Running seed=7
+Tue 19 Sep 2023 09:13:50 PM CDT: Set up parameters
+topology=rrg
+routing=32disjoint
+trafficmatrix=575to575
+mode=kawa1
+searchstart=5
+searchend=6
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Tue 19 Sep 2023 09:13:51 PM CDT: Run experiment search start
+mult=5,numerator=0,denominator=0
+Tue 19 Sep 2023 09:13:51 PM CDT: Result already exists (seed=0)
+Tue 19 Sep 2023 09:13:54 PM CDT: n99fct=9.62226,totaltraffic=29064745500
+Tue 19 Sep 2023 09:13:54 PM CDT: Run experiment search end
+mult=6,numerator=0,denominator=0
+Tue 19 Sep 2023 09:13:54 PM CDT: Result already exists (seed=0)
+Tue 19 Sep 2023 09:13:59 PM CDT: n99fct=15.543,totaltraffic=34986538500
+Tue 19 Sep 2023 09:13:59 PM CDT: Start binary search.
+searchmid=5.5,searchstart=5,searchend=6
+Tue 19 Sep 2023 09:13:59 PM CDT: Run experiment
+mult=5,numerator=5,denominator=10
+Tue 19 Sep 2023 09:13:59 PM CDT: Result already exists (seed=0)
+Tue 19 Sep 2023 09:14:03 PM CDT: n99fct=10.8907,totaltraffic=32038734000
+Change searchend to 5.5
+searchstart=5,searchend=5.5
+searchmid=5.25,searchstart=5,searchend=5.5
+Tue 19 Sep 2023 09:14:03 PM CDT: Run experiment
+mult=5,numerator=25,denominator=100
+Tue 19 Sep 2023 09:14:03 PM CDT: Result already exists (seed=0)
+Tue 19 Sep 2023 09:14:07 PM CDT: n99fct=10.2417,totaltraffic=30547464000
+Change searchend to 5.25
+searchstart=5,searchend=5.25
+searchmid=5.125,searchstart=5,searchend=5.25
+Tue 19 Sep 2023 09:14:07 PM CDT: Run experiment
+mult=5,numerator=125,denominator=1000
+Tue 19 Sep 2023 09:14:07 PM CDT: Result already exists (seed=0)
+Tue 19 Sep 2023 09:14:11 PM CDT: n99fct=9.88353,totaltraffic=29831268000
+Change searchstart to 5.125
+searchstart=5.125,searchend=5.25
+searchmid=5.1875,searchstart=5.125,searchend=5.25
+Tue 19 Sep 2023 09:14:11 PM CDT: Run experiment
+mult=5,numerator=1875,denominator=10000
+Tue 19 Sep 2023 09:14:11 PM CDT: Result already exists (seed=0)
+Tue 19 Sep 2023 09:14:15 PM CDT: n99fct=10.122,totaltraffic=30159192000
+Tue 19 Sep 2023 09:14:15 PM CDT: isCloseEnough searchstart=5.125,searchmid=5.1875,searchend=5.25
+searchstart: n99fct=9.88353,totaltraffic=29831268000
+searchmid: n99fct=10.122,totaltraffic=30159192000
+searchend: n99fct=10.2417,totaltraffic=30547464000
+=========[searchstart,searchmid]=========
+=========[5.125,5.1875]=========
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Tue 19 Sep 2023 09:14:15 PM CDT
+topology=rrg
+routing=32disjoint
+trafficmatrix=575to575
+mode=kawa1
+p1=5.125
+p2=5.1875
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Tue 19 Sep 2023 09:14:15 PM CDT: Run experiment for p1
+mult=5,numerator=125,denominator=1000
+Tue 19 Sep 2023 09:14:15 PM CDT: rigorousseed=0,seedfrom=0,seedto=0
+Tue 19 Sep 2023 09:14:15 PM CDT: Running seed=0
+Tue 19 Sep 2023 09:14:15 PM CDT: Result already exists (seed=0)
+Tue 19 Sep 2023 09:14:16 PM CDT: rigorousseed=1,seedfrom=1,seedto=1
+Tue 19 Sep 2023 09:14:16 PM CDT: Running seed=1
+Tue 19 Sep 2023 09:14:16 PM CDT: Result already exists (seed=1)
+Tue 19 Sep 2023 09:14:16 PM CDT: rigorousseed=2,seedfrom=2,seedto=2
+Tue 19 Sep 2023 09:14:16 PM CDT: Running seed=2
+Tue 19 Sep 2023 09:14:16 PM CDT: Result already exists (seed=2)
+Tue 19 Sep 2023 09:14:17 PM CDT: rigorousseed=3,seedfrom=3,seedto=3
+Tue 19 Sep 2023 09:14:17 PM CDT: Running seed=3
+Tue 19 Sep 2023 09:14:17 PM CDT: Result already exists (seed=3)
+Tue 19 Sep 2023 09:14:17 PM CDT: rigorousseed=4,seedfrom=4,seedto=4
+Tue 19 Sep 2023 09:14:17 PM CDT: Running seed=4
+Tue 19 Sep 2023 09:14:17 PM CDT: Result already exists (seed=4)
+Tue 19 Sep 2023 09:14:18 PM CDT: rigorousseed=5,seedfrom=5,seedto=5
+Tue 19 Sep 2023 09:14:18 PM CDT: Running seed=5
+Tue 19 Sep 2023 09:14:18 PM CDT: Result already exists (seed=5)
+Tue 19 Sep 2023 09:14:18 PM CDT: rigorousseed=6,seedfrom=6,seedto=6
+Tue 19 Sep 2023 09:14:18 PM CDT: Running seed=6
+Tue 19 Sep 2023 09:14:18 PM CDT: Result already exists (seed=6)
+Tue 19 Sep 2023 09:14:19 PM CDT: rigorousseed=7,seedfrom=7,seedto=7
+Tue 19 Sep 2023 09:14:19 PM CDT: Running seed=7
+Tue 19 Sep 2023 09:29:55 PM CDT: Experiment done (seed=7)
+Tue 19 Sep 2023 09:29:56 PM CDT: rigorousseed=8,seedfrom=8,seedto=8
+Tue 19 Sep 2023 09:29:56 PM CDT: Running seed=8
+Tue 19 Sep 2023 09:45:11 PM CDT: Experiment done (seed=8)
+Tue 19 Sep 2023 09:45:12 PM CDT: rigorousseed=9,seedfrom=9,seedto=9
+Tue 19 Sep 2023 09:45:12 PM CDT: Running seed=9
+Tue 19 Sep 2023 10:00:16 PM CDT: Experiment done (seed=9)
+Tue 19 Sep 2023 10:00:17 PM CDT: Collecting stats for suddiscover_rrg_32disjoint_575to575_standard_1_kawa1_0/5_125_1000_100
+Tue 19 Sep 2023 10:00:54 PM CDT: n99fct=9.84964,totaltraffic=29732401950
+Tue 19 Sep 2023 10:00:54 PM CDT: Run experiment for p2
+mult=5,numerator=1875,denominator=10000
+Tue 19 Sep 2023 10:00:54 PM CDT: rigorousseed=0,seedfrom=0,seedto=0
+Tue 19 Sep 2023 10:00:54 PM CDT: Running seed=0
+Tue 19 Sep 2023 10:00:54 PM CDT: Result already exists (seed=0)
+Tue 19 Sep 2023 10:00:54 PM CDT: rigorousseed=1,seedfrom=1,seedto=1
+Tue 19 Sep 2023 10:00:54 PM CDT: Running seed=1
+Tue 19 Sep 2023 10:17:38 PM CDT: Experiment done (seed=1)
+Tue 19 Sep 2023 10:17:38 PM CDT: rigorousseed=2,seedfrom=2,seedto=2
+Tue 19 Sep 2023 10:17:38 PM CDT: Running seed=2
+Tue 19 Sep 2023 10:32:16 PM CDT: Experiment done (seed=2)
+Tue 19 Sep 2023 10:32:16 PM CDT: rigorousseed=3,seedfrom=3,seedto=3
+Tue 19 Sep 2023 10:32:16 PM CDT: Running seed=3
+Tue 19 Sep 2023 10:46:47 PM CDT: Experiment done (seed=3)
+Tue 19 Sep 2023 10:46:47 PM CDT: rigorousseed=4,seedfrom=4,seedto=4
+Tue 19 Sep 2023 10:46:47 PM CDT: Running seed=4
+Tue 19 Sep 2023 11:01:55 PM CDT: Experiment done (seed=4)
+Tue 19 Sep 2023 11:01:56 PM CDT: rigorousseed=5,seedfrom=5,seedto=5
+Tue 19 Sep 2023 11:01:56 PM CDT: Running seed=5
+Tue 19 Sep 2023 11:16:26 PM CDT: Experiment done (seed=5)
+Tue 19 Sep 2023 11:16:27 PM CDT: rigorousseed=6,seedfrom=6,seedto=6
+Tue 19 Sep 2023 11:16:27 PM CDT: Running seed=6
+Tue 19 Sep 2023 11:30:26 PM CDT: Experiment done (seed=6)
+Tue 19 Sep 2023 11:30:26 PM CDT: rigorousseed=7,seedfrom=7,seedto=7
+Tue 19 Sep 2023 11:30:26 PM CDT: Running seed=7
+Tue 19 Sep 2023 11:44:15 PM CDT: Experiment done (seed=7)
+Tue 19 Sep 2023 11:44:16 PM CDT: rigorousseed=8,seedfrom=8,seedto=8
+Tue 19 Sep 2023 11:44:16 PM CDT: Running seed=8
+Tue 19 Sep 2023 11:59:02 PM CDT: Experiment done (seed=8)
+Tue 19 Sep 2023 11:59:02 PM CDT: rigorousseed=9,seedfrom=9,seedto=9
+Tue 19 Sep 2023 11:59:02 PM CDT: Running seed=9
+Wed 20 Sep 2023 12:10:47 AM CDT: Experiment done (seed=9)
+Wed 20 Sep 2023 12:10:48 AM CDT: Collecting stats for suddiscover_rrg_32disjoint_575to575_standard_1_kawa1_0/5_1875_10000_100
+Wed 20 Sep 2023 12:11:20 AM CDT: n99fct=10.0431,totaltraffic=30097159950
+Wed 20 Sep 2023 12:11:20 AM CDT: Calculating the cutoff point
+n99fct1=9.84964,totaltraffic1=29732401950,n99fct2=10.0431,totaltraffic2=30097159950
+m=5.30379e-10,b=-5.9198,y=10,x=3.00159e+10
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================
+===============Close Interval Found==============
