@@ -172,6 +172,19 @@ If cluster traffic, use:
 | WeightTuning | Set up LP and solve, through reading lp file or Gurobi Java API. | [repo](https://github.com/AnnZhouCcc/WeightTuning) |
 | PathWeightFileGenerator | 1.Quantize; 2.Convert PBR to DBR; 3.Evaluate leafspine. | [repo](https://github.com/AnnZhouCcc/PathWeightFileGenerator) |
 | ObliviousRoutingInvestigation | Generate and parse path weight files for oblivious routing. | [repo](https://github.com/AnnZhouCcc/ObliviousRoutingInvestigation) |
+| MiscellaneousScripts | A collection of miscellaneous scripts, some quite important. | [repo](https://github.com/AnnZhouCcc/MiscellaneousScripts) |
+| WTHelpers | (heavily used before, not used now) A collection of helper methods related to path weight tuning. | [repo](https://github.com/AnnZhouCcc/WTHelpers) |
+| PathWeightFileChecker | (used before, I think not used now) Check the correctness of the path weight files. | [repo](https://github.com/AnnZhouCcc/PathWeightFileChecker) |
+| yates-ann | Generate and transfer path files from SMORE. | [repo](https://github.com/AnnZhouCcc/yates-ann) |
+| yates-transfer | Generate and transfer path files from SMORE. | [repo](https://github.com/AnnZhouCcc/yates-transfer) |
+| DataParsing | Parse the cluster traffic from Meta. | [repo](https://github.com/AnnZhouCcc/DataParsing) |
+| DataAnalysis | Compute stats of the cluster traffic from Meta. | [repo](https://github.com/AnnZhouCcc/DataAnalysis) |
+| semi\_oblivious\_sigcomm\_plotting | Plotting scripts for figures in the SIGCOMM submission. | [repo](https://github.com/ruipeterpan/semi_oblivious_sigcomm_plotting) |
+| RoutingComparison | (Not used; correctness unsure; could be potentially useful) Compare to WCMP. | [repo](https://github.com/AnnZhouCcc/RoutingComparison) |
+| GRDelay | (Not used; correctness unsure) I think involving cluste delay. | [repo](https://github.com/AnnZhouCcc/GRDelay) |
+| LocalRouting | (Not used; correctness unsure) Investigate making routing decisions purely based on local information of a switch. | [repo](https://github.com/AnnZhouCcc/LocalRouting) |
+| LRConvergence | (Not used; correctness unsure) Investigate making routing decisions purely based on local information of a switch. | [repo](https://github.com/AnnZhouCcc/LRConvergence) |
+| Topology | (Not used; correctness unsure) 1.Compute stats; 2.Generate netpath file. | [repo](https://github.com/AnnZhouCcc/Topology) |
 
 ---
 
