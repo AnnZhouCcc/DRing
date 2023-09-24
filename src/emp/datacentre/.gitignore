@@ -21,10 +21,14 @@ rediscover_directories/rediscover_*_*_*_*/*_*_*_*_*
 rediscover_directories/rediscover_*_*_*_*/*_output
 !rediscover_directories/rediscover_*_*_*_*/*_*_*_*_summary
 !rediscover_directories/rediscover_*_*_*_*/log.txt
-suddiscover_*_*_*_*/*_*_*_*_*
-suddiscover_*_*_*_*/*_output
-!suddiscover_*_*_*_*/*_*_*_*_summary
-!suddiscover_*_*_*_*/log.txt
+suddiscover_dir/suddiscover_*_*_*_*/*_*_*_*_*
+suddiscover_dir/suddiscover_*_*_*_*/*_output
+!suddiscover_dir/suddiscover_*_*_*_*/*_*_*_*_summary
+!suddiscover_dir/suddiscover_*_*_*_*/log.txt
+oblivious_routing_discover_dir/oblivious_routing_discover_*_*_*_*/*_*_*_*_*
+oblivious_routing_discover_dir/oblivious_routing_discover_*_*_*_*/*_output
+!oblivious_routing_discover_dir/oblivious_routing_discover_*_*_*_*/*_*_*_*_summary
+!oblivious_routing_discover_dir/oblivious_routing_discover_*_*_*_*/log.txt
 compressed_discover_logfiles/discover_*_*_*_*/*_*_*_*_*
 !compressed_discover_logfiles/discover_*_*_*_*/*_*_*_*_summary
 !compressed_discover_logfiles/discover_*_*_*_*/log.txt
@@ -36,4 +40,6 @@ compressed_discover_logfiles/discover_*_*_*_*/*_output
 !pathweightfiles/*/*/*/*.tar.gz
 trafficfiles/cluster_*/
 trafficfiles/sud_robustness/
+trafficfiles/sud_robustness_fix2988/
 archive_suddiscover_*_*_cluster*_*/
+rrg_ecmp_a2a.zip
