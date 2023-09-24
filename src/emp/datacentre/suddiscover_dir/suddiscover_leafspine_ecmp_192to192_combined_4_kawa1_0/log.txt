@@ -139,3 +139,17 @@ m=3.37793e-10,b=0.064629,y=10,x=2.94126e+10
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 =================================================
 ===============Close Interval Found==============
+Tue Sep 19 22:08:01 CDT 2023: Set up parameters
+topology=leafspine
+routing=ecmp
+trafficmatrix=192to192
+mode=kawa1
+searchstart=20
+searchend=24
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Tue Sep 19 22:08:02 CDT 2023: Run experiment search start
+mult=20,numerator=0,denominator=0

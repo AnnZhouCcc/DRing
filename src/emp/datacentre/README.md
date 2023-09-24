@@ -3,6 +3,7 @@
 ## Experiment 1: (scalability) produce netpathfile for special topology + su3
 - `netpath_produce.sh`
 1. Fix lines 1,2,3
+
 Example 1:
 ```
 1 topology=dring48
@@ -28,6 +29,7 @@ Example 2:
 ```
 - `main_flowsize.cpp`
 1. Fix line 150 with the name of the netpathfile to be generated
+
 Example: `150 string npfile = "netpath_su3_rrg96-2.txt";`
 2. Uncomment lines 425-431
 ```
@@ -64,6 +66,7 @@ Example: `150 string npfile = "netpath_su3_rrg96-2.txt";`
 ```
 - `main_flowsize.cpp`
 1. Fix line 150 with the name of the netpathfile to be generated
+
 Example: `150 string npfile = "netpath_40short_rrg.txt";`
 2. Uncomment lines 425-431
 ```
@@ -162,11 +165,11 @@ If cluster traffic, use:
 [traffic] can be a2a, r2r0, 16to4-0, clustera, etc.
 
 ## Repos involved in the Starfish project
-| Repo | Description | Local | GitHub |
-| ----------- | ----------- | ----------- | ----------- |
-| DRing | The packet simulator. | Y | Y |
-| Header | Title | Y/N | Y/N |
-| Paragraph | Text | Y/N | Y/N |
+| Repo | Description | GitHub |
+| ----------- | ----------- | ----------- |
+| DRing | The packet simulator. | Y |
+| Header | Title | Y/N |
+| ObliviousRoutingInvestigation | Generate and parse path weight files for oblivious routing. | [repo](https://github.com/AnnZhouCcc/ObliviousRoutingInvestigation) |
 
 ---
 

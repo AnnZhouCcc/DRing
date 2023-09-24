@@ -8,7 +8,7 @@
 #define NUMPATHS 16
 
 #define NSW 80	
-#define NHOST 2988
+#define NHOST 3072
 
 #define OVERSUBSCRIPTION 1
 

@@ -92,3 +92,36 @@ Tue 19 Sep 2023 07:10:11 PM CDT: Running seed=0
 Tue 19 Sep 2023 07:10:11 PM CDT: Result already exists (seed=0)
 Tue 19 Sep 2023 07:10:11 PM CDT: rigorousseed=1,seedfrom=1,seedto=1
 Tue 19 Sep 2023 07:10:11 PM CDT: Running seed=1
+Tue 19 Sep 2023 07:11:16 PM CDT: Experiment done (seed=1)
+Tue 19 Sep 2023 07:11:16 PM CDT: rigorousseed=2,seedfrom=2,seedto=2
+Tue 19 Sep 2023 07:11:16 PM CDT: Running seed=2
+Tue 19 Sep 2023 07:12:21 PM CDT: Experiment done (seed=2)
+Tue 19 Sep 2023 07:12:21 PM CDT: rigorousseed=3,seedfrom=3,seedto=3
+Tue 19 Sep 2023 07:12:21 PM CDT: Running seed=3
+Tue 19 Sep 2023 07:13:26 PM CDT: Experiment done (seed=3)
+Tue 19 Sep 2023 07:13:26 PM CDT: rigorousseed=4,seedfrom=4,seedto=4
+Tue 19 Sep 2023 07:13:26 PM CDT: Running seed=4
+Tue 19 Sep 2023 07:14:35 PM CDT: Experiment done (seed=4)
+Tue 19 Sep 2023 07:14:35 PM CDT: rigorousseed=5,seedfrom=5,seedto=5
+Tue 19 Sep 2023 07:14:35 PM CDT: Running seed=5
+Tue 19 Sep 2023 07:15:39 PM CDT: Experiment done (seed=5)
+Tue 19 Sep 2023 07:15:39 PM CDT: rigorousseed=6,seedfrom=6,seedto=6
+Tue 19 Sep 2023 07:15:39 PM CDT: Running seed=6
+Tue 19 Sep 2023 07:16:44 PM CDT: Experiment done (seed=6)
+Tue 19 Sep 2023 07:16:44 PM CDT: rigorousseed=7,seedfrom=7,seedto=7
+Tue 19 Sep 2023 07:16:44 PM CDT: Running seed=7
+Tue 19 Sep 2023 07:17:48 PM CDT: Experiment done (seed=7)
+Tue 19 Sep 2023 07:17:48 PM CDT: rigorousseed=8,seedfrom=8,seedto=8
+Tue 19 Sep 2023 07:17:48 PM CDT: Running seed=8
+Tue 19 Sep 2023 07:18:52 PM CDT: Experiment done (seed=8)
+Tue 19 Sep 2023 07:18:52 PM CDT: rigorousseed=9,seedfrom=9,seedto=9
+Tue 19 Sep 2023 07:18:52 PM CDT: Running seed=9
+Tue 19 Sep 2023 07:19:56 PM CDT: Experiment done (seed=9)
+Tue 19 Sep 2023 07:19:56 PM CDT: Collecting stats for suddiscover_rrg_32disjoint_95to95_standard_3_kawa1_0/31_5_10_100
+Tue 19 Sep 2023 07:20:02 PM CDT: n99fct=10.151,totaltraffic=4946397600
+Tue 19 Sep 2023 07:20:02 PM CDT: Calculating the cutoff point
+n99fct1=9.97285,totaltraffic1=4864625700,n99fct2=10.151,totaltraffic2=4946397600
+m=2.17862e-09,b=-0.625321,y=10,x=4.87709e+09
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================
+===============Close Interval Found==============
