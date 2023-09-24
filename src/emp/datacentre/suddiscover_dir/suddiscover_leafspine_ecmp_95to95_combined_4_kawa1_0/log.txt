@@ -1,0 +1,22 @@
+Tue 19 Sep 2023 06:53:08 PM CDT: Set up parameters
+topology=leafspine
+routing=ecmp
+trafficmatrix=95to95
+mode=kawa1
+searchstart=22
+searchend=24
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Tue 19 Sep 2023 06:53:09 PM CDT: Run experiment search start
+mult=22,numerator=0,denominator=0
+Tue 19 Sep 2023 06:55:11 PM CDT: Experiment done (seed=0)
+Tue 19 Sep 2023 06:55:12 PM CDT: n99fct=6.36904,totaltraffic=6877816500
+Tue 19 Sep 2023 06:55:12 PM CDT: Run experiment search end
+mult=24,numerator=0,denominator=0
+Tue 19 Sep 2023 06:57:30 PM CDT: Experiment done (seed=0)
+Tue 19 Sep 2023 06:57:31 PM CDT: n99fct=8.7372,totaltraffic=7496023500
+10 > 8.7372 ? 1
+10 < 6.36904 ? 0

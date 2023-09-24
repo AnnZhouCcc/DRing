@@ -1,0 +1,14 @@
+Tue Sep 19 19:01:06 CDT 2023: Set up parameters
+topology=rrg
+routing=32disjoint
+trafficmatrix=575to575
+mode=kawa1
+searchstart=5
+searchend=6
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Tue Sep 19 19:01:06 CDT 2023: Run experiment search start
+mult=5,numerator=0,denominator=0

@@ -1,0 +1,44 @@
+Tue 19 Sep 2023 06:45:33 PM CDT: Set up parameters
+topology=leafspine
+routing=ecmp
+trafficmatrix=95to95
+mode=kawa1
+searchstart=22
+searchend=24
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Tue 19 Sep 2023 06:45:33 PM CDT: Run experiment search start
+mult=22,numerator=0,denominator=0
+Tue 19 Sep 2023 06:47:38 PM CDT: Experiment done (seed=0)
+Tue 19 Sep 2023 06:47:39 PM CDT: n99fct=4.94727,totaltraffic=6874039500
+Tue 19 Sep 2023 06:47:39 PM CDT: Run experiment search end
+mult=24,numerator=0,denominator=0
+Tue 19 Sep 2023 06:49:44 PM CDT: Experiment done (seed=0)
+Tue 19 Sep 2023 06:49:45 PM CDT: n99fct=6.52221,totaltraffic=7497156000
+10 > 6.52221 ? 1
+10 < 4.94727 ? 0
+Tue 19 Sep 2023 06:55:32 PM CDT: Set up parameters
+topology=leafspine
+routing=ecmp
+trafficmatrix=95to95
+mode=kawa1
+searchstart=24
+searchend=28
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Tue 19 Sep 2023 06:55:32 PM CDT: Run experiment search start
+mult=24,numerator=0,denominator=0
+Tue 19 Sep 2023 06:55:32 PM CDT: Result already exists (seed=0)
+Tue 19 Sep 2023 06:55:33 PM CDT: n99fct=6.52221,totaltraffic=7497156000
+Tue 19 Sep 2023 06:55:33 PM CDT: Run experiment search end
+mult=28,numerator=0,denominator=0
+Tue 19 Sep 2023 06:58:41 PM CDT: Experiment done (seed=0)
+Tue 19 Sep 2023 06:58:42 PM CDT: n99fct=9.4481,totaltraffic=8769966000
+10 > 9.4481 ? 1
+10 < 6.52221 ? 0

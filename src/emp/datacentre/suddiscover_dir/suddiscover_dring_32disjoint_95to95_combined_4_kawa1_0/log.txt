@@ -1,0 +1,22 @@
+Tue 19 Sep 2023 06:57:23 PM CDT: Set up parameters
+topology=dring
+routing=32disjoint
+trafficmatrix=95to95
+mode=kawa1
+searchstart=22
+searchend=24
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Tue 19 Sep 2023 06:57:23 PM CDT: Run experiment search start
+mult=22,numerator=0,denominator=0
+Tue 19 Sep 2023 06:59:19 PM CDT: Experiment done (seed=0)
+Tue 19 Sep 2023 06:59:20 PM CDT: n99fct=6.47687,totaltraffic=6877783500
+Tue 19 Sep 2023 06:59:20 PM CDT: Run experiment search end
+mult=24,numerator=0,denominator=0
+Tue 19 Sep 2023 07:01:24 PM CDT: Experiment done (seed=0)
+Tue 19 Sep 2023 07:01:25 PM CDT: n99fct=8.60664,totaltraffic=7496302500
+10 > 8.60664 ? 1
+10 < 6.47687 ? 0

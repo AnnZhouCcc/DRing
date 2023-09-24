@@ -1,0 +1,193 @@
+Tue Sep 19 08:27:06 PM EDT 2023: Set up parameters
+topology=rrg
+routing=32disjoint
+trafficmatrix=1535to1535
+mode=kawa1
+searchstart=0.5
+searchend=1.5
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Tue Sep 19 08:27:06 PM EDT 2023: Run experiment search start
+mult=0,numerator=5,denominator=10
+Tue Sep 19 08:31:58 PM EDT 2023: Experiment done (seed=0)
+Tue Sep 19 08:32:00 PM EDT 2023: n99fct=0.717109,totaltraffic=20341549500
+Tue Sep 19 08:32:00 PM EDT 2023: Run experiment search end
+mult=1,numerator=5,denominator=10
+Tue Sep 19 09:00:24 PM EDT 2023: Experiment done (seed=0)
+Tue Sep 19 09:00:30 PM EDT 2023: n99fct=10.2023,totaltraffic=61533706500
+Tue Sep 19 09:00:30 PM EDT 2023: Start binary search.
+searchmid=1,searchstart=0.5,searchend=1.5
+Tue Sep 19 09:00:30 PM EDT 2023: Run experiment
+mult=1,numerator=0,denominator=0
+Tue Sep 19 09:18:51 PM EDT 2023: Experiment done (seed=0)
+Tue Sep 19 09:18:56 PM EDT 2023: n99fct=2.7184,totaltraffic=40955901000
+Change searchstart to 1
+searchstart=1,searchend=1.5
+searchmid=1.25,searchstart=1,searchend=1.5
+Tue Sep 19 09:18:56 PM EDT 2023: Run experiment
+mult=1,numerator=25,denominator=100
+Tue Sep 19 09:43:57 PM EDT 2023: Experiment done (seed=0)
+Tue Sep 19 09:44:03 PM EDT 2023: n99fct=6.68151,totaltraffic=51197211000
+Change searchstart to 1.25
+searchstart=1.25,searchend=1.5
+searchmid=1.375,searchstart=1.25,searchend=1.5
+Tue Sep 19 09:44:03 PM EDT 2023: Run experiment
+mult=1,numerator=375,denominator=1000
+Tue Sep 19 10:08:28 PM EDT 2023: Set up parameters
+topology=rrg
+routing=32disjoint
+trafficmatrix=1535to1535
+mode=kawa1
+searchstart=0.5
+searchend=1.5
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Tue Sep 19 10:08:28 PM EDT 2023: Run experiment search start
+mult=0,numerator=5,denominator=10
+Tue Sep 19 10:08:28 PM EDT 2023: Result already exists (seed=0)
+Tue Sep 19 10:08:31 PM EDT 2023: n99fct=0.717109,totaltraffic=20341549500
+Tue Sep 19 10:08:31 PM EDT 2023: Run experiment search end
+mult=1,numerator=5,denominator=10
+Tue Sep 19 10:08:31 PM EDT 2023: Result already exists (seed=0)
+Tue Sep 19 10:08:38 PM EDT 2023: n99fct=10.2023,totaltraffic=61533706500
+Tue Sep 19 10:08:38 PM EDT 2023: Start binary search.
+searchmid=1,searchstart=0.5,searchend=1.5
+Tue Sep 19 10:08:38 PM EDT 2023: Run experiment
+mult=1,numerator=0,denominator=0
+Tue Sep 19 10:08:38 PM EDT 2023: Result already exists (seed=0)
+Tue Sep 19 10:08:42 PM EDT 2023: n99fct=2.7184,totaltraffic=40955901000
+Change searchstart to 1
+searchstart=1,searchend=1.5
+searchmid=1.25,searchstart=1,searchend=1.5
+Tue Sep 19 10:08:42 PM EDT 2023: Run experiment
+mult=1,numerator=25,denominator=100
+Tue Sep 19 10:08:42 PM EDT 2023: Result already exists (seed=0)
+Tue Sep 19 10:08:48 PM EDT 2023: n99fct=6.68151,totaltraffic=51197211000
+Change searchstart to 1.25
+searchstart=1.25,searchend=1.5
+searchmid=1.375,searchstart=1.25,searchend=1.5
+Tue Sep 19 10:08:48 PM EDT 2023: Run experiment
+mult=1,numerator=375,denominator=1000
+Tue Sep 19 10:37:45 PM EDT 2023: Experiment done (seed=0)
+Tue Sep 19 10:37:51 PM EDT 2023: n99fct=8.60421,totaltraffic=56376189000
+Change searchstart to 1.375
+searchstart=1.375,searchend=1.5
+searchmid=1.4375,searchstart=1.375,searchend=1.5
+Tue Sep 19 10:37:51 PM EDT 2023: Run experiment
+mult=1,numerator=4375,denominator=10000
+Tue Sep 19 11:10:11 PM EDT 2023: Experiment done (seed=0)
+Tue Sep 19 11:10:18 PM EDT 2023: n99fct=9.50204,totaltraffic=59020426500
+Change searchstart to 1.4375
+searchstart=1.4375,searchend=1.5
+searchmid=1.46875,searchstart=1.4375,searchend=1.5
+Tue Sep 19 11:10:18 PM EDT 2023: Run experiment
+mult=1,numerator=46875,denominator=100000
+Tue Sep 19 11:43:00 PM EDT 2023: Experiment done (seed=0)
+Tue Sep 19 11:43:07 PM EDT 2023: n99fct=9.90856,totaltraffic=60318583500
+Change searchstart to 1.46875
+searchstart=1.46875,searchend=1.5
+searchmid=1.48438,searchstart=1.46875,searchend=1.5
+Tue Sep 19 11:43:07 PM EDT 2023: Run experiment
+mult=1,numerator=48438,denominator=100000
+Wed Sep 20 12:15:19 AM EDT 2023: Experiment done (seed=0)
+Wed Sep 20 12:15:26 AM EDT 2023: n99fct=9.97777,totaltraffic=60929950500
+Wed Sep 20 12:15:26 AM EDT 2023: isCloseEnough searchstart=1.46875,searchmid=1.48438,searchend=1.5
+searchstart: n99fct=9.90856,totaltraffic=60318583500
+searchmid: n99fct=9.97777,totaltraffic=60929950500
+searchend: n99fct=10.2023,totaltraffic=61533706500
+=========[searchmid,searchend]=========
+=========[1.48438,1.5]=========
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Wed Sep 20 12:15:26 AM EDT 2023
+topology=rrg
+routing=32disjoint
+trafficmatrix=1535to1535
+mode=kawa1
+p1=1.48438
+p2=1.5
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Wed Sep 20 12:15:26 AM EDT 2023: Run experiment for p1
+mult=1,numerator=48438,denominator=100000
+Wed Sep 20 12:15:26 AM EDT 2023: rigorousseed=0,seedfrom=0,seedto=0
+Wed Sep 20 12:15:26 AM EDT 2023: Running seed=0
+Wed Sep 20 12:15:26 AM EDT 2023: Result already exists (seed=0)
+Wed Sep 20 12:15:26 AM EDT 2023: rigorousseed=1,seedfrom=1,seedto=1
+Wed Sep 20 12:15:26 AM EDT 2023: Running seed=1
+Wed Sep 20 12:47:43 AM EDT 2023: Experiment done (seed=1)
+Wed Sep 20 12:47:43 AM EDT 2023: rigorousseed=2,seedfrom=2,seedto=2
+Wed Sep 20 12:47:43 AM EDT 2023: Running seed=2
+Wed Sep 20 01:20:03 AM EDT 2023: Experiment done (seed=2)
+Wed Sep 20 01:20:03 AM EDT 2023: rigorousseed=3,seedfrom=3,seedto=3
+Wed Sep 20 01:20:03 AM EDT 2023: Running seed=3
+Wed Sep 20 01:53:43 AM EDT 2023: Experiment done (seed=3)
+Wed Sep 20 01:53:43 AM EDT 2023: rigorousseed=4,seedfrom=4,seedto=4
+Wed Sep 20 01:53:43 AM EDT 2023: Running seed=4
+Wed Sep 20 02:27:10 AM EDT 2023: Experiment done (seed=4)
+Wed Sep 20 02:27:10 AM EDT 2023: rigorousseed=5,seedfrom=5,seedto=5
+Wed Sep 20 02:27:10 AM EDT 2023: Running seed=5
+Wed Sep 20 03:00:14 AM EDT 2023: Experiment done (seed=5)
+Wed Sep 20 03:00:14 AM EDT 2023: rigorousseed=6,seedfrom=6,seedto=6
+Wed Sep 20 03:00:14 AM EDT 2023: Running seed=6
+Wed Sep 20 03:33:05 AM EDT 2023: Experiment done (seed=6)
+Wed Sep 20 03:33:05 AM EDT 2023: rigorousseed=7,seedfrom=7,seedto=7
+Wed Sep 20 03:33:05 AM EDT 2023: Running seed=7
+Wed Sep 20 04:04:03 AM EDT 2023: Experiment done (seed=7)
+Wed Sep 20 04:04:03 AM EDT 2023: rigorousseed=8,seedfrom=8,seedto=8
+Wed Sep 20 04:04:03 AM EDT 2023: Running seed=8
+Wed Sep 20 04:35:39 AM EDT 2023: Experiment done (seed=8)
+Wed Sep 20 04:35:39 AM EDT 2023: rigorousseed=9,seedfrom=9,seedto=9
+Wed Sep 20 04:35:39 AM EDT 2023: Running seed=9
+Wed Sep 20 05:04:49 AM EDT 2023: Experiment done (seed=9)
+Wed Sep 20 05:04:49 AM EDT 2023: Collecting stats for suddiscover_rrg_32disjoint_1535to1535_standard_3_kawa1_0/1_48438_100000_100
+Wed Sep 20 05:05:55 AM EDT 2023: n99fct=9.97939,totaltraffic=60942824100
+Wed Sep 20 05:05:55 AM EDT 2023: Run experiment for p2
+mult=1,numerator=5,denominator=10
+Wed Sep 20 05:05:55 AM EDT 2023: rigorousseed=0,seedfrom=0,seedto=0
+Wed Sep 20 05:05:55 AM EDT 2023: Running seed=0
+Wed Sep 20 05:05:55 AM EDT 2023: Result already exists (seed=0)
+Wed Sep 20 05:05:55 AM EDT 2023: rigorousseed=1,seedfrom=1,seedto=1
+Wed Sep 20 05:05:55 AM EDT 2023: Running seed=1
+Wed Sep 20 05:36:21 AM EDT 2023: Experiment done (seed=1)
+Wed Sep 20 05:36:21 AM EDT 2023: rigorousseed=2,seedfrom=2,seedto=2
+Wed Sep 20 05:36:21 AM EDT 2023: Running seed=2
+Wed Sep 20 06:07:02 AM EDT 2023: Experiment done (seed=2)
+Wed Sep 20 06:07:02 AM EDT 2023: rigorousseed=3,seedfrom=3,seedto=3
+Wed Sep 20 06:07:02 AM EDT 2023: Running seed=3
+Wed Sep 20 06:36:53 AM EDT 2023: Experiment done (seed=3)
+Wed Sep 20 06:36:53 AM EDT 2023: rigorousseed=4,seedfrom=4,seedto=4
+Wed Sep 20 06:36:53 AM EDT 2023: Running seed=4
+Wed Sep 20 07:06:43 AM EDT 2023: Experiment done (seed=4)
+Wed Sep 20 07:06:43 AM EDT 2023: rigorousseed=5,seedfrom=5,seedto=5
+Wed Sep 20 07:06:43 AM EDT 2023: Running seed=5
+Wed Sep 20 07:37:17 AM EDT 2023: Experiment done (seed=5)
+Wed Sep 20 07:37:17 AM EDT 2023: rigorousseed=6,seedfrom=6,seedto=6
+Wed Sep 20 07:37:17 AM EDT 2023: Running seed=6
+Wed Sep 20 08:07:41 AM EDT 2023: Experiment done (seed=6)
+Wed Sep 20 08:07:41 AM EDT 2023: rigorousseed=7,seedfrom=7,seedto=7
+Wed Sep 20 08:07:41 AM EDT 2023: Running seed=7
+Wed Sep 20 08:32:28 AM EDT 2023: Experiment done (seed=7)
+Wed Sep 20 08:32:28 AM EDT 2023: rigorousseed=8,seedfrom=8,seedto=8
+Wed Sep 20 08:32:28 AM EDT 2023: Running seed=8
+Wed Sep 20 08:54:59 AM EDT 2023: Experiment done (seed=8)
+Wed Sep 20 08:54:59 AM EDT 2023: rigorousseed=9,seedfrom=9,seedto=9
+Wed Sep 20 08:54:59 AM EDT 2023: Running seed=9
+Wed Sep 20 09:17:59 AM EDT 2023: Experiment done (seed=9)
+Wed Sep 20 09:17:59 AM EDT 2023: Collecting stats for suddiscover_rrg_32disjoint_1535to1535_standard_3_kawa1_0/1_5_10_100
+Wed Sep 20 09:19:05 AM EDT 2023: n99fct=10.1599,totaltraffic=61547787300
+Wed Sep 20 09:19:05 AM EDT 2023: Calculating the cutoff point
+n99fct1=9.97939,totaltraffic1=60942824100,n99fct2=10.1599,totaltraffic2=61547787300
+m=2.98382e-10,b=-8.20485,y=10,x=6.10119e+10
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================
+===============Close Interval Found==============
