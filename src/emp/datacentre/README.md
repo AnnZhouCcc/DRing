@@ -232,6 +232,7 @@ if $trafficmatrix is 1536to1536_standard:
 The kawa experiments test for more skewed traffic matrices M1,M2, if we compute path weights based on M1+M2 and use these path weights to route for M1 (and M2, respectively), how the performance will be like.
 
 - There are two modes of kawa, which share the file nameing. File naming:
+
 | Name | M1 | M2 | M3 |
 | -------- | ------- | -------- | ------- |
 | standard_1 | Y | | |
@@ -241,6 +242,7 @@ The kawa experiments test for more skewed traffic matrices M1,M2, if we compute 
 | combined_2 | Y | Y | |
 | combined_3 | Y | | Y |
 |combined_4 | | Y | Y |
+
 - M1,M2,M3 are three random generations of a traffic pattern, for instance, 95to95.
 - `kawa1` computes based on `M1+M2+M3`.
 - `kawa2` computes based on `M1+M2`.
@@ -250,7 +252,7 @@ How to invoke:
 ./suddiscoverkawa.sh rrg 32disjoint kawa1 barriernocrossover 60 62 64 0 0 0 95to95 standard_1
 ```
 - traffic matrices implemented are 95,575,1535
-- they are `95=96-1`,`575=576-1`,`1535=1536-1` because I wanted to convenient way to avoid 3072-server-based traffic (96,576,1536) and use 2988-server-based traffic (95,575,1535)
+- they are `95=96-1`,`575=576-1`,`1535=1536-1` because I wanted a convenient way to avoid 3072-server-based traffic (96,576,1536) and use 2988-server-based traffic (95,575,1535)
 
 Where pathweightfiles are stored: `/home/annzhou/PathWeightFileGenerator/pathweightfiles/sud_robustness/`
 
