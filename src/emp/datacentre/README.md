@@ -164,6 +164,47 @@ If cluster traffic, use:
 3. Run `./calculate_path_stats_in_bulk.sh [traffic]`
 [traffic] can be a2a, r2r0, 16to4-0, clustera, etc.
 
+## Sud
+Used to refer to changes made for NSDI'24 fall submission. 
+
+`suddiscover.sh` has more inputs and parameter parsing than the original `discover.sh`. The additions correspond to the new experiments. In `suddiscover.sh`, output directory name `dir` is also different.
+
+## decay
+The experiment wants to see whether using weighted historical TMs to compute path weights could help with cluster traffic performance.
+
+How to invoke: 
+```
+Set L5 traffixmatrix=clusterc
+Set L16 trafficfilename=c
+./suddiscover.sh rrg 32disjoint lppbr-delay-1800-1800-decay1 barriernocrossover (searchstart) (searchend) 1800 1800 5400 1
+```
+- the first 1800 refers to `solveinterval`
+- the second 1800 refers to `computeinterval`
+- `computestart = 5400 = 7200 - 1800`
+- can be `decay1` or `decay2`
+- for cluster a,b,c, they have different `stime`
+
+Where are pathweightfiles stored:
+```
+/home/annzhou/DRing/src/emp/datacentre/pathweightfiles/$topology/$routing/$traffic/
+```
+
+Notes on decay:
+```
+1.
+$mode=lppbr-delay-1800(solveinterval)-1800(computeinterval)-decay1/2
+2.
+if $decaymode = 0:
+  pwfile as usual
+else: // $decaymode = 1 or 2:
+  pwfile=.../pathweight_decay1/2_$topology_$routing_$traffic...
+  if dbr: pathweight_pbr1_decay1/2_
+```
+
+## tera
+
+## kawa
+
 ## Repos involved in the Starfish project
 | Repo | Description | GitHub | Local data? |
 | ----------- | ----------- | ----------- | ----------- |
