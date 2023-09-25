@@ -228,6 +228,10 @@ if $trafficmatrix is 1536to1536_standard:
 ```
 - `SVR_1536_1536_standard_0` is parsed in `connection_matrix.cpp`/`setTopoFlowsServerFile()`
 
+There is also a tera for cluster traffic. I think I used it to test the performance of cluster traffic if simply routed with a2a path weights.
+- pwfile: determined by $mode, I think just set to `tera` and then it will use a2a path weights.
+- traffic: determined by $traffixmatrix, use `teraclustera`,`teraclusterb`,`teraclusterc`. This would translate to `CLUSTERT` when calling into `main_flowsize.cpp`.
+
 ## kawa
 The kawa experiments test for more skewed traffic matrices M1,M2, if we compute path weights based on M1+M2 and use these path weights to route for M1 (and M2, respectively), how the performance will be like.
 
