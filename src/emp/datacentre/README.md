@@ -198,8 +198,8 @@ $mode=lppbr-delay-1800(solveinterval)-1800(computeinterval)-decay1/2
 if $decaymode = 0:
   pwfile as usual
 else: // $decaymode = 1 or 2:
-  pwfile=.../pathweight\_decay1/2\_$topology\_$routing\_$traffic...
-  if dbr: pathweight\_pbr1\_decay1/2\_
+  pwfile=.../pathweight_decay1/2_$topology_$routing_$traffic...
+  if dbr: pathweight_pbr1_decay1/2_
 ```
 
 ## tera
@@ -207,7 +207,7 @@ The tera experiments test the performance of more uniform traffic routed using a
 
 How to invoke:
 ```
-Set L5 trafficmatrix=1536to1536\_standard
+Set L5 trafficmatrix=1536to1536_standard
 L16 trafficfilename is not used (I think)
 ./suddiscover.sh rrg 32disjoint tera barriernocrossover (searchstart) (searchend) 0 0 0 0
 ```
@@ -223,12 +223,36 @@ if $computeinterval = 0: // i.e. not for cluster traffic
   if $mode is tera:
     pwfile=pathweightfiles/$topology/$routing/a2a/pathweight_$topology_$routing_a2a_lp1_$lpsolvermode_$precision.txt
 3.
-if $trafficmatrix is 1536to1536\_standard:
-  trafficmatrixparam=SVR\_1536\_1536\_standard\_0
+if $trafficmatrix is 1536to1536_standard:
+  trafficmatrixparam=SVR_1536_1536_standard_0
 ```
-- `SVR\_1536\_1536\_standard\_0` is parsed in `connection_matrix.cpp`-`setTopoFlowsServerFile()`
+- `SVR_1536_1536_standard_0` is parsed in `connection_matrix.cpp`/`setTopoFlowsServerFile()`
 
 ## kawa
+The kawa experiments test for more skewed traffic matrices M1,M2, if we compute path weights based on M1+M2 and use these path weights to route for M1 (and M2, respectively), how the performance will be like.
+
+- There are two modes of kawa, which share the file nameing. File naming:
+| Name | M1 | M2 | M3 |
+| -------- | ------- | -------- | ------- |
+| standard_1 | Y | | |
+| standard_2 | | Y | |
+| standard_3 | | | Y |
+| combined_1 | Y | Y | Y |
+| combined_2 | Y | Y | |
+| combined_3 | Y | | Y |
+|combined_4 | | Y | Y |
+- M1,M2,M3 are three random generations of a traffic pattern, for instance, 95to95.
+- `kawa1` computes based on `M1+M2+M3`.
+- `kawa2` computes based on `M1+M2`.
+
+How to invoke:
+```
+./suddiscoverkawa.sh rrg 32disjoint kawa1 barriernocrossover 60 62 64 0 0 0 95to95 standard_1
+```
+- traffic matrices implemented are 95,575,1535
+- they are `95=96-1`,`575=576-1`,`1535=1536-1` because I wanted to convenient way to avoid 3072-server-based traffic (96,576,1536) and use 2988-server-based traffic (95,575,1535)
+
+Where pathweightfiles are stored: `/home/annzhou/PathWeightFileGenerator/pathweightfiles/sud_robustness/`
 
 ## Repos involved in the Starfish project
 | Repo | Description | GitHub | Local data? |
