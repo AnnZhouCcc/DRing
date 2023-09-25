@@ -170,12 +170,13 @@ Used to refer to changes made for NSDI'24 fall submission.
 `suddiscover.sh` has more inputs and parameter parsing than the original `discover.sh`. The additions correspond to the new experiments. In `suddiscover.sh`, output directory name `dir` is also different.
 
 ## decay
-The experiment wants to see whether using weighted historical TMs to compute path weights could help with cluster traffic performance.
+The decay experiment wants to see whether using weighted historical TMs to compute path weights could help with cluster traffic performance.
 
 How to invoke: 
 ```
 Set L5 traffixmatrix=clusterc
 Set L16 trafficfilename=c
+Set L11 stime accordingly
 ./suddiscover.sh rrg 32disjoint lppbr-delay-1800-1800-decay1 barriernocrossover (searchstart) (searchend) 1800 1800 5400 1
 ```
 - the first 1800 refers to `solveinterval`
@@ -197,11 +198,35 @@ $mode=lppbr-delay-1800(solveinterval)-1800(computeinterval)-decay1/2
 if $decaymode = 0:
   pwfile as usual
 else: // $decaymode = 1 or 2:
-  pwfile=.../pathweight_decay1/2_$topology_$routing_$traffic...
-  if dbr: pathweight_pbr1_decay1/2_
+  pwfile=.../pathweight\_decay1/2\_$topology\_$routing\_$traffic...
+  if dbr: pathweight\_pbr1\_decay1/2\_
 ```
 
 ## tera
+The tera experiments test the performance of more uniform traffic routed using a2a path weights. (I think cluster traffic is not implemented; tera is only for synthetic traffic.)
+
+How to invoke:
+```
+Set L5 trafficmatrix=1536to1536\_standard
+L16 trafficfilename is not used (I think)
+./suddiscover.sh rrg 32disjoint tera barriernocrossover (searchstart) (searchend) 0 0 0 0
+```
+- traffic implemented are: 1536, 1920, 2304, 2688, 2988/3072. However, for these traffics, when generated, I assumed there are 3072 servers, thus may be unfair to DRing.
+
+Where is pathweightfile stored: `/home/annzhou/DRing/src/emp/datacentre/pathweightfiles/$topology/$routing/a2a/`
+
+Notes on tera:
+```
+1.IT'S ALL ABOUT (1)PWFILE & (2)TRAFFIC.
+2.
+if $computeinterval = 0: // i.e. not for cluster traffic
+  if $mode is tera:
+    pwfile=pathweightfiles/$topology/$routing/a2a/pathweight_$topology_$routing_a2a_lp1_$lpsolvermode_$precision.txt
+3.
+if $trafficmatrix is 1536to1536\_standard:
+  trafficmatrixparam=SVR\_1536\_1536\_standard\_0
+```
+- `SVR\_1536\_1536\_standard\_0` is parsed in `connection_matrix.cpp`-`setTopoFlowsServerFile()`
 
 ## kawa
 
