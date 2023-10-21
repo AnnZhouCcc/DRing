@@ -450,6 +450,9 @@ int main(int argc, char **argv) {
     else if (conn_matrix.substr(0,3) == "SVR") {
         conns->setTopoFlowsServerFile(conn_matrix, simtime_ms);
     }
+    else if (conn_matrix.substr(0,3) == "C2C") {
+        conns->setTopoFlowsC2C(conn_matrix, simtime_ms);
+    }
     else if (conn_matrix == "CLUSTERX" || conn_matrix == "CLUSTERT") {
         // conns->setFlowsFromClusterXSmallInterval(top, paramstring, multiplier, numerator, denominator, solvestart, solveend, solveinterval, simtime_ms);
         conns->setTopoFlowsClusterX(top, paramstring, solvestart, solveend, solveinterval, simtime_ms, multiplier, numerator, denominator);

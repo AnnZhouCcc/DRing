@@ -2,8 +2,9 @@
 # Set parameters.
 topology=$1 #rrg/dring/leafspine
 routing=$2
-trafficmatrix=n2n
-n=$3
+trafficmatrix=c2c #n2n
+trafficmatrixbase=rrg
+norc=$3
 seednum=$4
 pwnum=$5
 mode=oblivious
@@ -16,7 +17,7 @@ precision=64
 seedfrom=0
 seedto=0
 solvestart=7200
-trafficfilename=standard_$seednum
+trafficfilename=N
 dp=64
 solveinterval=0
 let solveend=86400-$solveinterval
@@ -235,7 +236,10 @@ then
   trafficmatrixparam=SVR_192_192_$trafficfilename
 elif [ $trafficmatrix = "n2n" ]
 then
-  trafficmatrixparam=SVR_${n}_${n}_standard_$seednum
+  trafficmatrixparam=SVR_${norc}_${norc}_standard_$seednum
+elif [ $trafficmatrix = "c2c" ]
+then
+  trafficmatrixparam=C2C_${trafficmatrixbase}_${norc}_0_$seednum
 else
   echo traffic matrix $trafficmatrix not recognized.
 fi
@@ -277,7 +281,7 @@ else
 fi
 
 # Set up a logfile.
-dir=oblivious_routing_discover_${topology}_${routing}_${trafficmatrix}_${mode}_${n}_${seednum}_$pwnum
+dir=oblivious_routing_discover_${topology}_${routing}_${trafficmatrix}_${mode}_${norc}_${seednum}_$pwnum
 if [ ! -d $dir ]
 then
   mkdir $dir
@@ -487,14 +491,14 @@ do
     then
       echo ========='['searchstart,searchmid']'========= >> $logfile
       echo ========='['${searchstart},${searchmid}']'========= >> $logfile
-      ./oblivious_routing_rigorous.sh $searchstart $searchmid $topology $routing $trafficmatrix $mode $threshold $stime $mstart $mend $precision $seedfrom $seedto 0 9 $npfile $pwfile $graphname $graphfile $numservers $trafficmatrixparam $routingparam $kornparam $solvestart $solveend $trafficfilename $dp $solveinterval $computestart $computeend $computeinterval $decaymode $n $seednum $pwnum > $tempoutputfile
+      ./oblivious_routing_rigorous.sh $searchstart $searchmid $topology $routing $trafficmatrix $mode $threshold $stime $mstart $mend $precision $seedfrom $seedto 0 9 $npfile $pwfile $graphname $graphfile $numservers $trafficmatrixparam $routingparam $kornparam $solvestart $solveend $trafficfilename $dp $solveinterval $computestart $computeend $computeinterval $decaymode $norc $seednum $pwnum > $tempoutputfile
       x=$(cat $tempoutputfile | cut -d " " -f 1)
       echo $x
     elif [ $(isLessThan $n99fct $threshold ) -eq 1 ]
     then
       echo ========='['searchmid,searchend']'========= >> $logfile
       echo ========='['${searchmid},${searchend}']'========= >> $logfile
-      ./oblivious_routing_rigorous.sh $searchmid $searchend $topology $routing $trafficmatrix $mode $threshold $stime $mstart $mend $precision $seedfrom $seedto 0 9 $npfile $pwfile $graphname $graphfile $numservers $trafficmatrixparam $routingparam $kornparam $solvestart $solveend $trafficfilename $dp $solveinterval $computestart $computeend $computeinterval $decaymode $n $seednum $pwnum > $tempoutputfile
+      ./oblivious_routing_rigorous.sh $searchmid $searchend $topology $routing $trafficmatrix $mode $threshold $stime $mstart $mend $precision $seedfrom $seedto 0 9 $npfile $pwfile $graphname $graphfile $numservers $trafficmatrixparam $routingparam $kornparam $solvestart $solveend $trafficfilename $dp $solveinterval $computestart $computeend $computeinterval $decaymode $norc $seednum $pwnum > $tempoutputfile
       x=$(cat $tempoutputfile | cut -d " " -f 1)
       echo $x
     else
