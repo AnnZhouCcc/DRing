@@ -1,0 +1,162 @@
+Sat 21 Oct 2023 02:14:19 PM CDT: Set up parameters
+topology=rrg
+routing=su3
+trafficmatrix=c2c
+mode=oblivious
+searchstart=1
+searchend=2
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Sat 21 Oct 2023 02:14:19 PM CDT: Run experiment search start
+mult=1,numerator=0,denominator=0
+Sat 21 Oct 2023 02:14:38 PM CDT: Experiment done (seed=0)
+Sat 21 Oct 2023 02:14:38 PM CDT: n99fct=0.432589,totaltraffic=22635000
+Sat 21 Oct 2023 02:14:38 PM CDT: Run experiment search end
+mult=2,numerator=0,denominator=0
+Sat 21 Oct 2023 02:14:43 PM CDT: Experiment done (seed=0)
+Sat 21 Oct 2023 02:14:44 PM CDT: n99fct=10.9024,totaltraffic=49572000
+Sat 21 Oct 2023 02:14:44 PM CDT: Start binary search.
+searchmid=1.5,searchstart=1,searchend=2
+Sat 21 Oct 2023 02:14:44 PM CDT: Run experiment
+mult=1,numerator=5,denominator=10
+Sat 21 Oct 2023 02:14:49 PM CDT: Experiment done (seed=0)
+Sat 21 Oct 2023 02:14:49 PM CDT: n99fct=0.604714,totaltraffic=32202000
+Change searchstart to 1.5
+searchstart=1.5,searchend=2
+searchmid=1.75,searchstart=1.5,searchend=2
+Sat 21 Oct 2023 02:14:49 PM CDT: Run experiment
+mult=1,numerator=75,denominator=100
+Sat 21 Oct 2023 02:14:54 PM CDT: Experiment done (seed=0)
+Sat 21 Oct 2023 02:14:54 PM CDT: n99fct=8.37765,totaltraffic=43717500
+Change searchstart to 1.75
+searchstart=1.75,searchend=2
+searchmid=1.875,searchstart=1.75,searchend=2
+Sat 21 Oct 2023 02:14:54 PM CDT: Run experiment
+mult=1,numerator=875,denominator=1000
+Sat 21 Oct 2023 02:14:59 PM CDT: Experiment done (seed=0)
+Sat 21 Oct 2023 02:14:59 PM CDT: n99fct=17.3482,totaltraffic=53752500
+Change searchend to 1.875
+searchstart=1.75,searchend=1.875
+searchmid=1.8125,searchstart=1.75,searchend=1.875
+Sat 21 Oct 2023 02:14:59 PM CDT: Run experiment
+mult=1,numerator=8125,denominator=10000
+Sat 21 Oct 2023 02:15:04 PM CDT: Experiment done (seed=0)
+Sat 21 Oct 2023 02:15:04 PM CDT: n99fct=9.03938,totaltraffic=51147000
+Change searchstart to 1.8125
+searchstart=1.8125,searchend=1.875
+searchmid=1.84375,searchstart=1.8125,searchend=1.875
+Sat 21 Oct 2023 02:15:04 PM CDT: Run experiment
+mult=1,numerator=84375,denominator=100000
+Sat 21 Oct 2023 02:15:09 PM CDT: Experiment done (seed=0)
+Sat 21 Oct 2023 02:15:10 PM CDT: n99fct=0.92934,totaltraffic=40248000
+Change searchstart to 1.84375
+searchstart=1.84375,searchend=1.875
+searchmid=1.85938,searchstart=1.84375,searchend=1.875
+Sat 21 Oct 2023 02:15:10 PM CDT: Run experiment
+mult=1,numerator=85938,denominator=100000
+Sat 21 Oct 2023 02:15:15 PM CDT: Experiment done (seed=0)
+Sat 21 Oct 2023 02:15:15 PM CDT: n99fct=18.2636,totaltraffic=41734500
+Change searchend to 1.85938
+searchstart=1.84375,searchend=1.85938
+searchmid=1.85156,searchstart=1.84375,searchend=1.85938
+Sat 21 Oct 2023 02:15:15 PM CDT: Run experiment
+mult=1,numerator=85156,denominator=100000
+Sat 21 Oct 2023 02:15:20 PM CDT: Experiment done (seed=0)
+Sat 21 Oct 2023 02:15:20 PM CDT: n99fct=15.9093,totaltraffic=53910000
+Sat 21 Oct 2023 02:15:20 PM CDT: isCloseEnough searchstart=1.84375,searchmid=1.85156,searchend=1.85938
+searchstart: n99fct=0.92934,totaltraffic=40248000
+searchmid: n99fct=15.9093,totaltraffic=53910000
+searchend: n99fct=18.2636,totaltraffic=41734500
+=========[searchstart,searchmid]=========
+=========[1.84375,1.85156]=========
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sat 21 Oct 2023 02:15:20 PM CDT
+topology=rrg
+routing=su3
+trafficmatrix=c2c
+mode=oblivious
+p1=1.84375
+p2=1.85156
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Sat 21 Oct 2023 02:15:20 PM CDT: Run experiment for p1
+mult=1,numerator=84375,denominator=100000
+Sat 21 Oct 2023 02:15:20 PM CDT: rigorousseed=0,seedfrom=0,seedto=0
+Sat 21 Oct 2023 02:15:20 PM CDT: Running seed=0
+Sat 21 Oct 2023 02:15:20 PM CDT: Result already exists (seed=0)
+Sat 21 Oct 2023 02:15:20 PM CDT: rigorousseed=1,seedfrom=1,seedto=1
+Sat 21 Oct 2023 02:15:20 PM CDT: Running seed=1
+Sat 21 Oct 2023 02:15:50 PM CDT: Experiment done (seed=1)
+Sat 21 Oct 2023 02:15:50 PM CDT: rigorousseed=2,seedfrom=2,seedto=2
+Sat 21 Oct 2023 02:15:50 PM CDT: Running seed=2
+Sat 21 Oct 2023 02:16:20 PM CDT: Experiment done (seed=2)
+Sat 21 Oct 2023 02:16:20 PM CDT: rigorousseed=3,seedfrom=3,seedto=3
+Sat 21 Oct 2023 02:16:20 PM CDT: Running seed=3
+Sat 21 Oct 2023 02:16:50 PM CDT: Experiment done (seed=3)
+Sat 21 Oct 2023 02:16:50 PM CDT: rigorousseed=4,seedfrom=4,seedto=4
+Sat 21 Oct 2023 02:16:50 PM CDT: Running seed=4
+Sat 21 Oct 2023 02:17:20 PM CDT: Experiment done (seed=4)
+Sat 21 Oct 2023 02:17:20 PM CDT: rigorousseed=5,seedfrom=5,seedto=5
+Sat 21 Oct 2023 02:17:20 PM CDT: Running seed=5
+Sat 21 Oct 2023 02:17:50 PM CDT: Experiment done (seed=5)
+Sat 21 Oct 2023 02:17:51 PM CDT: rigorousseed=6,seedfrom=6,seedto=6
+Sat 21 Oct 2023 02:17:51 PM CDT: Running seed=6
+Sat 21 Oct 2023 02:18:21 PM CDT: Experiment done (seed=6)
+Sat 21 Oct 2023 02:18:21 PM CDT: rigorousseed=7,seedfrom=7,seedto=7
+Sat 21 Oct 2023 02:18:21 PM CDT: Running seed=7
+Sat 21 Oct 2023 02:18:51 PM CDT: Experiment done (seed=7)
+Sat 21 Oct 2023 02:18:51 PM CDT: rigorousseed=8,seedfrom=8,seedto=8
+Sat 21 Oct 2023 02:18:51 PM CDT: Running seed=8
+Sat 21 Oct 2023 02:19:21 PM CDT: Experiment done (seed=8)
+Sat 21 Oct 2023 02:19:21 PM CDT: rigorousseed=9,seedfrom=9,seedto=9
+Sat 21 Oct 2023 02:19:21 PM CDT: Running seed=9
+Sat 21 Oct 2023 02:19:51 PM CDT: Experiment done (seed=9)
+Sat 21 Oct 2023 02:19:51 PM CDT: Collecting stats for oblivious_routing_discover_rrg_su3_c2c_oblivious_1_1_1/1_84375_100000_100
+Sat 21 Oct 2023 02:19:51 PM CDT: n99fct=8.24863,totaltraffic=44491650
+Sat 21 Oct 2023 02:19:52 PM CDT: Run experiment for p2
+mult=1,numerator=85156,denominator=100000
+Sat 21 Oct 2023 02:19:52 PM CDT: rigorousseed=0,seedfrom=0,seedto=0
+Sat 21 Oct 2023 02:19:52 PM CDT: Running seed=0
+Sat 21 Oct 2023 02:19:52 PM CDT: Result already exists (seed=0)
+Sat 21 Oct 2023 02:19:52 PM CDT: rigorousseed=1,seedfrom=1,seedto=1
+Sat 21 Oct 2023 02:19:52 PM CDT: Running seed=1
+Sat 21 Oct 2023 02:20:22 PM CDT: Experiment done (seed=1)
+Sat 21 Oct 2023 02:20:22 PM CDT: rigorousseed=2,seedfrom=2,seedto=2
+Sat 21 Oct 2023 02:20:22 PM CDT: Running seed=2
+Sat 21 Oct 2023 02:20:52 PM CDT: Experiment done (seed=2)
+Sat 21 Oct 2023 02:20:52 PM CDT: rigorousseed=3,seedfrom=3,seedto=3
+Sat 21 Oct 2023 02:20:52 PM CDT: Running seed=3
+Sat 21 Oct 2023 02:21:22 PM CDT: Experiment done (seed=3)
+Sat 21 Oct 2023 02:21:22 PM CDT: rigorousseed=4,seedfrom=4,seedto=4
+Sat 21 Oct 2023 02:21:22 PM CDT: Running seed=4
+Sat 21 Oct 2023 02:21:52 PM CDT: Experiment done (seed=4)
+Sat 21 Oct 2023 02:21:52 PM CDT: rigorousseed=5,seedfrom=5,seedto=5
+Sat 21 Oct 2023 02:21:52 PM CDT: Running seed=5
+Sat 21 Oct 2023 02:22:22 PM CDT: Experiment done (seed=5)
+Sat 21 Oct 2023 02:22:22 PM CDT: rigorousseed=6,seedfrom=6,seedto=6
+Sat 21 Oct 2023 02:22:22 PM CDT: Running seed=6
+Sat 21 Oct 2023 02:22:52 PM CDT: Experiment done (seed=6)
+Sat 21 Oct 2023 02:22:52 PM CDT: rigorousseed=7,seedfrom=7,seedto=7
+Sat 21 Oct 2023 02:22:52 PM CDT: Running seed=7
+Sat 21 Oct 2023 02:23:22 PM CDT: Experiment done (seed=7)
+Sat 21 Oct 2023 02:23:22 PM CDT: rigorousseed=8,seedfrom=8,seedto=8
+Sat 21 Oct 2023 02:23:22 PM CDT: Running seed=8
+Sat 21 Oct 2023 02:23:52 PM CDT: Experiment done (seed=8)
+Sat 21 Oct 2023 02:23:52 PM CDT: rigorousseed=9,seedfrom=9,seedto=9
+Sat 21 Oct 2023 02:23:52 PM CDT: Running seed=9
+Sat 21 Oct 2023 02:24:22 PM CDT: Experiment done (seed=9)
+Sat 21 Oct 2023 02:24:22 PM CDT: Collecting stats for oblivious_routing_discover_rrg_su3_c2c_oblivious_1_1_1/1_85156_100000_100
+Sat 21 Oct 2023 02:24:23 PM CDT: n99fct=10.7467,totaltraffic=48044700
+Sat 21 Oct 2023 02:24:23 PM CDT: Calculating the cutoff point
+n99fct1=8.24863,totaltraffic1=44491650,n99fct2=10.7467,totaltraffic2=48044700
+m=7.03078e-07,b=-23.0325,y=10,x=4.69827e+07
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================
+===============Close Interval Found==============

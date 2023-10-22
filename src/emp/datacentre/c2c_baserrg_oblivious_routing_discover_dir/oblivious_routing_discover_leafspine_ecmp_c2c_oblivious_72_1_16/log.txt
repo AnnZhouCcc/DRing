@@ -1,0 +1,141 @@
+Sat 21 Oct 2023 12:29:23 PM CDT: Set up parameters
+topology=leafspine
+routing=ecmp
+trafficmatrix=c2c
+mode=oblivious
+searchstart=0.3
+searchend=0.4
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Sat 21 Oct 2023 12:29:24 PM CDT: Run experiment search start
+mult=0,numerator=3,denominator=10
+Sat 21 Oct 2023 12:48:07 PM CDT: Experiment done (seed=0)
+Sat 21 Oct 2023 12:48:12 PM CDT: n99fct=5.73374,totaltraffic=39276193500
+Sat 21 Oct 2023 12:48:12 PM CDT: Run experiment search end
+mult=0,numerator=4,denominator=10
+Sat 21 Oct 2023 01:15:34 PM CDT: Experiment done (seed=0)
+Sat 21 Oct 2023 01:15:41 PM CDT: n99fct=11.0758,totaltraffic=52405903500
+Sat 21 Oct 2023 01:15:41 PM CDT: Start binary search.
+searchmid=0.35,searchstart=0.3,searchend=0.4
+Sat 21 Oct 2023 01:15:41 PM CDT: Run experiment
+mult=0,numerator=35,denominator=100
+Sat 21 Oct 2023 01:36:31 PM CDT: Experiment done (seed=0)
+Sat 21 Oct 2023 01:36:37 PM CDT: n99fct=8.83898,totaltraffic=45665580000
+Change searchstart to 0.35
+searchstart=0.35,searchend=0.4
+searchmid=0.375,searchstart=0.35,searchend=0.4
+Sat 21 Oct 2023 01:36:37 PM CDT: Run experiment
+mult=0,numerator=375,denominator=1000
+Sat 21 Oct 2023 02:00:52 PM CDT: Experiment done (seed=0)
+Sat 21 Oct 2023 02:00:58 PM CDT: n99fct=9.98299,totaltraffic=48980971500
+Change searchstart to 0.375
+searchstart=0.375,searchend=0.4
+searchmid=0.3875,searchstart=0.375,searchend=0.4
+Sat 21 Oct 2023 02:00:58 PM CDT: Run experiment
+mult=0,numerator=3875,denominator=10000
+Sat 21 Oct 2023 02:27:11 PM CDT: Experiment done (seed=0)
+Sat 21 Oct 2023 02:27:18 PM CDT: n99fct=10.4917,totaltraffic=50671732500
+Change searchend to 0.3875
+searchstart=0.375,searchend=0.3875
+searchmid=0.38125,searchstart=0.375,searchend=0.3875
+Sat 21 Oct 2023 02:27:18 PM CDT: Run experiment
+mult=0,numerator=38125,denominator=100000
+Sat 21 Oct 2023 02:54:00 PM CDT: Experiment done (seed=0)
+Sat 21 Oct 2023 02:54:07 PM CDT: n99fct=10.2519,totaltraffic=49764648000
+Sat 21 Oct 2023 02:54:07 PM CDT: isCloseEnough searchstart=0.375,searchmid=0.38125,searchend=0.3875
+searchstart: n99fct=9.98299,totaltraffic=48980971500
+searchmid: n99fct=10.2519,totaltraffic=49764648000
+searchend: n99fct=10.4917,totaltraffic=50671732500
+=========[searchstart,searchmid]=========
+=========[0.375,0.38125]=========
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sat 21 Oct 2023 02:54:07 PM CDT
+topology=leafspine
+routing=ecmp
+trafficmatrix=c2c
+mode=oblivious
+p1=0.375
+p2=0.38125
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Sat 21 Oct 2023 02:54:07 PM CDT: Run experiment for p1
+mult=0,numerator=375,denominator=1000
+Sat 21 Oct 2023 02:54:07 PM CDT: rigorousseed=0,seedfrom=0,seedto=0
+Sat 21 Oct 2023 02:54:07 PM CDT: Running seed=0
+Sat 21 Oct 2023 02:54:07 PM CDT: Result already exists (seed=0)
+Sat 21 Oct 2023 02:54:08 PM CDT: rigorousseed=1,seedfrom=1,seedto=1
+Sat 21 Oct 2023 02:54:08 PM CDT: Running seed=1
+Sat 21 Oct 2023 03:20:15 PM CDT: Experiment done (seed=1)
+Sat 21 Oct 2023 03:20:16 PM CDT: rigorousseed=2,seedfrom=2,seedto=2
+Sat 21 Oct 2023 03:20:16 PM CDT: Running seed=2
+Sat 21 Oct 2023 03:46:50 PM CDT: Experiment done (seed=2)
+Sat 21 Oct 2023 03:46:51 PM CDT: rigorousseed=3,seedfrom=3,seedto=3
+Sat 21 Oct 2023 03:46:51 PM CDT: Running seed=3
+Sat 21 Oct 2023 04:11:08 PM CDT: Experiment done (seed=3)
+Sat 21 Oct 2023 04:11:08 PM CDT: rigorousseed=4,seedfrom=4,seedto=4
+Sat 21 Oct 2023 04:11:08 PM CDT: Running seed=4
+Sat 21 Oct 2023 04:37:03 PM CDT: Experiment done (seed=4)
+Sat 21 Oct 2023 04:37:04 PM CDT: rigorousseed=5,seedfrom=5,seedto=5
+Sat 21 Oct 2023 04:37:04 PM CDT: Running seed=5
+Sat 21 Oct 2023 05:03:46 PM CDT: Experiment done (seed=5)
+Sat 21 Oct 2023 05:03:47 PM CDT: rigorousseed=6,seedfrom=6,seedto=6
+Sat 21 Oct 2023 05:03:47 PM CDT: Running seed=6
+Sat 21 Oct 2023 05:31:14 PM CDT: Experiment done (seed=6)
+Sat 21 Oct 2023 05:31:15 PM CDT: rigorousseed=7,seedfrom=7,seedto=7
+Sat 21 Oct 2023 05:31:15 PM CDT: Running seed=7
+Sat 21 Oct 2023 05:56:45 PM CDT: Experiment done (seed=7)
+Sat 21 Oct 2023 05:56:46 PM CDT: rigorousseed=8,seedfrom=8,seedto=8
+Sat 21 Oct 2023 05:56:46 PM CDT: Running seed=8
+Sat 21 Oct 2023 06:23:24 PM CDT: Experiment done (seed=8)
+Sat 21 Oct 2023 06:23:25 PM CDT: rigorousseed=9,seedfrom=9,seedto=9
+Sat 21 Oct 2023 06:23:25 PM CDT: Running seed=9
+Sat 21 Oct 2023 06:48:45 PM CDT: Experiment done (seed=9)
+Sat 21 Oct 2023 06:48:46 PM CDT: Collecting stats for oblivious_routing_discover_leafspine_ecmp_c2c_oblivious_72_1_16/0_375_1000_100
+Sat 21 Oct 2023 06:49:41 PM CDT: n99fct=10.0395,totaltraffic=49026481350
+Sat 21 Oct 2023 06:49:41 PM CDT: Run experiment for p2
+mult=0,numerator=38125,denominator=100000
+Sat 21 Oct 2023 06:49:41 PM CDT: rigorousseed=0,seedfrom=0,seedto=0
+Sat 21 Oct 2023 06:49:41 PM CDT: Running seed=0
+Sat 21 Oct 2023 06:49:41 PM CDT: Result already exists (seed=0)
+Sat 21 Oct 2023 06:49:42 PM CDT: rigorousseed=1,seedfrom=1,seedto=1
+Sat 21 Oct 2023 06:49:42 PM CDT: Running seed=1
+Sat 21 Oct 2023 07:16:31 PM CDT: Experiment done (seed=1)
+Sat 21 Oct 2023 07:16:32 PM CDT: rigorousseed=2,seedfrom=2,seedto=2
+Sat 21 Oct 2023 07:16:32 PM CDT: Running seed=2
+Sat 21 Oct 2023 07:42:11 PM CDT: Experiment done (seed=2)
+Sat 21 Oct 2023 07:42:12 PM CDT: rigorousseed=3,seedfrom=3,seedto=3
+Sat 21 Oct 2023 07:42:12 PM CDT: Running seed=3
+Sat 21 Oct 2023 08:07:51 PM CDT: Experiment done (seed=3)
+Sat 21 Oct 2023 08:07:52 PM CDT: rigorousseed=4,seedfrom=4,seedto=4
+Sat 21 Oct 2023 08:07:52 PM CDT: Running seed=4
+Sat 21 Oct 2023 08:31:17 PM CDT: Experiment done (seed=4)
+Sat 21 Oct 2023 08:31:18 PM CDT: rigorousseed=5,seedfrom=5,seedto=5
+Sat 21 Oct 2023 08:31:18 PM CDT: Running seed=5
+Sat 21 Oct 2023 08:55:45 PM CDT: Experiment done (seed=5)
+Sat 21 Oct 2023 08:55:46 PM CDT: rigorousseed=6,seedfrom=6,seedto=6
+Sat 21 Oct 2023 08:55:46 PM CDT: Running seed=6
+Sat 21 Oct 2023 09:21:42 PM CDT: Experiment done (seed=6)
+Sat 21 Oct 2023 09:21:42 PM CDT: rigorousseed=7,seedfrom=7,seedto=7
+Sat 21 Oct 2023 09:21:42 PM CDT: Running seed=7
+Sat 21 Oct 2023 09:48:06 PM CDT: Experiment done (seed=7)
+Sat 21 Oct 2023 09:48:06 PM CDT: rigorousseed=8,seedfrom=8,seedto=8
+Sat 21 Oct 2023 09:48:06 PM CDT: Running seed=8
+Sat 21 Oct 2023 10:11:19 PM CDT: Experiment done (seed=8)
+Sat 21 Oct 2023 10:11:20 PM CDT: rigorousseed=9,seedfrom=9,seedto=9
+Sat 21 Oct 2023 10:11:20 PM CDT: Running seed=9
+Sat 21 Oct 2023 10:33:16 PM CDT: Experiment done (seed=9)
+Sat 21 Oct 2023 10:33:17 PM CDT: Collecting stats for oblivious_routing_discover_leafspine_ecmp_c2c_oblivious_72_1_16/0_38125_100000_100
+Sat 21 Oct 2023 10:34:11 PM CDT: n99fct=10.2625,totaltraffic=49855530150
+Sat 21 Oct 2023 10:34:11 PM CDT: Calculating the cutoff point
+n99fct1=10.0395,totaltraffic1=49026481350,n99fct2=10.2625,totaltraffic2=49855530150
+m=2.68983e-10,b=-3.14779,y=10,x=4.88796e+10
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================
+===============Close Interval Found==============

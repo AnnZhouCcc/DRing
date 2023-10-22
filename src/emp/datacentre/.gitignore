@@ -29,6 +29,10 @@ oblivious_routing_discover_dir/oblivious_routing_discover_*_*_*_*/*_*_*_*_*
 oblivious_routing_discover_dir/oblivious_routing_discover_*_*_*_*/*_output
 !oblivious_routing_discover_dir/oblivious_routing_discover_*_*_*_*/*_*_*_*_summary
 !oblivious_routing_discover_dir/oblivious_routing_discover_*_*_*_*/log.txt
+c2c_baserrg_oblivious_routing_discover_dir/oblivious_routing_discover_*_*_*_*/*_*_*_*_*
+c2c_baserrg_oblivious_routing_discover_dir/oblivious_routing_discover_*_*_*_*/*_output
+!c2c_baserrg_oblivious_routing_discover_dir/oblivious_routing_discover_*_*_*_*/*_*_*_*_summary
+!c2c_baserrg_oblivious_routing_discover_dir/oblivious_routing_discover_*_*_*_*/log.txt
 compressed_discover_logfiles/discover_*_*_*_*/*_*_*_*_*
 !compressed_discover_logfiles/discover_*_*_*_*/*_*_*_*_summary
 !compressed_discover_logfiles/discover_*_*_*_*/log.txt
@@ -41,5 +45,6 @@ compressed_discover_logfiles/discover_*_*_*_*/*_output
 trafficfiles/cluster_*/
 trafficfiles/sud_robustness/
 trafficfiles/sud_robustness_fix2988/
+trafficfiles/c2c/
 archive_suddiscover_*_*_cluster*_*/
 rrg_ecmp_a2a.zip
