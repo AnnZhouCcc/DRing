@@ -307,7 +307,7 @@ echo mend=$mend >> $logfile
 echo precision=$precision >> $logfile
 
 # Check initial interval.
-suffix=${topology}_${routing}_${trafficmatrix}_${mode}_${n}_${seednum}_$pwnum
+suffix=${topology}_${routing}_${trafficmatrix}_${mode}_${norc}_${seednum}_$pwnum
 tempoutputfile=${dir}/${suffix}_output
 make=MAKE
 
@@ -551,7 +551,7 @@ echo ===============Close Interval Found============== >> $logfile
 rm $tempoutputfile
 if [ $topology = "leafspine" ]
 then
-  rm leafspine_${topology}_${routing}_${trafficmatrix}_${mode}_${n}_${seednum}_$pwnum
+  rm leafspine_${topology}_${routing}_${trafficmatrix}_${mode}_${norc}_${seednum}_$pwnum
 else
-  rm rrg_${topology}_${routing}_${trafficmatrix}_${mode}_${n}_${seednum}_$pwnum
+  rm rrg_${topology}_${routing}_${trafficmatrix}_${mode}_${norc}_${seednum}_$pwnum
 fi
