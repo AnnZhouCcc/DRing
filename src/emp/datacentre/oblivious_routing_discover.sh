@@ -3,7 +3,7 @@
 topology=$1 #rrg/dring/leafspine
 routing=$2
 trafficmatrix=c2c #n2n
-trafficmatrixbase=rrg
+trafficmatrixbase=leafspine
 norc=$3
 seednum=$4
 pwnum=$5
