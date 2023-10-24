@@ -1,0 +1,20 @@
+Mon 23 Oct 2023 03:17:55 PM CDT: Set up parameters
+topology=rrg
+routing=ecmp
+trafficmatrix=c2c
+mode=oblivious-ecmp-opt
+searchstart=0.1
+searchend=0.4
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Mon 23 Oct 2023 03:17:55 PM CDT: Run experiment search start
+mult=0,numerator=1,denominator=10
+Mon 23 Oct 2023 03:22:01 PM CDT: Experiment done (seed=0)
+Mon 23 Oct 2023 03:22:03 PM CDT: n99fct=0.536419,totaltraffic=14109771000
+Mon 23 Oct 2023 03:22:03 PM CDT: Run experiment search end
+mult=0,numerator=4,denominator=10
+Mon 23 Oct 2023 03:51:42 PM CDT: Experiment done (seed=0)
+Mon 23 Oct 2023 03:51:47 PM CDT: Experiment done (seed=0)
