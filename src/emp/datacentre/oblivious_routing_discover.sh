@@ -7,7 +7,7 @@ trafficmatrixbase=leafspine
 norc=$3
 seednum=$4
 pwnum=$5
-mode=oblivious
+mode=oblivious-ecmp-equal
 lpsolvermode=barrierwithcrossover
 searchstart=$6
 searchend=$7
@@ -123,6 +123,24 @@ then
       pwfile=pathweightfiles/leafspine/ecmp/pathweight_leafspine_ecmp_equal_64.txt
     else
       pwfile=/home/annzhou/ObliviousRoutingInvestigation/pathweightfiles/pathweight_obr_${topology}_${routing}_${pwnum}_${lpsolvermode}.txt 
+    fi
+  elif [ $mode = "oblivious-ecmp-opt" ]
+  then
+    if [ $topology = "leafspine" ]
+    then
+      echo topology $topology should not have mode $mode
+      exit 1
+    else
+      pwfile=/home/annzhou/PathWeightFileGenerator/pathweightfiles/c2c_${norc}_0_${seednum}_${trafficmatrixbase}/pathweight_${topology}_${routing}_c2c_${norc}_0_${seednum}_${trafficmatrixbase}_lp1_${lpsolvermode}_${precision}.txt
+    fi
+  elif [ $mode = "oblivious-ecmp-equal" ]
+  then
+    if [ $topology = "leafspine" ]
+    then
+      echo topology $topology should not have mode $mode
+      exit 1
+    else
+      pwfile=pathweightfiles/${topology}/${routing}/pathweight_${topology}_${routing}_equal_${precision}.txt
     fi
   else
     echo mode $mode not recognized.
