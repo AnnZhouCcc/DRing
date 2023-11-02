@@ -29,6 +29,10 @@ oblivious_routing_discover_dir/oblivious_routing_discover_*_*_*_*/*_*_*_*_*
 oblivious_routing_discover_dir/oblivious_routing_discover_*_*_*_*/*_output
 !oblivious_routing_discover_dir/oblivious_routing_discover_*_*_*_*/*_*_*_*_summary
 !oblivious_routing_discover_dir/oblivious_routing_discover_*_*_*_*/log.txt
+oblivious_routing_discover_testopt_dir/oblivious_routing_discover_testopt_*_*_*_*/*_*_*_*_*
+oblivious_routing_discover_testopt_dir/oblivious_routing_discover_testopt_*_*_*_*/*_output
+!oblivious_routing_discover_testopt_dir/oblivious_routing_discover_testopt_*_*_*_*/*_*_*_*_summary
+!oblivious_routing_discover_testopt_dir/oblivious_routing_discover_testopt_*_*_*_*/log.txt
 c2c_baserrg_oblivious_routing_discover_dir/oblivious_routing_discover_*_*_*_*/*_*_*_*_*
 c2c_baserrg_oblivious_routing_discover_dir/oblivious_routing_discover_*_*_*_*/*_output
 !c2c_baserrg_oblivious_routing_discover_dir/oblivious_routing_discover_*_*_*_*/*_*_*_*_summary
