@@ -1,0 +1,44 @@
+Fri 03 Nov 2023 08:20:28 PM CDT: Set up parameters
+topology=dring
+routing=su3
+trafficmatrix=c2c
+mode=oblivious
+searchstart=0.1
+searchend=0.3
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Fri 03 Nov 2023 08:20:28 PM CDT: Run experiment search start
+mult=0,numerator=1,denominator=10
+Fri 03 Nov 2023 08:20:41 PM CDT: Experiment done (seed=0)
+Fri 03 Nov 2023 08:20:42 PM CDT: n99fct=0,totaltraffic=0
+Fri 03 Nov 2023 08:20:42 PM CDT: Run experiment search end
+mult=0,numerator=3,denominator=10
+Fri 03 Nov 2023 08:20:47 PM CDT: Experiment done (seed=0)
+Fri 03 Nov 2023 08:20:47 PM CDT: n99fct=0,totaltraffic=0
+10 > 0 ? 1
+10 < 0 ? 0
+Fri 03 Nov 2023 08:22:21 PM CDT: Set up parameters
+topology=dring
+routing=su3
+trafficmatrix=c2c
+mode=oblivious
+searchstart=0.1
+searchend=0.3
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Fri 03 Nov 2023 08:22:21 PM CDT: Run experiment search start
+mult=0,numerator=1,denominator=10
+Fri 03 Nov 2023 08:22:21 PM CDT: Result already exists (seed=0)
+Fri 03 Nov 2023 08:22:21 PM CDT: n99fct=0,totaltraffic=0
+Fri 03 Nov 2023 08:22:21 PM CDT: Run experiment search end
+mult=0,numerator=3,denominator=10
+Fri 03 Nov 2023 08:22:21 PM CDT: Result already exists (seed=0)
+Fri 03 Nov 2023 08:22:21 PM CDT: n99fct=0,totaltraffic=0
+10 > 0 ? 1
+10 < 0 ? 0

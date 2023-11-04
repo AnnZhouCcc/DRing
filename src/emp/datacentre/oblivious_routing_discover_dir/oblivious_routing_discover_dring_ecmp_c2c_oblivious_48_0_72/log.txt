@@ -1,0 +1,22 @@
+Fri 03 Nov 2023 08:04:48 PM CDT: Set up parameters
+topology=dring
+routing=ecmp
+trafficmatrix=c2c
+mode=oblivious
+searchstart=0.3
+searchend=0.5
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Fri 03 Nov 2023 08:04:48 PM CDT: Run experiment search start
+mult=0,numerator=3,denominator=10
+Fri 03 Nov 2023 08:05:05 PM CDT: Experiment done (seed=0)
+Fri 03 Nov 2023 08:05:05 PM CDT: n99fct=0,totaltraffic=0
+Fri 03 Nov 2023 08:05:05 PM CDT: Run experiment search end
+mult=0,numerator=5,denominator=10
+Fri 03 Nov 2023 08:05:10 PM CDT: Experiment done (seed=0)
+Fri 03 Nov 2023 08:05:10 PM CDT: n99fct=0,totaltraffic=0
+10 > 0 ? 1
+10 < 0 ? 0
