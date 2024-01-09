@@ -54,5 +54,10 @@ trafficfiles/cluster_*/
 trafficfiles/sud_robustness/
 trafficfiles/sud_robustness_fix2988/
 trafficfiles/c2c/
+trafficfiles/c2s/
 archive_suddiscover_*_*_cluster*_*/
 rrg_ecmp_a2a.zip
+oblivious_c2s_discover_*dir/oblivious_c2s_discover_*_*_*_*/*_*_*_*_*
+oblivious_c2s_discover_*dir/oblivious_c2s_discover_*_*_*_*/*_output
+!oblivious_c2s_discover_*dir/oblivious_c2s_discover_*_*_*_*/*_*_*_*_summary
+!oblivious_c2s_discover_*dir/oblivious_c2s_discover_*_*_*_*/log.txt

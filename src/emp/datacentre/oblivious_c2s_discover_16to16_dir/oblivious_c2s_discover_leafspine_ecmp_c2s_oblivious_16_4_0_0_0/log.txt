@@ -1,0 +1,192 @@
+Sun 07 Jan 2024 11:01:03 PM CST: Set up parameters
+topology=leafspine
+routing=ecmp
+trafficmatrix=c2s
+mode=oblivious
+searchstart=2
+searchend=10
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Sun 07 Jan 2024 11:01:03 PM CST: Run experiment search start
+mult=2,numerator=0,denominator=0
+Sun 07 Jan 2024 11:04:57 PM CST: Experiment done (seed=0)
+Sun 07 Jan 2024 11:04:59 PM CST: n99fct=42.2149,totaltraffic=16890628500
+Sun 07 Jan 2024 11:04:59 PM CST: Run experiment search end
+mult=10,numerator=0,denominator=0
+Sun 07 Jan 2024 11:05:40 PM CST: Set up parameters
+topology=leafspine
+routing=ecmp
+trafficmatrix=c2s
+mode=oblivious
+searchstart=1
+searchend=2
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Sun 07 Jan 2024 11:05:40 PM CST: Run experiment search start
+mult=1,numerator=0,denominator=0
+Sun 07 Jan 2024 11:07:23 PM CST: Experiment done (seed=0)
+Sun 07 Jan 2024 11:07:24 PM CST: n99fct=4.08523,totaltraffic=8415177000
+Sun 07 Jan 2024 11:07:24 PM CST: Run experiment search end
+mult=2,numerator=0,denominator=0
+Sun 07 Jan 2024 11:07:24 PM CST: Result already exists (seed=0)
+Sun 07 Jan 2024 11:07:26 PM CST: n99fct=42.2149,totaltraffic=16890628500
+Sun 07 Jan 2024 11:07:26 PM CST: Start binary search.
+searchmid=1.5,searchstart=1,searchend=2
+Sun 07 Jan 2024 11:07:26 PM CST: Run experiment
+mult=1,numerator=5,denominator=10
+Sun 07 Jan 2024 11:10:18 PM CST: Experiment done (seed=0)
+Sun 07 Jan 2024 11:10:19 PM CST: n99fct=10.744,totaltraffic=12724219500
+Change searchend to 1.5
+searchstart=1,searchend=1.5
+searchmid=1.25,searchstart=1,searchend=1.5
+Sun 07 Jan 2024 11:10:20 PM CST: Run experiment
+mult=1,numerator=25,denominator=100
+Sun 07 Jan 2024 11:12:39 PM CST: Experiment done (seed=0)
+Sun 07 Jan 2024 11:12:40 PM CST: n99fct=8.20783,totaltraffic=10579530000
+Change searchstart to 1.25
+searchstart=1.25,searchend=1.5
+searchmid=1.375,searchstart=1.25,searchend=1.5
+Sun 07 Jan 2024 11:12:41 PM CST: Run experiment
+mult=1,numerator=375,denominator=1000
+Sun 07 Jan 2024 11:15:13 PM CST: Experiment done (seed=0)
+Sun 07 Jan 2024 11:15:14 PM CST: n99fct=9.56584,totaltraffic=11605164000
+Change searchstart to 1.375
+searchstart=1.375,searchend=1.5
+searchmid=1.4375,searchstart=1.375,searchend=1.5
+Sun 07 Jan 2024 11:15:14 PM CST: Run experiment
+mult=1,numerator=4375,denominator=10000
+Sun 07 Jan 2024 11:17:53 PM CST: Experiment done (seed=0)
+Sun 07 Jan 2024 11:17:55 PM CST: n99fct=10.163,totaltraffic=12116637000
+Change searchend to 1.4375
+searchstart=1.375,searchend=1.4375
+searchmid=1.40625,searchstart=1.375,searchend=1.4375
+Sun 07 Jan 2024 11:17:55 PM CST: Run experiment
+mult=1,numerator=40625,denominator=100000
+Sun 07 Jan 2024 11:20:17 PM CST: Experiment done (seed=0)
+Sun 07 Jan 2024 11:20:18 PM CST: n99fct=10.0037,totaltraffic=11924655000
+Change searchend to 1.40625
+searchstart=1.375,searchend=1.40625
+searchmid=1.39062,searchstart=1.375,searchend=1.40625
+Sun 07 Jan 2024 11:20:18 PM CST: Run experiment
+mult=1,numerator=39062,denominator=100000
+Sun 07 Jan 2024 11:22:41 PM CST: Experiment done (seed=0)
+Sun 07 Jan 2024 11:22:42 PM CST: n99fct=9.50284,totaltraffic=11687575500
+Sun 07 Jan 2024 11:22:42 PM CST: isCloseEnough searchstart=1.375,searchmid=1.39062,searchend=1.40625
+searchstart: n99fct=9.56584,totaltraffic=11605164000
+searchmid: n99fct=9.50284,totaltraffic=11687575500
+searchend: n99fct=10.0037,totaltraffic=11924655000
+=========[searchmid,searchend]=========
+=========[1.39062,1.40625]=========
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sun 07 Jan 2024 11:22:42 PM CST
+topology=leafspine
+routing=ecmp
+trafficmatrix=c2s
+mode=oblivious
+p1=1.39062
+p2=1.40625
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Sun 07 Jan 2024 11:22:42 PM CST: Run experiment for p1
+mult=1,numerator=39062,denominator=100000
+Sun 07 Jan 2024 11:22:42 PM CST: rigorousseed=0,seedfrom=0,seedto=0
+Sun 07 Jan 2024 11:22:42 PM CST: Running seed=0
+Sun 07 Jan 2024 11:22:42 PM CST: Result already exists (seed=0)
+Sun 07 Jan 2024 11:22:43 PM CST: rigorousseed=1,seedfrom=1,seedto=1
+Sun 07 Jan 2024 11:22:43 PM CST: Running seed=1
+Sun 07 Jan 2024 11:25:17 PM CST: Experiment done (seed=1)
+Sun 07 Jan 2024 11:25:17 PM CST: rigorousseed=2,seedfrom=2,seedto=2
+Sun 07 Jan 2024 11:25:17 PM CST: Running seed=2
+Sun 07 Jan 2024 11:27:39 PM CST: Experiment done (seed=2)
+Sun 07 Jan 2024 11:27:39 PM CST: rigorousseed=3,seedfrom=3,seedto=3
+Sun 07 Jan 2024 11:27:39 PM CST: Running seed=3
+Sun 07 Jan 2024 11:30:04 PM CST: Experiment done (seed=3)
+Sun 07 Jan 2024 11:30:05 PM CST: rigorousseed=4,seedfrom=4,seedto=4
+Sun 07 Jan 2024 11:30:05 PM CST: Running seed=4
+Sun 07 Jan 2024 11:32:30 PM CST: Experiment done (seed=4)
+Sun 07 Jan 2024 11:32:31 PM CST: rigorousseed=5,seedfrom=5,seedto=5
+Sun 07 Jan 2024 11:32:31 PM CST: Running seed=5
+Sun 07 Jan 2024 11:34:57 PM CST: Experiment done (seed=5)
+Sun 07 Jan 2024 11:34:57 PM CST: rigorousseed=6,seedfrom=6,seedto=6
+Sun 07 Jan 2024 11:34:57 PM CST: Running seed=6
+Sun 07 Jan 2024 11:37:21 PM CST: Experiment done (seed=6)
+Sun 07 Jan 2024 11:37:21 PM CST: rigorousseed=7,seedfrom=7,seedto=7
+Sun 07 Jan 2024 11:37:21 PM CST: Running seed=7
+Sun 07 Jan 2024 11:39:42 PM CST: Experiment done (seed=7)
+Sun 07 Jan 2024 11:39:42 PM CST: rigorousseed=8,seedfrom=8,seedto=8
+Sun 07 Jan 2024 11:39:42 PM CST: Running seed=8
+Sun 07 Jan 2024 11:42:00 PM CST: Experiment done (seed=8)
+Sun 07 Jan 2024 11:42:01 PM CST: rigorousseed=9,seedfrom=9,seedto=9
+Sun 07 Jan 2024 11:42:01 PM CST: Running seed=9
+Sun 07 Jan 2024 11:44:23 PM CST: Experiment done (seed=9)
+Sun 07 Jan 2024 11:44:23 PM CST: Collecting stats for oblivious_c2s_discover_leafspine_ecmp_c2s_oblivious_16_4_0_0_0/1_39062_100000_100
+Sun 07 Jan 2024 11:44:34 PM CST: n99fct=9.66575,totaltraffic=11722951200
+Sun 07 Jan 2024 11:44:34 PM CST: Run experiment for p2
+mult=1,numerator=40625,denominator=100000
+Sun 07 Jan 2024 11:44:34 PM CST: rigorousseed=0,seedfrom=0,seedto=0
+Sun 07 Jan 2024 11:44:34 PM CST: Running seed=0
+Sun 07 Jan 2024 11:44:34 PM CST: Result already exists (seed=0)
+Sun 07 Jan 2024 11:44:34 PM CST: rigorousseed=1,seedfrom=1,seedto=1
+Sun 07 Jan 2024 11:44:34 PM CST: Running seed=1
+Sun 07 Jan 2024 11:47:06 PM CST: Experiment done (seed=1)
+Sun 07 Jan 2024 11:47:06 PM CST: rigorousseed=2,seedfrom=2,seedto=2
+Sun 07 Jan 2024 11:47:06 PM CST: Running seed=2
+Sun 07 Jan 2024 11:49:23 PM CST: Experiment done (seed=2)
+Sun 07 Jan 2024 11:49:23 PM CST: rigorousseed=3,seedfrom=3,seedto=3
+Sun 07 Jan 2024 11:49:23 PM CST: Running seed=3
+Sun 07 Jan 2024 11:51:50 PM CST: Experiment done (seed=3)
+Sun 07 Jan 2024 11:51:50 PM CST: rigorousseed=4,seedfrom=4,seedto=4
+Sun 07 Jan 2024 11:51:50 PM CST: Running seed=4
+Sun 07 Jan 2024 11:54:13 PM CST: Experiment done (seed=4)
+Sun 07 Jan 2024 11:54:13 PM CST: rigorousseed=5,seedfrom=5,seedto=5
+Sun 07 Jan 2024 11:54:13 PM CST: Running seed=5
+Sun 07 Jan 2024 11:56:41 PM CST: Experiment done (seed=5)
+Sun 07 Jan 2024 11:56:41 PM CST: rigorousseed=6,seedfrom=6,seedto=6
+Sun 07 Jan 2024 11:56:41 PM CST: Running seed=6
+Sun 07 Jan 2024 11:59:03 PM CST: Experiment done (seed=6)
+Sun 07 Jan 2024 11:59:03 PM CST: rigorousseed=7,seedfrom=7,seedto=7
+Sun 07 Jan 2024 11:59:03 PM CST: Running seed=7
+Mon 08 Jan 2024 12:01:30 AM CST: Experiment done (seed=7)
+Mon 08 Jan 2024 12:01:30 AM CST: rigorousseed=8,seedfrom=8,seedto=8
+Mon 08 Jan 2024 12:01:30 AM CST: Running seed=8
+Mon 08 Jan 2024 12:03:49 AM CST: Experiment done (seed=8)
+Mon 08 Jan 2024 12:03:49 AM CST: rigorousseed=9,seedfrom=9,seedto=9
+Mon 08 Jan 2024 12:03:49 AM CST: Running seed=9
+Mon 08 Jan 2024 12:06:20 AM CST: Experiment done (seed=9)
+Mon 08 Jan 2024 12:06:20 AM CST: Collecting stats for oblivious_c2s_discover_leafspine_ecmp_c2s_oblivious_16_4_0_0_0/1_40625_100000_100
+Mon 08 Jan 2024 12:06:32 AM CST: n99fct=9.90157,totaltraffic=11887135350
+Mon 08 Jan 2024 12:06:32 AM CST: Calculating the cutoff point
+n99fct1=9.66575,totaltraffic1=11722951200,n99fct2=9.90157,totaltraffic2=11887135350
+m=1.43631e-09,b=-7.17204,y=10,x=1.19557e+10
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================
+===============Close Interval Found==============
+Mon 08 Jan 2024 06:08:53 PM CST: Set up parameters
+topology=leafspine
+routing=ecmp
+trafficmatrix=c2s
+mode=oblivious
+searchstart=1
+searchend=2
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Mon 08 Jan 2024 06:08:53 PM CST: Run experiment search start
+mult=1,numerator=0,denominator=0
+Mon 08 Jan 2024 06:08:53 PM CST: Result already exists (seed=0)
+Mon 08 Jan 2024 06:08:54 PM CST: n99fct=4.08523,totaltraffic=8415177000
+Mon 08 Jan 2024 06:08:54 PM CST: Run experiment search end
+mult=2,numerator=0,denominator=0
+Mon 08 Jan 2024 06:08:54 PM CST: Result already exists (seed=0)

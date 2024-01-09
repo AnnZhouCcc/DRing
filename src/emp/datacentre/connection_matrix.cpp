@@ -3307,6 +3307,71 @@ void ConnectionMatrix::setTopoFlowsC2C(string conn_matrix_str, double simtime_ms
 }
 
 
+void ConnectionMatrix::setTopoFlowsC2S(string conn_matrix_str, double simtime_ms) {
+  cout << "Topo flows C2S (rack-based)" << endl;
+
+  // Parse conn_matrix_str
+  string delimiter = "_";
+  size_t position = 0;
+  size_t count = 0;
+  string token;
+  int c,s,isbidirectional,seednum;
+  string rackbase;
+  while ((position = conn_matrix_str.find(delimiter)) != string::npos) {
+    token = conn_matrix_str.substr(0, position);
+    switch (count) {
+      case 0:
+        // pass
+        break;
+      case 1:
+        rackbase = token;
+        break;
+      case 2:
+        c = stoi(token);
+        break;
+      case 3:
+        s = stoi(token);
+        break;
+      case 4:
+        isbidirectional = stoi(token);
+        break;
+      default:
+        break;
+    }
+    conn_matrix_str.erase(0, position+delimiter.length());
+    count++;
+  }
+  seednum = stoi(conn_matrix_str);
+  cout << "c=" << c << ",s=" << s << ",seednum=" << seednum << ",rackbase=" << rackbase << ",is_bidirectional=" << isbidirectional << endl;
+
+  // Read traffic from config file
+  string trafficfilename = "trafficfiles/c2s/"+rackbase+"_"+to_string(c)+"_"+to_string(s)+"_"+to_string(isbidirectional)+"_"+to_string(seednum)+".txt";
+  cout << "trafficfilename: " << trafficfilename << endl;
+  ifstream TMFile(trafficfilename.c_str());
+  string line;
+  line.clear();
+  if (TMFile.is_open()){
+    while(TMFile.good()){
+      getline(TMFile, line);
+      //Whitespace line
+      if (line.find_first_not_of(' ') == string::npos) break;
+      stringstream ss(line);
+      int srcsvr,dstsvr;
+      ss >> srcsvr >> dstsvr;
+      if (srcsvr>=NHOST || dstsvr>=NHOST) continue;
+      uint64_t bytes = genFlowBytes();
+      while (bytes<0 or bytes>large_flow_threshold){
+        bytes = genFlowBytes();
+      }
+      bytes = adjustBytesByPacketSize(bytes);
+      double start_time_ms = drand() * simtime_ms;
+      base_flows.push_back(Flow(srcsvr, dstsvr, bytes, start_time_ms));
+    }
+    TMFile.close();
+  }
+}
+
+
 void ConnectionMatrix::tempGenerateSwitchServerMapping(Topology *top) {
   string filename;
 #if NHOST == 2988
