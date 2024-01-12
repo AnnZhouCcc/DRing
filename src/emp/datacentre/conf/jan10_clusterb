@@ -1,0 +1,10 @@
+./oblivious_c2s_discover.sh rrg 32disjoint clusterb b 0 0 0 0 oblivious-ecmp-equal 0.2 1
+./oblivious_c2s_discover.sh rrg su3 clusterb b 0 0 0 8 oblivious 0.2 1
+./oblivious_c2s_discover.sh rrg su3 clusterb b 0 0 0 16 oblivious 0.2 1
+./oblivious_c2s_discover.sh rrg su3 clusterb b 0 0 0 32 oblivious 0.2 1
+./oblivious_c2s_discover.sh rrg su3 clusterb b 0 0 0 46 oblivious 0.2 1
+./oblivious_c2s_discover.sh rrg su3 clusterb b 0 0 0 47 oblivious 0.2 1
+./oblivious_c2s_discover.sh rrg su3 clusterb b 0 0 0 48 oblivious 0.2 1
+./oblivious_c2s_discover.sh rrg su3 clusterb b 0 0 0 49 oblivious 0.2 1
+./oblivious_c2s_discover.sh rrg su3 clusterb b 0 0 0 50 oblivious 0.2 1
+./oblivious_c2s_discover.sh rrg su3 clusterb b 0 0 0 64 oblivious 0.2 1

@@ -110,6 +110,10 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
 	korn = k;
 #endif
 
+#if IS_DEBUG_ON
+  	cout << "before net_paths_rack_based" << endl;
+#endif
+
 	net_paths_rack_based = new vector<route_t*>**[NSW];
 	for (int i=0;i<NSW;i++){
 		net_paths_rack_based[i] = new vector<route_t*>*[NSW];
@@ -155,6 +159,14 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
         cout << "***Error opening netpathfile: " << netpathfile << endl;
         exit(1);
     }
+
+	#if IS_DEBUG_ON
+		cout << "read netpathfile; before path_weights_rack_based" << endl;
+		cout << "conn_matrix=" << conn_matrix << endl;
+		cout << "solveend=" << solveend << endl;
+		cout << "solvestart=" << solvestart << endl;
+		cout << "solveinterval=" << solveinterval << endl;
+	#endif
 
 	// Initialize path_weights_rack_based
 	int numintervals = 1;
@@ -419,7 +431,7 @@ pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_other_paths(in
 pair<vector<double>*, vector<route_t*>*> RandRegularTopology::get_paths_helper(int src, int dest, FIND_PATH_ALGORITHM find_path_alg){
 
 #if IS_DEBUG_ON
-  	cout << "get_paths_helper src switch=" << src_sw << ", dest switch=" << dest_sw << endl;
+  	cout << "get_paths_helper src switch=" << src << ", dest switch=" << dest << endl;
 #endif
 
 	vector<double>* pathweights = NULL;

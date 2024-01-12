@@ -1,0 +1,14 @@
+./oblivious_c2s_discover.sh rrg su3 clusterb b 0 0 0 1 oblivious 0.2 1
+./oblivious_c2s_discover.sh rrg su3 clusterb b 0 0 0 2 oblivious 0.2 1
+./oblivious_c2s_discover.sh rrg su3 clusterb b 0 0 0 3 oblivious 0.2 1
+./oblivious_c2s_discover.sh rrg su3 clusterb b 0 0 0 4 oblivious 0.2 1
+./oblivious_c2s_discover.sh rrg su3 clusterb b 0 0 0 5 oblivious 0.2 1
+./oblivious_c2s_discover.sh rrg su3 clusterb b 0 0 0 6 oblivious 0.2 1
+./oblivious_c2s_discover.sh rrg su3 clusterb b 0 0 0 7 oblivious 0.2 1
+./oblivious_c2s_discover.sh rrg su3 clusterb b 0 0 0 9 oblivious 0.2 1
+./oblivious_c2s_discover.sh rrg su3 clusterb b 0 0 0 10 oblivious 0.2 1
+./oblivious_c2s_discover.sh rrg su3 clusterb b 0 0 0 11 oblivious 0.2 1
+./oblivious_c2s_discover.sh rrg su3 clusterb b 0 0 0 12 oblivious 0.2 1
+./oblivious_c2s_discover.sh rrg su3 clusterb b 0 0 0 13 oblivious 0.2 1
+./oblivious_c2s_discover.sh rrg su3 clusterb b 0 0 0 14 oblivious 0.2 1
+./oblivious_c2s_discover.sh rrg su3 clusterb b 0 0 0 15 oblivious 0.2 1

@@ -1,0 +1,155 @@
+Wed 10 Jan 2024 11:46:57 PM CST: Set up parameters
+topology=rrg
+routing=su3
+trafficmatrix=clustera
+mode=oblivious
+searchstart=2
+searchend=10
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Wed 10 Jan 2024 11:46:57 PM CST: Run experiment search start
+mult=2,numerator=0,denominator=0
+Wed 10 Jan 2024 11:49:45 PM CST: Experiment done (seed=0)
+Wed 10 Jan 2024 11:49:47 PM CST: n99fct=0.186495,totaltraffic=7261401000
+Wed 10 Jan 2024 11:49:47 PM CST: Run experiment search end
+mult=10,numerator=0,denominator=0
+Thu 11 Jan 2024 12:13:29 AM CST: Experiment done (seed=0)
+Thu 11 Jan 2024 12:13:36 AM CST: n99fct=171.128,totaltraffic=34663669500
+Thu 11 Jan 2024 12:13:36 AM CST: Start binary search.
+searchmid=6,searchstart=2,searchend=10
+Thu 11 Jan 2024 12:13:36 AM CST: Run experiment
+mult=6,numerator=0,denominator=0
+Thu 11 Jan 2024 12:24:09 AM CST: Experiment done (seed=0)
+Thu 11 Jan 2024 12:24:13 AM CST: n99fct=1.62866,totaltraffic=21027237000
+Change searchstart to 6
+searchstart=6,searchend=10
+searchmid=8,searchstart=6,searchend=10
+Thu 11 Jan 2024 12:24:13 AM CST: Run experiment
+mult=8,numerator=0,denominator=0
+Thu 11 Jan 2024 12:41:41 AM CST: Experiment done (seed=0)
+Thu 11 Jan 2024 12:41:47 AM CST: n99fct=60.4958,totaltraffic=27849163500
+Change searchend to 8
+searchstart=6,searchend=8
+searchmid=7,searchstart=6,searchend=8
+Thu 11 Jan 2024 12:41:47 AM CST: Run experiment
+mult=7,numerator=0,denominator=0
+Thu 11 Jan 2024 12:55:03 AM CST: Experiment done (seed=0)
+Thu 11 Jan 2024 12:55:08 AM CST: n99fct=14.0225,totaltraffic=24441814500
+Change searchend to 7
+searchstart=6,searchend=7
+searchmid=6.5,searchstart=6,searchend=7
+Thu 11 Jan 2024 12:55:08 AM CST: Run experiment
+mult=6,numerator=5,denominator=10
+Thu 11 Jan 2024 01:08:23 AM CST: Experiment done (seed=0)
+Thu 11 Jan 2024 01:08:28 AM CST: n99fct=8.53291,totaltraffic=22733472000
+Change searchstart to 6.5
+searchstart=6.5,searchend=7
+searchmid=6.75,searchstart=6.5,searchend=7
+Thu 11 Jan 2024 01:08:28 AM CST: Run experiment
+mult=6,numerator=75,denominator=100
+Thu 11 Jan 2024 01:22:01 AM CST: Experiment done (seed=0)
+Thu 11 Jan 2024 01:22:06 AM CST: n99fct=9.99653,totaltraffic=23583829500
+Change searchstart to 6.75
+searchstart=6.75,searchend=7
+searchmid=6.875,searchstart=6.75,searchend=7
+Thu 11 Jan 2024 01:22:06 AM CST: Run experiment
+mult=6,numerator=875,denominator=1000
+Thu 11 Jan 2024 01:35:40 AM CST: Experiment done (seed=0)
+Thu 11 Jan 2024 01:35:45 AM CST: n99fct=11.1022,totaltraffic=24019866000
+Thu 11 Jan 2024 01:35:45 AM CST: isCloseEnough searchstart=6.75,searchmid=6.875,searchend=7
+searchstart: n99fct=9.99653,totaltraffic=23583829500
+searchmid: n99fct=11.1022,totaltraffic=24019866000
+searchend: n99fct=14.0225,totaltraffic=24441814500
+=========[searchstart,searchmid]=========
+=========[6.75,6.875]=========
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Thu 11 Jan 2024 01:35:45 AM CST
+topology=rrg
+routing=su3
+trafficmatrix=clustera
+mode=oblivious
+p1=6.75
+p2=6.875
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Thu 11 Jan 2024 01:35:45 AM CST: Run experiment for p1
+mult=6,numerator=75,denominator=100
+Thu 11 Jan 2024 01:35:45 AM CST: rigorousseed=0,seedfrom=0,seedto=0
+Thu 11 Jan 2024 01:35:45 AM CST: Running seed=0
+Thu 11 Jan 2024 01:35:45 AM CST: Result already exists (seed=0)
+Thu 11 Jan 2024 01:35:45 AM CST: rigorousseed=1,seedfrom=1,seedto=1
+Thu 11 Jan 2024 01:35:45 AM CST: Running seed=1
+Thu 11 Jan 2024 01:50:11 AM CST: Experiment done (seed=1)
+Thu 11 Jan 2024 01:50:11 AM CST: rigorousseed=2,seedfrom=2,seedto=2
+Thu 11 Jan 2024 01:50:11 AM CST: Running seed=2
+Thu 11 Jan 2024 02:04:41 AM CST: Experiment done (seed=2)
+Thu 11 Jan 2024 02:04:41 AM CST: rigorousseed=3,seedfrom=3,seedto=3
+Thu 11 Jan 2024 02:04:41 AM CST: Running seed=3
+Thu 11 Jan 2024 02:18:22 AM CST: Experiment done (seed=3)
+Thu 11 Jan 2024 02:18:23 AM CST: rigorousseed=4,seedfrom=4,seedto=4
+Thu 11 Jan 2024 02:18:23 AM CST: Running seed=4
+Thu 11 Jan 2024 02:31:04 AM CST: Experiment done (seed=4)
+Thu 11 Jan 2024 02:31:05 AM CST: rigorousseed=5,seedfrom=5,seedto=5
+Thu 11 Jan 2024 02:31:05 AM CST: Running seed=5
+Thu 11 Jan 2024 02:44:59 AM CST: Experiment done (seed=5)
+Thu 11 Jan 2024 02:44:59 AM CST: rigorousseed=6,seedfrom=6,seedto=6
+Thu 11 Jan 2024 02:44:59 AM CST: Running seed=6
+Thu 11 Jan 2024 02:57:50 AM CST: Experiment done (seed=6)
+Thu 11 Jan 2024 02:57:51 AM CST: rigorousseed=7,seedfrom=7,seedto=7
+Thu 11 Jan 2024 02:57:51 AM CST: Running seed=7
+Thu 11 Jan 2024 03:11:11 AM CST: Experiment done (seed=7)
+Thu 11 Jan 2024 03:11:11 AM CST: rigorousseed=8,seedfrom=8,seedto=8
+Thu 11 Jan 2024 03:11:11 AM CST: Running seed=8
+Thu 11 Jan 2024 03:24:08 AM CST: Experiment done (seed=8)
+Thu 11 Jan 2024 03:24:09 AM CST: rigorousseed=9,seedfrom=9,seedto=9
+Thu 11 Jan 2024 03:24:09 AM CST: Running seed=9
+Thu 11 Jan 2024 03:37:09 AM CST: Experiment done (seed=9)
+Thu 11 Jan 2024 03:37:09 AM CST: Collecting stats for oblivious_c2s_discover_rrg_su3_clustera_oblivious_0_0_0_0_64/6_75_100_100
+Thu 11 Jan 2024 03:37:54 AM CST: n99fct=9.75711,totaltraffic=23584144050
+Thu 11 Jan 2024 03:37:54 AM CST: Run experiment for p2
+mult=6,numerator=875,denominator=1000
+Thu 11 Jan 2024 03:37:55 AM CST: rigorousseed=0,seedfrom=0,seedto=0
+Thu 11 Jan 2024 03:37:55 AM CST: Running seed=0
+Thu 11 Jan 2024 03:37:55 AM CST: Result already exists (seed=0)
+Thu 11 Jan 2024 03:37:55 AM CST: rigorousseed=1,seedfrom=1,seedto=1
+Thu 11 Jan 2024 03:37:55 AM CST: Running seed=1
+Thu 11 Jan 2024 03:51:00 AM CST: Experiment done (seed=1)
+Thu 11 Jan 2024 03:51:01 AM CST: rigorousseed=2,seedfrom=2,seedto=2
+Thu 11 Jan 2024 03:51:01 AM CST: Running seed=2
+Thu 11 Jan 2024 04:05:23 AM CST: Experiment done (seed=2)
+Thu 11 Jan 2024 04:05:23 AM CST: rigorousseed=3,seedfrom=3,seedto=3
+Thu 11 Jan 2024 04:05:23 AM CST: Running seed=3
+Thu 11 Jan 2024 04:19:40 AM CST: Experiment done (seed=3)
+Thu 11 Jan 2024 04:19:41 AM CST: rigorousseed=4,seedfrom=4,seedto=4
+Thu 11 Jan 2024 04:19:41 AM CST: Running seed=4
+Thu 11 Jan 2024 04:33:18 AM CST: Experiment done (seed=4)
+Thu 11 Jan 2024 04:33:19 AM CST: rigorousseed=5,seedfrom=5,seedto=5
+Thu 11 Jan 2024 04:33:19 AM CST: Running seed=5
+Thu 11 Jan 2024 04:47:31 AM CST: Experiment done (seed=5)
+Thu 11 Jan 2024 04:47:31 AM CST: rigorousseed=6,seedfrom=6,seedto=6
+Thu 11 Jan 2024 04:47:31 AM CST: Running seed=6
+Thu 11 Jan 2024 05:02:10 AM CST: Experiment done (seed=6)
+Thu 11 Jan 2024 05:02:10 AM CST: rigorousseed=7,seedfrom=7,seedto=7
+Thu 11 Jan 2024 05:02:10 AM CST: Running seed=7
+Thu 11 Jan 2024 05:16:19 AM CST: Experiment done (seed=7)
+Thu 11 Jan 2024 05:16:19 AM CST: rigorousseed=8,seedfrom=8,seedto=8
+Thu 11 Jan 2024 05:16:19 AM CST: Running seed=8
+Thu 11 Jan 2024 05:30:34 AM CST: Experiment done (seed=8)
+Thu 11 Jan 2024 05:30:34 AM CST: rigorousseed=9,seedfrom=9,seedto=9
+Thu 11 Jan 2024 05:30:34 AM CST: Running seed=9
+Thu 11 Jan 2024 05:43:59 AM CST: Experiment done (seed=9)
+Thu 11 Jan 2024 05:44:00 AM CST: Collecting stats for oblivious_c2s_discover_rrg_su3_clustera_oblivious_0_0_0_0_64/6_875_1000_100
+Thu 11 Jan 2024 05:44:46 AM CST: n99fct=10.7523,totaltraffic=24019819200
+Thu 11 Jan 2024 05:44:47 AM CST: Calculating the cutoff point
+n99fct1=9.75711,totaltraffic1=23584144050,n99fct2=10.7523,totaltraffic2=24019819200
+m=2.28425e-09,b=-44.115,y=10,x=2.36905e+10
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================
+===============Close Interval Found==============

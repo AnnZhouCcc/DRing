@@ -1,0 +1,9 @@
+./oblivious_c2s_discover.sh rrg 32disjoint c2s N 16 16 0 0 oblivious-ecmp-equal 0.8 2
+./oblivious_c2s_discover.sh rrg su3 c2s N 16 16 0 8 oblivious 0.8 2
+./oblivious_c2s_discover.sh rrg su3 c2s N 16 16 0 16 oblivious 0.8 2
+./oblivious_c2s_discover.sh rrg su3 c2s N 16 16 0 24 oblivious 0.8 2
+./oblivious_c2s_discover.sh rrg su3 c2s N 16 16 0 32 oblivious 0.8 2
+./oblivious_c2s_discover.sh rrg su3 c2s N 16 16 0 40 oblivious 0.8 2
+./oblivious_c2s_discover.sh rrg su3 c2s N 16 16 0 48 oblivious 0.8 2
+./oblivious_c2s_discover.sh rrg su3 c2s N 16 16 0 56 oblivious 0.8 2
+./oblivious_c2s_discover.sh rrg su3 c2s N 16 16 0 64 oblivious 0.8 2

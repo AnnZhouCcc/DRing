@@ -1,0 +1,2 @@
+./oblivious_c2s_discover.sh rrg su3 c2s N 4 4 0 8 oblivious 4 12
+./oblivious_c2s_discover.sh rrg su3 c2s N 4 4 0 16 oblivious 4 12
