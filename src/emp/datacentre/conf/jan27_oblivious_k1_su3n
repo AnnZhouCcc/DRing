@@ -1,0 +1,3 @@
+./discover_oblivious_k1_su3n_a.sh dring su3 equal barriernocrossover 6 14 0
+./discover_oblivious_k1_su3n_b.sh rrg su3 equal barriernocrossover 0.6 1.4 0
+./discover_oblivious_k1_su3n_c.sh rrg su3 equal barriernocrossover 0.4 1.2 0
