@@ -61,3 +61,5 @@ oblivious_c2s_discover_*dir/oblivious_c2s_discover_*_*_*_*/*_*_*_*_*
 oblivious_c2s_discover_*dir/oblivious_c2s_discover_*_*_*_*/*_output
 !oblivious_c2s_discover_*dir/oblivious_c2s_discover_*_*_*_*/*_*_*_*_summary
 !oblivious_c2s_discover_*dir/oblivious_c2s_discover_*_*_*_*/log.txt
+
+pathweightfiles/dring/su3/cluster*/pathweight*.txt
