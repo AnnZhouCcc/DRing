@@ -1,0 +1,180 @@
+Mon Jan 29 01:55:12 CST 2024: Set up parameters
+topology=leafspine
+routing=ecmp
+trafficmatrix=kcluster_12
+mode=kcluster
+searchstart=0.2
+searchend=1
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Mon Jan 29 01:55:13 CST 2024: Run experiment search start
+mult=0,numerator=2,denominator=10
+Mon Jan 29 01:58:16 CST 2024: Experiment done (seed=0)
+Mon Jan 29 01:58:20 CST 2024: n99fct=0.276377,totaltraffic=13307736000
+Mon Jan 29 01:58:20 CST 2024: Run experiment search end
+mult=1,numerator=0,denominator=0
+Mon Jan 29 02:10:25 CST 2024: Set up parameters
+topology=leafspine
+routing=ecmp
+trafficmatrix=kcluster_12
+mode=kcluster
+searchstart=0.2
+searchend=1
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Mon Jan 29 02:10:25 CST 2024: Run experiment search start
+mult=0,numerator=2,denominator=10
+Mon Jan 29 02:10:25 CST 2024: Result already exists (seed=0)
+Mon Jan 29 02:10:29 CST 2024: n99fct=0.276377,totaltraffic=13307736000
+Mon Jan 29 02:10:29 CST 2024: Run experiment search end
+mult=1,numerator=0,denominator=0
+Mon Jan 29 02:57:48 CST 2024: Experiment done (seed=0)
+Mon Jan 29 02:58:03 CST 2024: n99fct=306.602,totaltraffic=65070540000
+Mon Jan 29 02:58:03 CST 2024: Start binary search.
+searchmid=0.6,searchstart=0.2,searchend=1
+Mon Jan 29 02:58:03 CST 2024: Run experiment
+mult=0,numerator=6,denominator=10
+Mon Jan 29 03:12:39 CST 2024: Experiment done (seed=0)
+Mon Jan 29 03:12:49 CST 2024: n99fct=36.8088,totaltraffic=39256179000
+Change searchend to 0.6
+searchstart=0.2,searchend=0.6
+searchmid=0.4,searchstart=0.2,searchend=0.6
+Mon Jan 29 03:12:49 CST 2024: Run experiment
+mult=0,numerator=4,denominator=10
+Mon Jan 29 03:21:46 CST 2024: Experiment done (seed=0)
+Mon Jan 29 03:21:53 CST 2024: n99fct=1.93032,totaltraffic=26318719500
+Change searchstart to 0.4
+searchstart=0.4,searchend=0.6
+searchmid=0.5,searchstart=0.4,searchend=0.6
+Mon Jan 29 03:21:53 CST 2024: Run experiment
+mult=0,numerator=5,denominator=10
+Mon Jan 29 03:33:39 CST 2024: Experiment done (seed=0)
+Mon Jan 29 03:33:47 CST 2024: n99fct=19.7315,totaltraffic=32795001000
+Change searchend to 0.5
+searchstart=0.4,searchend=0.5
+searchmid=0.45,searchstart=0.4,searchend=0.5
+Mon Jan 29 03:33:47 CST 2024: Run experiment
+mult=0,numerator=45,denominator=100
+Mon Jan 29 03:44:00 CST 2024: Experiment done (seed=0)
+Mon Jan 29 03:44:07 CST 2024: n99fct=8.35066,totaltraffic=29565513000
+Change searchstart to 0.45
+searchstart=0.45,searchend=0.5
+searchmid=0.475,searchstart=0.45,searchend=0.5
+Mon Jan 29 03:44:07 CST 2024: Run experiment
+mult=0,numerator=475,denominator=1000
+Mon Jan 29 03:55:18 CST 2024: Experiment done (seed=0)
+Mon Jan 29 03:55:27 CST 2024: n99fct=15.0212,totaltraffic=31171810500
+Change searchend to 0.475
+searchstart=0.45,searchend=0.475
+searchmid=0.4625,searchstart=0.45,searchend=0.475
+Mon Jan 29 03:55:27 CST 2024: Run experiment
+mult=0,numerator=4625,denominator=10000
+Mon Jan 29 04:06:11 CST 2024: Experiment done (seed=0)
+Mon Jan 29 04:06:19 CST 2024: n99fct=8.96204,totaltraffic=30369912000
+Change searchstart to 0.4625
+searchstart=0.4625,searchend=0.475
+searchmid=0.46875,searchstart=0.4625,searchend=0.475
+Mon Jan 29 04:06:19 CST 2024: Run experiment
+mult=0,numerator=46875,denominator=100000
+Mon Jan 29 04:17:31 CST 2024: Experiment done (seed=0)
+Mon Jan 29 04:17:38 CST 2024: n99fct=8.16679,totaltraffic=30769599000
+Mon Jan 29 04:17:38 CST 2024: isCloseEnough searchstart=0.4625,searchmid=0.46875,searchend=0.475
+searchstart: n99fct=8.96204,totaltraffic=30369912000
+searchmid: n99fct=8.16679,totaltraffic=30769599000
+searchend: n99fct=15.0212,totaltraffic=31171810500
+=========[searchmid,searchend]=========
+=========[0.46875,0.475]=========
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Mon Jan 29 04:17:38 CST 2024
+topology=leafspine
+routing=ecmp
+trafficmatrix=kcluster_12
+mode=kcluster
+p1=0.46875
+p2=0.475
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Mon Jan 29 04:17:39 CST 2024: Run experiment for p1
+mult=0,numerator=46875,denominator=100000
+Mon Jan 29 04:17:39 CST 2024: rigorousseed=0,seedfrom=0,seedto=0
+Mon Jan 29 04:17:39 CST 2024: Running seed=0
+Mon Jan 29 04:17:39 CST 2024: Result already exists (seed=0)
+Mon Jan 29 04:17:39 CST 2024: rigorousseed=1,seedfrom=1,seedto=1
+Mon Jan 29 04:17:39 CST 2024: Running seed=1
+Mon Jan 29 04:29:05 CST 2024: Experiment done (seed=1)
+Mon Jan 29 04:29:05 CST 2024: rigorousseed=2,seedfrom=2,seedto=2
+Mon Jan 29 04:29:05 CST 2024: Running seed=2
+Mon Jan 29 04:39:20 CST 2024: Experiment done (seed=2)
+Mon Jan 29 04:39:20 CST 2024: rigorousseed=3,seedfrom=3,seedto=3
+Mon Jan 29 04:39:20 CST 2024: Running seed=3
+Mon Jan 29 04:49:51 CST 2024: Experiment done (seed=3)
+Mon Jan 29 04:49:52 CST 2024: rigorousseed=4,seedfrom=4,seedto=4
+Mon Jan 29 04:49:52 CST 2024: Running seed=4
+Mon Jan 29 05:00:50 CST 2024: Experiment done (seed=4)
+Mon Jan 29 05:00:50 CST 2024: rigorousseed=5,seedfrom=5,seedto=5
+Mon Jan 29 05:00:50 CST 2024: Running seed=5
+Mon Jan 29 05:11:38 CST 2024: Experiment done (seed=5)
+Mon Jan 29 05:11:39 CST 2024: rigorousseed=6,seedfrom=6,seedto=6
+Mon Jan 29 05:11:39 CST 2024: Running seed=6
+Mon Jan 29 05:22:26 CST 2024: Experiment done (seed=6)
+Mon Jan 29 05:22:27 CST 2024: rigorousseed=7,seedfrom=7,seedto=7
+Mon Jan 29 05:22:27 CST 2024: Running seed=7
+Mon Jan 29 05:33:13 CST 2024: Experiment done (seed=7)
+Mon Jan 29 05:33:14 CST 2024: rigorousseed=8,seedfrom=8,seedto=8
+Mon Jan 29 05:33:14 CST 2024: Running seed=8
+Mon Jan 29 05:44:12 CST 2024: Experiment done (seed=8)
+Mon Jan 29 05:44:13 CST 2024: rigorousseed=9,seedfrom=9,seedto=9
+Mon Jan 29 05:44:13 CST 2024: Running seed=9
+Mon Jan 29 05:55:17 CST 2024: Experiment done (seed=9)
+Mon Jan 29 05:55:18 CST 2024: Collecting stats for discover_leafspine_ecmp_kcluster_12_kcluster_c/0_46875_100000_100
+Mon Jan 29 05:56:31 CST 2024: n99fct=8.19511,totaltraffic=30769867050
+Mon Jan 29 05:56:31 CST 2024: Run experiment for p2
+mult=0,numerator=475,denominator=1000
+Mon Jan 29 05:56:31 CST 2024: rigorousseed=0,seedfrom=0,seedto=0
+Mon Jan 29 05:56:32 CST 2024: Running seed=0
+Mon Jan 29 05:56:32 CST 2024: Result already exists (seed=0)
+Mon Jan 29 05:56:32 CST 2024: rigorousseed=1,seedfrom=1,seedto=1
+Mon Jan 29 05:56:32 CST 2024: Running seed=1
+Mon Jan 29 06:06:09 CST 2024: Experiment done (seed=1)
+Mon Jan 29 06:06:09 CST 2024: rigorousseed=2,seedfrom=2,seedto=2
+Mon Jan 29 06:06:09 CST 2024: Running seed=2
+Mon Jan 29 06:15:42 CST 2024: Experiment done (seed=2)
+Mon Jan 29 06:15:43 CST 2024: rigorousseed=3,seedfrom=3,seedto=3
+Mon Jan 29 06:15:43 CST 2024: Running seed=3
+Mon Jan 29 06:25:46 CST 2024: Experiment done (seed=3)
+Mon Jan 29 06:25:47 CST 2024: rigorousseed=4,seedfrom=4,seedto=4
+Mon Jan 29 06:25:47 CST 2024: Running seed=4
+Mon Jan 29 06:35:32 CST 2024: Experiment done (seed=4)
+Mon Jan 29 06:35:32 CST 2024: rigorousseed=5,seedfrom=5,seedto=5
+Mon Jan 29 06:35:32 CST 2024: Running seed=5
+Mon Jan 29 06:45:07 CST 2024: Experiment done (seed=5)
+Mon Jan 29 06:45:07 CST 2024: rigorousseed=6,seedfrom=6,seedto=6
+Mon Jan 29 06:45:07 CST 2024: Running seed=6
+Mon Jan 29 06:55:45 CST 2024: Experiment done (seed=6)
+Mon Jan 29 06:55:46 CST 2024: rigorousseed=7,seedfrom=7,seedto=7
+Mon Jan 29 06:55:46 CST 2024: Running seed=7
+Mon Jan 29 07:05:40 CST 2024: Experiment done (seed=7)
+Mon Jan 29 07:05:41 CST 2024: rigorousseed=8,seedfrom=8,seedto=8
+Mon Jan 29 07:05:41 CST 2024: Running seed=8
+Mon Jan 29 07:14:09 CST 2024: Experiment done (seed=8)
+Mon Jan 29 07:14:09 CST 2024: rigorousseed=9,seedfrom=9,seedto=9
+Mon Jan 29 07:14:09 CST 2024: Running seed=9
+Mon Jan 29 07:22:42 CST 2024: Experiment done (seed=9)
+Mon Jan 29 07:22:43 CST 2024: Collecting stats for discover_leafspine_ecmp_kcluster_12_kcluster_c/0_475_1000_100
+Mon Jan 29 07:23:52 CST 2024: n99fct=15.3138,totaltraffic=31171919250
+Mon Jan 29 07:23:52 CST 2024: Calculating the cutoff point
+n99fct1=8.19511,totaltraffic1=30769867050,n99fct2=15.3138,totaltraffic2=31171919250
+m=1.77059e-08,b=-536.613,y=10,x=3.08718e+10
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================
+===============Close Interval Found==============

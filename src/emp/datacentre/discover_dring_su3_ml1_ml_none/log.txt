@@ -1,0 +1,148 @@
+Mon Jan 29 08:29:37 CST 2024: Set up parameters
+topology=dring
+routing=su3
+trafficmatrix=ml1
+mode=ml
+searchstart=800
+searchend=1400
+threshold=10
+stime=40
+mstart=10
+mend=30
+precision=64
+Mon Jan 29 08:29:37 CST 2024: Run experiment search start
+mult=800,numerator=0,denominator=0
+Mon Jan 29 08:39:24 CST 2024: Experiment done (seed=0)
+Mon Jan 29 08:39:29 CST 2024: n99fct=1.89323,totaltraffic=27616039500
+Mon Jan 29 08:39:29 CST 2024: Run experiment search end
+mult=1400,numerator=0,denominator=0
+Mon Jan 29 08:57:03 CST 2024: Experiment done (seed=0)
+Mon Jan 29 08:57:12 CST 2024: n99fct=14.2438,totaltraffic=48575107500
+Mon Jan 29 08:57:12 CST 2024: Start binary search.
+searchmid=1100,searchstart=800,searchend=1400
+Mon Jan 29 08:57:12 CST 2024: Run experiment
+mult=1100,numerator=0,denominator=0
+Mon Jan 29 09:11:06 CST 2024: Experiment done (seed=0)
+Mon Jan 29 09:11:13 CST 2024: n99fct=7.84228,totaltraffic=38224873500
+Change searchstart to 1100
+searchstart=1100,searchend=1400
+searchmid=1250,searchstart=1100,searchend=1400
+Mon Jan 29 09:11:13 CST 2024: Run experiment
+mult=1250,numerator=0,denominator=0
+Mon Jan 29 09:26:18 CST 2024: Experiment done (seed=0)
+Mon Jan 29 09:26:26 CST 2024: n99fct=10.1723,totaltraffic=43379265000
+Change searchend to 1250
+searchstart=1100,searchend=1250
+searchmid=1175,searchstart=1100,searchend=1250
+Mon Jan 29 09:26:26 CST 2024: Run experiment
+mult=1175,numerator=0,denominator=0
+Mon Jan 29 09:41:08 CST 2024: Experiment done (seed=0)
+Mon Jan 29 09:41:15 CST 2024: n99fct=9.167,totaltraffic=40837950000
+Change searchstart to 1175
+searchstart=1175,searchend=1250
+searchmid=1212.5,searchstart=1175,searchend=1250
+Mon Jan 29 09:41:15 CST 2024: Run experiment
+mult=1212,numerator=5,denominator=10
+Mon Jan 29 09:56:28 CST 2024: Experiment done (seed=0)
+Mon Jan 29 09:56:35 CST 2024: n99fct=9.753,totaltraffic=42115186500
+Change searchstart to 1212.5
+searchstart=1212.5,searchend=1250
+searchmid=1231.25,searchstart=1212.5,searchend=1250
+Mon Jan 29 09:56:35 CST 2024: Run experiment
+mult=1231,numerator=25,denominator=100
+Mon Jan 29 10:11:31 CST 2024: Experiment done (seed=0)
+Mon Jan 29 10:11:39 CST 2024: n99fct=10.0399,totaltraffic=42767937000
+Mon Jan 29 10:11:39 CST 2024: isCloseEnough searchstart=1212.5,searchmid=1231.25,searchend=1250
+searchstart: n99fct=9.753,totaltraffic=42115186500
+searchmid: n99fct=10.0399,totaltraffic=42767937000
+searchend: n99fct=10.1723,totaltraffic=43379265000
+=========[searchstart,searchmid]=========
+=========[1212.5,1231.25]=========
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Mon Jan 29 10:11:39 CST 2024
+topology=dring
+routing=su3
+trafficmatrix=ml1
+mode=ml
+p1=1212.5
+p2=1231.25
+threshold=10
+stime=40
+mstart=10
+mend=30
+precision=64
+Mon Jan 29 10:11:39 CST 2024: Run experiment for p1
+mult=1212,numerator=5,denominator=10
+Mon Jan 29 10:11:39 CST 2024: rigorousseed=0,seedfrom=0,seedto=0
+Mon Jan 29 10:11:39 CST 2024: Running seed=0
+Mon Jan 29 10:11:39 CST 2024: Result already exists (seed=0)
+Mon Jan 29 10:11:40 CST 2024: rigorousseed=1,seedfrom=1,seedto=1
+Mon Jan 29 10:11:40 CST 2024: Running seed=1
+Mon Jan 29 10:27:46 CST 2024: Experiment done (seed=1)
+Mon Jan 29 10:27:46 CST 2024: rigorousseed=2,seedfrom=2,seedto=2
+Mon Jan 29 10:27:46 CST 2024: Running seed=2
+Mon Jan 29 10:42:41 CST 2024: Experiment done (seed=2)
+Mon Jan 29 10:42:41 CST 2024: rigorousseed=3,seedfrom=3,seedto=3
+Mon Jan 29 10:42:41 CST 2024: Running seed=3
+Mon Jan 29 10:57:44 CST 2024: Experiment done (seed=3)
+Mon Jan 29 10:57:44 CST 2024: rigorousseed=4,seedfrom=4,seedto=4
+Mon Jan 29 10:57:44 CST 2024: Running seed=4
+Mon Jan 29 11:12:47 CST 2024: Experiment done (seed=4)
+Mon Jan 29 11:12:47 CST 2024: rigorousseed=5,seedfrom=5,seedto=5
+Mon Jan 29 11:12:47 CST 2024: Running seed=5
+Mon Jan 29 11:28:48 CST 2024: Experiment done (seed=5)
+Mon Jan 29 11:28:48 CST 2024: rigorousseed=6,seedfrom=6,seedto=6
+Mon Jan 29 11:28:48 CST 2024: Running seed=6
+Mon Jan 29 11:45:15 CST 2024: Experiment done (seed=6)
+Mon Jan 29 11:45:15 CST 2024: rigorousseed=7,seedfrom=7,seedto=7
+Mon Jan 29 11:45:15 CST 2024: Running seed=7
+Mon Jan 29 12:00:09 CST 2024: Experiment done (seed=7)
+Mon Jan 29 12:00:10 CST 2024: rigorousseed=8,seedfrom=8,seedto=8
+Mon Jan 29 12:00:10 CST 2024: Running seed=8
+Mon Jan 29 12:14:59 CST 2024: Experiment done (seed=8)
+Mon Jan 29 12:14:59 CST 2024: rigorousseed=9,seedfrom=9,seedto=9
+Mon Jan 29 12:14:59 CST 2024: Running seed=9
+Mon Jan 29 12:29:56 CST 2024: Experiment done (seed=9)
+Mon Jan 29 12:29:56 CST 2024: Collecting stats for discover_dring_su3_ml1_ml_none/1212_5_10_40
+Mon Jan 29 12:31:12 CST 2024: n99fct=9.6278,totaltraffic=42007949700
+Mon Jan 29 12:31:12 CST 2024: Run experiment for p2
+mult=1231,numerator=25,denominator=100
+Mon Jan 29 12:31:13 CST 2024: rigorousseed=0,seedfrom=0,seedto=0
+Mon Jan 29 12:31:13 CST 2024: Running seed=0
+Mon Jan 29 12:31:13 CST 2024: Result already exists (seed=0)
+Mon Jan 29 12:31:13 CST 2024: rigorousseed=1,seedfrom=1,seedto=1
+Mon Jan 29 12:31:13 CST 2024: Running seed=1
+Mon Jan 29 12:46:17 CST 2024: Experiment done (seed=1)
+Mon Jan 29 12:46:17 CST 2024: rigorousseed=2,seedfrom=2,seedto=2
+Mon Jan 29 12:46:17 CST 2024: Running seed=2
+Mon Jan 29 13:01:37 CST 2024: Experiment done (seed=2)
+Mon Jan 29 13:01:38 CST 2024: rigorousseed=3,seedfrom=3,seedto=3
+Mon Jan 29 13:01:38 CST 2024: Running seed=3
+Mon Jan 29 13:16:56 CST 2024: Experiment done (seed=3)
+Mon Jan 29 13:16:56 CST 2024: rigorousseed=4,seedfrom=4,seedto=4
+Mon Jan 29 13:16:56 CST 2024: Running seed=4
+Mon Jan 29 13:32:08 CST 2024: Experiment done (seed=4)
+Mon Jan 29 13:32:09 CST 2024: rigorousseed=5,seedfrom=5,seedto=5
+Mon Jan 29 13:32:09 CST 2024: Running seed=5
+Mon Jan 29 13:47:32 CST 2024: Experiment done (seed=5)
+Mon Jan 29 13:47:33 CST 2024: rigorousseed=6,seedfrom=6,seedto=6
+Mon Jan 29 13:47:33 CST 2024: Running seed=6
+Mon Jan 29 14:02:49 CST 2024: Experiment done (seed=6)
+Mon Jan 29 14:02:50 CST 2024: rigorousseed=7,seedfrom=7,seedto=7
+Mon Jan 29 14:02:50 CST 2024: Running seed=7
+Mon Jan 29 14:18:42 CST 2024: Experiment done (seed=7)
+Mon Jan 29 14:18:42 CST 2024: rigorousseed=8,seedfrom=8,seedto=8
+Mon Jan 29 14:18:42 CST 2024: Running seed=8
+Mon Jan 29 14:34:30 CST 2024: Experiment done (seed=8)
+Mon Jan 29 14:34:30 CST 2024: rigorousseed=9,seedfrom=9,seedto=9
+Mon Jan 29 14:34:30 CST 2024: Running seed=9
+Mon Jan 29 14:50:03 CST 2024: Experiment done (seed=9)
+Mon Jan 29 14:50:03 CST 2024: Collecting stats for discover_dring_su3_ml1_ml_none/1231_25_100_40
+Mon Jan 29 14:51:16 CST 2024: n99fct=9.90856,totaltraffic=42653931150
+Mon Jan 29 14:51:16 CST 2024: Calculating the cutoff point
+n99fct1=9.6278,totaltraffic1=42007949700,n99fct2=9.90856,totaltraffic2=42653931150
+m=4.34625e-10,b=-8.62991,y=10,x=4.28643e+10
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================
+n99fct=10.0399,threshold=10

@@ -1,0 +1,31 @@
+Mon Jan 29 09:32:08 CST 2024: Set up parameters
+topology=leafspine
+routing=ecmp
+trafficmatrix=16to4-1
+mode=equal
+searchstart=14
+searchend=15
+threshold=10
+stime=640
+mstart=160
+mend=480
+precision=64
+Mon Jan 29 09:32:08 CST 2024: Run experiment search start
+mult=14,numerator=0,denominator=0
+Mon Jan 29 09:36:18 CST 2024: Experiment done (seed=0)
+Mon Jan 29 09:36:21 CST 2024: n99fct=8.90282,totaltraffic=20309026500
+Mon Jan 29 09:36:21 CST 2024: Run experiment search end
+mult=15,numerator=0,denominator=0
+Mon Jan 29 09:40:49 CST 2024: Experiment done (seed=0)
+Mon Jan 29 09:40:54 CST 2024: n99fct=10.2897,totaltraffic=21754752000
+Mon Jan 29 09:40:54 CST 2024: Start binary search.
+searchmid=14.5,searchstart=14,searchend=15
+Mon Jan 29 09:40:54 CST 2024: Run experiment
+mult=14,numerator=5,denominator=10
+Mon Jan 29 09:45:01 CST 2024: Experiment done (seed=0)
+Mon Jan 29 09:45:05 CST 2024: n99fct=9.50774,totaltraffic=21012663000
+Change searchstart to 14.5
+searchstart=14.5,searchend=15
+searchmid=14.75,searchstart=14.5,searchend=15
+Mon Jan 29 09:45:05 CST 2024: Run experiment
+mult=14,numerator=75,denominator=100
