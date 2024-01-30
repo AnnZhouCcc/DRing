@@ -1,0 +1,176 @@
+Tue Jan 30 07:15:36 AM UTC 2024: Set up parameters
+topology=leafspine
+routing=ecmp
+trafficmatrix=ml42
+mode=ml
+searchstart=1200
+searchend=1400
+threshold=10
+stime=42
+mstart=10
+mend=31
+precision=64
+Tue Jan 30 07:15:36 AM UTC 2024: Run experiment search start
+mult=1200,numerator=0,denominator=0
+Tue Jan 30 07:15:50 AM UTC 2024: Set up parameters
+topology=leafspine
+routing=ecmp
+trafficmatrix=ml42
+mode=ml
+searchstart=1200
+searchend=1400
+threshold=10
+stime=42
+mstart=10
+mend=31
+precision=64
+Tue Jan 30 07:15:51 AM UTC 2024: Run experiment search start
+mult=1200,numerator=0,denominator=0
+Tue Jan 30 07:16:05 AM UTC 2024: Set up parameters
+topology=leafspine
+routing=ecmp
+trafficmatrix=ml42
+mode=ml
+searchstart=1200
+searchend=1400
+threshold=10
+stime=42
+mstart=10
+mend=31
+precision=64
+Tue Jan 30 07:16:05 AM UTC 2024: Run experiment search start
+mult=1200,numerator=0,denominator=0
+Tue Jan 30 07:16:18 AM UTC 2024: Set up parameters
+topology=leafspine
+routing=ecmp
+trafficmatrix=ml42
+mode=ml
+searchstart=1200
+searchend=1400
+threshold=10
+stime=42
+mstart=10
+mend=31
+precision=64
+Tue Jan 30 07:16:18 AM UTC 2024: Run experiment search start
+mult=1200,numerator=0,denominator=0
+Tue Jan 30 07:21:21 AM UTC 2024: Experiment done (seed=0)
+Tue Jan 30 07:21:25 AM UTC 2024: n99fct=8.89094,totaltraffic=41655666000
+Tue Jan 30 07:21:25 AM UTC 2024: Run experiment search end
+mult=1400,numerator=0,denominator=0
+Tue Jan 30 07:27:18 AM UTC 2024: Experiment done (seed=0)
+Tue Jan 30 07:27:22 AM UTC 2024: n99fct=11.4455,totaltraffic=48557089500
+Tue Jan 30 07:27:22 AM UTC 2024: Start binary search.
+searchmid=1300,searchstart=1200,searchend=1400
+Tue Jan 30 07:27:22 AM UTC 2024: Run experiment
+mult=1300,numerator=0,denominator=0
+Tue Jan 30 07:32:53 AM UTC 2024: Experiment done (seed=0)
+Tue Jan 30 07:32:56 AM UTC 2024: n99fct=10.1037,totaltraffic=45067557000
+Change searchend to 1300
+searchstart=1200,searchend=1300
+searchmid=1250,searchstart=1200,searchend=1300
+Tue Jan 30 07:32:56 AM UTC 2024: Run experiment
+mult=1250,numerator=0,denominator=0
+Tue Jan 30 07:38:12 AM UTC 2024: Experiment done (seed=0)
+Tue Jan 30 07:38:16 AM UTC 2024: n99fct=9.65673,totaltraffic=43335387000
+Change searchstart to 1250
+searchstart=1250,searchend=1300
+searchmid=1275,searchstart=1250,searchend=1300
+Tue Jan 30 07:38:16 AM UTC 2024: Run experiment
+mult=1275,numerator=0,denominator=0
+Tue Jan 30 07:45:05 AM UTC 2024: Experiment done (seed=0)
+Tue Jan 30 07:45:08 AM UTC 2024: n99fct=9.85216,totaltraffic=44188732500
+Tue Jan 30 07:45:08 AM UTC 2024: isCloseEnough searchstart=1250,searchmid=1275,searchend=1300
+searchstart: n99fct=9.65673,totaltraffic=43335387000
+searchmid: n99fct=9.85216,totaltraffic=44188732500
+searchend: n99fct=10.1037,totaltraffic=45067557000
+=========[searchmid,searchend]=========
+=========[1275,1300]=========
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Tue Jan 30 07:45:08 AM UTC 2024
+topology=leafspine
+routing=ecmp
+trafficmatrix=ml42
+mode=ml
+p1=1275
+p2=1300
+threshold=10
+stime=42
+mstart=10
+mend=31
+precision=64
+Tue Jan 30 07:45:08 AM UTC 2024: Run experiment for p1
+mult=1275,numerator=0,denominator=0
+Tue Jan 30 07:45:08 AM UTC 2024: rigorousseed=0,seedfrom=0,seedto=0
+Tue Jan 30 07:45:08 AM UTC 2024: Running seed=0
+Tue Jan 30 07:45:08 AM UTC 2024: Result already exists (seed=0)
+Tue Jan 30 07:45:08 AM UTC 2024: rigorousseed=1,seedfrom=1,seedto=1
+Tue Jan 30 07:45:08 AM UTC 2024: Running seed=1
+Tue Jan 30 07:52:03 AM UTC 2024: Experiment done (seed=1)
+Tue Jan 30 07:52:03 AM UTC 2024: rigorousseed=2,seedfrom=2,seedto=2
+Tue Jan 30 07:52:03 AM UTC 2024: Running seed=2
+Tue Jan 30 07:59:00 AM UTC 2024: Experiment done (seed=2)
+Tue Jan 30 07:59:00 AM UTC 2024: rigorousseed=3,seedfrom=3,seedto=3
+Tue Jan 30 07:59:00 AM UTC 2024: Running seed=3
+Tue Jan 30 08:05:59 AM UTC 2024: Experiment done (seed=3)
+Tue Jan 30 08:05:59 AM UTC 2024: rigorousseed=4,seedfrom=4,seedto=4
+Tue Jan 30 08:05:59 AM UTC 2024: Running seed=4
+Tue Jan 30 08:13:21 AM UTC 2024: Experiment done (seed=4)
+Tue Jan 30 08:13:21 AM UTC 2024: rigorousseed=5,seedfrom=5,seedto=5
+Tue Jan 30 08:13:21 AM UTC 2024: Running seed=5
+Tue Jan 30 08:20:19 AM UTC 2024: Experiment done (seed=5)
+Tue Jan 30 08:20:19 AM UTC 2024: rigorousseed=6,seedfrom=6,seedto=6
+Tue Jan 30 08:20:19 AM UTC 2024: Running seed=6
+Tue Jan 30 08:27:25 AM UTC 2024: Experiment done (seed=6)
+Tue Jan 30 08:27:25 AM UTC 2024: rigorousseed=7,seedfrom=7,seedto=7
+Tue Jan 30 08:27:25 AM UTC 2024: Running seed=7
+Tue Jan 30 08:34:52 AM UTC 2024: Experiment done (seed=7)
+Tue Jan 30 08:34:52 AM UTC 2024: rigorousseed=8,seedfrom=8,seedto=8
+Tue Jan 30 08:34:52 AM UTC 2024: Running seed=8
+Tue Jan 30 08:41:59 AM UTC 2024: Experiment done (seed=8)
+Tue Jan 30 08:41:59 AM UTC 2024: rigorousseed=9,seedfrom=9,seedto=9
+Tue Jan 30 08:41:59 AM UTC 2024: Running seed=9
+Tue Jan 30 08:49:43 AM UTC 2024: Experiment done (seed=9)
+Tue Jan 30 08:49:43 AM UTC 2024: Collecting stats for discover_leafspine_ecmp_ml42_ml_none/1275_0_0_42
+Tue Jan 30 08:50:17 AM UTC 2024: n99fct=9.85159,totaltraffic=44106311100
+Tue Jan 30 08:50:17 AM UTC 2024: Run experiment for p2
+mult=1300,numerator=0,denominator=0
+Tue Jan 30 08:50:17 AM UTC 2024: rigorousseed=0,seedfrom=0,seedto=0
+Tue Jan 30 08:50:17 AM UTC 2024: Running seed=0
+Tue Jan 30 08:50:17 AM UTC 2024: Result already exists (seed=0)
+Tue Jan 30 08:50:17 AM UTC 2024: rigorousseed=1,seedfrom=1,seedto=1
+Tue Jan 30 08:50:17 AM UTC 2024: Running seed=1
+Tue Jan 30 09:02:02 AM UTC 2024: Experiment done (seed=1)
+Tue Jan 30 09:02:02 AM UTC 2024: rigorousseed=2,seedfrom=2,seedto=2
+Tue Jan 30 09:02:02 AM UTC 2024: Running seed=2
+Tue Jan 30 09:13:37 AM UTC 2024: Experiment done (seed=2)
+Tue Jan 30 09:13:37 AM UTC 2024: rigorousseed=3,seedfrom=3,seedto=3
+Tue Jan 30 09:13:37 AM UTC 2024: Running seed=3
+Tue Jan 30 09:25:40 AM UTC 2024: Experiment done (seed=3)
+Tue Jan 30 09:25:40 AM UTC 2024: rigorousseed=4,seedfrom=4,seedto=4
+Tue Jan 30 09:25:40 AM UTC 2024: Running seed=4
+Tue Jan 30 09:38:25 AM UTC 2024: Experiment done (seed=4)
+Tue Jan 30 09:38:25 AM UTC 2024: rigorousseed=5,seedfrom=5,seedto=5
+Tue Jan 30 09:38:25 AM UTC 2024: Running seed=5
+Tue Jan 30 09:51:06 AM UTC 2024: Experiment done (seed=5)
+Tue Jan 30 09:51:06 AM UTC 2024: rigorousseed=6,seedfrom=6,seedto=6
+Tue Jan 30 09:51:06 AM UTC 2024: Running seed=6
+Tue Jan 30 10:03:45 AM UTC 2024: Experiment done (seed=6)
+Tue Jan 30 10:03:45 AM UTC 2024: rigorousseed=7,seedfrom=7,seedto=7
+Tue Jan 30 10:03:45 AM UTC 2024: Running seed=7
+Tue Jan 30 10:15:27 AM UTC 2024: Experiment done (seed=7)
+Tue Jan 30 10:15:27 AM UTC 2024: rigorousseed=8,seedfrom=8,seedto=8
+Tue Jan 30 10:15:27 AM UTC 2024: Running seed=8
+Tue Jan 30 10:28:07 AM UTC 2024: Experiment done (seed=8)
+Tue Jan 30 10:28:07 AM UTC 2024: rigorousseed=9,seedfrom=9,seedto=9
+Tue Jan 30 10:28:07 AM UTC 2024: Running seed=9
+Tue Jan 30 10:40:56 AM UTC 2024: Experiment done (seed=9)
+Tue Jan 30 10:40:56 AM UTC 2024: Collecting stats for discover_leafspine_ecmp_ml42_ml_none/1300_0_0_42
+Tue Jan 30 10:41:36 AM UTC 2024: n99fct=10.077,totaltraffic=44974337700
+Tue Jan 30 10:41:36 AM UTC 2024: Calculating the cutoff point
+n99fct1=9.85159,totaltraffic1=44106311100,n99fct2=10.077,totaltraffic2=44974337700
+m=2.59681e-10,b=-1.60198,y=10,x=4.46778e+10
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================
+===============Close Interval Found==============

@@ -1,0 +1,46 @@
+Tue Jan 30 09:07:12 AM UTC 2024: Set up parameters
+topology=rrg
+routing=su3
+trafficmatrix=kcluster_24
+mode=kcluster
+searchstart=1.2
+searchend=2
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Tue Jan 30 09:07:12 AM UTC 2024: Run experiment search start
+mult=1,numerator=2,denominator=10
+Tue Jan 30 09:16:16 AM UTC 2024: Experiment done (seed=0)
+Tue Jan 30 09:16:20 AM UTC 2024: n99fct=0.808772,totaltraffic=27963985500
+Tue Jan 30 09:16:20 AM UTC 2024: Run experiment search end
+mult=2,numerator=0,denominator=0
+Tue Jan 30 09:36:55 AM UTC 2024: Experiment done (seed=0)
+Tue Jan 30 09:37:00 AM UTC 2024: n99fct=9.86904,totaltraffic=46328154000
+10 > 9.86904 ? 1
+10 < 0.808772 ? 0
+Tue Jan 30 02:16:38 PM UTC 2024: Set up parameters
+topology=rrg
+routing=su3
+trafficmatrix=kcluster_24
+mode=kcluster
+searchstart=2
+searchend=2.2
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Tue Jan 30 02:16:38 PM UTC 2024: Run experiment search start
+mult=2,numerator=0,denominator=0
+Tue Jan 30 02:16:38 PM UTC 2024: Result already exists (seed=0)
+Tue Jan 30 02:16:43 PM UTC 2024: n99fct=9.86904,totaltraffic=46328154000
+Tue Jan 30 02:16:43 PM UTC 2024: Run experiment search end
+mult=2,numerator=2,denominator=10
+Tue Jan 30 02:28:54 PM UTC 2024: Experiment done (seed=0)
+Tue Jan 30 02:28:59 PM UTC 2024: n99fct=13.3383,totaltraffic=50910507000
+Tue Jan 30 02:28:59 PM UTC 2024: Start binary search.
+searchmid=2.1,searchstart=2,searchend=2.2
+Tue Jan 30 02:28:59 PM UTC 2024: Run experiment
+mult=2,numerator=1,denominator=10

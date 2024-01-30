@@ -1,0 +1,18 @@
+Tue Jan 30 02:32:40 PM UTC 2024: Set up parameters
+topology=dring
+routing=ecmp
+trafficmatrix=ml43
+mode=ml
+searchstart=600
+searchend=1400
+threshold=10
+stime=43
+mstart=10
+mend=32
+precision=64
+Tue Jan 30 02:32:40 PM UTC 2024: Run experiment search start
+mult=600,numerator=0,denominator=0
+Tue Jan 30 02:35:11 PM UTC 2024: Experiment done (seed=0)
+Tue Jan 30 02:35:13 PM UTC 2024: n99fct=0.786236,totaltraffic=21107782500
+Tue Jan 30 02:35:13 PM UTC 2024: Run experiment search end
+mult=1400,numerator=0,denominator=0

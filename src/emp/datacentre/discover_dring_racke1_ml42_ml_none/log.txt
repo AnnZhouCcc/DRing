@@ -1,0 +1,14 @@
+Tue Jan 30 02:35:23 PM UTC 2024: Set up parameters
+topology=dring
+routing=racke1
+trafficmatrix=ml42
+mode=ml
+searchstart=600
+searchend=1400
+threshold=10
+stime=42
+mstart=10
+mend=31
+precision=64
+Tue Jan 30 02:35:23 PM UTC 2024: Run experiment search start
+mult=600,numerator=0,denominator=0
