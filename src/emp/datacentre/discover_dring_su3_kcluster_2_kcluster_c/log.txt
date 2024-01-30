@@ -1,1 +1,156 @@
 n99fct=9.49885,threshold=10
+Tue 30 Jan 2024 12:28:51 AM CST: Set up parameters
+topology=dring
+routing=su3
+trafficmatrix=kcluster_2
+mode=kcluster
+searchstart=0.2
+searchend=1
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Tue 30 Jan 2024 12:28:51 AM CST: Run experiment search start
+mult=0,numerator=2,denominator=10
+Tue 30 Jan 2024 12:28:51 AM CST: Result already exists (seed=0)
+Tue 30 Jan 2024 12:28:55 AM CST: n99fct=0.2573,totaltraffic=15755592000
+Tue 30 Jan 2024 12:28:55 AM CST: Run experiment search end
+mult=1,numerator=0,denominator=0
+Tue 30 Jan 2024 12:28:55 AM CST: Result already exists (seed=0)
+Tue 30 Jan 2024 12:29:08 AM CST: n99fct=73.7237,totaltraffic=76237711500
+Tue 30 Jan 2024 12:29:08 AM CST: Start binary search.
+searchmid=0.6,searchstart=0.2,searchend=1
+Tue 30 Jan 2024 12:29:09 AM CST: Run experiment
+mult=0,numerator=6,denominator=10
+Tue 30 Jan 2024 12:29:09 AM CST: Result already exists (seed=0)
+Tue 30 Jan 2024 12:29:31 AM CST: n99fct=7.93324,totaltraffic=46093872000
+Change searchstart to 0.6
+searchstart=0.6,searchend=1
+searchmid=0.8,searchstart=0.6,searchend=1
+Tue 30 Jan 2024 12:29:31 AM CST: Run experiment
+mult=0,numerator=8,denominator=10
+Tue 30 Jan 2024 12:29:31 AM CST: Result already exists (seed=0)
+Tue 30 Jan 2024 12:29:43 AM CST: n99fct=26.9103,totaltraffic=61186623000
+Change searchend to 0.8
+searchstart=0.6,searchend=0.8
+searchmid=0.7,searchstart=0.6,searchend=0.8
+Tue 30 Jan 2024 12:29:44 AM CST: Run experiment
+mult=0,numerator=7,denominator=10
+Tue 30 Jan 2024 12:29:44 AM CST: Result already exists (seed=0)
+Tue 30 Jan 2024 12:29:55 AM CST: n99fct=14.3922,totaltraffic=53652891000
+Change searchend to 0.7
+searchstart=0.6,searchend=0.7
+searchmid=0.65,searchstart=0.6,searchend=0.7
+Tue 30 Jan 2024 12:29:56 AM CST: Run experiment
+mult=0,numerator=65,denominator=100
+Tue 30 Jan 2024 12:29:56 AM CST: Result already exists (seed=0)
+Tue 30 Jan 2024 12:30:06 AM CST: n99fct=10.3445,totaltraffic=49852873500
+Change searchend to 0.65
+searchstart=0.6,searchend=0.65
+searchmid=0.625,searchstart=0.6,searchend=0.65
+Tue 30 Jan 2024 12:30:07 AM CST: Run experiment
+mult=0,numerator=625,denominator=1000
+Tue 30 Jan 2024 12:30:07 AM CST: Result already exists (seed=0)
+Tue 30 Jan 2024 12:30:17 AM CST: n99fct=9.19131,totaltraffic=47976078000
+Change searchstart to 0.625
+searchstart=0.625,searchend=0.65
+searchmid=0.6375,searchstart=0.625,searchend=0.65
+Tue 30 Jan 2024 12:30:17 AM CST: Run experiment
+mult=0,numerator=6375,denominator=10000
+Tue 30 Jan 2024 12:30:17 AM CST: Result already exists (seed=0)
+Tue 30 Jan 2024 12:30:27 AM CST: n99fct=9.49885,totaltraffic=48932128500
+Tue 30 Jan 2024 12:30:27 AM CST: isCloseEnough searchstart=0.625,searchmid=0.6375,searchend=0.65
+searchstart: n99fct=9.19131,totaltraffic=47976078000
+searchmid: n99fct=9.49885,totaltraffic=48932128500
+searchend: n99fct=10.3445,totaltraffic=49852873500
+=========[searchmid,searchend]=========
+=========[0.6375,0.65]=========
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Tue 30 Jan 2024 12:30:27 AM CST
+topology=dring
+routing=su3
+trafficmatrix=kcluster_2
+mode=kcluster
+p1=0.6375
+p2=0.65
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Tue 30 Jan 2024 12:30:28 AM CST: Run experiment for p1
+mult=0,numerator=6375,denominator=10000
+Tue 30 Jan 2024 12:30:28 AM CST: rigorousseed=0,seedfrom=0,seedto=0
+Tue 30 Jan 2024 12:30:28 AM CST: Running seed=0
+Tue 30 Jan 2024 12:30:28 AM CST: Result already exists (seed=0)
+Tue 30 Jan 2024 12:30:29 AM CST: rigorousseed=1,seedfrom=1,seedto=1
+Tue 30 Jan 2024 12:30:29 AM CST: Running seed=1
+Tue 30 Jan 2024 12:30:29 AM CST: Result already exists (seed=1)
+Tue 30 Jan 2024 12:30:34 AM CST: rigorousseed=2,seedfrom=2,seedto=2
+Tue 30 Jan 2024 12:30:34 AM CST: Running seed=2
+Tue 30 Jan 2024 12:30:34 AM CST: Result already exists (seed=2)
+Tue 30 Jan 2024 12:30:49 AM CST: rigorousseed=3,seedfrom=3,seedto=3
+Tue 30 Jan 2024 12:30:49 AM CST: Running seed=3
+Tue 30 Jan 2024 12:30:49 AM CST: Result already exists (seed=3)
+Tue 30 Jan 2024 12:30:51 AM CST: rigorousseed=4,seedfrom=4,seedto=4
+Tue 30 Jan 2024 12:30:52 AM CST: Running seed=4
+Tue 30 Jan 2024 12:30:52 AM CST: Result already exists (seed=4)
+Tue 30 Jan 2024 12:30:53 AM CST: rigorousseed=5,seedfrom=5,seedto=5
+Tue 30 Jan 2024 12:30:53 AM CST: Running seed=5
+Tue 30 Jan 2024 12:30:53 AM CST: Result already exists (seed=5)
+Tue 30 Jan 2024 12:30:55 AM CST: rigorousseed=6,seedfrom=6,seedto=6
+Tue 30 Jan 2024 12:30:56 AM CST: Running seed=6
+Tue 30 Jan 2024 12:30:56 AM CST: Result already exists (seed=6)
+Tue 30 Jan 2024 12:30:58 AM CST: rigorousseed=7,seedfrom=7,seedto=7
+Tue 30 Jan 2024 12:30:58 AM CST: Running seed=7
+Tue 30 Jan 2024 12:30:58 AM CST: Result already exists (seed=7)
+Tue 30 Jan 2024 12:31:01 AM CST: rigorousseed=8,seedfrom=8,seedto=8
+Tue 30 Jan 2024 12:31:01 AM CST: Running seed=8
+Tue 30 Jan 2024 12:31:02 AM CST: Result already exists (seed=8)
+Tue 30 Jan 2024 12:31:03 AM CST: rigorousseed=9,seedfrom=9,seedto=9
+Tue 30 Jan 2024 12:31:04 AM CST: Running seed=9
+Tue 30 Jan 2024 12:31:04 AM CST: Result already exists (seed=9)
+Tue 30 Jan 2024 12:31:05 AM CST: Collecting stats for discover_dring_su3_kcluster_2_kcluster_c/0_6375_10000_100
+Tue 30 Jan 2024 12:31:06 AM CST: n99fct=9.56561,totaltraffic=48926572200
+Tue 30 Jan 2024 12:31:10 AM CST: Run experiment for p2
+mult=0,numerator=65,denominator=100
+Tue 30 Jan 2024 12:31:11 AM CST: rigorousseed=0,seedfrom=0,seedto=0
+Tue 30 Jan 2024 12:31:11 AM CST: Running seed=0
+Tue 30 Jan 2024 12:31:11 AM CST: Result already exists (seed=0)
+Tue 30 Jan 2024 12:31:14 AM CST: rigorousseed=1,seedfrom=1,seedto=1
+Tue 30 Jan 2024 12:31:14 AM CST: Running seed=1
+Tue 30 Jan 2024 12:31:14 AM CST: Result already exists (seed=1)
+Tue 30 Jan 2024 12:31:17 AM CST: rigorousseed=2,seedfrom=2,seedto=2
+Tue 30 Jan 2024 12:31:17 AM CST: Running seed=2
+Tue 30 Jan 2024 12:31:17 AM CST: Result already exists (seed=2)
+Tue 30 Jan 2024 12:31:19 AM CST: rigorousseed=3,seedfrom=3,seedto=3
+Tue 30 Jan 2024 12:31:19 AM CST: Running seed=3
+Tue 30 Jan 2024 12:31:19 AM CST: Result already exists (seed=3)
+Tue 30 Jan 2024 12:31:21 AM CST: rigorousseed=4,seedfrom=4,seedto=4
+Tue 30 Jan 2024 12:31:21 AM CST: Running seed=4
+Tue 30 Jan 2024 12:31:21 AM CST: Result already exists (seed=4)
+Tue 30 Jan 2024 12:31:23 AM CST: rigorousseed=5,seedfrom=5,seedto=5
+Tue 30 Jan 2024 12:31:23 AM CST: Running seed=5
+Tue 30 Jan 2024 12:31:23 AM CST: Result already exists (seed=5)
+Tue 30 Jan 2024 12:31:25 AM CST: rigorousseed=6,seedfrom=6,seedto=6
+Tue 30 Jan 2024 12:31:25 AM CST: Running seed=6
+Tue 30 Jan 2024 12:31:25 AM CST: Result already exists (seed=6)
+Tue 30 Jan 2024 12:31:27 AM CST: rigorousseed=7,seedfrom=7,seedto=7
+Tue 30 Jan 2024 12:31:27 AM CST: Running seed=7
+Tue 30 Jan 2024 12:31:27 AM CST: Result already exists (seed=7)
+Tue 30 Jan 2024 12:31:29 AM CST: rigorousseed=8,seedfrom=8,seedto=8
+Tue 30 Jan 2024 12:31:29 AM CST: Running seed=8
+Tue 30 Jan 2024 12:31:29 AM CST: Result already exists (seed=8)
+Tue 30 Jan 2024 12:31:31 AM CST: rigorousseed=9,seedfrom=9,seedto=9
+Tue 30 Jan 2024 12:31:31 AM CST: Running seed=9
+Tue 30 Jan 2024 12:31:31 AM CST: Result already exists (seed=9)
+Tue 30 Jan 2024 12:31:33 AM CST: Collecting stats for discover_dring_su3_kcluster_2_kcluster_c/0_65_100_100
+Tue 30 Jan 2024 12:31:34 AM CST: n99fct=10.3397,totaltraffic=49870802550
+Tue 30 Jan 2024 12:31:35 AM CST: Calculating the cutoff point
+n99fct1=9.56561,totaltraffic1=48926572200,n99fct2=10.3397,totaltraffic2=49870802550
+m=8.19811e-10,b=-30.5449,y=10,x=4.94564e+10
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================
+===============Close Interval Found==============
