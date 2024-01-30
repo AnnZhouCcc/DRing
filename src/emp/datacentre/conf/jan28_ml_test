@@ -1,0 +1,3 @@
+./tagdiscover.sh dring ecmp ml0 ml 0 100 none 360 720
+./tagdiscover.sh dring su3 ml0 ml 0 40 none 720 1000
+./tagdiscover.sh leafspine ecmp ml0 ml 0 40 none 720 1000

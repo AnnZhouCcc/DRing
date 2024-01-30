@@ -1,0 +1,8 @@
+./tagdiscover.sh leafspine ecmp ml1 ml 0 40 none 800 1400
+./tagdiscover.sh dring ecmp ml1 ml 0 40 none 800 1200
+./tagdiscover.sh dring su2 ml1 ml 0 40 none 1200 1400
+./tagdiscover.sh dring su3 ml1 ml 0 40 none 800 1400
+./tagdiscover.sh dring 32disjoint ml1 ml 0 40 none 800 1400
+./tagdiscover.sh dring racke0 ml1 ml 0 40 none 800 1400
+./tagdiscover.sh dring racke1 ml1 ml 0 40 none 800 1400
+./tagdiscover.sh dring racke2 ml1 ml 0 40 none 800 1400

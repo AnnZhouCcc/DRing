@@ -172,6 +172,8 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
 	int numintervals = 1;
 	if (conn_matrix == "CLUSTERX") {
 		numintervals = (solveend-solvestart) / solveinterval +1;
+	} else if (conn_matrix.substr(0,8) == "KCLUSTER") {
+		numintervals = 48;
 	}
 	cout << "numintervals=" << numintervals << endl;
 
@@ -190,20 +192,26 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
 	int thiscomputestart, thiscomputeend;
 	string pathweightfile;
 	for (int i=0; i<numintervals; i++) {
-		if (conn_matrix == "CLUSTERX") {
-			if (computeinterval == 0) { // equal
-				pathweightfile = pathweightfileprefix;
-			} else { // optimal or delay
-				thiscomputestart = computestart + i*solveinterval;
-				thiscomputeend = thiscomputestart + computeinterval;
-				pathweightfile = pathweightfileprefix + itoa(thiscomputestart) + "_" + itoa(thiscomputeend) + pathweightfilesuffix;
-			}
+		if (conn_matrix.substr(0,8) == "KCLUSTER") {
+			thiscomputestart = i*1800;
+			thiscomputeend = (i+1)*1800;
+			pathweightfile = pathweightfileprefix + itoa(thiscomputestart) + "_" + itoa(thiscomputeend) + pathweightfilesuffix;
 		} else {
-			if (pathweightfilesuffix != "") {
-				cout << "***Error: pathweightfilesuffix is non-empty when solveinterval==0 and computeinterval==0, pathweightfilesuffix=" << pathweightfilesuffix << endl;
-				exit(1);
+			if (conn_matrix == "CLUSTERX") {
+				if (computeinterval == 0) { // equal
+					pathweightfile = pathweightfileprefix;
+				} else { // optimal or delay
+					thiscomputestart = computestart + i*solveinterval;
+					thiscomputeend = thiscomputestart + computeinterval;
+					pathweightfile = pathweightfileprefix + itoa(thiscomputestart) + "_" + itoa(thiscomputeend) + pathweightfilesuffix;
+				}
+			} else {
+				if (pathweightfilesuffix != "") {
+					cout << "***Error: pathweightfilesuffix is non-empty when solveinterval==0 and computeinterval==0, pathweightfilesuffix=" << pathweightfilesuffix << endl;
+					exit(1);
+				}
+				pathweightfile = pathweightfileprefix;
 			}
-			pathweightfile = pathweightfileprefix;
 		}
 
 		ifstream pwfile(pathweightfile.c_str());

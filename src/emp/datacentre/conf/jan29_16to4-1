@@ -1,0 +1,3 @@
+./discover_16to4-1.sh dring su3 lpdbr barriernocrossover 14 14.5 0
+./discover_16to4-1.sh rrg su3 lpdbr barriernocrossover 14 14.5 0
+./discover_16to4-1.sh leafspine ecmp equal barriernocrossover 14 15 0

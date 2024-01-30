@@ -1,0 +1,4 @@
+./tagdiscover.sh dring su2 ml20 ml 0 40 none 800 1400
+./tagdiscover.sh dring 32disjoint ml20 ml 0 40 none 800 1400
+./tagdiscover.sh dring racke0 ml20 ml 0 40 none 800 1400
+./tagdiscover.sh dring racke1 ml20 ml 0 40 none 800 1400

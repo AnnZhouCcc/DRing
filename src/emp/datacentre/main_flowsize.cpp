@@ -413,7 +413,7 @@ int main(int argc, char **argv) {
     LeafSpineTopology* top = new LeafSpineTopology(&logfile, &eventlist, RANDOM, npfile, pwfile);
 #elif CHOSEN_TOPO == RRG
     RandRegularTopology* top;
-    if (conn_matrix == "CLUSTERX") {
+    if (conn_matrix == "CLUSTERX" || conn_matrix.substr(0,8) == "KCLUSTER") {
         string pwfileprefix = pwfile;
         string pwfilesuffix = "_" + itoa(dp) + ".txt";
         top = new RandRegularTopology(&logfile, &eventlist, rfile, RANDOM, conn_matrix, routing, korn, npfile, pwfileprefix, pwfilesuffix, solvestart, solveend, solveinterval, computestart, computeend, computeinterval);
@@ -455,6 +455,12 @@ int main(int argc, char **argv) {
     }
     else if (conn_matrix.substr(0,3) == "C2S") {
         conns->setTopoFlowsC2S(conn_matrix, simtime_ms);
+    }
+    else if (conn_matrix.substr(0,8) == "KCLUSTER") {
+        conns->setTopoFlowsKCluster(top, paramstring, conn_matrix, simtime_ms, multiplier, numerator, denominator);
+    }
+    else if (conn_matrix.substr(0,8) == "ML") {
+        conns->setTopoFlowsML(paramstring, simtime_ms);
     }
     else if (conn_matrix == "CLUSTERX" || conn_matrix == "CLUSTERT") {
         // conns->setFlowsFromClusterXSmallInterval(top, paramstring, multiplier, numerator, denominator, solvestart, solveend, solveinterval, simtime_ms);
@@ -532,7 +538,7 @@ int main(int argc, char **argv) {
     }
 
     //conns->multiplyFlows(multiplier,numerator,denominator);
-    if (conn_matrix!="CLUSTERX" && conn_matrix!="CLUSTERT") {
+    if (conn_matrix!="CLUSTERX" && conn_matrix!="CLUSTERT" && conn_matrix.substr(0,8) != "KCLUSTER") {
       conns->multiplyFlowsRandomize(multiplier,numerator,denominator,simtime_ms);
     } else {
       conns->simplyCopyFlows();
@@ -550,6 +556,42 @@ int main(int argc, char **argv) {
     int flowID = 0, whichinterval=0, numintervals=1;
     int src_sw, dst_sw, num_paths_srcsw_dstsw, num_paths_dstsw_srcsw;
     vector<route_t*>*** net_paths = top->net_paths_rack_based;
+
+    int k=0;
+    std::map<int,int> kclustermap;
+    if (conn_matrix.substr(0,8) == "KCLUSTER") {
+        std::string conn_matrix_str = conn_matrix;
+        string delimiter = "_";
+        size_t position = 0;
+        string token;
+        while ((position = conn_matrix_str.find(delimiter)) != string::npos) {
+            token = conn_matrix_str.substr(0, position);
+            conn_matrix_str.erase(0, position+delimiter.length());
+        }
+        k = stoi(conn_matrix_str);
+
+        // Read kclustermapfile
+        std::cout << "kclustermap: ";
+        string kfilename = "kclustermapfiles/routing_"+paramstring+"_"+std::to_string(k);
+        ifstream kTMFile(kfilename.c_str());
+        string kline;
+        kline.clear();
+        if (kTMFile.is_open()){
+            while(kTMFile.good()){
+            getline(kTMFile, kline);
+            //Whitespace line
+            if (kline.find_first_not_of(' ') == string::npos) break;
+            stringstream ss(kline);
+            int weightstart, bestweight;
+            ss >> weightstart >> bestweight;
+            kclustermap[weightstart] = bestweight;
+            std::cout << weightstart << "->" << bestweight << ", ";
+            }
+            kTMFile.close();
+        }
+        std::cout << std::endl;
+    }
+
     for (Flow& flow: conns->flows){
         flowID++;
         if(flowID%1000==1)
@@ -569,6 +611,12 @@ int main(int argc, char **argv) {
             numintervals = ((solveend-solvestart) / solveinterval) + 1;
             double intervallen = simtime_ms / numintervals;
             whichinterval = int(flow.start_time_ms / intervallen);
+        } else if (conn_matrix.substr(0,8) == "KCLUSTER") {
+            numintervals = 48-k;
+            double intervallen = simtime_ms / numintervals;
+            int routeinterval = int(flow.start_time_ms / intervallen)+k;
+            int weightinterval = (int(routeinterval/k)-1)*k;
+            whichinterval = kclustermap[weightinterval];
         }
     #endif
     #else

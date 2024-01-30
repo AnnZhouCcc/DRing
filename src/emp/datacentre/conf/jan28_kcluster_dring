@@ -1,0 +1,9 @@
+./tagdiscover.sh dring su3 kcluster_2 kcluster a 100 a 6 14
+./tagdiscover.sh dring su3 kcluster_12 kcluster a 100 a 6 14
+./tagdiscover.sh dring su3 kcluster_24 kcluster a 100 a 6 22
+./tagdiscover.sh dring su3 kcluster_2 kcluster b 100 b 0.2 1
+./tagdiscover.sh dring su3 kcluster_12 kcluster b 100 b 0.2 1
+./tagdiscover.sh dring su3 kcluster_24 kcluster b 100 b 1 2.6
+./tagdiscover.sh dring su3 kcluster_2 kcluster c 100 c 0.2 1
+./tagdiscover.sh dring su3 kcluster_12 kcluster c 100 c 0.2 1
+./tagdiscover.sh dring su3 kcluster_24 kcluster c 100 c 0.8 1.6

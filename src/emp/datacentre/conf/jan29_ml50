@@ -1,0 +1,3 @@
+./tagdiscover.sh dring su3 ml50 ml 0 50 none 1400 1600
+./tagdiscover.sh dring 32disjoint ml50 ml 0 50 none 1400 1600
+./tagdiscover.sh leafspine ecmp ml50 ml 0 50 none 1400 1600

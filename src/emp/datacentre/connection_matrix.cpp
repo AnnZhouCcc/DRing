@@ -3371,6 +3371,181 @@ void ConnectionMatrix::setTopoFlowsC2S(string conn_matrix_str, double simtime_ms
   }
 }
 
+void ConnectionMatrix::setTopoFlowsML(string filenum, double simtime_ms) {
+  cout << "Topo flows ML" << endl;
+
+  // Read traffic from config file
+  string trafficfilename = "trafficfiles/ml/leafspine_20_"+filenum+".txt";
+  cout << "trafficfilename: " << trafficfilename << endl;
+  ifstream TMFile(trafficfilename.c_str());
+  string line;
+  line.clear();
+  if (TMFile.is_open()){
+    while(TMFile.good()){
+      getline(TMFile, line);
+      //Whitespace line
+      if (line.find_first_not_of(' ') == string::npos) break;
+      stringstream ss(line);
+      int srcsvr,dstsvr;
+      ss >> srcsvr >> dstsvr;
+      if (srcsvr>=NHOST || dstsvr>=NHOST) continue;
+      uint64_t bytes = genFlowBytes();
+      while (bytes<0 or bytes>large_flow_threshold){
+        bytes = genFlowBytes();
+      }
+      bytes = adjustBytesByPacketSize(bytes);
+      double start_time_ms = drand() * simtime_ms;
+      base_flows.push_back(Flow(srcsvr, dstsvr, bytes, start_time_ms));
+    }
+    TMFile.close();
+  }
+}
+
+void ConnectionMatrix::setTopoFlowsKCluster(Topology* top, string cluster, string conn_matrix_str, double simtime_ms, int multiplier, int numerator, int denominator) {
+  cout << "Topo flows KCluster" << endl;
+
+  int numservers = NHOST;
+  int numracks;
+  #if CHOSEN_TOPO == LEAFSPINE
+    numracks = NL;
+  #elif CHOSEN_TOPO == RRG
+    numracks = NSW;
+  #endif
+  cout << "numservers=" << numservers << ", numracks=" << numracks << endl;
+
+  // Parse conn_matrix_str
+  string delimiter = "_";
+  size_t position = 0;
+  string token;
+  while ((position = conn_matrix_str.find(delimiter)) != string::npos) {
+    token = conn_matrix_str.substr(0, position);
+    conn_matrix_str.erase(0, position+delimiter.length());
+  }
+  int k = stoi(conn_matrix_str);
+  cout << "k=" << k << endl;
+
+  // collect all TM files
+  if (cluster.compare("a") != 0 and cluster.compare("b") != 0 and cluster.compare("c") != 0) {
+    cout << "An unknown cluster is indicated as input: " << cluster << endl;
+    exit(0);
+  }
+  string TM_file_prefix = "trafficfiles/cluster_" + cluster + "/traffic_64racks";
+  queue<string> TM_files;
+  if (cluster.compare("a") == 0 or cluster.compare("c") == 0) {
+    TM_files.push("_0_273");
+  } else if (cluster.compare("b") == 0) {
+    TM_files.push("_0_500");
+    TM_files.push("_500_1000");
+    TM_files.push("_1000_1500");
+    TM_files.push("_1500_2000");
+    TM_files.push("_2000_2500");
+    TM_files.push("_2500_2900");
+  }
+
+  // read in traffic for each pair of racks
+  int numintervals = 48-k;
+  uint64_t*** traffic_per_rack_pair_per_interval = new uint64_t**[numintervals];
+  for (int k=0; k<numintervals; k++) {
+    traffic_per_rack_pair_per_interval[k] = new uint64_t*[numracks];
+    for (int i=0; i<numracks; i++) {
+      traffic_per_rack_pair_per_interval[k][i] = new uint64_t[numracks];
+      for (int j=0; j<numracks; j++) {
+        traffic_per_rack_pair_per_interval[k][i][j] = 0;
+      }
+    }
+  }
+  
+  while (!TM_files.empty()) {
+    string TM_file = TM_files.front();
+    TM_files.pop();
+    string filename = TM_file_prefix + TM_file;
+    ifstream TMFile(filename.c_str());
+    string line;
+    line.clear();
+    if (TMFile.is_open()){
+      while(TMFile.good()){
+        getline(TMFile, line);
+        //Whitespace line
+        if (line.find_first_not_of(' ') == string::npos) break;
+        stringstream ss(line);
+        int fromserver, toserver, fromrack, torack, start_time_s;
+	      uint64_t bytes;
+        ss >> start_time_s >> bytes >> fromserver >> toserver;
+        if (start_time_s < k*1800) continue;
+        if (start_time_s >= 86400) break; // the traffic data is sorted
+        if (fromserver>=NHOST || toserver>=NHOST) continue;
+
+        fromrack = top->ConvertHostToRack(fromserver);
+        torack = top->ConvertHostToRack(toserver);
+        int whichinterval = (start_time_s-k*1800) / 1800;
+
+        traffic_per_rack_pair_per_interval[whichinterval][fromrack][torack] += bytes;
+      }
+      TMFile.close();
+    }
+  }
+
+  double scaleup = 0;
+  if (denominator == 0) {
+    scaleup = multiplier;
+  } else {
+    scaleup = multiplier + numerator/(double)denominator;
+  }
+  cout << "scaleup = " << scaleup << endl;
+
+  double simtime_per_interval_ms = simtime_ms / numintervals;
+  for (int k=0; k<numintervals; k++) {
+    for (int i=0; i<numracks; i++) {
+      for (int j=0; j<numracks; j++) {
+        //AnnC: allow intra-rack traffic
+        //if (i==j) {
+        //  traffic_per_rack_pair_per_interval[k][i][j] = 0;
+        //  continue;
+        //}
+        if (traffic_per_rack_pair_per_interval[k][i][j] == 0) continue;
+
+        uint64_t total_traffic = (uint64_t)traffic_per_rack_pair_per_interval[k][i][j]*scaleup;
+        // Check to make sure that the conversion is correct.
+        if (traffic_per_rack_pair_per_interval[k][i][j]*scaleup-total_traffic>=1) {
+            cout << "***Error: routing of traffic*scaleup" << endl;
+        }
+        uint64_t traffic_till_now = 0;
+        bool have_sufficient_flows = false;
+        while (!have_sufficient_flows) {
+          int bytes = genFlowBytes();
+          while (bytes<0 or bytes > large_flow_threshold){
+              bytes = genFlowBytes();
+          }
+          
+          if (traffic_till_now + bytes > total_traffic) {
+            have_sufficient_flows = true;
+            bytes = total_traffic - traffic_till_now;
+          } else if (traffic_till_now + bytes == total_traffic) {
+            have_sufficient_flows = true;
+          }
+          
+          traffic_till_now += bytes;
+          bytes = adjustBytesByPacketSize(bytes);
+          double start_time_ms = drand() * simtime_per_interval_ms + k*simtime_per_interval_ms;
+          int fromserver = getOneServerFromRack(numservers, numracks, i);
+          int toserver = getOneServerFromRack(numservers, numracks, j);
+          
+          base_flows.push_back(Flow(fromserver, toserver, bytes, start_time_ms));
+        }
+      }
+    }
+  }
+
+  // manage pointers
+  for (int k=0; k<numintervals; k++) {
+    for (int i=0; i<numracks; i++) {
+      delete [] traffic_per_rack_pair_per_interval[k][i];
+    }
+    delete [] traffic_per_rack_pair_per_interval[k];
+  }
+  delete [] traffic_per_rack_pair_per_interval;
+}
+
 
 void ConnectionMatrix::tempGenerateSwitchServerMapping(Topology *top) {
   string filename;
