@@ -1,0 +1,3 @@
+./tagdiscover.sh rrg su3 kcluster_2 kcluster b 100 b 0.2 1
+./tagdiscover.sh rrg su3 kcluster_12 kcluster b 100 b 0.4 1.2
+./tagdiscover.sh rrg su3 kcluster_24 kcluster b 100 b 1.2 2

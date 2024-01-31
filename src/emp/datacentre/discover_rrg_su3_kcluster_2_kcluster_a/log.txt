@@ -144,3 +144,12 @@ Tue Jan 30 02:22:55 PM UTC 2024: Running seed=8
 Tue Jan 30 02:31:29 PM UTC 2024: Experiment done (seed=8)
 Tue Jan 30 02:31:29 PM UTC 2024: rigorousseed=9,seedfrom=9,seedto=9
 Tue Jan 30 02:31:29 PM UTC 2024: Running seed=9
+Tue Jan 30 02:42:40 PM UTC 2024: Experiment done (seed=9)
+Tue Jan 30 02:42:40 PM UTC 2024: Collecting stats for discover_rrg_su3_kcluster_2_kcluster_a/10_5_10_100
+Tue Jan 30 02:43:25 PM UTC 2024: n99fct=10.17,totaltraffic=38201329050
+Tue Jan 30 02:43:25 PM UTC 2024: Calculating the cutoff point
+n99fct1=9.81432,totaltraffic1=37749516300,n99fct2=10.17,totaltraffic2=38201329050
+m=7.87229e-10,b=-19.9032,y=10,x=3.79854e+10
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================
+===============Close Interval Found==============

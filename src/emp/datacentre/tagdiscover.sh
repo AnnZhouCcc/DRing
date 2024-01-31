@@ -218,7 +218,7 @@ then
 elif [ $trafficmatrix = "kcluster_24" ]
 then
   trafficmatrixparam=KCLUSTER_24
-elif [ $trafficmatrix = "ml0" ] || [ $trafficmatrix = "ml1" ] || [ $trafficmatrix = "ml2" ] || [ $trafficmatrix = "ml3" ] || [ $trafficmatrix = "ml4" ] || [ $trafficmatrix = "ml10" ] || [ $trafficmatrix = "ml20" ] || [ $trafficmatrix = "ml30" ] || [ $trafficmatrix = "ml40" ]  || [ $trafficmatrix = "ml41" ]  || [ $trafficmatrix = "ml50" ]
+elif [ $trafficmatrix = "ml0" ] || [ $trafficmatrix = "ml1" ] || [ $trafficmatrix = "ml2" ] || [ $trafficmatrix = "ml3" ] || [ $trafficmatrix = "ml4" ] || [ $trafficmatrix = "ml10" ] || [ $trafficmatrix = "ml20" ] || [ $trafficmatrix = "ml30" ] || [ $trafficmatrix = "ml40" ]  || [ $trafficmatrix = "ml41" ] || [ $trafficmatrix = "ml42" ] || [ $trafficmatrix = "ml43" ] || [ $trafficmatrix = "ml44" ] || [ $trafficmatrix = "ml45" ]  || [ $trafficmatrix = "ml50" ]
 then
   trafficmatrixparam=ML
 else
@@ -532,7 +532,7 @@ echo ===============Close Interval Found============== >> $logfile
 rm $tempoutputfile
 if [ $topology = "leafspine" ]
 then
-  rm leafspine_${topology}_${routing}_${trafficmatrix}_${mode}
+  rm leafspine_${topology}_${routing}_${trafficmatrix}_${mode}_${tag}
 else
-  rm rrg_${topology}_${routing}_${trafficmatrix}_${mode}
+  rm rrg_${topology}_${routing}_${trafficmatrix}_${mode}_${tag}
 fi
