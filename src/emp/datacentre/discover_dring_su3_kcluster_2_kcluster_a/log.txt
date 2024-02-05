@@ -154,3 +154,43 @@ m=7.24016e-10,b=-17.0543,y=10,x=3.7367e+10
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 =================================================
 ===============Close Interval Found==============
+Thu Feb 1 05:31:03 AM UTC 2024: Set up parameters
+topology=dring
+routing=su3
+trafficmatrix=kcluster_2
+mode=kcluster
+testpoint=6.125
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Thu Feb 1 05:31:03 AM UTC 2024: Run experiment test point
+mult=6,numerator=125,denominator=1000
+Thu Feb 1 05:31:14 AM UTC 2024: Experiment done (seed=0)
+Thu Feb 1 05:31:19 AM UTC 2024: Experiment done (seed=1)
+Thu Feb 1 05:31:24 AM UTC 2024: Experiment done (seed=2)
+Thu Feb 1 05:37:22 AM UTC 2024: Set up parameters
+topology=dring
+routing=su3
+trafficmatrix=kcluster_2
+mode=kcluster
+testpoint=6.125
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Thu Feb 1 05:37:23 AM UTC 2024: Run experiment test point
+mult=6,numerator=125,denominator=1000
+Thu Feb 1 05:41:24 AM UTC 2024: Experiment done (seed=0)
+Thu Feb 1 05:45:17 AM UTC 2024: Experiment done (seed=1)
+Thu Feb 1 05:49:13 AM UTC 2024: Experiment done (seed=2)
+Thu Feb 1 05:53:08 AM UTC 2024: Experiment done (seed=3)
+Thu Feb 1 05:57:03 AM UTC 2024: Experiment done (seed=4)
+Thu Feb 1 06:00:57 AM UTC 2024: Experiment done (seed=5)
+Thu Feb 1 06:05:36 AM UTC 2024: Experiment done (seed=6)
+Thu Feb 1 06:09:32 AM UTC 2024: Experiment done (seed=7)
+Thu Feb 1 06:13:30 AM UTC 2024: Experiment done (seed=8)
+Thu Feb 1 06:17:31 AM UTC 2024: Experiment done (seed=9)
+===============Close Interval Found==============

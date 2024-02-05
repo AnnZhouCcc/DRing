@@ -153,3 +153,27 @@ m=2.25523e-09,b=-39.3414,y=10,x=2.18787e+10
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 =================================================
 ===============Close Interval Found==============
+Thu Feb 1 05:40:30 AM UTC 2024: Set up parameters
+topology=leafspine
+routing=ecmp
+trafficmatrix=kcluster_2
+mode=kcluster
+testpoint=6.125
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Thu Feb 1 05:40:30 AM UTC 2024: Run experiment test point
+mult=6,numerator=125,denominator=1000
+Thu Feb 1 05:44:20 AM UTC 2024: Experiment done (seed=0)
+Thu Feb 1 05:48:05 AM UTC 2024: Experiment done (seed=1)
+Thu Feb 1 05:51:48 AM UTC 2024: Experiment done (seed=2)
+Thu Feb 1 05:55:29 AM UTC 2024: Experiment done (seed=3)
+Thu Feb 1 05:59:17 AM UTC 2024: Experiment done (seed=4)
+Thu Feb 1 06:02:58 AM UTC 2024: Experiment done (seed=5)
+Thu Feb 1 06:06:46 AM UTC 2024: Experiment done (seed=6)
+Thu Feb 1 06:10:23 AM UTC 2024: Experiment done (seed=7)
+Thu Feb 1 06:14:01 AM UTC 2024: Experiment done (seed=8)
+Thu Feb 1 06:17:46 AM UTC 2024: Experiment done (seed=9)
+===============Close Interval Found==============
