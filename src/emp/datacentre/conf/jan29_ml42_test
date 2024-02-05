@@ -1,0 +1,4 @@
+./tagdiscover.sh rrg su3 ml42 ml 0 42 none 1200 1400
+./tagdiscover.sh rrg 32disjoint ml42 ml 0 42 none 1200 1400
+./tagdiscover.sh dring su3 ml42 ml 0 42 none 1200 1400
+./tagdiscover.sh dring 32disjoint ml42 ml 0 42 none 1200 1400

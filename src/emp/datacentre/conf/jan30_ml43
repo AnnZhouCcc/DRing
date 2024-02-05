@@ -1,0 +1,6 @@
+./tagdiscover.sh dring ecmp ml43 ml 0 43 none 600 1400
+./tagdiscover.sh dring racke0 ml43 ml 0 43 none 600 1400
+./tagdiscover.sh dring racke1 ml43 ml 0 43 none 600 1400
+./tagdiscover.sh rrg ecmp ml43 ml 0 43 none 600 1400
+./tagdiscover.sh rrg racke0 ml43 ml 0 43 none 600 1400
+./tagdiscover.sh rrg racke1 ml43 ml 0 43 none 600 1400

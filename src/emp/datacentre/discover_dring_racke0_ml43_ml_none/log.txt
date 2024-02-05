@@ -1,0 +1,148 @@
+Tue Jan 30 02:34:40 PM UTC 2024: Set up parameters
+topology=dring
+routing=racke0
+trafficmatrix=ml43
+mode=ml
+searchstart=600
+searchend=1400
+threshold=10
+stime=43
+mstart=10
+mend=32
+precision=64
+Tue Jan 30 02:34:41 PM UTC 2024: Run experiment search start
+mult=600,numerator=0,denominator=0
+Tue Jan 30 02:37:20 PM UTC 2024: Experiment done (seed=0)
+Tue Jan 30 02:37:22 PM UTC 2024: n99fct=0.750716,totaltraffic=21107781000
+Tue Jan 30 02:37:22 PM UTC 2024: Run experiment search end
+mult=1400,numerator=0,denominator=0
+Tue Jan 30 02:48:18 PM UTC 2024: Experiment done (seed=0)
+Tue Jan 30 02:48:23 PM UTC 2024: n99fct=10.8485,totaltraffic=49680513000
+Tue Jan 30 02:48:23 PM UTC 2024: Start binary search.
+searchmid=1000,searchstart=600,searchend=1400
+Tue Jan 30 02:48:23 PM UTC 2024: Run experiment
+mult=1000,numerator=0,denominator=0
+Tue Jan 30 02:55:49 PM UTC 2024: Experiment done (seed=0)
+Tue Jan 30 02:55:52 PM UTC 2024: n99fct=4.42219,totaltraffic=35374944000
+Change searchstart to 1000
+searchstart=1000,searchend=1400
+searchmid=1200,searchstart=1000,searchend=1400
+Tue Jan 30 02:55:52 PM UTC 2024: Run experiment
+mult=1200,numerator=0,denominator=0
+Tue Jan 30 03:05:26 PM UTC 2024: Experiment done (seed=0)
+Tue Jan 30 03:05:29 PM UTC 2024: n99fct=8.55839,totaltraffic=42610140000
+Change searchstart to 1200
+searchstart=1200,searchend=1400
+searchmid=1300,searchstart=1200,searchend=1400
+Tue Jan 30 03:05:29 PM UTC 2024: Run experiment
+mult=1300,numerator=0,denominator=0
+Tue Jan 30 03:15:54 PM UTC 2024: Experiment done (seed=0)
+Tue Jan 30 03:15:58 PM UTC 2024: n99fct=9.8013,totaltraffic=46116036000
+Change searchstart to 1300
+searchstart=1300,searchend=1400
+searchmid=1350,searchstart=1300,searchend=1400
+Tue Jan 30 03:15:58 PM UTC 2024: Run experiment
+mult=1350,numerator=0,denominator=0
+Tue Jan 30 03:27:06 PM UTC 2024: Experiment done (seed=0)
+Tue Jan 30 03:27:10 PM UTC 2024: n99fct=10.2525,totaltraffic=47907390000
+Change searchend to 1350
+searchstart=1300,searchend=1350
+searchmid=1325,searchstart=1300,searchend=1350
+Tue Jan 30 03:27:10 PM UTC 2024: Run experiment
+mult=1325,numerator=0,denominator=0
+Tue Jan 30 03:37:57 PM UTC 2024: Experiment done (seed=0)
+Tue Jan 30 03:38:01 PM UTC 2024: n99fct=10.0385,totaltraffic=47008035000
+Tue Jan 30 03:38:01 PM UTC 2024: isCloseEnough searchstart=1300,searchmid=1325,searchend=1350
+searchstart: n99fct=9.8013,totaltraffic=46116036000
+searchmid: n99fct=10.0385,totaltraffic=47008035000
+searchend: n99fct=10.2525,totaltraffic=47907390000
+=========[searchstart,searchmid]=========
+=========[1300,1325]=========
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Tue Jan 30 03:38:01 PM UTC 2024
+topology=dring
+routing=racke0
+trafficmatrix=ml43
+mode=ml
+p1=1300
+p2=1325
+threshold=10
+stime=43
+mstart=10
+mend=32
+precision=64
+Tue Jan 30 03:38:01 PM UTC 2024: Run experiment for p1
+mult=1300,numerator=0,denominator=0
+Tue Jan 30 03:38:01 PM UTC 2024: rigorousseed=0,seedfrom=0,seedto=0
+Tue Jan 30 03:38:01 PM UTC 2024: Running seed=0
+Tue Jan 30 03:38:01 PM UTC 2024: Result already exists (seed=0)
+Tue Jan 30 03:38:01 PM UTC 2024: rigorousseed=1,seedfrom=1,seedto=1
+Tue Jan 30 03:38:01 PM UTC 2024: Running seed=1
+Tue Jan 30 03:38:35 PM UTC 2024: Experiment done (seed=1)
+Tue Jan 30 03:38:35 PM UTC 2024: rigorousseed=2,seedfrom=2,seedto=2
+Tue Jan 30 03:38:35 PM UTC 2024: Running seed=2
+Tue Jan 30 03:39:05 PM UTC 2024: Experiment done (seed=2)
+Tue Jan 30 03:39:05 PM UTC 2024: rigorousseed=3,seedfrom=3,seedto=3
+Tue Jan 30 03:39:05 PM UTC 2024: Running seed=3
+Tue Jan 30 03:39:35 PM UTC 2024: Experiment done (seed=3)
+Tue Jan 30 03:39:35 PM UTC 2024: rigorousseed=4,seedfrom=4,seedto=4
+Tue Jan 30 03:39:35 PM UTC 2024: Running seed=4
+Tue Jan 30 03:40:05 PM UTC 2024: Experiment done (seed=4)
+Tue Jan 30 03:40:05 PM UTC 2024: rigorousseed=5,seedfrom=5,seedto=5
+Tue Jan 30 03:40:05 PM UTC 2024: Running seed=5
+Tue Jan 30 03:40:35 PM UTC 2024: Experiment done (seed=5)
+Tue Jan 30 03:40:35 PM UTC 2024: rigorousseed=6,seedfrom=6,seedto=6
+Tue Jan 30 03:40:35 PM UTC 2024: Running seed=6
+Tue Jan 30 03:41:05 PM UTC 2024: Experiment done (seed=6)
+Tue Jan 30 03:41:05 PM UTC 2024: rigorousseed=7,seedfrom=7,seedto=7
+Tue Jan 30 03:41:05 PM UTC 2024: Running seed=7
+Tue Jan 30 03:41:35 PM UTC 2024: Experiment done (seed=7)
+Tue Jan 30 03:41:35 PM UTC 2024: rigorousseed=8,seedfrom=8,seedto=8
+Tue Jan 30 03:41:35 PM UTC 2024: Running seed=8
+Tue Jan 30 03:42:05 PM UTC 2024: Experiment done (seed=8)
+Tue Jan 30 03:42:05 PM UTC 2024: rigorousseed=9,seedfrom=9,seedto=9
+Tue Jan 30 03:42:05 PM UTC 2024: Running seed=9
+Tue Jan 30 03:42:35 PM UTC 2024: Experiment done (seed=9)
+Tue Jan 30 03:42:35 PM UTC 2024: Collecting stats for discover_dring_racke0_ml43_ml_none/1300_0_0_43
+Tue Jan 30 03:42:39 PM UTC 2024: n99fct=0.98013,totaltraffic=4611603600
+Tue Jan 30 03:42:39 PM UTC 2024: Run experiment for p2
+mult=1325,numerator=0,denominator=0
+Tue Jan 30 03:42:40 PM UTC 2024: rigorousseed=0,seedfrom=0,seedto=0
+Tue Jan 30 03:42:40 PM UTC 2024: Running seed=0
+Tue Jan 30 03:42:40 PM UTC 2024: Result already exists (seed=0)
+Tue Jan 30 03:42:40 PM UTC 2024: rigorousseed=1,seedfrom=1,seedto=1
+Tue Jan 30 03:42:40 PM UTC 2024: Running seed=1
+Tue Jan 30 03:43:10 PM UTC 2024: Experiment done (seed=1)
+Tue Jan 30 03:43:10 PM UTC 2024: rigorousseed=2,seedfrom=2,seedto=2
+Tue Jan 30 03:43:10 PM UTC 2024: Running seed=2
+Tue Jan 30 03:43:40 PM UTC 2024: Experiment done (seed=2)
+Tue Jan 30 03:43:40 PM UTC 2024: rigorousseed=3,seedfrom=3,seedto=3
+Tue Jan 30 03:43:40 PM UTC 2024: Running seed=3
+Tue Jan 30 03:44:10 PM UTC 2024: Experiment done (seed=3)
+Tue Jan 30 03:44:10 PM UTC 2024: rigorousseed=4,seedfrom=4,seedto=4
+Tue Jan 30 03:44:10 PM UTC 2024: Running seed=4
+Tue Jan 30 03:44:40 PM UTC 2024: Experiment done (seed=4)
+Tue Jan 30 03:44:40 PM UTC 2024: rigorousseed=5,seedfrom=5,seedto=5
+Tue Jan 30 03:44:40 PM UTC 2024: Running seed=5
+Tue Jan 30 03:45:10 PM UTC 2024: Experiment done (seed=5)
+Tue Jan 30 03:45:10 PM UTC 2024: rigorousseed=6,seedfrom=6,seedto=6
+Tue Jan 30 03:45:10 PM UTC 2024: Running seed=6
+Tue Jan 30 03:45:40 PM UTC 2024: Experiment done (seed=6)
+Tue Jan 30 03:45:40 PM UTC 2024: rigorousseed=7,seedfrom=7,seedto=7
+Tue Jan 30 03:45:40 PM UTC 2024: Running seed=7
+Tue Jan 30 03:46:10 PM UTC 2024: Experiment done (seed=7)
+Tue Jan 30 03:46:10 PM UTC 2024: rigorousseed=8,seedfrom=8,seedto=8
+Tue Jan 30 03:46:10 PM UTC 2024: Running seed=8
+Tue Jan 30 03:46:40 PM UTC 2024: Experiment done (seed=8)
+Tue Jan 30 03:46:40 PM UTC 2024: rigorousseed=9,seedfrom=9,seedto=9
+Tue Jan 30 03:46:40 PM UTC 2024: Running seed=9
+Tue Jan 30 03:47:10 PM UTC 2024: Experiment done (seed=9)
+Tue Jan 30 03:47:10 PM UTC 2024: Collecting stats for discover_dring_racke0_ml43_ml_none/1325_0_0_43
+Tue Jan 30 03:47:14 PM UTC 2024: n99fct=1.00385,totaltraffic=4700803500
+Tue Jan 30 03:47:14 PM UTC 2024: Calculating the cutoff point
+n99fct1=0.98013,totaltraffic1=4611603600,n99fct2=1.00385,totaltraffic2=4700803500
+m=2.6592e-10,b=-0.246188,y=10,x=3.85311e+10
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================
+===============Close Interval Found==============

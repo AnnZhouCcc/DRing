@@ -154,3 +154,27 @@ m=8.19811e-10,b=-30.5449,y=10,x=4.94564e+10
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 =================================================
 ===============Close Interval Found==============
+Thu Feb 1 05:46:38 AM UTC 2024: Set up parameters
+topology=dring
+routing=su3
+trafficmatrix=kcluster_2
+mode=kcluster
+testpoint=0.4125
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Thu Feb 1 05:46:38 AM UTC 2024: Run experiment test point
+mult=0,numerator=4125,denominator=10000
+Thu Feb 1 05:52:56 AM UTC 2024: Experiment done (seed=0)
+Thu Feb 1 05:59:05 AM UTC 2024: Experiment done (seed=1)
+Thu Feb 1 06:05:17 AM UTC 2024: Experiment done (seed=2)
+Thu Feb 1 06:11:17 AM UTC 2024: Experiment done (seed=3)
+Thu Feb 1 06:17:38 AM UTC 2024: Experiment done (seed=4)
+Thu Feb 1 06:23:44 AM UTC 2024: Experiment done (seed=5)
+Thu Feb 1 06:30:02 AM UTC 2024: Experiment done (seed=6)
+Thu Feb 1 06:36:05 AM UTC 2024: Experiment done (seed=7)
+Thu Feb 1 06:42:21 AM UTC 2024: Experiment done (seed=8)
+Thu Feb 1 06:48:41 AM UTC 2024: Experiment done (seed=9)
+===============Close Interval Found==============
