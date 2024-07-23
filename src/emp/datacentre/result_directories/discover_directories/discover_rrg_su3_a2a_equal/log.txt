@@ -1,0 +1,185 @@
+Fri Jan 20 20:12:35 MST 2023: Set up parameters
+topology=rrg
+routing=su3
+trafficmatrix=a2a
+mode=equal
+searchstart=0.47
+searchend=0.48
+threshold=10
+stime=200
+mstart=50
+mend=150
+precision=64
+Fri Jan 20 20:12:35 MST 2023: Run experiment search start
+mult=0,numerator=47,denominator=100
+Fri Jan 20 20:42:11 MST 2023: Experiment done (seed=0)
+Fri Jan 20 20:42:18 MST 2023: n99fct=11.907,totaltraffic=77507434500
+Fri Jan 20 20:42:18 MST 2023: Run experiment search end
+mult=0,numerator=48,denominator=100
+Fri Jan 20 21:11:36 MST 2023: Experiment done (seed=0)
+Fri Jan 20 21:11:43 MST 2023: n99fct=12.8422,totaltraffic=79149841500
+10 > 12.8422 ? 0
+10 < 11.907 ? 1
+Sat Jan 21 07:52:03 MST 2023: Set up parameters
+topology=rrg
+routing=su3
+trafficmatrix=a2a
+mode=equal
+searchstart=0.45
+searchend=0.46
+threshold=10
+stime=200
+mstart=50
+mend=150
+precision=64
+Sat Jan 21 07:52:03 MST 2023: Run experiment search start
+mult=0,numerator=45,denominator=100
+Sat Jan 21 08:17:42 MST 2023: Experiment done (seed=0)
+Sat Jan 21 08:17:48 MST 2023: n99fct=11.1221,totaltraffic=74196133500
+Sat Jan 21 08:17:48 MST 2023: Run experiment search end
+mult=0,numerator=46,denominator=100
+Sat Jan 21 08:44:58 MST 2023: Experiment done (seed=0)
+Sat Jan 21 08:45:04 MST 2023: n99fct=11.488,totaltraffic=75873256500
+10 > 11.488 ? 0
+10 < 11.1221 ? 1
+Sat Jan 21 10:13:44 MST 2023: Set up parameters
+topology=rrg
+routing=su3
+trafficmatrix=a2a
+mode=equal
+searchstart=0.35
+searchend=0.45
+threshold=10
+stime=200
+mstart=50
+mend=150
+precision=64
+Sat Jan 21 10:13:44 MST 2023: Run experiment search start
+mult=0,numerator=35,denominator=100
+Sat Jan 21 10:28:30 MST 2023: Experiment done (seed=0)
+Sat Jan 21 10:28:35 MST 2023: n99fct=6.25497,totaltraffic=57564550500
+Sat Jan 21 10:28:35 MST 2023: Run experiment search end
+mult=0,numerator=45,denominator=100
+Sat Jan 21 10:28:35 MST 2023: Result already exists (seed=0)
+Sat Jan 21 10:28:42 MST 2023: n99fct=11.1221,totaltraffic=74196133500
+Sat Jan 21 10:28:42 MST 2023: Start binary search.
+searchmid=0.4,searchstart=0.35,searchend=0.45
+Sat Jan 21 10:28:42 MST 2023: Run experiment
+mult=0,numerator=4,denominator=10
+Sat Jan 21 10:49:09 MST 2023: Experiment done (seed=0)
+Sat Jan 21 10:49:15 MST 2023: n99fct=9.09194,totaltraffic=65863692000
+Change searchstart to 0.4
+searchstart=0.4,searchend=0.45
+searchmid=0.425,searchstart=0.4,searchend=0.45
+Sat Jan 21 10:49:15 MST 2023: Run experiment
+mult=0,numerator=425,denominator=1000
+Sat Jan 21 11:12:02 MST 2023: Experiment done (seed=0)
+Sat Jan 21 11:12:09 MST 2023: n99fct=10.1848,totaltraffic=70244125500
+Change searchend to 0.425
+searchstart=0.4,searchend=0.425
+searchmid=0.4125,searchstart=0.4,searchend=0.425
+Sat Jan 21 11:12:09 MST 2023: Run experiment
+mult=0,numerator=4125,denominator=10000
+Sat Jan 21 11:33:21 MST 2023: Experiment done (seed=0)
+Sat Jan 21 11:33:27 MST 2023: n99fct=9.63324,totaltraffic=68060829000
+Change searchstart to 0.4125
+searchstart=0.4125,searchend=0.425
+searchmid=0.41875,searchstart=0.4125,searchend=0.425
+Sat Jan 21 11:33:27 MST 2023: Run experiment
+mult=0,numerator=41875,denominator=100000
+Sat Jan 21 11:57:08 MST 2023: Experiment done (seed=0)
+Sat Jan 21 11:57:14 MST 2023: n99fct=9.84574,totaltraffic=68966505000
+Sat Jan 21 11:57:14 MST 2023: isCloseEnough searchstart=0.4125,searchmid=0.41875,searchend=0.425
+searchstart: n99fct=9.63324,totaltraffic=68060829000
+searchmid: n99fct=9.84574,totaltraffic=68966505000
+searchend: n99fct=10.1848,totaltraffic=70244125500
+=========[searchmid,searchend]=========
+=========[0.41875,0.425]=========
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sat Jan 21 11:57:14 MST 2023
+topology=rrg
+routing=su3
+trafficmatrix=a2a
+mode=equal
+p1=0.41875
+p2=0.425
+threshold=10
+stime=200
+mstart=50
+mend=150
+precision=64
+Sat Jan 21 11:57:14 MST 2023: Run experiment for p1
+mult=0,numerator=41875,denominator=100000
+Sat Jan 21 11:57:14 MST 2023: rigorousseed=0,seedfrom=0,seedto=0
+Sat Jan 21 11:57:14 MST 2023: Running seed=0
+Sat Jan 21 11:57:14 MST 2023: Result already exists (seed=0)
+Sat Jan 21 11:57:14 MST 2023: rigorousseed=1,seedfrom=1,seedto=1
+Sat Jan 21 11:57:14 MST 2023: Running seed=1
+Sat Jan 21 12:21:39 MST 2023: Experiment done (seed=1)
+Sat Jan 21 12:21:39 MST 2023: rigorousseed=2,seedfrom=2,seedto=2
+Sat Jan 21 12:21:39 MST 2023: Running seed=2
+Sat Jan 21 12:45:07 MST 2023: Experiment done (seed=2)
+Sat Jan 21 12:45:07 MST 2023: rigorousseed=3,seedfrom=3,seedto=3
+Sat Jan 21 12:45:07 MST 2023: Running seed=3
+Sat Jan 21 13:10:06 MST 2023: Experiment done (seed=3)
+Sat Jan 21 13:10:06 MST 2023: rigorousseed=4,seedfrom=4,seedto=4
+Sat Jan 21 13:10:06 MST 2023: Running seed=4
+Sat Jan 21 13:35:01 MST 2023: Experiment done (seed=4)
+Sat Jan 21 13:35:01 MST 2023: rigorousseed=5,seedfrom=5,seedto=5
+Sat Jan 21 13:35:01 MST 2023: Running seed=5
+Sat Jan 21 13:58:16 MST 2023: Experiment done (seed=5)
+Sat Jan 21 13:58:16 MST 2023: rigorousseed=6,seedfrom=6,seedto=6
+Sat Jan 21 13:58:16 MST 2023: Running seed=6
+Sat Jan 21 14:20:52 MST 2023: Experiment done (seed=6)
+Sat Jan 21 14:20:52 MST 2023: rigorousseed=7,seedfrom=7,seedto=7
+Sat Jan 21 14:20:52 MST 2023: Running seed=7
+Sat Jan 21 14:43:04 MST 2023: Experiment done (seed=7)
+Sat Jan 21 14:43:04 MST 2023: rigorousseed=8,seedfrom=8,seedto=8
+Sat Jan 21 14:43:04 MST 2023: Running seed=8
+Sat Jan 21 15:05:09 MST 2023: Experiment done (seed=8)
+Sat Jan 21 15:05:09 MST 2023: rigorousseed=9,seedfrom=9,seedto=9
+Sat Jan 21 15:05:09 MST 2023: Running seed=9
+Sat Jan 21 15:27:03 MST 2023: Experiment done (seed=9)
+Sat Jan 21 15:27:03 MST 2023: Collecting stats for discover_rrg_su3_a2a_equal/0_41875_100000_200
+Sat Jan 21 15:28:01 MST 2023: n99fct=9.85726,totaltraffic=68954944350
+Sat Jan 21 15:28:01 MST 2023: Run experiment for p2
+mult=0,numerator=425,denominator=1000
+Sat Jan 21 15:28:01 MST 2023: rigorousseed=0,seedfrom=0,seedto=0
+Sat Jan 21 15:28:01 MST 2023: Running seed=0
+Sat Jan 21 15:28:01 MST 2023: Result already exists (seed=0)
+Sat Jan 21 15:28:02 MST 2023: rigorousseed=1,seedfrom=1,seedto=1
+Sat Jan 21 15:28:02 MST 2023: Running seed=1
+Sat Jan 21 15:50:28 MST 2023: Experiment done (seed=1)
+Sat Jan 21 15:50:29 MST 2023: rigorousseed=2,seedfrom=2,seedto=2
+Sat Jan 21 15:50:29 MST 2023: Running seed=2
+Sat Jan 21 16:13:21 MST 2023: Experiment done (seed=2)
+Sat Jan 21 16:13:21 MST 2023: rigorousseed=3,seedfrom=3,seedto=3
+Sat Jan 21 16:13:21 MST 2023: Running seed=3
+Sat Jan 21 16:35:56 MST 2023: Experiment done (seed=3)
+Sat Jan 21 16:35:56 MST 2023: rigorousseed=4,seedfrom=4,seedto=4
+Sat Jan 21 16:35:56 MST 2023: Running seed=4
+Sat Jan 21 16:58:04 MST 2023: Experiment done (seed=4)
+Sat Jan 21 16:58:04 MST 2023: rigorousseed=5,seedfrom=5,seedto=5
+Sat Jan 21 16:58:04 MST 2023: Running seed=5
+Sat Jan 21 17:20:24 MST 2023: Experiment done (seed=5)
+Sat Jan 21 17:20:24 MST 2023: rigorousseed=6,seedfrom=6,seedto=6
+Sat Jan 21 17:20:24 MST 2023: Running seed=6
+Sat Jan 21 17:43:04 MST 2023: Experiment done (seed=6)
+Sat Jan 21 17:43:04 MST 2023: rigorousseed=7,seedfrom=7,seedto=7
+Sat Jan 21 17:43:04 MST 2023: Running seed=7
+Sat Jan 21 18:05:28 MST 2023: Experiment done (seed=7)
+Sat Jan 21 18:05:28 MST 2023: rigorousseed=8,seedfrom=8,seedto=8
+Sat Jan 21 18:05:28 MST 2023: Running seed=8
+Sat Jan 21 18:28:26 MST 2023: Experiment done (seed=8)
+Sat Jan 21 18:28:26 MST 2023: rigorousseed=9,seedfrom=9,seedto=9
+Sat Jan 21 18:28:26 MST 2023: Running seed=9
+Sat Jan 21 18:50:57 MST 2023: Experiment done (seed=9)
+Sat Jan 21 18:50:57 MST 2023: Collecting stats for discover_rrg_su3_a2a_equal/0_425_1000_200
+Sat Jan 21 18:51:57 MST 2023: n99fct=10.0986,totaltraffic=70041204150
+Sat Jan 21 18:51:57 MST 2023: Calculating the cutoff point
+n99fct1=9.85726,totaltraffic1=68954944350,n99fct2=10.0986,totaltraffic2=70041204150
+m=2.22175e-10,b=-5.4628,y=10,x=6.95974e+10
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================
+===============Close Interval Found==============

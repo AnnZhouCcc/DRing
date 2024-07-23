@@ -1,0 +1,141 @@
+Fri Feb 3 21:44:19 EST 2023: Set up parameters
+topology=rrg
+routing=su3
+trafficmatrix=clustera
+mode=lpdbr-delay-900
+searchstart=18
+searchend=22
+threshold=10
+stime=200
+mstart=50
+mend=150
+precision=64
+Fri Feb 3 21:44:19 EST 2023: Run experiment search start
+mult=18,numerator=0,denominator=0
+Fri Feb 3 21:59:42 EST 2023: Experiment done (seed=0)
+Fri Feb 3 21:59:49 EST 2023: n99fct=5.09429,totaltraffic=64363245000
+Fri Feb 3 21:59:49 EST 2023: Run experiment search end
+mult=22,numerator=0,denominator=0
+Fri Feb 3 22:27:06 EST 2023: Experiment done (seed=0)
+Fri Feb 3 22:27:16 EST 2023: n99fct=11.137,totaltraffic=78473712000
+Fri Feb 3 22:27:16 EST 2023: Start binary search.
+searchmid=20,searchstart=18,searchend=22
+Fri Feb 3 22:27:16 EST 2023: Run experiment
+mult=20,numerator=0,denominator=0
+Fri Feb 3 22:59:57 EST 2023: Experiment done (seed=0)
+Fri Feb 3 23:00:07 EST 2023: n99fct=8.53754,totaltraffic=71380036500
+Change searchstart to 20
+searchstart=20,searchend=22
+searchmid=21,searchstart=20,searchend=22
+Fri Feb 3 23:00:07 EST 2023: Run experiment
+mult=21,numerator=0,denominator=0
+Fri Feb 3 23:33:51 EST 2023: Experiment done (seed=0)
+Fri Feb 3 23:34:00 EST 2023: n99fct=9.93482,totaltraffic=74945814000
+Change searchstart to 21
+searchstart=21,searchend=22
+searchmid=21.5,searchstart=21,searchend=22
+Fri Feb 3 23:34:00 EST 2023: Run experiment
+mult=21,numerator=5,denominator=10
+Sat Feb 4 00:07:09 EST 2023: Experiment done (seed=0)
+Sat Feb 4 00:07:19 EST 2023: n99fct=10.4412,totaltraffic=76712827500
+Change searchend to 21.5
+searchstart=21,searchend=21.5
+searchmid=21.25,searchstart=21,searchend=21.5
+Sat Feb 4 00:07:19 EST 2023: Run experiment
+mult=21,numerator=25,denominator=100
+Sat Feb 4 00:40:41 EST 2023: Experiment done (seed=0)
+Sat Feb 4 00:40:52 EST 2023: n99fct=10.1095,totaltraffic=75794118000
+Sat Feb 4 00:40:52 EST 2023: isCloseEnough searchstart=21,searchmid=21.25,searchend=21.5
+searchstart: n99fct=9.93482,totaltraffic=74945814000
+searchmid: n99fct=10.1095,totaltraffic=75794118000
+searchend: n99fct=10.4412,totaltraffic=76712827500
+=========[searchstart,searchmid]=========
+=========[21,21.25]=========
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sat Feb 4 00:40:52 EST 2023
+topology=rrg
+routing=su3
+trafficmatrix=clustera
+mode=lpdbr-delay-900
+p1=21
+p2=21.25
+threshold=10
+stime=200
+mstart=50
+mend=150
+precision=64
+Sat Feb 4 00:40:52 EST 2023: Run experiment for p1
+mult=21,numerator=0,denominator=0
+Sat Feb 4 00:40:52 EST 2023: rigorousseed=0,seedfrom=0,seedto=0
+Sat Feb 4 00:40:52 EST 2023: Running seed=0
+Sat Feb 4 00:40:52 EST 2023: Result already exists (seed=0)
+Sat Feb 4 00:40:52 EST 2023: rigorousseed=1,seedfrom=1,seedto=1
+Sat Feb 4 00:40:52 EST 2023: Running seed=1
+Sat Feb 4 01:17:09 EST 2023: Experiment done (seed=1)
+Sat Feb 4 01:17:09 EST 2023: rigorousseed=2,seedfrom=2,seedto=2
+Sat Feb 4 01:17:09 EST 2023: Running seed=2
+Sat Feb 4 01:50:28 EST 2023: Experiment done (seed=2)
+Sat Feb 4 01:50:28 EST 2023: rigorousseed=3,seedfrom=3,seedto=3
+Sat Feb 4 01:50:28 EST 2023: Running seed=3
+Sat Feb 4 02:24:42 EST 2023: Experiment done (seed=3)
+Sat Feb 4 02:24:42 EST 2023: rigorousseed=4,seedfrom=4,seedto=4
+Sat Feb 4 02:24:42 EST 2023: Running seed=4
+Sat Feb 4 02:59:03 EST 2023: Experiment done (seed=4)
+Sat Feb 4 02:59:03 EST 2023: rigorousseed=5,seedfrom=5,seedto=5
+Sat Feb 4 02:59:03 EST 2023: Running seed=5
+Sat Feb 4 03:33:56 EST 2023: Experiment done (seed=5)
+Sat Feb 4 03:33:56 EST 2023: rigorousseed=6,seedfrom=6,seedto=6
+Sat Feb 4 03:33:56 EST 2023: Running seed=6
+Sat Feb 4 04:07:37 EST 2023: Experiment done (seed=6)
+Sat Feb 4 04:07:37 EST 2023: rigorousseed=7,seedfrom=7,seedto=7
+Sat Feb 4 04:07:37 EST 2023: Running seed=7
+Sat Feb 4 04:41:30 EST 2023: Experiment done (seed=7)
+Sat Feb 4 04:41:30 EST 2023: rigorousseed=8,seedfrom=8,seedto=8
+Sat Feb 4 04:41:30 EST 2023: Running seed=8
+Sat Feb 4 05:17:04 EST 2023: Experiment done (seed=8)
+Sat Feb 4 05:17:04 EST 2023: rigorousseed=9,seedfrom=9,seedto=9
+Sat Feb 4 05:17:04 EST 2023: Running seed=9
+Sat Feb 4 05:50:15 EST 2023: Experiment done (seed=9)
+Sat Feb 4 05:50:15 EST 2023: Collecting stats for rediscover_rrg_su3_clustera_lpdbr-delay-900/21_0_0_200
+Sat Feb 4 05:51:49 EST 2023: n99fct=9.90516,totaltraffic=74969565000
+Sat Feb 4 05:51:49 EST 2023: Run experiment for p2
+mult=21,numerator=25,denominator=100
+Sat Feb 4 05:51:49 EST 2023: rigorousseed=0,seedfrom=0,seedto=0
+Sat Feb 4 05:51:49 EST 2023: Running seed=0
+Sat Feb 4 05:51:49 EST 2023: Result already exists (seed=0)
+Sat Feb 4 05:51:50 EST 2023: rigorousseed=1,seedfrom=1,seedto=1
+Sat Feb 4 05:51:50 EST 2023: Running seed=1
+Sat Feb 4 06:25:51 EST 2023: Experiment done (seed=1)
+Sat Feb 4 06:25:51 EST 2023: rigorousseed=2,seedfrom=2,seedto=2
+Sat Feb 4 06:25:51 EST 2023: Running seed=2
+Sat Feb 4 07:00:34 EST 2023: Experiment done (seed=2)
+Sat Feb 4 07:00:34 EST 2023: rigorousseed=3,seedfrom=3,seedto=3
+Sat Feb 4 07:00:34 EST 2023: Running seed=3
+Sat Feb 4 07:35:05 EST 2023: Experiment done (seed=3)
+Sat Feb 4 07:35:05 EST 2023: rigorousseed=4,seedfrom=4,seedto=4
+Sat Feb 4 07:35:05 EST 2023: Running seed=4
+Sat Feb 4 08:10:56 EST 2023: Experiment done (seed=4)
+Sat Feb 4 08:10:56 EST 2023: rigorousseed=5,seedfrom=5,seedto=5
+Sat Feb 4 08:10:56 EST 2023: Running seed=5
+Sat Feb 4 08:44:12 EST 2023: Experiment done (seed=5)
+Sat Feb 4 08:44:12 EST 2023: rigorousseed=6,seedfrom=6,seedto=6
+Sat Feb 4 08:44:12 EST 2023: Running seed=6
+Sat Feb 4 09:17:13 EST 2023: Experiment done (seed=6)
+Sat Feb 4 09:17:13 EST 2023: rigorousseed=7,seedfrom=7,seedto=7
+Sat Feb 4 09:17:13 EST 2023: Running seed=7
+Sat Feb 4 09:51:50 EST 2023: Experiment done (seed=7)
+Sat Feb 4 09:51:50 EST 2023: rigorousseed=8,seedfrom=8,seedto=8
+Sat Feb 4 09:51:50 EST 2023: Running seed=8
+Sat Feb 4 10:24:49 EST 2023: Experiment done (seed=8)
+Sat Feb 4 10:24:49 EST 2023: rigorousseed=9,seedfrom=9,seedto=9
+Sat Feb 4 10:24:49 EST 2023: Running seed=9
+Sat Feb 4 10:55:40 EST 2023: Experiment done (seed=9)
+Sat Feb 4 10:55:40 EST 2023: Collecting stats for rediscover_rrg_su3_clustera_lpdbr-delay-900/21_25_100_200
+Sat Feb 4 10:57:13 EST 2023: n99fct=10.1734,totaltraffic=75848378700
+Sat Feb 4 10:57:13 EST 2023: Calculating the cutoff point
+n99fct1=9.90516,totaltraffic1=74969565000,n99fct2=10.1734,totaltraffic2=75848378700
+m=3.0523e-10,b=-12.9778,y=10,x=7.52803e+10
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================
+===============Close Interval Found==============

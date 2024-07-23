@@ -1,0 +1,120 @@
+Sun 17 Sep 2023 10:07:34 AM CDT: Set up parameters
+topology=dring
+routing=su3
+trafficmatrix=clusterc
+mode=lpdbr-delay-1800-1800-decay1
+searchstart=1.5
+searchend=1.55
+threshold=10
+stime=240
+mstart=60
+mend=180
+precision=64
+Sun 17 Sep 2023 10:07:34 AM CDT: Run experiment search start
+mult=1,numerator=5,denominator=10
+Sun 17 Sep 2023 10:58:43 AM CDT: Experiment done (seed=0)
+Sun 17 Sep 2023 10:59:02 AM CDT: n99fct=9.21669,totaltraffic=110340474000
+Sun 17 Sep 2023 10:59:02 AM CDT: Run experiment search end
+mult=1,numerator=55,denominator=100
+Sun 17 Sep 2023 11:49:06 AM CDT: Experiment done (seed=0)
+Sun 17 Sep 2023 11:49:25 AM CDT: n99fct=10.1585,totaltraffic=113968308000
+Sun 17 Sep 2023 11:49:25 AM CDT: Start binary search.
+searchmid=1.525,searchstart=1.5,searchend=1.55
+Sun 17 Sep 2023 11:49:26 AM CDT: Run experiment
+mult=1,numerator=525,denominator=1000
+Sun 17 Sep 2023 12:48:25 PM CDT: Experiment done (seed=0)
+Sun 17 Sep 2023 12:48:45 PM CDT: n99fct=9.79076,totaltraffic=112138402500
+Sun 17 Sep 2023 12:48:45 PM CDT: isCloseEnough searchstart=1.5,searchmid=1.525,searchend=1.55
+searchstart: n99fct=9.21669,totaltraffic=110340474000
+searchmid: n99fct=9.79076,totaltraffic=112138402500
+searchend: n99fct=10.1585,totaltraffic=113968308000
+=========[searchmid,searchend]=========
+=========[1.525,1.55]=========
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sun 17 Sep 2023 12:48:46 PM CDT
+topology=dring
+routing=su3
+trafficmatrix=clusterc
+mode=lpdbr-delay-1800-1800-decay1
+p1=1.525
+p2=1.55
+threshold=10
+stime=240
+mstart=60
+mend=180
+precision=64
+Sun 17 Sep 2023 12:48:46 PM CDT: Run experiment for p1
+mult=1,numerator=525,denominator=1000
+Sun 17 Sep 2023 12:48:46 PM CDT: rigorousseed=0,seedfrom=0,seedto=0
+Sun 17 Sep 2023 12:48:46 PM CDT: Running seed=0
+Sun 17 Sep 2023 12:48:46 PM CDT: Result already exists (seed=0)
+Sun 17 Sep 2023 12:48:47 PM CDT: rigorousseed=1,seedfrom=1,seedto=1
+Sun 17 Sep 2023 12:48:47 PM CDT: Running seed=1
+Sun 17 Sep 2023 01:39:11 PM CDT: Experiment done (seed=1)
+Sun 17 Sep 2023 01:39:14 PM CDT: rigorousseed=2,seedfrom=2,seedto=2
+Sun 17 Sep 2023 01:39:14 PM CDT: Running seed=2
+Sun 17 Sep 2023 02:28:37 PM CDT: Experiment done (seed=2)
+Sun 17 Sep 2023 02:28:39 PM CDT: rigorousseed=3,seedfrom=3,seedto=3
+Sun 17 Sep 2023 02:28:39 PM CDT: Running seed=3
+Sun 17 Sep 2023 03:17:04 PM CDT: Experiment done (seed=3)
+Sun 17 Sep 2023 03:17:06 PM CDT: rigorousseed=4,seedfrom=4,seedto=4
+Sun 17 Sep 2023 03:17:06 PM CDT: Running seed=4
+Sun 17 Sep 2023 04:04:05 PM CDT: Experiment done (seed=4)
+Sun 17 Sep 2023 04:04:07 PM CDT: rigorousseed=5,seedfrom=5,seedto=5
+Sun 17 Sep 2023 04:04:07 PM CDT: Running seed=5
+Sun 17 Sep 2023 04:39:04 PM CDT: Experiment done (seed=5)
+Sun 17 Sep 2023 04:39:06 PM CDT: rigorousseed=6,seedfrom=6,seedto=6
+Sun 17 Sep 2023 04:39:06 PM CDT: Running seed=6
+Sun 17 Sep 2023 05:29:38 PM CDT: Experiment done (seed=6)
+Sun 17 Sep 2023 05:29:40 PM CDT: rigorousseed=7,seedfrom=7,seedto=7
+Sun 17 Sep 2023 05:29:40 PM CDT: Running seed=7
+Sun 17 Sep 2023 06:13:24 PM CDT: Experiment done (seed=7)
+Sun 17 Sep 2023 06:13:26 PM CDT: rigorousseed=8,seedfrom=8,seedto=8
+Sun 17 Sep 2023 06:13:26 PM CDT: Running seed=8
+Sun 17 Sep 2023 06:54:57 PM CDT: Experiment done (seed=8)
+Sun 17 Sep 2023 06:54:59 PM CDT: rigorousseed=9,seedfrom=9,seedto=9
+Sun 17 Sep 2023 06:54:59 PM CDT: Running seed=9
+Sun 17 Sep 2023 07:39:30 PM CDT: Experiment done (seed=9)
+Sun 17 Sep 2023 07:39:32 PM CDT: Collecting stats for suddiscover_dring_su3_clusterc_lpdbr-delay-1800-1800-decay1_1/1_525_1000_240
+Sun 17 Sep 2023 07:42:16 PM CDT: n99fct=9.20386,totaltraffic=108363090150
+Sun 17 Sep 2023 07:42:17 PM CDT: Run experiment for p2
+mult=1,numerator=55,denominator=100
+Sun 17 Sep 2023 07:42:17 PM CDT: rigorousseed=0,seedfrom=0,seedto=0
+Sun 17 Sep 2023 07:42:17 PM CDT: Running seed=0
+Sun 17 Sep 2023 07:42:17 PM CDT: Result already exists (seed=0)
+Sun 17 Sep 2023 07:42:19 PM CDT: rigorousseed=1,seedfrom=1,seedto=1
+Sun 17 Sep 2023 07:42:19 PM CDT: Running seed=1
+Sun 17 Sep 2023 08:35:14 PM CDT: Experiment done (seed=1)
+Sun 17 Sep 2023 08:35:17 PM CDT: rigorousseed=2,seedfrom=2,seedto=2
+Sun 17 Sep 2023 08:35:17 PM CDT: Running seed=2
+Sun 17 Sep 2023 09:26:56 PM CDT: Experiment done (seed=2)
+Sun 17 Sep 2023 09:26:58 PM CDT: rigorousseed=3,seedfrom=3,seedto=3
+Sun 17 Sep 2023 09:26:58 PM CDT: Running seed=3
+Sun 17 Sep 2023 10:19:11 PM CDT: Experiment done (seed=3)
+Sun 17 Sep 2023 10:19:14 PM CDT: rigorousseed=4,seedfrom=4,seedto=4
+Sun 17 Sep 2023 10:19:14 PM CDT: Running seed=4
+Sun 17 Sep 2023 11:08:51 PM CDT: Experiment done (seed=4)
+Sun 17 Sep 2023 11:08:53 PM CDT: rigorousseed=5,seedfrom=5,seedto=5
+Sun 17 Sep 2023 11:08:53 PM CDT: Running seed=5
+Mon 18 Sep 2023 12:01:31 AM CDT: Experiment done (seed=5)
+Mon 18 Sep 2023 12:01:34 AM CDT: rigorousseed=6,seedfrom=6,seedto=6
+Mon 18 Sep 2023 12:01:34 AM CDT: Running seed=6
+Mon 18 Sep 2023 12:52:04 AM CDT: Experiment done (seed=6)
+Mon 18 Sep 2023 12:52:06 AM CDT: rigorousseed=7,seedfrom=7,seedto=7
+Mon 18 Sep 2023 12:52:06 AM CDT: Running seed=7
+Mon 18 Sep 2023 01:42:37 AM CDT: Experiment done (seed=7)
+Mon 18 Sep 2023 01:42:38 AM CDT: rigorousseed=8,seedfrom=8,seedto=8
+Mon 18 Sep 2023 01:42:39 AM CDT: Running seed=8
+Mon 18 Sep 2023 02:26:59 AM CDT: Experiment done (seed=8)
+Mon 18 Sep 2023 02:27:01 AM CDT: rigorousseed=9,seedfrom=9,seedto=9
+Mon 18 Sep 2023 02:27:01 AM CDT: Running seed=9
+Mon 18 Sep 2023 03:09:14 AM CDT: Experiment done (seed=9)
+Mon 18 Sep 2023 03:09:16 AM CDT: Collecting stats for suddiscover_dring_su3_clusterc_lpdbr-delay-1800-1800-decay1_1/1_55_100_240
+Mon 18 Sep 2023 03:12:00 AM CDT: n99fct=10.2012,totaltraffic=113968649250
+Mon 18 Sep 2023 03:12:01 AM CDT: Calculating the cutoff point
+n99fct1=9.20386,totaltraffic1=108363090150,n99fct2=10.2012,totaltraffic2=113968649250
+m=1.7792e-10,b=-10.0761,y=10,x=1.12838e+11
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================
+===============Close Interval Found==============

@@ -1,0 +1,166 @@
+Mon Sep 18 01:49:16 AM EDT 2023: Set up parameters
+topology=dring
+routing=32disjoint
+trafficmatrix=2304to2304_standard
+mode=tera
+searchstart=0.6
+searchend=0.8
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Mon Sep 18 01:49:16 AM EDT 2023: Run experiment search start
+mult=0,numerator=6,denominator=10
+Mon Sep 18 02:16:55 AM EDT 2023: Experiment done (seed=0)
+Mon Sep 18 02:17:00 AM EDT 2023: n99fct=10.9417,totaltraffic=52379505000
+Mon Sep 18 02:17:00 AM EDT 2023: Run experiment search end
+mult=0,numerator=8,denominator=10
+Mon Sep 18 02:38:54 AM EDT 2023: Set up parameters
+topology=dring
+routing=32disjoint
+trafficmatrix=2304to2304_standard
+mode=tera
+searchstart=0.4
+searchend=0.6
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Mon Sep 18 02:38:54 AM EDT 2023: Run experiment search start
+mult=0,numerator=4,denominator=10
+Mon Sep 18 02:54:28 AM EDT 2023: Experiment done (seed=0)
+Mon Sep 18 02:54:32 AM EDT 2023: n99fct=3.23525,totaltraffic=34922139000
+Mon Sep 18 02:54:32 AM EDT 2023: Run experiment search end
+mult=0,numerator=6,denominator=10
+Mon Sep 18 02:54:32 AM EDT 2023: Result already exists (seed=0)
+Mon Sep 18 02:54:37 AM EDT 2023: n99fct=10.9417,totaltraffic=52379505000
+Mon Sep 18 02:54:37 AM EDT 2023: Start binary search.
+searchmid=0.5,searchstart=0.4,searchend=0.6
+Mon Sep 18 02:54:37 AM EDT 2023: Run experiment
+mult=0,numerator=5,denominator=10
+Mon Sep 18 03:15:10 AM EDT 2023: Experiment done (seed=0)
+Mon Sep 18 03:15:15 AM EDT 2023: n99fct=7.86176,totaltraffic=43757923500
+Change searchstart to 0.5
+searchstart=0.5,searchend=0.6
+searchmid=0.55,searchstart=0.5,searchend=0.6
+Mon Sep 18 03:15:15 AM EDT 2023: Run experiment
+mult=0,numerator=55,denominator=100
+Mon Sep 18 03:39:33 AM EDT 2023: Experiment done (seed=0)
+Mon Sep 18 03:39:38 AM EDT 2023: n99fct=9.52934,totaltraffic=47765503500
+Change searchstart to 0.55
+searchstart=0.55,searchend=0.6
+searchmid=0.575,searchstart=0.55,searchend=0.6
+Mon Sep 18 03:39:38 AM EDT 2023: Run experiment
+mult=0,numerator=575,denominator=1000
+Mon Sep 18 04:04:40 AM EDT 2023: Experiment done (seed=0)
+Mon Sep 18 04:04:46 AM EDT 2023: n99fct=10.2791,totaltraffic=50190822000
+Change searchend to 0.575
+searchstart=0.55,searchend=0.575
+searchmid=0.5625,searchstart=0.55,searchend=0.575
+Mon Sep 18 04:04:46 AM EDT 2023: Run experiment
+mult=0,numerator=5625,denominator=10000
+Mon Sep 18 04:30:29 AM EDT 2023: Experiment done (seed=0)
+Mon Sep 18 04:30:34 AM EDT 2023: n99fct=9.99721,totaltraffic=49314366000
+Change searchstart to 0.5625
+searchstart=0.5625,searchend=0.575
+searchmid=0.56875,searchstart=0.5625,searchend=0.575
+Mon Sep 18 04:30:34 AM EDT 2023: Run experiment
+mult=0,numerator=56875,denominator=100000
+Mon Sep 18 04:54:59 AM EDT 2023: Experiment done (seed=0)
+Mon Sep 18 04:55:05 AM EDT 2023: n99fct=10.0485,totaltraffic=49725772500
+Mon Sep 18 04:55:05 AM EDT 2023: isCloseEnough searchstart=0.5625,searchmid=0.56875,searchend=0.575
+searchstart: n99fct=9.99721,totaltraffic=49314366000
+searchmid: n99fct=10.0485,totaltraffic=49725772500
+searchend: n99fct=10.2791,totaltraffic=50190822000
+=========[searchstart,searchmid]=========
+=========[0.5625,0.56875]=========
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Mon Sep 18 04:55:05 AM EDT 2023
+topology=dring
+routing=32disjoint
+trafficmatrix=2304to2304_standard
+mode=tera
+p1=0.5625
+p2=0.56875
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Mon Sep 18 04:55:05 AM EDT 2023: Run experiment for p1
+mult=0,numerator=5625,denominator=10000
+Mon Sep 18 04:55:05 AM EDT 2023: rigorousseed=0,seedfrom=0,seedto=0
+Mon Sep 18 04:55:05 AM EDT 2023: Running seed=0
+Mon Sep 18 04:55:05 AM EDT 2023: Result already exists (seed=0)
+Mon Sep 18 04:55:05 AM EDT 2023: rigorousseed=1,seedfrom=1,seedto=1
+Mon Sep 18 04:55:05 AM EDT 2023: Running seed=1
+Mon Sep 18 05:20:35 AM EDT 2023: Experiment done (seed=1)
+Mon Sep 18 05:20:35 AM EDT 2023: rigorousseed=2,seedfrom=2,seedto=2
+Mon Sep 18 05:20:35 AM EDT 2023: Running seed=2
+Mon Sep 18 05:45:12 AM EDT 2023: Experiment done (seed=2)
+Mon Sep 18 05:45:12 AM EDT 2023: rigorousseed=3,seedfrom=3,seedto=3
+Mon Sep 18 05:45:12 AM EDT 2023: Running seed=3
+Mon Sep 18 06:10:42 AM EDT 2023: Experiment done (seed=3)
+Mon Sep 18 06:10:42 AM EDT 2023: rigorousseed=4,seedfrom=4,seedto=4
+Mon Sep 18 06:10:42 AM EDT 2023: Running seed=4
+Mon Sep 18 06:35:53 AM EDT 2023: Experiment done (seed=4)
+Mon Sep 18 06:35:53 AM EDT 2023: rigorousseed=5,seedfrom=5,seedto=5
+Mon Sep 18 06:35:53 AM EDT 2023: Running seed=5
+Mon Sep 18 07:00:34 AM EDT 2023: Experiment done (seed=5)
+Mon Sep 18 07:00:34 AM EDT 2023: rigorousseed=6,seedfrom=6,seedto=6
+Mon Sep 18 07:00:34 AM EDT 2023: Running seed=6
+Mon Sep 18 07:25:13 AM EDT 2023: Experiment done (seed=6)
+Mon Sep 18 07:25:13 AM EDT 2023: rigorousseed=7,seedfrom=7,seedto=7
+Mon Sep 18 07:25:13 AM EDT 2023: Running seed=7
+Mon Sep 18 07:49:55 AM EDT 2023: Experiment done (seed=7)
+Mon Sep 18 07:49:55 AM EDT 2023: rigorousseed=8,seedfrom=8,seedto=8
+Mon Sep 18 07:49:55 AM EDT 2023: Running seed=8
+Mon Sep 18 08:14:29 AM EDT 2023: Experiment done (seed=8)
+Mon Sep 18 08:14:29 AM EDT 2023: rigorousseed=9,seedfrom=9,seedto=9
+Mon Sep 18 08:14:29 AM EDT 2023: Running seed=9
+Mon Sep 18 08:39:12 AM EDT 2023: Experiment done (seed=9)
+Mon Sep 18 08:39:12 AM EDT 2023: Collecting stats for suddiscover_dring_32disjoint_2304to2304_standard_tera_0/0_5625_10000_100
+Mon Sep 18 08:40:06 AM EDT 2023: n99fct=9.96533,totaltraffic=49136738850
+Mon Sep 18 08:40:06 AM EDT 2023: Run experiment for p2
+mult=0,numerator=56875,denominator=100000
+Mon Sep 18 08:40:06 AM EDT 2023: rigorousseed=0,seedfrom=0,seedto=0
+Mon Sep 18 08:40:06 AM EDT 2023: Running seed=0
+Mon Sep 18 08:40:06 AM EDT 2023: Result already exists (seed=0)
+Mon Sep 18 08:40:06 AM EDT 2023: rigorousseed=1,seedfrom=1,seedto=1
+Mon Sep 18 08:40:06 AM EDT 2023: Running seed=1
+Mon Sep 18 09:06:15 AM EDT 2023: Experiment done (seed=1)
+Mon Sep 18 09:06:15 AM EDT 2023: rigorousseed=2,seedfrom=2,seedto=2
+Mon Sep 18 09:06:15 AM EDT 2023: Running seed=2
+Mon Sep 18 09:31:12 AM EDT 2023: Experiment done (seed=2)
+Mon Sep 18 09:31:12 AM EDT 2023: rigorousseed=3,seedfrom=3,seedto=3
+Mon Sep 18 09:31:12 AM EDT 2023: Running seed=3
+Mon Sep 18 09:56:00 AM EDT 2023: Experiment done (seed=3)
+Mon Sep 18 09:56:00 AM EDT 2023: rigorousseed=4,seedfrom=4,seedto=4
+Mon Sep 18 09:56:00 AM EDT 2023: Running seed=4
+Mon Sep 18 10:20:57 AM EDT 2023: Experiment done (seed=4)
+Mon Sep 18 10:20:57 AM EDT 2023: rigorousseed=5,seedfrom=5,seedto=5
+Mon Sep 18 10:20:57 AM EDT 2023: Running seed=5
+Mon Sep 18 10:44:31 AM EDT 2023: Experiment done (seed=5)
+Mon Sep 18 10:44:31 AM EDT 2023: rigorousseed=6,seedfrom=6,seedto=6
+Mon Sep 18 10:44:31 AM EDT 2023: Running seed=6
+Mon Sep 18 11:08:37 AM EDT 2023: Experiment done (seed=6)
+Mon Sep 18 11:08:37 AM EDT 2023: rigorousseed=7,seedfrom=7,seedto=7
+Mon Sep 18 11:08:37 AM EDT 2023: Running seed=7
+Mon Sep 18 11:33:06 AM EDT 2023: Experiment done (seed=7)
+Mon Sep 18 11:33:06 AM EDT 2023: rigorousseed=8,seedfrom=8,seedto=8
+Mon Sep 18 11:33:06 AM EDT 2023: Running seed=8
+Mon Sep 18 11:56:49 AM EDT 2023: Experiment done (seed=8)
+Mon Sep 18 11:56:49 AM EDT 2023: rigorousseed=9,seedfrom=9,seedto=9
+Mon Sep 18 11:56:49 AM EDT 2023: Running seed=9
+Mon Sep 18 12:19:32 PM EDT 2023: Experiment done (seed=9)
+Mon Sep 18 12:19:32 PM EDT 2023: Collecting stats for suddiscover_dring_32disjoint_2304to2304_standard_tera_0/0_56875_100000_100
+Mon Sep 18 12:20:24 PM EDT 2023: n99fct=10.0927,totaltraffic=49703498700
+Mon Sep 18 12:20:25 PM EDT 2023: Calculating the cutoff point
+n99fct1=9.96533,totaltraffic1=49136738850,n99fct2=10.0927,totaltraffic2=49703498700
+m=2.24734e-10,b=-1.07737,y=10,x=4.9291e+10
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================
+===============Close Interval Found==============

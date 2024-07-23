@@ -1,0 +1,184 @@
+Thu Feb 2 01:15:26 CST 2023: Set up parameters
+topology=dring
+routing=32disjoint
+trafficmatrix=clustera
+mode=equal
+searchstart=10
+searchend=16
+threshold=10
+stime=200
+mstart=50
+mend=150
+precision=64
+Thu Feb 2 01:15:26 CST 2023: Run experiment search start
+mult=10,numerator=0,denominator=0
+Thu Feb 2 02:29:21 CST 2023: Experiment done (seed=0)
+Thu Feb 2 02:29:27 CST 2023: n99fct=8253.18,totaltraffic=36259348500
+Thu Feb 2 02:29:27 CST 2023: Run experiment search end
+mult=16,numerator=0,denominator=0
+Thu Feb 2 04:07:54 CST 2023: Experiment done (seed=0)
+Thu Feb 2 04:08:01 CST 2023: n99fct=8260.3,totaltraffic=57559797000
+10 > 8260.3 ? 0
+10 < 8253.18 ? 1
+Thu Feb 2 09:40:03 CST 2023: Set up parameters
+topology=dring
+routing=32disjoint
+trafficmatrix=clustera
+mode=equal
+searchstart=2
+searchend=8
+threshold=10
+stime=200
+mstart=50
+mend=150
+precision=64
+Thu Feb 2 09:40:03 CST 2023: Run experiment search start
+mult=2,numerator=0,denominator=0
+Thu Feb 2 09:41:49 CST 2023: Experiment done (seed=0)
+Thu Feb 2 09:41:50 CST 2023: n99fct=0.2045,totaltraffic=7612441500
+Thu Feb 2 09:41:50 CST 2023: Run experiment search end
+mult=8,numerator=0,denominator=0
+Thu Feb 2 10:36:23 CST 2023: Experiment done (seed=0)
+Thu Feb 2 10:36:27 CST 2023: n99fct=4155.2,totaltraffic=29164296000
+Thu Feb 2 10:36:27 CST 2023: Start binary search.
+searchmid=5,searchstart=2,searchend=8
+Thu Feb 2 10:36:27 CST 2023: Run experiment
+mult=5,numerator=0,denominator=0
+Thu Feb 2 10:44:49 CST 2023: Experiment done (seed=0)
+Thu Feb 2 10:44:52 CST 2023: n99fct=304.954,totaltraffic=18430210500
+Change searchend to 5
+searchstart=2,searchend=5
+searchmid=3.5,searchstart=2,searchend=5
+Thu Feb 2 10:44:52 CST 2023: Run experiment
+mult=3,numerator=5,denominator=10
+Thu Feb 2 10:48:35 CST 2023: Experiment done (seed=0)
+Thu Feb 2 10:48:38 CST 2023: n99fct=0.898622,totaltraffic=13038852000
+Change searchstart to 3.5
+searchstart=3.5,searchend=5
+searchmid=4.25,searchstart=3.5,searchend=5
+Thu Feb 2 10:48:38 CST 2023: Run experiment
+mult=4,numerator=25,denominator=100
+Thu Feb 2 10:54:22 CST 2023: Experiment done (seed=0)
+Thu Feb 2 10:54:25 CST 2023: n99fct=94.7304,totaltraffic=15736714500
+Change searchend to 4.25
+searchstart=3.5,searchend=4.25
+searchmid=3.875,searchstart=3.5,searchend=4.25
+Thu Feb 2 10:54:26 CST 2023: Run experiment
+mult=3,numerator=875,denominator=1000
+Thu Feb 2 10:59:04 CST 2023: Experiment done (seed=0)
+Thu Feb 2 10:59:07 CST 2023: n99fct=10.451,totaltraffic=14387107500
+Change searchend to 3.875
+searchstart=3.5,searchend=3.875
+searchmid=3.6875,searchstart=3.5,searchend=3.875
+Thu Feb 2 10:59:07 CST 2023: Run experiment
+mult=3,numerator=6875,denominator=10000
+Thu Feb 2 11:03:38 CST 2023: Experiment done (seed=0)
+Thu Feb 2 11:03:41 CST 2023: n99fct=1.86454,totaltraffic=13714366500
+Change searchstart to 3.6875
+searchstart=3.6875,searchend=3.875
+searchmid=3.78125,searchstart=3.6875,searchend=3.875
+Thu Feb 2 11:03:41 CST 2023: Run experiment
+mult=3,numerator=78125,denominator=100000
+Thu Feb 2 11:08:04 CST 2023: Experiment done (seed=0)
+Thu Feb 2 11:08:06 CST 2023: n99fct=7.90015,totaltraffic=14049012000
+Change searchstart to 3.78125
+searchstart=3.78125,searchend=3.875
+searchmid=3.82812,searchstart=3.78125,searchend=3.875
+Thu Feb 2 11:08:06 CST 2023: Run experiment
+mult=3,numerator=82812,denominator=100000
+Thu Feb 2 11:12:28 CST 2023: Experiment done (seed=0)
+Thu Feb 2 11:12:30 CST 2023: n99fct=9.17026,totaltraffic=14219655000
+Thu Feb 2 11:12:30 CST 2023: isCloseEnough searchstart=3.78125,searchmid=3.82812,searchend=3.875
+searchstart: n99fct=7.90015,totaltraffic=14049012000
+searchmid: n99fct=9.17026,totaltraffic=14219655000
+searchend: n99fct=10.451,totaltraffic=14387107500
+=========[searchmid,searchend]=========
+=========[3.82812,3.875]=========
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Thu Feb 2 11:12:30 CST 2023
+topology=dring
+routing=32disjoint
+trafficmatrix=clustera
+mode=equal
+p1=3.82812
+p2=3.875
+threshold=10
+stime=200
+mstart=50
+mend=150
+precision=64
+Thu Feb 2 11:12:30 CST 2023: Run experiment for p1
+mult=3,numerator=82812,denominator=100000
+Thu Feb 2 11:12:30 CST 2023: rigorousseed=0,seedfrom=0,seedto=0
+Thu Feb 2 11:12:30 CST 2023: Running seed=0
+Thu Feb 2 11:12:30 CST 2023: Result already exists (seed=0)
+Thu Feb 2 11:12:30 CST 2023: rigorousseed=1,seedfrom=1,seedto=1
+Thu Feb 2 11:12:30 CST 2023: Running seed=1
+Thu Feb 2 11:17:02 CST 2023: Experiment done (seed=1)
+Thu Feb 2 11:17:02 CST 2023: rigorousseed=2,seedfrom=2,seedto=2
+Thu Feb 2 11:17:02 CST 2023: Running seed=2
+Thu Feb 2 11:21:29 CST 2023: Experiment done (seed=2)
+Thu Feb 2 11:21:29 CST 2023: rigorousseed=3,seedfrom=3,seedto=3
+Thu Feb 2 11:21:29 CST 2023: Running seed=3
+Thu Feb 2 11:25:59 CST 2023: Experiment done (seed=3)
+Thu Feb 2 11:25:59 CST 2023: rigorousseed=4,seedfrom=4,seedto=4
+Thu Feb 2 11:25:59 CST 2023: Running seed=4
+Thu Feb 2 11:30:23 CST 2023: Experiment done (seed=4)
+Thu Feb 2 11:30:23 CST 2023: rigorousseed=5,seedfrom=5,seedto=5
+Thu Feb 2 11:30:23 CST 2023: Running seed=5
+Thu Feb 2 11:34:57 CST 2023: Experiment done (seed=5)
+Thu Feb 2 11:34:57 CST 2023: rigorousseed=6,seedfrom=6,seedto=6
+Thu Feb 2 11:34:57 CST 2023: Running seed=6
+Thu Feb 2 11:39:42 CST 2023: Experiment done (seed=6)
+Thu Feb 2 11:39:42 CST 2023: rigorousseed=7,seedfrom=7,seedto=7
+Thu Feb 2 11:39:42 CST 2023: Running seed=7
+Thu Feb 2 11:44:12 CST 2023: Experiment done (seed=7)
+Thu Feb 2 11:44:12 CST 2023: rigorousseed=8,seedfrom=8,seedto=8
+Thu Feb 2 11:44:12 CST 2023: Running seed=8
+Thu Feb 2 11:48:39 CST 2023: Experiment done (seed=8)
+Thu Feb 2 11:48:39 CST 2023: rigorousseed=9,seedfrom=9,seedto=9
+Thu Feb 2 11:48:39 CST 2023: Running seed=9
+Thu Feb 2 11:53:06 CST 2023: Experiment done (seed=9)
+Thu Feb 2 11:53:06 CST 2023: Collecting stats for rediscover_dring_32disjoint_clustera_equal/3_82812_100000_200
+Thu Feb 2 11:53:31 CST 2023: n99fct=9.95563,totaltraffic=14219695650
+Thu Feb 2 11:53:32 CST 2023: Run experiment for p2
+mult=3,numerator=875,denominator=1000
+Thu Feb 2 11:53:32 CST 2023: rigorousseed=0,seedfrom=0,seedto=0
+Thu Feb 2 11:53:32 CST 2023: Running seed=0
+Thu Feb 2 11:53:32 CST 2023: Result already exists (seed=0)
+Thu Feb 2 11:53:32 CST 2023: rigorousseed=1,seedfrom=1,seedto=1
+Thu Feb 2 11:53:32 CST 2023: Running seed=1
+Thu Feb 2 11:57:57 CST 2023: Experiment done (seed=1)
+Thu Feb 2 11:57:57 CST 2023: rigorousseed=2,seedfrom=2,seedto=2
+Thu Feb 2 11:57:57 CST 2023: Running seed=2
+Thu Feb 2 12:02:34 CST 2023: Experiment done (seed=2)
+Thu Feb 2 12:02:34 CST 2023: rigorousseed=3,seedfrom=3,seedto=3
+Thu Feb 2 12:02:34 CST 2023: Running seed=3
+Thu Feb 2 12:07:15 CST 2023: Experiment done (seed=3)
+Thu Feb 2 12:07:15 CST 2023: rigorousseed=4,seedfrom=4,seedto=4
+Thu Feb 2 12:07:15 CST 2023: Running seed=4
+Thu Feb 2 12:11:42 CST 2023: Experiment done (seed=4)
+Thu Feb 2 12:11:42 CST 2023: rigorousseed=5,seedfrom=5,seedto=5
+Thu Feb 2 12:11:42 CST 2023: Running seed=5
+Thu Feb 2 12:16:09 CST 2023: Experiment done (seed=5)
+Thu Feb 2 12:16:09 CST 2023: rigorousseed=6,seedfrom=6,seedto=6
+Thu Feb 2 12:16:09 CST 2023: Running seed=6
+Thu Feb 2 12:20:20 CST 2023: Experiment done (seed=6)
+Thu Feb 2 12:20:20 CST 2023: rigorousseed=7,seedfrom=7,seedto=7
+Thu Feb 2 12:20:20 CST 2023: Running seed=7
+Thu Feb 2 12:24:55 CST 2023: Experiment done (seed=7)
+Thu Feb 2 12:24:55 CST 2023: rigorousseed=8,seedfrom=8,seedto=8
+Thu Feb 2 12:24:55 CST 2023: Running seed=8
+Thu Feb 2 12:29:22 CST 2023: Experiment done (seed=8)
+Thu Feb 2 12:29:22 CST 2023: rigorousseed=9,seedfrom=9,seedto=9
+Thu Feb 2 12:29:22 CST 2023: Running seed=9
+Thu Feb 2 12:33:45 CST 2023: Experiment done (seed=9)
+Thu Feb 2 12:33:45 CST 2023: Collecting stats for rediscover_dring_32disjoint_clustera_equal/3_875_1000_200
+Thu Feb 2 12:34:12 CST 2023: n99fct=10.142,totaltraffic=14387216250
+Thu Feb 2 12:34:12 CST 2023: Calculating the cutoff point
+n99fct1=9.95563,totaltraffic1=14219695650,n99fct2=10.142,totaltraffic2=14387216250
+m=1.11252e-09,b=-5.86407,y=10,x=1.42596e+10
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================
+===============Close Interval Found==============

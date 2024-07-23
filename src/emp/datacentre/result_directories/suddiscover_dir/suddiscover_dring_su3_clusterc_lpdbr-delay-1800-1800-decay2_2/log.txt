@@ -1,0 +1,186 @@
+Sun 17 Sep 2023 10:23:00 AM CDT: Set up parameters
+topology=dring
+routing=su3
+trafficmatrix=clusterc
+mode=lpdbr-delay-1800-1800-decay2
+searchstart=1.5
+searchend=1.55
+threshold=10
+stime=240
+mstart=60
+mend=180
+precision=64
+Sun 17 Sep 2023 10:23:00 AM CDT: Run experiment search start
+mult=1,numerator=5,denominator=10
+Sun 17 Sep 2023 11:12:53 AM CDT: Experiment done (seed=0)
+Sun 17 Sep 2023 11:13:13 AM CDT: n99fct=9.19731,totaltraffic=110340474000
+Sun 17 Sep 2023 11:13:13 AM CDT: Run experiment search end
+mult=1,numerator=55,denominator=100
+Sun 17 Sep 2023 12:12:33 PM CDT: Experiment done (seed=0)
+Sun 17 Sep 2023 12:12:54 PM CDT: n99fct=9.72139,totaltraffic=113769166500
+10 > 9.72139 ? 1
+10 < 9.19731 ? 0
+Sun 17 Sep 2023 03:13:12 PM CDT: Set up parameters
+topology=dring
+routing=su3
+trafficmatrix=clusterc
+mode=lpdbr-delay-1800-1800-decay2
+searchstart=1.55
+searchend=1.6
+threshold=10
+stime=240
+mstart=60
+mend=180
+precision=64
+Sun 17 Sep 2023 03:13:13 PM CDT: Run experiment search start
+mult=1,numerator=55,denominator=100
+Sun 17 Sep 2023 03:13:13 PM CDT: Result already exists (seed=0)
+Sun 17 Sep 2023 03:13:33 PM CDT: n99fct=9.72139,totaltraffic=113769166500
+Sun 17 Sep 2023 03:13:33 PM CDT: Run experiment search end
+mult=1,numerator=6,denominator=10
+Sun 17 Sep 2023 03:21:21 PM CDT: Experiment done (seed=0)
+Sun 17 Sep 2023 03:21:21 PM CDT: n99fct=0,totaltraffic=0
+10 > 0 ? 1
+10 < 9.72139 ? 0
+Sun 17 Sep 2023 03:54:44 PM CDT: Set up parameters
+topology=dring
+routing=su3
+trafficmatrix=clusterc
+mode=lpdbr-delay-1800-1800-decay2
+searchstart=1.55
+searchend=1.6
+threshold=10
+stime=240
+mstart=60
+mend=180
+precision=64
+Sun 17 Sep 2023 03:54:44 PM CDT: Run experiment search start
+mult=1,numerator=55,denominator=100
+Sun 17 Sep 2023 03:54:44 PM CDT: Result already exists (seed=0)
+Sun 17 Sep 2023 03:55:03 PM CDT: n99fct=9.72139,totaltraffic=113769166500
+Sun 17 Sep 2023 03:55:03 PM CDT: Run experiment search end
+mult=1,numerator=6,denominator=10
+Sun 17 Sep 2023 04:04:49 PM CDT: Experiment done (seed=0)
+Sun 17 Sep 2023 04:04:49 PM CDT: n99fct=0,totaltraffic=0
+10 > 0 ? 1
+10 < 9.72139 ? 0
+Sun 17 Sep 2023 07:16:08 PM CDT: Set up parameters
+topology=dring
+routing=su3
+trafficmatrix=clusterc
+mode=lpdbr-delay-1800-1800-decay2
+searchstart=1.55
+searchend=1.6
+threshold=10
+stime=240
+mstart=60
+mend=180
+precision=64
+Sun 17 Sep 2023 07:16:08 PM CDT: Run experiment search start
+mult=1,numerator=55,denominator=100
+Sun 17 Sep 2023 07:16:08 PM CDT: Result already exists (seed=0)
+Sun 17 Sep 2023 07:16:29 PM CDT: n99fct=9.72139,totaltraffic=113769166500
+Sun 17 Sep 2023 07:16:29 PM CDT: Run experiment search end
+mult=1,numerator=6,denominator=10
+Sun 17 Sep 2023 08:13:06 PM CDT: Experiment done (seed=0)
+Sun 17 Sep 2023 08:13:25 PM CDT: n99fct=11.0029,totaltraffic=117599890500
+Sun 17 Sep 2023 08:13:25 PM CDT: Start binary search.
+searchmid=1.575,searchstart=1.55,searchend=1.6
+Sun 17 Sep 2023 08:13:25 PM CDT: Run experiment
+mult=1,numerator=575,denominator=1000
+Sun 17 Sep 2023 09:05:32 PM CDT: Experiment done (seed=0)
+Sun 17 Sep 2023 09:05:50 PM CDT: n99fct=10.4114,totaltraffic=115783533000
+Sun 17 Sep 2023 09:05:50 PM CDT: isCloseEnough searchstart=1.55,searchmid=1.575,searchend=1.6
+searchstart: n99fct=9.72139,totaltraffic=113769166500
+searchmid: n99fct=10.4114,totaltraffic=115783533000
+searchend: n99fct=11.0029,totaltraffic=117599890500
+=========[searchstart,searchmid]=========
+=========[1.55,1.575]=========
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sun 17 Sep 2023 09:05:51 PM CDT
+topology=dring
+routing=su3
+trafficmatrix=clusterc
+mode=lpdbr-delay-1800-1800-decay2
+p1=1.55
+p2=1.575
+threshold=10
+stime=240
+mstart=60
+mend=180
+precision=64
+Sun 17 Sep 2023 09:05:51 PM CDT: Run experiment for p1
+mult=1,numerator=55,denominator=100
+Sun 17 Sep 2023 09:05:51 PM CDT: rigorousseed=0,seedfrom=0,seedto=0
+Sun 17 Sep 2023 09:05:51 PM CDT: Running seed=0
+Sun 17 Sep 2023 09:05:51 PM CDT: Result already exists (seed=0)
+Sun 17 Sep 2023 09:05:53 PM CDT: rigorousseed=1,seedfrom=1,seedto=1
+Sun 17 Sep 2023 09:05:53 PM CDT: Running seed=1
+Sun 17 Sep 2023 09:58:01 PM CDT: Experiment done (seed=1)
+Sun 17 Sep 2023 09:58:03 PM CDT: rigorousseed=2,seedfrom=2,seedto=2
+Sun 17 Sep 2023 09:58:03 PM CDT: Running seed=2
+Sun 17 Sep 2023 10:49:24 PM CDT: Experiment done (seed=2)
+Sun 17 Sep 2023 10:49:27 PM CDT: rigorousseed=3,seedfrom=3,seedto=3
+Sun 17 Sep 2023 10:49:27 PM CDT: Running seed=3
+Sun 17 Sep 2023 11:39:34 PM CDT: Experiment done (seed=3)
+Sun 17 Sep 2023 11:39:37 PM CDT: rigorousseed=4,seedfrom=4,seedto=4
+Sun 17 Sep 2023 11:39:37 PM CDT: Running seed=4
+Mon 18 Sep 2023 12:30:49 AM CDT: Experiment done (seed=4)
+Mon 18 Sep 2023 12:30:51 AM CDT: rigorousseed=5,seedfrom=5,seedto=5
+Mon 18 Sep 2023 12:30:51 AM CDT: Running seed=5
+Mon 18 Sep 2023 01:18:40 AM CDT: Experiment done (seed=5)
+Mon 18 Sep 2023 01:18:42 AM CDT: rigorousseed=6,seedfrom=6,seedto=6
+Mon 18 Sep 2023 01:18:42 AM CDT: Running seed=6
+Mon 18 Sep 2023 02:05:10 AM CDT: Experiment done (seed=6)
+Mon 18 Sep 2023 02:05:12 AM CDT: rigorousseed=7,seedfrom=7,seedto=7
+Mon 18 Sep 2023 02:05:12 AM CDT: Running seed=7
+Mon 18 Sep 2023 02:49:39 AM CDT: Experiment done (seed=7)
+Mon 18 Sep 2023 02:49:41 AM CDT: rigorousseed=8,seedfrom=8,seedto=8
+Mon 18 Sep 2023 02:49:41 AM CDT: Running seed=8
+Mon 18 Sep 2023 03:31:50 AM CDT: Experiment done (seed=8)
+Mon 18 Sep 2023 03:31:52 AM CDT: rigorousseed=9,seedfrom=9,seedto=9
+Mon 18 Sep 2023 03:31:52 AM CDT: Running seed=9
+Mon 18 Sep 2023 04:10:55 AM CDT: Experiment done (seed=9)
+Mon 18 Sep 2023 04:10:57 AM CDT: Collecting stats for suddiscover_dring_su3_clusterc_lpdbr-delay-1800-1800-decay2_2/1_55_100_240
+Mon 18 Sep 2023 04:13:33 AM CDT: n99fct=10.1067,totaltraffic=113948733150
+Mon 18 Sep 2023 04:13:34 AM CDT: Run experiment for p2
+mult=1,numerator=575,denominator=1000
+Mon 18 Sep 2023 04:13:34 AM CDT: rigorousseed=0,seedfrom=0,seedto=0
+Mon 18 Sep 2023 04:13:34 AM CDT: Running seed=0
+Mon 18 Sep 2023 04:13:34 AM CDT: Result already exists (seed=0)
+Mon 18 Sep 2023 04:13:36 AM CDT: rigorousseed=1,seedfrom=1,seedto=1
+Mon 18 Sep 2023 04:13:36 AM CDT: Running seed=1
+Mon 18 Sep 2023 04:53:30 AM CDT: Experiment done (seed=1)
+Mon 18 Sep 2023 04:53:33 AM CDT: rigorousseed=2,seedfrom=2,seedto=2
+Mon 18 Sep 2023 04:53:33 AM CDT: Running seed=2
+Mon 18 Sep 2023 05:34:37 AM CDT: Experiment done (seed=2)
+Mon 18 Sep 2023 05:34:39 AM CDT: rigorousseed=3,seedfrom=3,seedto=3
+Mon 18 Sep 2023 05:34:39 AM CDT: Running seed=3
+Mon 18 Sep 2023 06:14:46 AM CDT: Experiment done (seed=3)
+Mon 18 Sep 2023 06:14:48 AM CDT: rigorousseed=4,seedfrom=4,seedto=4
+Mon 18 Sep 2023 06:14:48 AM CDT: Running seed=4
+Mon 18 Sep 2023 06:59:55 AM CDT: Experiment done (seed=4)
+Mon 18 Sep 2023 06:59:56 AM CDT: rigorousseed=5,seedfrom=5,seedto=5
+Mon 18 Sep 2023 06:59:56 AM CDT: Running seed=5
+Mon 18 Sep 2023 07:40:36 AM CDT: Experiment done (seed=5)
+Mon 18 Sep 2023 07:40:38 AM CDT: rigorousseed=6,seedfrom=6,seedto=6
+Mon 18 Sep 2023 07:40:38 AM CDT: Running seed=6
+Mon 18 Sep 2023 08:20:05 AM CDT: Experiment done (seed=6)
+Mon 18 Sep 2023 08:20:07 AM CDT: rigorousseed=7,seedfrom=7,seedto=7
+Mon 18 Sep 2023 08:20:07 AM CDT: Running seed=7
+Mon 18 Sep 2023 08:59:02 AM CDT: Experiment done (seed=7)
+Mon 18 Sep 2023 08:59:03 AM CDT: rigorousseed=8,seedfrom=8,seedto=8
+Mon 18 Sep 2023 08:59:03 AM CDT: Running seed=8
+Mon 18 Sep 2023 09:37:38 AM CDT: Experiment done (seed=8)
+Mon 18 Sep 2023 09:37:40 AM CDT: rigorousseed=9,seedfrom=9,seedto=9
+Mon 18 Sep 2023 09:37:40 AM CDT: Running seed=9
+Mon 18 Sep 2023 10:17:00 AM CDT: Experiment done (seed=9)
+Mon 18 Sep 2023 10:17:02 AM CDT: Collecting stats for suddiscover_dring_su3_clusterc_lpdbr-delay-1800-1800-decay2_2/1_575_1000_240
+Mon 18 Sep 2023 10:19:39 AM CDT: n99fct=10.4375,totaltraffic=115783648650
+Mon 18 Sep 2023 10:19:40 AM CDT: Calculating the cutoff point
+n99fct1=10.1067,totaltraffic1=113948733150,n99fct2=10.4375,totaltraffic2=115783648650
+m=1.80281e-10,b=-10.4361,y=10,x=1.13357e+11
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================
+===============Close Interval Found==============

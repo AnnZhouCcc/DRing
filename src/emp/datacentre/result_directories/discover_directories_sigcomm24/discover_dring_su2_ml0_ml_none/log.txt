@@ -1,0 +1,22 @@
+Mon 29 Jan 2024 03:04:11 AM CST: Set up parameters
+topology=dring
+routing=su2
+trafficmatrix=ml0
+mode=ml
+searchstart=1000
+searchend=1200
+threshold=10
+stime=40
+mstart=10
+mend=30
+precision=64
+Mon 29 Jan 2024 03:04:11 AM CST: Run experiment search start
+mult=1000,numerator=0,denominator=0
+Mon 29 Jan 2024 03:13:41 AM CST: Experiment done (seed=0)
+Mon 29 Jan 2024 03:13:45 AM CST: n99fct=5.74532,totaltraffic=34648929000
+Mon 29 Jan 2024 03:13:45 AM CST: Run experiment search end
+mult=1200,numerator=0,denominator=0
+Mon 29 Jan 2024 03:25:26 AM CST: Experiment done (seed=0)
+Mon 29 Jan 2024 03:25:31 AM CST: n99fct=9.44427,totaltraffic=41706453000
+10 > 9.44427 ? 1
+10 < 5.74532 ? 0

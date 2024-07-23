@@ -1,0 +1,14 @@
+Tue 19 Sep 2023 05:21:15 PM CDT: Set up parameters
+topology=leafspine
+routing=ecmp
+trafficmatrix=575to576
+mode=kawa1
+searchstart=9
+searchend=11
+threshold=10
+stime=200
+mstart=50
+mend=150
+precision=64
+Tue 19 Sep 2023 05:21:15 PM CDT: Run experiment search start
+mult=9,numerator=0,denominator=0

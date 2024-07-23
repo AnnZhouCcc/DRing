@@ -1,0 +1,163 @@
+Wed Feb 1 22:28:17 CST 2023: Set up parameters
+topology=rrg
+routing=su2
+trafficmatrix=clustera
+mode=lppbr-optimal
+searchstart=14
+searchend=16
+threshold=10
+stime=200
+mstart=50
+mend=150
+precision=64
+Wed Feb 1 22:28:17 CST 2023: Run experiment search start
+mult=14,numerator=0,denominator=0
+Wed Feb 1 22:45:15 CST 2023: Experiment done (seed=0)
+Wed Feb 1 22:45:24 CST 2023: n99fct=0.624896,totaltraffic=53095426500
+Wed Feb 1 22:45:24 CST 2023: Run experiment search end
+mult=16,numerator=0,denominator=0
+Wed Feb 1 23:07:56 CST 2023: Experiment done (seed=0)
+Wed Feb 1 23:08:07 CST 2023: n99fct=0.967042,totaltraffic=60552298500
+10 > 0.967042 ? 1
+10 < 0.624896 ? 0
+Thu Feb 2 00:42:35 CST 2023: Set up parameters
+topology=rrg
+routing=su2
+trafficmatrix=clustera
+mode=lppbr-optimal
+searchstart=18
+searchend=22
+threshold=10
+stime=200
+mstart=50
+mend=150
+precision=64
+Thu Feb 2 00:42:35 CST 2023: Run experiment search start
+mult=18,numerator=0,denominator=0
+Thu Feb 2 01:12:07 CST 2023: Experiment done (seed=0)
+Thu Feb 2 01:12:17 CST 2023: n99fct=2.38552,totaltraffic=67993290000
+Thu Feb 2 01:12:17 CST 2023: Run experiment search end
+mult=22,numerator=0,denominator=0
+Thu Feb 2 01:49:52 CST 2023: Experiment done (seed=0)
+Thu Feb 2 01:50:05 CST 2023: n99fct=10.975,totaltraffic=82882198500
+Thu Feb 2 01:50:05 CST 2023: Start binary search.
+searchmid=20,searchstart=18,searchend=22
+Thu Feb 2 01:50:05 CST 2023: Run experiment
+mult=20,numerator=0,denominator=0
+Thu Feb 2 02:26:35 CST 2023: Experiment done (seed=0)
+Thu Feb 2 02:26:47 CST 2023: n99fct=7.2539,totaltraffic=75440701500
+Change searchstart to 20
+searchstart=20,searchend=22
+searchmid=21,searchstart=20,searchend=22
+Thu Feb 2 02:26:47 CST 2023: Run experiment
+mult=21,numerator=0,denominator=0
+Thu Feb 2 03:04:57 CST 2023: Experiment done (seed=0)
+Thu Feb 2 03:05:09 CST 2023: n99fct=9.42351,totaltraffic=79170000000
+Change searchstart to 21
+searchstart=21,searchend=22
+searchmid=21.5,searchstart=21,searchend=22
+Thu Feb 2 03:05:09 CST 2023: Run experiment
+mult=21,numerator=5,denominator=10
+Thu Feb 2 03:41:38 CST 2023: Experiment done (seed=0)
+Thu Feb 2 03:41:50 CST 2023: n99fct=10.1478,totaltraffic=81037140000
+Change searchend to 21.5
+searchstart=21,searchend=21.5
+searchmid=21.25,searchstart=21,searchend=21.5
+Thu Feb 2 03:41:50 CST 2023: Run experiment
+mult=21,numerator=25,denominator=100
+Thu Feb 2 04:18:31 CST 2023: Experiment done (seed=0)
+Thu Feb 2 04:18:43 CST 2023: n99fct=9.86096,totaltraffic=80101510500
+Thu Feb 2 04:18:44 CST 2023: isCloseEnough searchstart=21,searchmid=21.25,searchend=21.5
+searchstart: n99fct=9.42351,totaltraffic=79170000000
+searchmid: n99fct=9.86096,totaltraffic=80101510500
+searchend: n99fct=10.1478,totaltraffic=81037140000
+=========[searchmid,searchend]=========
+=========[21.25,21.5]=========
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Thu Feb 2 04:18:44 CST 2023
+topology=rrg
+routing=su2
+trafficmatrix=clustera
+mode=lppbr-optimal
+p1=21.25
+p2=21.5
+threshold=10
+stime=200
+mstart=50
+mend=150
+precision=64
+Thu Feb 2 04:18:44 CST 2023: Run experiment for p1
+mult=21,numerator=25,denominator=100
+Thu Feb 2 04:18:44 CST 2023: rigorousseed=0,seedfrom=0,seedto=0
+Thu Feb 2 04:18:44 CST 2023: Running seed=0
+Thu Feb 2 04:18:44 CST 2023: Result already exists (seed=0)
+Thu Feb 2 04:18:44 CST 2023: rigorousseed=1,seedfrom=1,seedto=1
+Thu Feb 2 04:18:44 CST 2023: Running seed=1
+Thu Feb 2 04:54:53 CST 2023: Experiment done (seed=1)
+Thu Feb 2 04:54:54 CST 2023: rigorousseed=2,seedfrom=2,seedto=2
+Thu Feb 2 04:54:54 CST 2023: Running seed=2
+Thu Feb 2 05:31:55 CST 2023: Experiment done (seed=2)
+Thu Feb 2 05:31:55 CST 2023: rigorousseed=3,seedfrom=3,seedto=3
+Thu Feb 2 05:31:55 CST 2023: Running seed=3
+Thu Feb 2 06:08:40 CST 2023: Experiment done (seed=3)
+Thu Feb 2 06:08:40 CST 2023: rigorousseed=4,seedfrom=4,seedto=4
+Thu Feb 2 06:08:40 CST 2023: Running seed=4
+Thu Feb 2 06:45:18 CST 2023: Experiment done (seed=4)
+Thu Feb 2 06:45:18 CST 2023: rigorousseed=5,seedfrom=5,seedto=5
+Thu Feb 2 06:45:18 CST 2023: Running seed=5
+Thu Feb 2 07:21:16 CST 2023: Experiment done (seed=5)
+Thu Feb 2 07:21:16 CST 2023: rigorousseed=6,seedfrom=6,seedto=6
+Thu Feb 2 07:21:16 CST 2023: Running seed=6
+Thu Feb 2 07:55:29 CST 2023: Experiment done (seed=6)
+Thu Feb 2 07:55:29 CST 2023: rigorousseed=7,seedfrom=7,seedto=7
+Thu Feb 2 07:55:29 CST 2023: Running seed=7
+Thu Feb 2 08:28:53 CST 2023: Experiment done (seed=7)
+Thu Feb 2 08:28:53 CST 2023: rigorousseed=8,seedfrom=8,seedto=8
+Thu Feb 2 08:28:53 CST 2023: Running seed=8
+Thu Feb 2 09:04:12 CST 2023: Experiment done (seed=8)
+Thu Feb 2 09:04:13 CST 2023: rigorousseed=9,seedfrom=9,seedto=9
+Thu Feb 2 09:04:13 CST 2023: Running seed=9
+Thu Feb 2 09:37:43 CST 2023: Experiment done (seed=9)
+Thu Feb 2 09:37:44 CST 2023: Collecting stats for rediscover_rrg_su2_clustera_lppbr-optimal/21_25_100_200
+Thu Feb 2 09:39:43 CST 2023: n99fct=9.77244,totaltraffic=80101323000
+Thu Feb 2 09:39:44 CST 2023: Run experiment for p2
+mult=21,numerator=5,denominator=10
+Thu Feb 2 09:39:44 CST 2023: rigorousseed=0,seedfrom=0,seedto=0
+Thu Feb 2 09:39:44 CST 2023: Running seed=0
+Thu Feb 2 09:39:44 CST 2023: Result already exists (seed=0)
+Thu Feb 2 09:39:44 CST 2023: rigorousseed=1,seedfrom=1,seedto=1
+Thu Feb 2 09:39:44 CST 2023: Running seed=1
+Thu Feb 2 10:14:16 CST 2023: Experiment done (seed=1)
+Thu Feb 2 10:14:16 CST 2023: rigorousseed=2,seedfrom=2,seedto=2
+Thu Feb 2 10:14:16 CST 2023: Running seed=2
+Thu Feb 2 10:48:24 CST 2023: Experiment done (seed=2)
+Thu Feb 2 10:48:24 CST 2023: rigorousseed=3,seedfrom=3,seedto=3
+Thu Feb 2 10:48:24 CST 2023: Running seed=3
+Thu Feb 2 11:24:25 CST 2023: Experiment done (seed=3)
+Thu Feb 2 11:24:25 CST 2023: rigorousseed=4,seedfrom=4,seedto=4
+Thu Feb 2 11:24:25 CST 2023: Running seed=4
+Thu Feb 2 11:58:39 CST 2023: Experiment done (seed=4)
+Thu Feb 2 11:58:39 CST 2023: rigorousseed=5,seedfrom=5,seedto=5
+Thu Feb 2 11:58:39 CST 2023: Running seed=5
+Thu Feb 2 12:30:33 CST 2023: Experiment done (seed=5)
+Thu Feb 2 12:30:34 CST 2023: rigorousseed=6,seedfrom=6,seedto=6
+Thu Feb 2 12:30:34 CST 2023: Running seed=6
+Thu Feb 2 13:05:12 CST 2023: Experiment done (seed=6)
+Thu Feb 2 13:05:12 CST 2023: rigorousseed=7,seedfrom=7,seedto=7
+Thu Feb 2 13:05:12 CST 2023: Running seed=7
+Thu Feb 2 13:36:31 CST 2023: Experiment done (seed=7)
+Thu Feb 2 13:36:31 CST 2023: rigorousseed=8,seedfrom=8,seedto=8
+Thu Feb 2 13:36:31 CST 2023: Running seed=8
+Thu Feb 2 14:06:55 CST 2023: Experiment done (seed=8)
+Thu Feb 2 14:06:55 CST 2023: rigorousseed=9,seedfrom=9,seedto=9
+Thu Feb 2 14:06:55 CST 2023: Running seed=9
+Thu Feb 2 14:35:02 CST 2023: Experiment done (seed=9)
+Thu Feb 2 14:35:02 CST 2023: Collecting stats for rediscover_rrg_su2_clustera_lppbr-optimal/21_5_10_200
+Thu Feb 2 14:36:51 CST 2023: n99fct=10.1604,totaltraffic=81037007850
+Thu Feb 2 14:36:52 CST 2023: Calculating the cutoff point
+n99fct1=9.77244,totaltraffic1=80101323000,n99fct2=10.1604,totaltraffic2=81037007850
+m=4.14627e-10,b=-23.4397,y=10,x=8.06501e+10
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================
+===============Close Interval Found==============

@@ -65,6 +65,7 @@ rrg_ecmp_a2a.zip
 pathweightfiles/dring/su3/cluster*/pathweight*.txt
 pathweightfiles/rrg/su3/cluster*/pathweight*.txt
 
-!result_directories/**/*_summary
-!result_directories/**/*_ouput
 result_directories/*
+!result_directories/**summary
+!result_directories/**output
+!result_directories/**log.txt

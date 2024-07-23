@@ -1,0 +1,487 @@
+Tue 19 Sep 2023 06:40:52 PM CDT: Set up parameters
+topology=leafspine
+routing=ecmp
+trafficmatrix=95to95
+mode=kawa1
+searchstart=30
+searchend=32
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Tue 19 Sep 2023 06:40:52 PM CDT: Run experiment search start
+mult=30,numerator=0,denominator=0
+Tue 19 Sep 2023 06:42:13 PM CDT: Experiment done (seed=0)
+Tue 19 Sep 2023 06:42:14 PM CDT: n99fct=9.54192,totaltraffic=4663890000
+Tue 19 Sep 2023 06:42:14 PM CDT: Run experiment search end
+mult=32,numerator=0,denominator=0
+Tue 19 Sep 2023 06:43:32 PM CDT: Experiment done (seed=0)
+Tue 19 Sep 2023 06:43:33 PM CDT: n99fct=10.212,totaltraffic=4991656500
+Tue 19 Sep 2023 06:43:33 PM CDT: Start binary search.
+searchmid=31,searchstart=30,searchend=32
+Tue 19 Sep 2023 06:43:33 PM CDT: Run experiment
+mult=31,numerator=0,denominator=0
+Tue 19 Sep 2023 06:44:41 PM CDT: Experiment done (seed=0)
+Tue 19 Sep 2023 06:44:42 PM CDT: n99fct=10.0658,totaltraffic=4832823000
+Change searchend to 31
+searchstart=30,searchend=31
+searchmid=30.5,searchstart=30,searchend=31
+Tue 19 Sep 2023 06:44:42 PM CDT: Run experiment
+mult=30,numerator=5,denominator=10
+Tue 19 Sep 2023 06:45:50 PM CDT: Experiment done (seed=0)
+Tue 19 Sep 2023 06:45:50 PM CDT: n99fct=9.8756,totaltraffic=4740600000
+Tue 19 Sep 2023 06:45:50 PM CDT: isCloseEnough searchstart=30,searchmid=30.5,searchend=31
+searchstart: n99fct=9.54192,totaltraffic=4663890000
+searchmid: n99fct=9.8756,totaltraffic=4740600000
+searchend: n99fct=10.0658,totaltraffic=4832823000
+=========[searchmid,searchend]=========
+=========[30.5,31]=========
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Tue 19 Sep 2023 06:45:50 PM CDT
+topology=leafspine
+routing=ecmp
+trafficmatrix=95to95
+mode=kawa1
+p1=30.5
+p2=31
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Tue 19 Sep 2023 06:45:50 PM CDT: Run experiment for p1
+mult=30,numerator=5,denominator=10
+Tue 19 Sep 2023 06:45:50 PM CDT: rigorousseed=0,seedfrom=0,seedto=0
+Tue 19 Sep 2023 06:45:51 PM CDT: Running seed=0
+Tue 19 Sep 2023 06:45:51 PM CDT: Result already exists (seed=0)
+Tue 19 Sep 2023 06:45:51 PM CDT: rigorousseed=1,seedfrom=1,seedto=1
+Tue 19 Sep 2023 06:45:51 PM CDT: Running seed=1
+Tue 19 Sep 2023 06:46:21 PM CDT: Experiment done (seed=1)
+Tue 19 Sep 2023 06:46:21 PM CDT: rigorousseed=2,seedfrom=2,seedto=2
+Tue 19 Sep 2023 06:46:21 PM CDT: Running seed=2
+Tue 19 Sep 2023 06:46:51 PM CDT: Experiment done (seed=2)
+Tue 19 Sep 2023 06:46:51 PM CDT: rigorousseed=3,seedfrom=3,seedto=3
+Tue 19 Sep 2023 06:46:51 PM CDT: Running seed=3
+Tue 19 Sep 2023 06:47:21 PM CDT: Experiment done (seed=3)
+Tue 19 Sep 2023 06:47:21 PM CDT: rigorousseed=4,seedfrom=4,seedto=4
+Tue 19 Sep 2023 06:47:21 PM CDT: Running seed=4
+Tue 19 Sep 2023 06:47:51 PM CDT: Experiment done (seed=4)
+Tue 19 Sep 2023 06:47:51 PM CDT: rigorousseed=5,seedfrom=5,seedto=5
+Tue 19 Sep 2023 06:47:51 PM CDT: Running seed=5
+Tue 19 Sep 2023 06:48:21 PM CDT: Experiment done (seed=5)
+Tue 19 Sep 2023 06:48:21 PM CDT: rigorousseed=6,seedfrom=6,seedto=6
+Tue 19 Sep 2023 06:48:21 PM CDT: Running seed=6
+Tue 19 Sep 2023 06:48:51 PM CDT: Experiment done (seed=6)
+Tue 19 Sep 2023 06:48:51 PM CDT: rigorousseed=7,seedfrom=7,seedto=7
+Tue 19 Sep 2023 06:48:51 PM CDT: Running seed=7
+Tue 19 Sep 2023 06:49:21 PM CDT: Experiment done (seed=7)
+Tue 19 Sep 2023 06:49:21 PM CDT: rigorousseed=8,seedfrom=8,seedto=8
+Tue 19 Sep 2023 06:49:21 PM CDT: Running seed=8
+Tue 19 Sep 2023 06:49:51 PM CDT: Experiment done (seed=8)
+Tue 19 Sep 2023 06:49:51 PM CDT: rigorousseed=9,seedfrom=9,seedto=9
+Tue 19 Sep 2023 06:49:51 PM CDT: Running seed=9
+Tue 19 Sep 2023 06:50:21 PM CDT: Experiment done (seed=9)
+Tue 19 Sep 2023 06:50:21 PM CDT: Collecting stats for suddiscover_leafspine_ecmp_95to95_standard_3_kawa1_0/30_5_10_100
+Tue 19 Sep 2023 06:50:22 PM CDT: n99fct=0.98756,totaltraffic=474060000
+Tue 19 Sep 2023 06:50:22 PM CDT: Run experiment for p2
+mult=31,numerator=0,denominator=0
+Tue 19 Sep 2023 06:50:22 PM CDT: rigorousseed=0,seedfrom=0,seedto=0
+Tue 19 Sep 2023 06:50:22 PM CDT: Running seed=0
+Tue 19 Sep 2023 06:50:22 PM CDT: Result already exists (seed=0)
+Tue 19 Sep 2023 06:50:22 PM CDT: rigorousseed=1,seedfrom=1,seedto=1
+Tue 19 Sep 2023 06:50:23 PM CDT: Running seed=1
+Tue 19 Sep 2023 06:50:53 PM CDT: Experiment done (seed=1)
+Tue 19 Sep 2023 06:50:53 PM CDT: rigorousseed=2,seedfrom=2,seedto=2
+Tue 19 Sep 2023 06:50:53 PM CDT: Running seed=2
+Tue 19 Sep 2023 06:51:23 PM CDT: Experiment done (seed=2)
+Tue 19 Sep 2023 06:51:23 PM CDT: rigorousseed=3,seedfrom=3,seedto=3
+Tue 19 Sep 2023 06:51:23 PM CDT: Running seed=3
+Tue 19 Sep 2023 06:51:53 PM CDT: Experiment done (seed=3)
+Tue 19 Sep 2023 06:51:53 PM CDT: rigorousseed=4,seedfrom=4,seedto=4
+Tue 19 Sep 2023 06:51:53 PM CDT: Running seed=4
+Tue 19 Sep 2023 06:52:23 PM CDT: Experiment done (seed=4)
+Tue 19 Sep 2023 06:52:23 PM CDT: rigorousseed=5,seedfrom=5,seedto=5
+Tue 19 Sep 2023 06:52:23 PM CDT: Running seed=5
+Tue 19 Sep 2023 06:54:36 PM CDT: Set up parameters
+topology=leafspine
+routing=ecmp
+trafficmatrix=95to95
+mode=kawa1
+searchstart=30
+searchend=32
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Tue 19 Sep 2023 06:54:37 PM CDT: Run experiment search start
+mult=30,numerator=0,denominator=0
+Tue 19 Sep 2023 06:54:37 PM CDT: Result already exists (seed=0)
+Tue 19 Sep 2023 06:54:37 PM CDT: n99fct=9.54192,totaltraffic=4663890000
+Tue 19 Sep 2023 06:54:37 PM CDT: Run experiment search end
+mult=32,numerator=0,denominator=0
+Tue 19 Sep 2023 06:54:37 PM CDT: Result already exists (seed=0)
+Tue 19 Sep 2023 06:54:38 PM CDT: n99fct=10.212,totaltraffic=4991656500
+Tue 19 Sep 2023 06:54:38 PM CDT: Start binary search.
+searchmid=31,searchstart=30,searchend=32
+Tue 19 Sep 2023 06:54:38 PM CDT: Run experiment
+mult=31,numerator=0,denominator=0
+Tue 19 Sep 2023 06:54:38 PM CDT: Result already exists (seed=0)
+Tue 19 Sep 2023 06:54:39 PM CDT: n99fct=10.0658,totaltraffic=4832823000
+Change searchend to 31
+searchstart=30,searchend=31
+searchmid=30.5,searchstart=30,searchend=31
+Tue 19 Sep 2023 06:54:39 PM CDT: Run experiment
+mult=30,numerator=5,denominator=10
+Tue 19 Sep 2023 06:54:39 PM CDT: Result already exists (seed=0)
+Tue 19 Sep 2023 06:54:40 PM CDT: n99fct=9.8756,totaltraffic=4740600000
+Tue 19 Sep 2023 06:54:40 PM CDT: isCloseEnough searchstart=30,searchmid=30.5,searchend=31
+searchstart: n99fct=9.54192,totaltraffic=4663890000
+searchmid: n99fct=9.8756,totaltraffic=4740600000
+searchend: n99fct=10.0658,totaltraffic=4832823000
+=========[searchmid,searchend]=========
+=========[30.5,31]=========
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Tue 19 Sep 2023 06:54:40 PM CDT
+topology=leafspine
+routing=ecmp
+trafficmatrix=95to95
+mode=kawa1
+p1=30.5
+p2=31
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Tue 19 Sep 2023 06:54:40 PM CDT: Run experiment for p1
+mult=30,numerator=5,denominator=10
+Tue 19 Sep 2023 06:54:40 PM CDT: rigorousseed=0,seedfrom=0,seedto=0
+Tue 19 Sep 2023 06:54:40 PM CDT: Running seed=0
+Tue 19 Sep 2023 06:54:40 PM CDT: Result already exists (seed=0)
+Tue 19 Sep 2023 06:54:41 PM CDT: rigorousseed=1,seedfrom=1,seedto=1
+Tue 19 Sep 2023 06:54:41 PM CDT: Running seed=1
+Tue 19 Sep 2023 06:56:07 PM CDT: Experiment done (seed=1)
+Tue 19 Sep 2023 06:56:07 PM CDT: rigorousseed=2,seedfrom=2,seedto=2
+Tue 19 Sep 2023 06:56:08 PM CDT: Running seed=2
+Tue 19 Sep 2023 06:57:25 PM CDT: Experiment done (seed=2)
+Tue 19 Sep 2023 06:57:25 PM CDT: rigorousseed=3,seedfrom=3,seedto=3
+Tue 19 Sep 2023 06:57:25 PM CDT: Running seed=3
+Tue 19 Sep 2023 06:58:36 PM CDT: Experiment done (seed=3)
+Tue 19 Sep 2023 06:58:36 PM CDT: rigorousseed=4,seedfrom=4,seedto=4
+Tue 19 Sep 2023 06:58:36 PM CDT: Running seed=4
+Tue 19 Sep 2023 06:59:06 PM CDT: Experiment done (seed=4)
+Tue 19 Sep 2023 06:59:06 PM CDT: rigorousseed=5,seedfrom=5,seedto=5
+Tue 19 Sep 2023 06:59:06 PM CDT: Running seed=5
+Tue 19 Sep 2023 06:59:36 PM CDT: Experiment done (seed=5)
+Tue 19 Sep 2023 06:59:36 PM CDT: rigorousseed=6,seedfrom=6,seedto=6
+Tue 19 Sep 2023 06:59:36 PM CDT: Running seed=6
+Tue 19 Sep 2023 07:00:06 PM CDT: Experiment done (seed=6)
+Tue 19 Sep 2023 07:00:06 PM CDT: rigorousseed=7,seedfrom=7,seedto=7
+Tue 19 Sep 2023 07:00:06 PM CDT: Running seed=7
+Tue 19 Sep 2023 07:00:36 PM CDT: Experiment done (seed=7)
+Tue 19 Sep 2023 07:00:36 PM CDT: rigorousseed=8,seedfrom=8,seedto=8
+Tue 19 Sep 2023 07:00:36 PM CDT: Running seed=8
+Tue 19 Sep 2023 07:01:06 PM CDT: Experiment done (seed=8)
+Tue 19 Sep 2023 07:01:06 PM CDT: rigorousseed=9,seedfrom=9,seedto=9
+Tue 19 Sep 2023 07:01:06 PM CDT: Running seed=9
+Tue 19 Sep 2023 07:01:36 PM CDT: Experiment done (seed=9)
+Tue 19 Sep 2023 07:01:36 PM CDT: Collecting stats for suddiscover_leafspine_ecmp_95to95_standard_3_kawa1_0/30_5_10_100
+Tue 19 Sep 2023 07:01:36 PM CDT: n99fct=0.98756,totaltraffic=474060000
+Tue 19 Sep 2023 07:01:37 PM CDT: Run experiment for p2
+mult=31,numerator=0,denominator=0
+Tue 19 Sep 2023 07:01:37 PM CDT: rigorousseed=0,seedfrom=0,seedto=0
+Tue 19 Sep 2023 07:01:37 PM CDT: Running seed=0
+Tue 19 Sep 2023 07:01:37 PM CDT: Result already exists (seed=0)
+Tue 19 Sep 2023 07:01:37 PM CDT: rigorousseed=1,seedfrom=1,seedto=1
+Tue 19 Sep 2023 07:01:37 PM CDT: Running seed=1
+Tue 19 Sep 2023 07:02:07 PM CDT: Experiment done (seed=1)
+Tue 19 Sep 2023 07:02:07 PM CDT: rigorousseed=2,seedfrom=2,seedto=2
+Tue 19 Sep 2023 07:02:07 PM CDT: Running seed=2
+Tue 19 Sep 2023 07:02:37 PM CDT: Experiment done (seed=2)
+Tue 19 Sep 2023 07:02:37 PM CDT: rigorousseed=3,seedfrom=3,seedto=3
+Tue 19 Sep 2023 07:02:37 PM CDT: Running seed=3
+Tue 19 Sep 2023 07:03:07 PM CDT: Experiment done (seed=3)
+Tue 19 Sep 2023 07:03:07 PM CDT: rigorousseed=4,seedfrom=4,seedto=4
+Tue 19 Sep 2023 07:03:07 PM CDT: Running seed=4
+Tue 19 Sep 2023 07:03:37 PM CDT: Experiment done (seed=4)
+Tue 19 Sep 2023 07:03:37 PM CDT: rigorousseed=5,seedfrom=5,seedto=5
+Tue 19 Sep 2023 07:03:37 PM CDT: Running seed=5
+Tue 19 Sep 2023 07:04:07 PM CDT: Experiment done (seed=5)
+Tue 19 Sep 2023 07:04:07 PM CDT: rigorousseed=6,seedfrom=6,seedto=6
+Tue 19 Sep 2023 07:04:07 PM CDT: Running seed=6
+Tue 19 Sep 2023 07:04:37 PM CDT: Experiment done (seed=6)
+Tue 19 Sep 2023 07:04:38 PM CDT: rigorousseed=7,seedfrom=7,seedto=7
+Tue 19 Sep 2023 07:04:38 PM CDT: Running seed=7
+Tue 19 Sep 2023 07:05:08 PM CDT: Experiment done (seed=7)
+Tue 19 Sep 2023 07:05:08 PM CDT: rigorousseed=8,seedfrom=8,seedto=8
+Tue 19 Sep 2023 07:05:08 PM CDT: Running seed=8
+Tue 19 Sep 2023 07:05:38 PM CDT: Experiment done (seed=8)
+Tue 19 Sep 2023 07:05:38 PM CDT: rigorousseed=9,seedfrom=9,seedto=9
+Tue 19 Sep 2023 07:05:38 PM CDT: Running seed=9
+Tue 19 Sep 2023 07:06:08 PM CDT: Experiment done (seed=9)
+Tue 19 Sep 2023 07:06:08 PM CDT: Collecting stats for suddiscover_leafspine_ecmp_95to95_standard_3_kawa1_0/31_0_0_100
+Tue 19 Sep 2023 07:06:09 PM CDT: n99fct=1.00658,totaltraffic=483282300
+Tue 19 Sep 2023 07:06:09 PM CDT: Calculating the cutoff point
+n99fct1=0.98756,totaltraffic1=474060000,n99fct2=1.00658,totaltraffic2=483282300
+m=2.06239e-09,b=0.0098634,y=10,x=4.84396e+09
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================
+===============Close Interval Found==============
+Tue 19 Sep 2023 07:54:55 PM CDT: Set up parameters
+topology=leafspine
+routing=ecmp
+trafficmatrix=95to95
+mode=kawa1
+searchstart=30
+searchend=32
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Tue 19 Sep 2023 07:54:55 PM CDT: Run experiment search start
+mult=30,numerator=0,denominator=0
+Tue 19 Sep 2023 07:54:55 PM CDT: Result already exists (seed=0)
+Tue 19 Sep 2023 07:54:56 PM CDT: n99fct=9.54192,totaltraffic=4663890000
+Tue 19 Sep 2023 07:54:56 PM CDT: Run experiment search end
+mult=32,numerator=0,denominator=0
+Tue 19 Sep 2023 07:54:56 PM CDT: Result already exists (seed=0)
+Tue 19 Sep 2023 07:54:56 PM CDT: n99fct=10.212,totaltraffic=4991656500
+Tue 19 Sep 2023 07:54:56 PM CDT: Start binary search.
+searchmid=31,searchstart=30,searchend=32
+Tue 19 Sep 2023 07:54:56 PM CDT: Run experiment
+mult=31,numerator=0,denominator=0
+Tue 19 Sep 2023 07:54:56 PM CDT: Result already exists (seed=0)
+Tue 19 Sep 2023 07:54:57 PM CDT: n99fct=10.0658,totaltraffic=4832823000
+Change searchend to 31
+searchstart=30,searchend=31
+searchmid=30.5,searchstart=30,searchend=31
+Tue 19 Sep 2023 07:54:57 PM CDT: Run experiment
+mult=30,numerator=5,denominator=10
+Tue 19 Sep 2023 07:54:57 PM CDT: Result already exists (seed=0)
+Tue 19 Sep 2023 07:54:58 PM CDT: n99fct=9.8756,totaltraffic=4740600000
+Tue 19 Sep 2023 07:54:58 PM CDT: isCloseEnough searchstart=30,searchmid=30.5,searchend=31
+searchstart: n99fct=9.54192,totaltraffic=4663890000
+searchmid: n99fct=9.8756,totaltraffic=4740600000
+searchend: n99fct=10.0658,totaltraffic=4832823000
+=========[searchmid,searchend]=========
+=========[30.5,31]=========
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Tue 19 Sep 2023 07:54:58 PM CDT
+topology=leafspine
+routing=ecmp
+trafficmatrix=95to95
+mode=kawa1
+p1=30.5
+p2=31
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Tue 19 Sep 2023 07:54:58 PM CDT: Run experiment for p1
+mult=30,numerator=5,denominator=10
+Tue 19 Sep 2023 07:54:58 PM CDT: rigorousseed=0,seedfrom=0,seedto=0
+Tue 19 Sep 2023 07:54:58 PM CDT: Running seed=0
+Tue 19 Sep 2023 07:54:58 PM CDT: Result already exists (seed=0)
+Tue 19 Sep 2023 07:54:58 PM CDT: rigorousseed=1,seedfrom=1,seedto=1
+Tue 19 Sep 2023 07:54:58 PM CDT: Running seed=1
+Tue 19 Sep 2023 07:56:19 PM CDT: Experiment done (seed=1)
+Tue 19 Sep 2023 07:56:19 PM CDT: rigorousseed=2,seedfrom=2,seedto=2
+Tue 19 Sep 2023 07:56:19 PM CDT: Running seed=2
+Tue 19 Sep 2023 07:57:28 PM CDT: Experiment done (seed=2)
+Tue 19 Sep 2023 07:57:28 PM CDT: rigorousseed=3,seedfrom=3,seedto=3
+Tue 19 Sep 2023 07:57:28 PM CDT: Running seed=3
+Tue 19 Sep 2023 07:58:48 PM CDT: Experiment done (seed=3)
+Tue 19 Sep 2023 07:58:48 PM CDT: rigorousseed=4,seedfrom=4,seedto=4
+Tue 19 Sep 2023 07:58:48 PM CDT: Running seed=4
+Tue 19 Sep 2023 08:00:08 PM CDT: Experiment done (seed=4)
+Tue 19 Sep 2023 08:00:08 PM CDT: rigorousseed=5,seedfrom=5,seedto=5
+Tue 19 Sep 2023 08:00:08 PM CDT: Running seed=5
+Tue 19 Sep 2023 08:01:19 PM CDT: Experiment done (seed=5)
+Tue 19 Sep 2023 08:01:19 PM CDT: rigorousseed=6,seedfrom=6,seedto=6
+Tue 19 Sep 2023 08:01:19 PM CDT: Running seed=6
+Tue 19 Sep 2023 08:02:29 PM CDT: Experiment done (seed=6)
+Tue 19 Sep 2023 08:02:29 PM CDT: rigorousseed=7,seedfrom=7,seedto=7
+Tue 19 Sep 2023 08:02:29 PM CDT: Running seed=7
+Tue 19 Sep 2023 08:03:36 PM CDT: Experiment done (seed=7)
+Tue 19 Sep 2023 08:03:36 PM CDT: rigorousseed=8,seedfrom=8,seedto=8
+Tue 19 Sep 2023 08:03:36 PM CDT: Running seed=8
+Tue 19 Sep 2023 08:04:45 PM CDT: Experiment done (seed=8)
+Tue 19 Sep 2023 08:04:45 PM CDT: rigorousseed=9,seedfrom=9,seedto=9
+Tue 19 Sep 2023 08:04:45 PM CDT: Running seed=9
+Tue 19 Sep 2023 08:05:53 PM CDT: Experiment done (seed=9)
+Tue 19 Sep 2023 08:05:53 PM CDT: Collecting stats for suddiscover_leafspine_ecmp_95to95_standard_3_kawa1_0/30_5_10_100
+Tue 19 Sep 2023 08:05:53 PM CDT: n99fct=0.98756,totaltraffic=474060000
+Tue 19 Sep 2023 08:05:54 PM CDT: Run experiment for p2
+mult=31,numerator=0,denominator=0
+Tue 19 Sep 2023 08:05:54 PM CDT: rigorousseed=0,seedfrom=0,seedto=0
+Tue 19 Sep 2023 08:05:54 PM CDT: Running seed=0
+Tue 19 Sep 2023 08:05:54 PM CDT: Result already exists (seed=0)
+Tue 19 Sep 2023 08:05:54 PM CDT: rigorousseed=1,seedfrom=1,seedto=1
+Tue 19 Sep 2023 08:05:54 PM CDT: Running seed=1
+Tue 19 Sep 2023 08:07:06 PM CDT: Experiment done (seed=1)
+Tue 19 Sep 2023 08:07:06 PM CDT: rigorousseed=2,seedfrom=2,seedto=2
+Tue 19 Sep 2023 08:07:06 PM CDT: Running seed=2
+Tue 19 Sep 2023 08:08:18 PM CDT: Experiment done (seed=2)
+Tue 19 Sep 2023 08:08:18 PM CDT: rigorousseed=3,seedfrom=3,seedto=3
+Tue 19 Sep 2023 08:08:18 PM CDT: Running seed=3
+Tue 19 Sep 2023 08:09:37 PM CDT: Experiment done (seed=3)
+Tue 19 Sep 2023 08:09:37 PM CDT: rigorousseed=4,seedfrom=4,seedto=4
+Tue 19 Sep 2023 08:09:37 PM CDT: Running seed=4
+Tue 19 Sep 2023 08:10:48 PM CDT: Experiment done (seed=4)
+Tue 19 Sep 2023 08:10:48 PM CDT: rigorousseed=5,seedfrom=5,seedto=5
+Tue 19 Sep 2023 08:10:48 PM CDT: Running seed=5
+Tue 19 Sep 2023 08:12:04 PM CDT: Experiment done (seed=5)
+Tue 19 Sep 2023 08:12:04 PM CDT: rigorousseed=6,seedfrom=6,seedto=6
+Tue 19 Sep 2023 08:12:04 PM CDT: Running seed=6
+Tue 19 Sep 2023 08:13:16 PM CDT: Experiment done (seed=6)
+Tue 19 Sep 2023 08:13:16 PM CDT: rigorousseed=7,seedfrom=7,seedto=7
+Tue 19 Sep 2023 08:13:16 PM CDT: Running seed=7
+Tue 19 Sep 2023 08:14:32 PM CDT: Experiment done (seed=7)
+Tue 19 Sep 2023 08:14:32 PM CDT: rigorousseed=8,seedfrom=8,seedto=8
+Tue 19 Sep 2023 08:14:32 PM CDT: Running seed=8
+Tue 19 Sep 2023 08:15:46 PM CDT: Experiment done (seed=8)
+Tue 19 Sep 2023 08:15:46 PM CDT: rigorousseed=9,seedfrom=9,seedto=9
+Tue 19 Sep 2023 08:15:46 PM CDT: Running seed=9
+Tue 19 Sep 2023 08:16:57 PM CDT: Experiment done (seed=9)
+Tue 19 Sep 2023 08:16:57 PM CDT: Collecting stats for suddiscover_leafspine_ecmp_95to95_standard_3_kawa1_0/31_0_0_100
+Tue 19 Sep 2023 08:17:03 PM CDT: n99fct=10.012,totaltraffic=4866903900
+Tue 19 Sep 2023 08:17:04 PM CDT: Calculating the cutoff point
+n99fct1=0.98756,totaltraffic1=474060000,n99fct2=10.012,totaltraffic2=4866903900
+m=2.05435e-09,b=0.0136748,y=10,x=4.86106e+09
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================
+===============Close Interval Found==============
+Tue 19 Sep 2023 08:46:21 PM CDT: Set up parameters
+topology=leafspine
+routing=ecmp
+trafficmatrix=95to95
+mode=kawa1
+searchstart=30
+searchend=32
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Tue 19 Sep 2023 08:46:21 PM CDT: Run experiment search start
+mult=30,numerator=0,denominator=0
+Tue 19 Sep 2023 08:46:21 PM CDT: Result already exists (seed=0)
+Tue 19 Sep 2023 08:46:23 PM CDT: n99fct=9.54192,totaltraffic=4663890000
+Tue 19 Sep 2023 08:46:23 PM CDT: Run experiment search end
+mult=32,numerator=0,denominator=0
+Tue 19 Sep 2023 08:46:23 PM CDT: Result already exists (seed=0)
+Tue 19 Sep 2023 08:46:24 PM CDT: n99fct=10.212,totaltraffic=4991656500
+Tue 19 Sep 2023 08:46:24 PM CDT: Start binary search.
+searchmid=31,searchstart=30,searchend=32
+Tue 19 Sep 2023 08:46:24 PM CDT: Run experiment
+mult=31,numerator=0,denominator=0
+Tue 19 Sep 2023 08:46:24 PM CDT: Result already exists (seed=0)
+Tue 19 Sep 2023 08:46:24 PM CDT: n99fct=10.0658,totaltraffic=4832823000
+Change searchend to 31
+searchstart=30,searchend=31
+searchmid=30.5,searchstart=30,searchend=31
+Tue 19 Sep 2023 08:46:25 PM CDT: Run experiment
+mult=30,numerator=5,denominator=10
+Tue 19 Sep 2023 08:46:25 PM CDT: Result already exists (seed=0)
+Tue 19 Sep 2023 08:46:25 PM CDT: n99fct=9.8756,totaltraffic=4740600000
+Tue 19 Sep 2023 08:46:25 PM CDT: isCloseEnough searchstart=30,searchmid=30.5,searchend=31
+searchstart: n99fct=9.54192,totaltraffic=4663890000
+searchmid: n99fct=9.8756,totaltraffic=4740600000
+searchend: n99fct=10.0658,totaltraffic=4832823000
+=========[searchmid,searchend]=========
+=========[30.5,31]=========
+=================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Tue 19 Sep 2023 08:46:25 PM CDT
+topology=leafspine
+routing=ecmp
+trafficmatrix=95to95
+mode=kawa1
+p1=30.5
+p2=31
+threshold=10
+stime=100
+mstart=25
+mend=75
+precision=64
+Tue 19 Sep 2023 08:46:25 PM CDT: Run experiment for p1
+mult=30,numerator=5,denominator=10
+Tue 19 Sep 2023 08:46:25 PM CDT: rigorousseed=0,seedfrom=0,seedto=0
+Tue 19 Sep 2023 08:46:25 PM CDT: Running seed=0
+Tue 19 Sep 2023 08:46:26 PM CDT: Result already exists (seed=0)
+Tue 19 Sep 2023 08:46:26 PM CDT: rigorousseed=1,seedfrom=1,seedto=1
+Tue 19 Sep 2023 08:46:26 PM CDT: Running seed=1
+Tue 19 Sep 2023 08:48:14 PM CDT: Experiment done (seed=1)
+Tue 19 Sep 2023 08:48:14 PM CDT: rigorousseed=2,seedfrom=2,seedto=2
+Tue 19 Sep 2023 08:48:14 PM CDT: Running seed=2
+Tue 19 Sep 2023 08:49:38 PM CDT: Experiment done (seed=2)
+Tue 19 Sep 2023 08:49:38 PM CDT: rigorousseed=3,seedfrom=3,seedto=3
+Tue 19 Sep 2023 08:49:38 PM CDT: Running seed=3
+Tue 19 Sep 2023 08:50:59 PM CDT: Experiment done (seed=3)
+Tue 19 Sep 2023 08:50:59 PM CDT: rigorousseed=4,seedfrom=4,seedto=4
+Tue 19 Sep 2023 08:50:59 PM CDT: Running seed=4
+Tue 19 Sep 2023 08:52:27 PM CDT: Experiment done (seed=4)
+Tue 19 Sep 2023 08:52:27 PM CDT: rigorousseed=5,seedfrom=5,seedto=5
+Tue 19 Sep 2023 08:52:27 PM CDT: Running seed=5
+Tue 19 Sep 2023 08:53:52 PM CDT: Experiment done (seed=5)
+Tue 19 Sep 2023 08:53:52 PM CDT: rigorousseed=6,seedfrom=6,seedto=6
+Tue 19 Sep 2023 08:53:52 PM CDT: Running seed=6
+Tue 19 Sep 2023 08:55:09 PM CDT: Experiment done (seed=6)
+Tue 19 Sep 2023 08:55:10 PM CDT: rigorousseed=7,seedfrom=7,seedto=7
+Tue 19 Sep 2023 08:55:10 PM CDT: Running seed=7
+Tue 19 Sep 2023 08:56:31 PM CDT: Experiment done (seed=7)
+Tue 19 Sep 2023 08:56:31 PM CDT: rigorousseed=8,seedfrom=8,seedto=8
+Tue 19 Sep 2023 08:56:31 PM CDT: Running seed=8
+Tue 19 Sep 2023 08:57:43 PM CDT: Experiment done (seed=8)
+Tue 19 Sep 2023 08:57:43 PM CDT: rigorousseed=9,seedfrom=9,seedto=9
+Tue 19 Sep 2023 08:57:43 PM CDT: Running seed=9
+Tue 19 Sep 2023 08:59:04 PM CDT: Experiment done (seed=9)
+Tue 19 Sep 2023 08:59:04 PM CDT: Collecting stats for suddiscover_leafspine_ecmp_95to95_standard_3_kawa1_0/30_5_10_100
+Tue 19 Sep 2023 08:59:11 PM CDT: n99fct=9.79146,totaltraffic=4781823450
+Tue 19 Sep 2023 08:59:11 PM CDT: Run experiment for p2
+mult=31,numerator=0,denominator=0
+Tue 19 Sep 2023 08:59:11 PM CDT: rigorousseed=0,seedfrom=0,seedto=0
+Tue 19 Sep 2023 08:59:11 PM CDT: Running seed=0
+Tue 19 Sep 2023 08:59:11 PM CDT: Result already exists (seed=0)
+Tue 19 Sep 2023 08:59:11 PM CDT: rigorousseed=1,seedfrom=1,seedto=1
+Tue 19 Sep 2023 08:59:11 PM CDT: Running seed=1
+Tue 19 Sep 2023 08:59:11 PM CDT: Result already exists (seed=1)
+Tue 19 Sep 2023 08:59:11 PM CDT: rigorousseed=2,seedfrom=2,seedto=2
+Tue 19 Sep 2023 08:59:11 PM CDT: Running seed=2
+Tue 19 Sep 2023 08:59:11 PM CDT: Result already exists (seed=2)
+Tue 19 Sep 2023 08:59:11 PM CDT: rigorousseed=3,seedfrom=3,seedto=3
+Tue 19 Sep 2023 08:59:11 PM CDT: Running seed=3
+Tue 19 Sep 2023 08:59:11 PM CDT: Result already exists (seed=3)
+Tue 19 Sep 2023 08:59:11 PM CDT: rigorousseed=4,seedfrom=4,seedto=4
+Tue 19 Sep 2023 08:59:11 PM CDT: Running seed=4
+Tue 19 Sep 2023 08:59:11 PM CDT: Result already exists (seed=4)
+Tue 19 Sep 2023 08:59:11 PM CDT: rigorousseed=5,seedfrom=5,seedto=5
+Tue 19 Sep 2023 08:59:11 PM CDT: Running seed=5
+Tue 19 Sep 2023 08:59:11 PM CDT: Result already exists (seed=5)
+Tue 19 Sep 2023 08:59:11 PM CDT: rigorousseed=6,seedfrom=6,seedto=6
+Tue 19 Sep 2023 08:59:11 PM CDT: Running seed=6
+Tue 19 Sep 2023 08:59:12 PM CDT: Result already exists (seed=6)
+Tue 19 Sep 2023 08:59:12 PM CDT: rigorousseed=7,seedfrom=7,seedto=7
+Tue 19 Sep 2023 08:59:12 PM CDT: Running seed=7
+Tue 19 Sep 2023 08:59:12 PM CDT: Result already exists (seed=7)
+Tue 19 Sep 2023 08:59:12 PM CDT: rigorousseed=8,seedfrom=8,seedto=8
+Tue 19 Sep 2023 08:59:12 PM CDT: Running seed=8
+Tue 19 Sep 2023 08:59:12 PM CDT: Result already exists (seed=8)
+Tue 19 Sep 2023 08:59:12 PM CDT: rigorousseed=9,seedfrom=9,seedto=9
+Tue 19 Sep 2023 08:59:12 PM CDT: Running seed=9
+Tue 19 Sep 2023 08:59:12 PM CDT: Result already exists (seed=9)
+Tue 19 Sep 2023 08:59:12 PM CDT: Collecting stats for suddiscover_leafspine_ecmp_95to95_standard_3_kawa1_0/31_0_0_100
+Tue 19 Sep 2023 08:59:12 PM CDT: n99fct=10.012,totaltraffic=4866903900
+Tue 19 Sep 2023 08:59:13 PM CDT: Calculating the cutoff point
+n99fct1=9.79146,totaltraffic1=4781823450,n99fct2=10.012,totaltraffic2=4866903900
+m=2.59213e-09,b=-2.60365,y=10,x=4.86228e+09
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=================================================
+===============Close Interval Found==============
