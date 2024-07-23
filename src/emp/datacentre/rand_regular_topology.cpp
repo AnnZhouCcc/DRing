@@ -63,12 +63,12 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
   //>
 
   // Ankit: Check adjacency matrix
-  for (unsigned int i = 0; i < NSW; i++){
-    cout << "SW " << i << " |NBRS| = "<<adjMatrix[i]->size()<<" NBRS = ";
-    for (unsigned int j = 0; j < adjMatrix[i]->size(); j++)
-      cout << (*adjMatrix[i])[j] << " ";
-    cout << endl;
-  }
+//   for (unsigned int i = 0; i < NSW; i++){
+//     cout << "SW " << i << " |NBRS| = "<<adjMatrix[i]->size()<<" NBRS = ";
+//     for (unsigned int j = 0; j < adjMatrix[i]->size(); j++)
+//       cout << (*adjMatrix[i])[j] << " ";
+//     cout << endl;
+//   }
 
   //< initialize a graph data structure for shortest paths algo
   string command = "sed 's/->/ /g' " + graphFile + " > temp_graph";
@@ -85,7 +85,7 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
   cout<<"GraphFile: "<<graphFile<<endl;
 
   init_network();
-  cout<< "Init network finished "<<endl;
+  cout<< "RRG Init network finished "<<endl;
 
 #if PATHWEIGHTS
 #else

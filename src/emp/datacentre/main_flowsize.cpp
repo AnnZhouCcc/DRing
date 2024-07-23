@@ -37,7 +37,7 @@
 
 uint32_t RTT = 2; // us
 int ssthresh = 43; //65 KB
-int N = NSW;
+// int N = NSW;
 
 unsigned int subflow_count = 1;
 
@@ -145,39 +145,39 @@ pair<int, int> extractSwitchIDCopy(string nodename) {
     return pair<int, int>(src_sw, dst_sw);
 }
 
-void store_netpath(vector<route_t*>*** net_paths) {
-    cout << "Writing net_path" << endl;
-    string npfile = "netpath_su3_rrg96-3.txt";
+// void store_netpath(vector<route_t*>*** net_paths) {
+//     cout << "Writing net_path" << endl;
+//     string npfile = "netpath_su3_rrg96-3.txt";
 
-    ofstream file;
-    file.open(npfile);
-    vector<route_t*>* net_path_a_pair;
-    int num_path, src_sw, dst_sw;
-    string nodename;
-    for (int ssw=0; ssw<NSW; ssw++) {
-        for (int dsw=0; dsw<NSW; dsw++) {
-            if (ssw == dsw) {
-                file << ssw << " " << dsw << " " << 0 << "\n";
-                continue;
-            }
-            net_path_a_pair = net_paths[ssw][dsw];
-            num_path = net_path_a_pair->size();
-            file << ssw << " " << dsw << " " << num_path << "\n";
+//     ofstream file;
+//     file.open(npfile);
+//     vector<route_t*>* net_path_a_pair;
+//     int num_path, src_sw, dst_sw;
+//     string nodename;
+//     for (int ssw=0; ssw<NSW; ssw++) {
+//         for (int dsw=0; dsw<NSW; dsw++) {
+//             if (ssw == dsw) {
+//                 file << ssw << " " << dsw << " " << 0 << "\n";
+//                 continue;
+//             }
+//             net_path_a_pair = net_paths[ssw][dsw];
+//             num_path = net_path_a_pair->size();
+//             file << ssw << " " << dsw << " " << num_path << "\n";
 
-            for (int i=0; i<num_path; i++) {
-                for (int j=0; j<net_path_a_pair->at(i)->size(); j=j+2) {
-                    nodename = net_path_a_pair->at(i)->at(j)->nodename();
-                    src_sw = extractSwitchIDCopy(nodename).first;
-                    dst_sw = extractSwitchIDCopy(nodename).second;
-                    file << " " << src_sw << "->" << dst_sw;
-                }
-                file << "\n";
-            }
-        }
-    }
+//             for (int i=0; i<num_path; i++) {
+//                 for (int j=0; j<net_path_a_pair->at(i)->size(); j=j+2) {
+//                     nodename = net_path_a_pair->at(i)->at(j)->nodename();
+//                     src_sw = extractSwitchIDCopy(nodename).first;
+//                     dst_sw = extractSwitchIDCopy(nodename).second;
+//                     file << " " << src_sw << "->" << dst_sw;
+//                 }
+//                 file << "\n";
+//             }
+//         }
+//     }
 
-    file.close();
-}
+//     file.close();
+// }
 
 int main(int argc, char **argv) {
     eventlist.setEndtime(timeFromSec(SIMTIME));
@@ -481,9 +481,9 @@ int main(int argc, char **argv) {
             cout << "Running perm with " << param << " connections" << endl;
             conns->setPermutation(param);
         } 
-        else if(conn_matrix == "HOT_SPOT"){
-            conns->setHotspot(param,N/param);
-        }
+        // else if(conn_matrix == "HOT_SPOT"){
+        //     conns->setHotspot(param,N/param);
+        // }
         else if(conn_matrix == "MANY_TO_MANY"){
             conns->setManytoMany(param);
         }
@@ -594,12 +594,12 @@ int main(int argc, char **argv) {
 
     for (Flow& flow: conns->flows){
         flowID++;
-        if(flowID%1000==1)
-            cout << "FLOW: " << flow.src << "(" << top->ConvertHostToRack(flow.src)<<") -> "
-                 << flow.dst << "("<< top->ConvertHostToRack(flow.dst) << ") bytes: "
-                 << flow.bytes << " start_time_ms " << flow.start_time_ms << endl;
+        // if(flowID%1000==1)
+            // cout << "FLOW: " << flow.src << "(" << top->ConvertHostToRack(flow.src)<<") -> "
+            //      << flow.dst << "("<< top->ConvertHostToRack(flow.dst) << ") bytes: "
+            //      << flow.bytes << " start_time_ms " << flow.start_time_ms << endl;
 
-		src_sw = top->ConvertHostToRack(flow.src);
+        src_sw = top->ConvertHostToRack(flow.src);
 		dst_sw = top->ConvertHostToRack(flow.dst);
 
     #if PATHWEIGHTS
@@ -675,7 +675,7 @@ int main(int argc, char **argv) {
         tcpSrc->set_flowsize(flow.bytes);
 
     #if DEBUG_MODE
-        cout << "before randomly taking paths: flowID = " << flowID << endl;
+        cout << "before randomly taking paths: flowID = " << flowID << ", src_sw=" << src_sw << ",dst_sw=" << dst_sw << endl;
     #endif
 
         if (src_sw == dst_sw) {
@@ -741,7 +741,7 @@ int main(int argc, char **argv) {
     int pktsize = Packet::data_packet_size();
     logfile.write("# pktsize=" + ntoa(pktsize) + " bytes");
     logfile.write("# hostnicrate = " + ntoa(HOST_NIC) + " pkt/sec");
-    logfile.write("# corelinkrate = " + ntoa(HOST_NIC*CORE_TO_HOST) + " pkt/sec");
+    // logfile.write("# corelinkrate = " + ntoa(HOST_NIC*CORE_TO_HOST) + " pkt/sec");
     //logfile.write("# buffer = " + ntoa((double) (queues_na_ni[0][1]->_maxsize) / ((double) pktsize)) + " pkt");
     double rtt = timeAsSec(timeFromUs(RTT));
     logfile.write("# rtt =" + ntoa(rtt));

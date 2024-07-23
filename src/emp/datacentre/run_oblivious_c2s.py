@@ -40,7 +40,7 @@ if __name__ == '__main__':
     for conf in confs:
         print(f"Starting {conf}...")
         pool.apply_async (run_thread, (conf, ), callback=pbar_update)
-        time.sleep(120)
+        time.sleep(60)
     pool.close ()
     pool.join ()
     pbar.close ()

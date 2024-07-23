@@ -17,16 +17,16 @@ extern uint32_t RTT;
 string ntoa(double n);
 string itoa(uint64_t n);
 
-extern int N;
+// extern int N;
 
 LeafSpineTopology::LeafSpineTopology(Logfile* lg, EventList* ev, queue_type qt, string netpathfile, string pathweightfile){
   logfile = lg;
   eventlist = ev;
   qtype = qt;
   
-  N = NSRV;
+  // N = NSRV;
 
-  int num_links = (N/OVERSUBSCRIPTION) * 2;
+  // int num_links = (N/OVERSUBSCRIPTION) * 2;
   
   //srand ( time(NULL));
 
