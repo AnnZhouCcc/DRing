@@ -69,3 +69,9 @@ result_directories/*
 !result_directories/**summary
 !result_directories/**output
 !result_directories/**log.txt
+*.log
+
+rrg_*_run
+leafspine_*_run
+
+temp_graph
