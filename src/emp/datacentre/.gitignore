@@ -5,46 +5,46 @@ traces/
 synthetictrafficfiles/
 topoflowsfiles/
 topoflows_flowsize_*/fct_results_*/
-discover_*_*_*_*/*_*_*_*_*
-discover_*_*_*_*/*_output
-!discover_*_*_*_*/*_*_*_*_summary
-!discover_*_*_*_*/log.txt
-discover_directories/discover_*_*_*_*/*_*_*_*_*
-discover_directories/discover_*_*_*_*/*_output
-!discover_directories/discover_*_*_*_*/*_*_*_*_summary
-!discover_directories/discover_*_*_*_*/log.txt
-rediscover_*_*_*_*/*_*_*_*_*
-rediscover_*_*_*_*/*_output
-!rediscover_*_*_*_*/*_*_*_*_summary
-!rediscover_*_*_*_*/log.txt
-rediscover_directories/rediscover_*_*_*_*/*_*_*_*_*
-rediscover_directories/rediscover_*_*_*_*/*_output
-!rediscover_directories/rediscover_*_*_*_*/*_*_*_*_summary
-!rediscover_directories/rediscover_*_*_*_*/log.txt
-suddiscover_dir/suddiscover_*_*_*_*/*_*_*_*_*
-suddiscover_dir/suddiscover_*_*_*_*/*_output
-!suddiscover_dir/suddiscover_*_*_*_*/*_*_*_*_summary
-!suddiscover_dir/suddiscover_*_*_*_*/log.txt
-oblivious_routing_discover_dir/oblivious_routing_discover_*_*_*_*/*_*_*_*_*
-oblivious_routing_discover_dir/oblivious_routing_discover_*_*_*_*/*_output
-!oblivious_routing_discover_dir/oblivious_routing_discover_*_*_*_*/*_*_*_*_summary
-!oblivious_routing_discover_dir/oblivious_routing_discover_*_*_*_*/log.txt
-oblivious_routing_discover_testopt_dir/oblivious_routing_discover_testopt_*_*_*_*/*_*_*_*_*
-oblivious_routing_discover_testopt_dir/oblivious_routing_discover_testopt_*_*_*_*/*_output
-!oblivious_routing_discover_testopt_dir/oblivious_routing_discover_testopt_*_*_*_*/*_*_*_*_summary
-!oblivious_routing_discover_testopt_dir/oblivious_routing_discover_testopt_*_*_*_*/log.txt
-c2c_baserrg_oblivious_routing_discover_dir/oblivious_routing_discover_*_*_*_*/*_*_*_*_*
-c2c_baserrg_oblivious_routing_discover_dir/oblivious_routing_discover_*_*_*_*/*_output
-!c2c_baserrg_oblivious_routing_discover_dir/oblivious_routing_discover_*_*_*_*/*_*_*_*_summary
-!c2c_baserrg_oblivious_routing_discover_dir/oblivious_routing_discover_*_*_*_*/log.txt
-c2c_baseleafspine_oblivious_routing_discover_dir/oblivious_routing_discover_*_*_*_*/*_*_*_*_*
-c2c_baseleafspine_oblivious_routing_discover_dir/oblivious_routing_discover_*_*_*_*/*_output
-!c2c_baseleafspine_oblivious_routing_discover_dir/oblivious_routing_discover_*_*_*_*/*_*_*_*_summary
-!c2c_baseleafspine_oblivious_routing_discover_dir/oblivious_routing_discover_*_*_*_*/log.txt
-compressed_discover_logfiles/discover_*_*_*_*/*_*_*_*_*
-!compressed_discover_logfiles/discover_*_*_*_*/*_*_*_*_summary
-!compressed_discover_logfiles/discover_*_*_*_*/log.txt
-compressed_discover_logfiles/discover_*_*_*_*/*_output
+# discover_*_*_*_*/*_*_*_*_*
+# discover_*_*_*_*/*_output
+# !discover_*_*_*_*/*_*_*_*_summary
+# !discover_*_*_*_*/log.txt
+# discover_directories/discover_*_*_*_*/*_*_*_*_*
+# discover_directories/discover_*_*_*_*/*_output
+# !discover_directories/discover_*_*_*_*/*_*_*_*_summary
+# !discover_directories/discover_*_*_*_*/log.txt
+# rediscover_*_*_*_*/*_*_*_*_*
+# rediscover_*_*_*_*/*_output
+# !rediscover_*_*_*_*/*_*_*_*_summary
+# !rediscover_*_*_*_*/log.txt
+# rediscover_directories/rediscover_*_*_*_*/*_*_*_*_*
+# rediscover_directories/rediscover_*_*_*_*/*_output
+# !rediscover_directories/rediscover_*_*_*_*/*_*_*_*_summary
+# !rediscover_directories/rediscover_*_*_*_*/log.txt
+# suddiscover_dir/suddiscover_*_*_*_*/*_*_*_*_*
+# suddiscover_dir/suddiscover_*_*_*_*/*_output
+# !suddiscover_dir/suddiscover_*_*_*_*/*_*_*_*_summary
+# !suddiscover_dir/suddiscover_*_*_*_*/log.txt
+# oblivious_routing_discover_dir/oblivious_routing_discover_*_*_*_*/*_*_*_*_*
+# oblivious_routing_discover_dir/oblivious_routing_discover_*_*_*_*/*_output
+# !oblivious_routing_discover_dir/oblivious_routing_discover_*_*_*_*/*_*_*_*_summary
+# !oblivious_routing_discover_dir/oblivious_routing_discover_*_*_*_*/log.txt
+# oblivious_routing_discover_testopt_dir/oblivious_routing_discover_testopt_*_*_*_*/*_*_*_*_*
+# oblivious_routing_discover_testopt_dir/oblivious_routing_discover_testopt_*_*_*_*/*_output
+# !oblivious_routing_discover_testopt_dir/oblivious_routing_discover_testopt_*_*_*_*/*_*_*_*_summary
+# !oblivious_routing_discover_testopt_dir/oblivious_routing_discover_testopt_*_*_*_*/log.txt
+# c2c_baserrg_oblivious_routing_discover_dir/oblivious_routing_discover_*_*_*_*/*_*_*_*_*
+# c2c_baserrg_oblivious_routing_discover_dir/oblivious_routing_discover_*_*_*_*/*_output
+# !c2c_baserrg_oblivious_routing_discover_dir/oblivious_routing_discover_*_*_*_*/*_*_*_*_summary
+# !c2c_baserrg_oblivious_routing_discover_dir/oblivious_routing_discover_*_*_*_*/log.txt
+# c2c_baseleafspine_oblivious_routing_discover_dir/oblivious_routing_discover_*_*_*_*/*_*_*_*_*
+# c2c_baseleafspine_oblivious_routing_discover_dir/oblivious_routing_discover_*_*_*_*/*_output
+# !c2c_baseleafspine_oblivious_routing_discover_dir/oblivious_routing_discover_*_*_*_*/*_*_*_*_summary
+# !c2c_baseleafspine_oblivious_routing_discover_dir/oblivious_routing_discover_*_*_*_*/log.txt
+# compressed_discover_logfiles/discover_*_*_*_*/*_*_*_*_*
+# !compressed_discover_logfiles/discover_*_*_*_*/*_*_*_*_summary
+# !compressed_discover_logfiles/discover_*_*_*_*/log.txt
+# compressed_discover_logfiles/discover_*_*_*_*/*_output
 *.tar.gz
 !pathweightfiles/*.tar.gz
 !pathweightfiles/*/*.tar.gz
@@ -57,10 +57,14 @@ trafficfiles/c2c/
 trafficfiles/c2s/
 archive_suddiscover_*_*_cluster*_*/
 rrg_ecmp_a2a.zip
-oblivious_c2s_discover_*dir/oblivious_c2s_discover_*_*_*_*/*_*_*_*_*
-oblivious_c2s_discover_*dir/oblivious_c2s_discover_*_*_*_*/*_output
-!oblivious_c2s_discover_*dir/oblivious_c2s_discover_*_*_*_*/*_*_*_*_summary
-!oblivious_c2s_discover_*dir/oblivious_c2s_discover_*_*_*_*/log.txt
+# oblivious_c2s_discover_*dir/oblivious_c2s_discover_*_*_*_*/*_*_*_*_*
+# oblivious_c2s_discover_*dir/oblivious_c2s_discover_*_*_*_*/*_output
+# !oblivious_c2s_discover_*dir/oblivious_c2s_discover_*_*_*_*/*_*_*_*_summary
+# !oblivious_c2s_discover_*dir/oblivious_c2s_discover_*_*_*_*/log.txt
 
 pathweightfiles/dring/su3/cluster*/pathweight*.txt
 pathweightfiles/rrg/su3/cluster*/pathweight*.txt
+
+!result_directories/**/*_summary
+!result_directories/**/*_ouput
+result_directories/*
