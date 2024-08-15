@@ -3547,6 +3547,23 @@ void ConnectionMatrix::setTopoFlowsKCluster(Topology* top, string cluster, strin
 }
 
 
+void ConnectionMatrix::setTopoFlowsTestCor() {
+  cout<<"Topo flows test correctness" << endl;
+  int srcsvr = 0;
+  int dstsvr = 100;
+  int bytes = large_flow_threshold;
+  bytes = adjustBytesByPacketSize(bytes);
+  double start_time_ms = 60;
+  base_flows.push_back(Flow(srcsvr, dstsvr, bytes, start_time_ms));
+  srcsvr = 1;
+  dstsvr = 100;
+  bytes = large_flow_threshold/2;
+  bytes = adjustBytesByPacketSize(bytes);
+  start_time_ms = 60;
+  base_flows.push_back(Flow(srcsvr, dstsvr, bytes, start_time_ms));
+}
+
+
 void ConnectionMatrix::tempGenerateSwitchServerMapping(Topology *top) {
   string filename;
 #if NHOST == 2988

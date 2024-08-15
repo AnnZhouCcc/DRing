@@ -106,6 +106,7 @@ class ConnectionMatrix{
   void setTopoFlowsKCluster(Topology* top, string cluster, string conn_matrix_str, double simtime_ms, int multiplier, int numerator, int denominator);
   void setTopoFlowsClusterX(Topology* top, string cluster, int solvestart, int solveend, int solveinterval, double simtime_ms, int multiplier, int numerator, int denominator);
   void setTopoFlowsPermutation(Topology *top, double simtime_ms);
+  void setTopoFlowsTestCor();
   void printTopoFlows(Topology* top, string topoflowsfilename);
   void tempGenerateSwitchServerMapping(Topology* top);
 };

@@ -6,6 +6,8 @@
 
 #define KILL_THRESHOLD 5
 
+bool TESTCOR_PRINT_CWND = false;
+
 uint64_t total_packet_bytes = 0;
 uint64_t received_packet_bytes = 0;
 
@@ -86,6 +88,7 @@ void TcpSrc::set_paths(vector<const Route*>* rt) {
 void TcpSrc::set_app_limit(int pktps) {
     if (_app_limited==0 && pktps){
 	_cwnd = _mss;
+		if (TESTCOR_PRINT_CWND) std::cout << "now=" << eventlist().now() << ",flowsize=" << _flow_size << ",cwnd=" << _cwnd << std::endl;
     }
     _ssthresh = 0xffffffff;
     _app_limited = pktps;
@@ -95,6 +98,7 @@ void TcpSrc::set_app_limit(int pktps) {
 void 
 TcpSrc::startflow() {
     _cwnd = 10*_mss;
+	if (TESTCOR_PRINT_CWND) std::cout << "now=" << eventlist().now() << ",flowsize=" << _flow_size << ",cwnd=" << _cwnd << std::endl;
     _unacked = _cwnd;
     _established = false;
 
@@ -200,10 +204,6 @@ TcpSrc::receivePacket(Packet& pkt)
 		if (is_in_measurement) {
 			eventlist().num_flows_finished++;
 		}
-		if (eventlist().num_flows_finished >= eventlist().num_flows_threshold) {
-			cout << "Already have " << eventlist().num_flows_threshold << " finished. Program exit." << endl;
-			exit(EXIT_SUCCESS);
-		}
 		if (is_in_measurement) {
         	cout << "FCT " << _flow_size << " " << timeAsMs(eventlist().now() - _start_time) 
 				<< " " << timeAsMs(_start_time) << " " << endl;
@@ -211,6 +211,10 @@ TcpSrc::receivePacket(Packet& pkt)
 			 	cout << (*it)->nodename() << " ";
 			}
 			cout << endl;
+		}
+		if (eventlist().num_flows_finished >= eventlist().num_flows_threshold) {
+			cout << "Already have " << eventlist().num_flows_threshold << " finished. Program exit." << endl;
+			exit(EXIT_SUCCESS);
 		}
     }
   
@@ -249,6 +253,7 @@ TcpSrc::receivePacket(Packet& pkt)
 
 	    if (_cwnd>_maxcwnd) {
 		_cwnd = _maxcwnd;
+			if (TESTCOR_PRINT_CWND) std::cout << "now=" << eventlist().now() << ",flowsize=" << _flow_size << ",cwnd=" << _cwnd << std::endl;
 	    }
 
 	    _unacked = _cwnd;
@@ -265,6 +270,7 @@ TcpSrc::receivePacket(Packet& pkt)
 	    // normal service
 	    uint32_t flightsize = _highest_sent - seqno;
 	    _cwnd = min(_ssthresh, flightsize + _mss);
+		if (TESTCOR_PRINT_CWND) std::cout << "now=" << eventlist().now() << ",flowsize=" << _flow_size << ",cwnd=" << _cwnd << std::endl;
 	    _unacked = _cwnd;
 	    _effcwnd = _cwnd;
 	    _last_acked = seqno;
@@ -287,6 +293,7 @@ TcpSrc::receivePacket(Packet& pkt)
 	else 
 	    _cwnd = 0;
 	_cwnd += _mss;
+	if (TESTCOR_PRINT_CWND) std::cout << "now=" << eventlist().now() << ",flowsize=" << _flow_size << ",cwnd=" << _cwnd << std::endl;
 	if (_logger) 
 	    _logger->logTcp(*this, TcpLogger::TCP_RCV_FR);
 	retransmit_packet();
@@ -299,6 +306,7 @@ TcpSrc::receivePacket(Packet& pkt)
 	if (_cwnd>_maxcwnd) {
 	    _cwnd = _maxcwnd;
 	}
+	if (TESTCOR_PRINT_CWND) std::cout << "now=" << eventlist().now() << ",flowsize=" << _flow_size << ",cwnd=" << _cwnd << std::endl;
 	// When we restart, the window will be set to
 	// min(_ssthresh, flightsize+_mss), so keep track of
 	// this
@@ -350,6 +358,7 @@ TcpSrc::receivePacket(Packet& pkt)
   
     retransmit_packet();
     _cwnd = _ssthresh + 3 * _mss;
+	if (TESTCOR_PRINT_CWND) std::cout << "now=" << eventlist().now() << ",flowsize=" << _flow_size << ",cwnd=" << _cwnd << std::endl;
     _unacked = _ssthresh;
     _effcwnd = 0;
     _in_fast_recovery = true;
@@ -403,6 +412,7 @@ TcpSrc::inflate_window() {
 	    _sawtooth ++;
 	}
     }
+	if (TESTCOR_PRINT_CWND) std::cout << "now=" << eventlist().now() << ",flowsize=" << _flow_size << ",cwnd=" << _cwnd << std::endl;
 }
 
 // Note: the data sequence number is the number of Byte1 of the packet, not the last byte.
@@ -604,11 +614,13 @@ void TcpSrc::doNextEvent() {
 	if (_in_fast_recovery) {
 	    uint32_t flightsize = _highest_sent - _last_acked;
 	    _cwnd = min(_ssthresh, flightsize + _mss);
+		if (TESTCOR_PRINT_CWND) std::cout << "now=" << eventlist().now() << ",flowsize=" << _flow_size << ",cwnd=" << _cwnd << std::endl;
 	}
 
 	deflate_window();
 
 	_cwnd = _mss;
+	if (TESTCOR_PRINT_CWND) std::cout << "now=" << eventlist().now() << ",flowsize=" << _flow_size << ",cwnd=" << _cwnd << std::endl;
 
 	_unacked = _cwnd;
 	_effcwnd = _cwnd;

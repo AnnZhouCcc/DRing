@@ -473,6 +473,9 @@ int main(int argc, char **argv) {
     else if(conn_matrix == "MIX"){
         conns->setMixFlows(top, param, multiplier, numerator, denominator);
     }
+    else if (conn_matrix == "TESTCOR") {
+        conns->setTopoFlowsTestCor();
+    }
     else {
         cout << "***Error: traffic pattern " << conn_matrix << " no longer supported." << endl;
         exit(1);
@@ -538,14 +541,14 @@ int main(int argc, char **argv) {
     }
 
     //conns->multiplyFlows(multiplier,numerator,denominator);
-    if (conn_matrix!="CLUSTERX" && conn_matrix!="CLUSTERT" && conn_matrix.substr(0,8) != "KCLUSTER") {
+    if (conn_matrix!="CLUSTERX" && conn_matrix!="CLUSTERT" && conn_matrix.substr(0,8) != "KCLUSTER" && conn_matrix!="TESTCOR") {
       conns->multiplyFlowsRandomize(multiplier,numerator,denominator,simtime_ms);
     } else {
       conns->simplyCopyFlows();
     }
 
-    conns->printTopoFlows(top, "topoflowsfiles/topoflows_" + conn_matrix + ".txt");
-    map<int,vector<int>*>::iterator it;
+    // conns->printTopoFlows(top, "topoflowsfiles/topoflows_" + conn_matrix + ".txt");
+    // map<int,vector<int>*>::iterator it;
 
     // Determine the number of flows we should wait for in measurement
     eventlist.num_flows_threshold = conns->determineNumFlowsThreshold(eventlist.measurement_start_ms, eventlist.measurement_end_ms);

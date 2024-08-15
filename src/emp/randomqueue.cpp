@@ -3,6 +3,8 @@
 #include <math.h>
 #include <iostream>
 
+bool TESTCOR_PRINT_QUEUE = false;
+
 RandomQueue::RandomQueue(linkspeed_bps bitrate, mem_b maxsize, 
 			 EventList& eventlist, QueueLogger* logger, mem_b drop)
     : Queue(bitrate,maxsize,eventlist,logger), 
@@ -43,7 +45,7 @@ RandomQueue::receivePacket(Packet& pkt)
 	    _buffer_drops ++;
 	}
 	pkt.free();
-
+    if (TESTCOR_PRINT_QUEUE) std::cout << "now=" << eventlist().now() << ",drop,crt=" << crt << std::endl;
 	//cout << "Drop "<<drop_prob<< " queue size "<< _queuesize/1000 << " queue id " << _name << endl;
 
 	return;
