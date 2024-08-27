@@ -77,3 +77,4 @@ leafspine_*_run
 temp_graph
 
 experiments/rerun_sigcomm24/*.pickle
+experiments/linkfailure/*.pickle
