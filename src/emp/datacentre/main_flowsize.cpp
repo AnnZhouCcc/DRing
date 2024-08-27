@@ -193,6 +193,7 @@ int main(int argc, char **argv) {
     string partitionsfile;
     string conn_matrix;
     string routing;
+    int numfaillinks, failseed = 0;
     if (argc > 1) {
       int i = 1;
       if (!strcmp(argv[1],"-o")){
@@ -367,6 +368,18 @@ int main(int argc, char **argv) {
       }
       cout << "computeinterval = " << computeinterval << endl;
 
+      if (argc>i&&!strcmp(argv[i],"-numfaillinks")){
+          numfaillinks = atoi(argv[i+1]);
+          i+=2;
+      }
+      cout << "numfaillinks = " << numfaillinks << endl;
+
+      if (argc>i&&!strcmp(argv[i],"-failseed")){
+          failseed = atoi(argv[i+1]);
+          i+=2;
+      }
+      cout << "failseed = " << failseed << endl;
+
       eventlist.num_flows_finished = 0;
     
       if (argc>i){
@@ -410,15 +423,18 @@ int main(int argc, char **argv) {
 #if CHOSEN_TOPO == FAT
     FatTreeTopology* top = new FatTreeTopology(&logfile, &eventlist, RANDOM);
 #elif CHOSEN_TOPO == LEAFSPINE
-    LeafSpineTopology* top = new LeafSpineTopology(&logfile, &eventlist, RANDOM, npfile, pwfile);
+    // LeafSpineTopology* top = new LeafSpineTopology(&logfile, &eventlist, RANDOM, npfile, pwfile);
+    LeafSpineTopology* top = new LeafSpineTopology(&logfile, &eventlist, RANDOM, numfaillinks, failseed, npfile, pwfile);
 #elif CHOSEN_TOPO == RRG
     RandRegularTopology* top;
     if (conn_matrix == "CLUSTERX" || conn_matrix.substr(0,8) == "KCLUSTER") {
         string pwfileprefix = pwfile;
         string pwfilesuffix = "_" + itoa(dp) + ".txt";
-        top = new RandRegularTopology(&logfile, &eventlist, rfile, RANDOM, conn_matrix, routing, korn, npfile, pwfileprefix, pwfilesuffix, solvestart, solveend, solveinterval, computestart, computeend, computeinterval);
+        // top = new RandRegularTopology(&logfile, &eventlist, rfile, RANDOM, conn_matrix, routing, korn, npfile, pwfileprefix, pwfilesuffix, solvestart, solveend, solveinterval, computestart, computeend, computeinterval);
+        top = new RandRegularTopology(&logfile, &eventlist, rfile, RANDOM, conn_matrix, routing, korn, numfaillinks, failseed, npfile, pwfileprefix, pwfilesuffix, solvestart, solveend, solveinterval, computestart, computeend, computeinterval);
     } else {
-        top = new RandRegularTopology(&logfile, &eventlist, rfile, RANDOM, conn_matrix, routing, korn, npfile, pwfile, "", solvestart, solveend, solveinterval, computestart, computeend, computeinterval);
+        // top = new RandRegularTopology(&logfile, &eventlist, rfile, RANDOM, conn_matrix, routing, korn, npfile, pwfile, "", solvestart, solveend, solveinterval, computestart, computeend, computeinterval);
+        top = new RandRegularTopology(&logfile, &eventlist, rfile, RANDOM, conn_matrix, routing, korn, numfaillinks, failseed, npfile, pwfile, "", solvestart, solveend, solveinterval, computestart, computeend, computeinterval);
     }
 #endif
 

@@ -30,6 +30,8 @@ DP=${24} # $precision,64
 MSTART=${25}
 MEND=${26}
 STIME=${27} # the above three parameters are related to the simulation itself
+NUMFAILLINKS=${28}
+FAILSEED=${29}
 
 OVERSUBSCRIPTION=1
 SUBFLOW=1
@@ -44,7 +46,7 @@ if [[ $TOPO == "LEAFSPINE" ]]; then
     fi
 
     tempLogFile=leafspine_log_${BASHPID}
-    ./leafspine_${SUFFIX}_run -o ${tempLogFile} -sub $SUBFLOW -TMatrix ${TM} -mult ${MULT} -numerator ${NUMERATOR} -denominator ${DENOMINATOR} -solvestart ${SOLVESTART} -solveend ${SOLVEEND} -r ${ROUTING} -k ${KorN} -param ${PARAM} -paramo ${PARAMO} -seed ${SEED} -netpath ${NETPATH} -pathweight ${PATHWEIGHT} -dp ${DP} -mstart ${MSTART} -mend ${MEND} -stime ${STIME} -solveinterval ${SOLVEINTERVAL} -computestart ${COMPUTESTART} -computeend ${COMPUTEEND} -computeinterval ${COMPUTEINTERVAL}
+    ./leafspine_${SUFFIX}_run -o ${tempLogFile} -sub $SUBFLOW -TMatrix ${TM} -mult ${MULT} -numerator ${NUMERATOR} -denominator ${DENOMINATOR} -solvestart ${SOLVESTART} -solveend ${SOLVEEND} -r ${ROUTING} -k ${KorN} -param ${PARAM} -paramo ${PARAMO} -seed ${SEED} -netpath ${NETPATH} -pathweight ${PATHWEIGHT} -dp ${DP} -mstart ${MSTART} -mend ${MEND} -stime ${STIME} -solveinterval ${SOLVEINTERVAL} -computestart ${COMPUTESTART} -computeend ${COMPUTEEND} -computeinterval ${COMPUTEINTERVAL} -numfaillinks ${NUMFAILLINKS} -failseed ${FAILSEED}
     rm -rf ${tempLogFile}
 fi
 
@@ -56,6 +58,6 @@ if [[ $TOPO == "RRG" ]]; then
     fi
 
     tempLogFile=rrg_log_${BASHPID}
-    ./rrg_${SUFFIX}_run -o ${tempLogFile} -sub $SUBFLOW -TMatrix ${TM} -mult ${MULT} -numerator ${NUMERATOR} -denominator ${DENOMINATOR} -solvestart ${SOLVESTART} -solveend ${SOLVEEND} -r ${ROUTING} -k ${KorN} -param ${PARAM} -paramo ${PARAMO} -topo ${TOPOFILE} -seed ${SEED} -netpath ${NETPATH} -pathweight ${PATHWEIGHT} -dp ${DP} -mstart ${MSTART} -mend ${MEND} -stime ${STIME} -solveinterval ${SOLVEINTERVAL} -computestart ${COMPUTESTART} -computeend ${COMPUTEEND} -computeinterval ${COMPUTEINTERVAL}
+    ./rrg_${SUFFIX}_run -o ${tempLogFile} -sub $SUBFLOW -TMatrix ${TM} -mult ${MULT} -numerator ${NUMERATOR} -denominator ${DENOMINATOR} -solvestart ${SOLVESTART} -solveend ${SOLVEEND} -r ${ROUTING} -k ${KorN} -param ${PARAM} -paramo ${PARAMO} -topo ${TOPOFILE} -seed ${SEED} -netpath ${NETPATH} -pathweight ${PATHWEIGHT} -dp ${DP} -mstart ${MSTART} -mend ${MEND} -stime ${STIME} -solveinterval ${SOLVEINTERVAL} -computestart ${COMPUTESTART} -computeend ${COMPUTEEND} -computeinterval ${COMPUTEINTERVAL} -numfaillinks ${NUMFAILLINKS} -failseed ${FAILSEED}
     rm -rf ${tempLogFile}
 fi

@@ -40,8 +40,10 @@ class LeafSpineTopology: public Topology{
   Logfile* logfile;
 
   LeafSpineTopology(Logfile* log,EventList* ev, queue_type qt, string netpathfile, string pathweightfile);
+  LeafSpineTopology(Logfile* log,EventList* ev, queue_type qt, int numfaillinks, int failseed, string netpathfile, string pathweightfile);
 
   void init_network();
+  void init_network_withfaillinks();
   virtual pair<vector<double>*, vector<route_t*>*> get_paths(int src, int dest);
   virtual pair<vector<double>*, vector<route_t*>*> get_other_paths(int src, int dest);
   virtual int get_distance(int src, int dest);
@@ -54,6 +56,7 @@ class LeafSpineTopology: public Topology{
   void delete_net_paths_rack_based(int numintervals);
   route_t *attach_head_tail(int src, int dst, bool is_same_switch, int rand_choice);
  private:
+  int linkFailure[NSW][NSW][2];
   map<Queue*,int> _link_usage;
   int find_lp_switch(Queue* queue);
   int find_up_switch(Queue* queue);

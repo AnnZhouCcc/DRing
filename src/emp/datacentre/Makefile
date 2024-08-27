@@ -4,8 +4,8 @@ CFLAGS = -std=c++11 -O3 -w -Wall -Wno-deprecated -Wno-unused-variable
 #CRT_space=$(shell pwd) #`pwd`
 #CRT=$(strip $(CRT_space))
 
-BASEDIR=/u/az6922/DRing/src/emp
-# BASEDIR=/home/annzhou/DRing/src/emp
+# BASEDIR=/u/az6922/DRing/src/emp
+BASEDIR=/home/annzhou/DRing/src/emp
 #BASEDIR=/Users/annzhou/research/uiuc/DRing/src/emp
 CRT=$(BASEDIR)/datacentre
 # GRB=/home/annzhou/gurobi912/linux64/include
