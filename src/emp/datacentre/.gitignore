@@ -78,3 +78,7 @@ temp_graph
 
 experiments/rerun_sigcomm24/*.pickle
 experiments/linkfailure/*.pickle
+
+makepathweightfiles/model.lp
+makepathweightfiles/varfile
+makepathweightfiles/qvarfile
