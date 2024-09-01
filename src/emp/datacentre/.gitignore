@@ -46,10 +46,6 @@ topoflows_flowsize_*/fct_results_*/
 # !compressed_discover_logfiles/discover_*_*_*_*/log.txt
 # compressed_discover_logfiles/discover_*_*_*_*/*_output
 *.tar.gz
-!pathweightfiles/*.tar.gz
-!pathweightfiles/*/*.tar.gz
-!pathweightfiles/*/*/*.tar.gz
-!pathweightfiles/*/*/*/*.tar.gz
 trafficfiles/cluster_*/
 trafficfiles/sud_robustness/
 trafficfiles/sud_robustness_fix2988/
@@ -62,8 +58,8 @@ rrg_ecmp_a2a.zip
 # !oblivious_c2s_discover_*dir/oblivious_c2s_discover_*_*_*_*/*_*_*_*_summary
 # !oblivious_c2s_discover_*dir/oblivious_c2s_discover_*_*_*_*/log.txt
 
-pathweightfiles/dring/su3/cluster*/pathweight*.txt
-pathweightfiles/rrg/su3/cluster*/pathweight*.txt
+# pathweightfiles/dring/su3/cluster*/pathweight*.txt
+# pathweightfiles/rrg/su3/cluster*/pathweight*.txt
 
 result_directories/*
 !result_directories/**summary
@@ -82,3 +78,10 @@ experiments/linkfailure/*.pickle
 makepathweightfiles/model.lp
 makepathweightfiles/varfile
 makepathweightfiles/qvarfile
+
+pathweightfiles/
+!pathweightfiles/*.tar.gz
+!pathweightfiles/*/*.tar.gz
+!pathweightfiles/*/*/*.tar.gz
+!pathweightfiles/*/*/*/*.tar.gz
+pathweightfiles/*/*tmp/
