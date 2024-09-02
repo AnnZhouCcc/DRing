@@ -70,10 +70,25 @@ python3 run_oblivious_c2s.py --conf experiments/linkfailure2/whatrouting.conf --
 test 10%,20% for leafspine + 32disjoint_weight
 whatload.ipynb
 ```
+| load (%) | value  | mult | numerator | denominator |
+| -------- | ------ | ---- | --------- | ----------- |
+| 3        |        | 0    | 69        | 160         |
+| 6        | 2.875 | 2    | 7         | 8           |
+| 9        | 2.875 | 2    | 7         | 8           |
+| 12       | 2.875 | 2    | 7         | 8           |
+| 15       | 2.875 | 2    | 7         | 8           |
+| 18       | 2.875 | 2    | 7         | 8           |
+| 21       | 2.875 | 2    | 7         | 8           |
 
-- 1. Generate linkfailurefiles
+5. Generate linkfailurefiles
 ```
 in linkfailurefiles/makelinkfailurefiles.ipynb:
 DRing: failpercent = 0.02
 Leafspine: failpercent = 0.02
 ```
+
+6. Generate flowfiles
+
+7. Generate pathweightfiles
+
+8. Set up conffiles, untar flowfiles & qvarfiles, run

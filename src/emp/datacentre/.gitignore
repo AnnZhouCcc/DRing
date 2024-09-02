@@ -88,8 +88,8 @@ pathweightfiles/
 pathweightfiles/*/*tmp/
 
 flowfiles/
-!flowfiles/*tar.gz
+!flowfiles/*.tar.gz
 !flowfiles/node3
 
 qvarfiles/
-!qvarfiles/*tar.gz
+!qvarfiles/*.tar.gz
