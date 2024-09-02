@@ -268,7 +268,7 @@ int main(int argc, char **argv) {
           param = atoi(argv[i+1]);
           i+=2;
       }
-      cout << "Using param " << param <<endl;
+      cout << "Using param " << paramstring <<endl;
 
       if (argc>i&&!strcmp(argv[i],"-paramo")){
           paramstringo = argv[i+1];
@@ -448,53 +448,57 @@ int main(int argc, char **argv) {
 
     ConnectionMatrix* conns = new ConnectionMatrix(NHOST);
 
-    if (conn_matrix == "A2A"){
-        conns->setTopoFlowsAllToAll(simtime_ms);
-    }
-    else if (conn_matrix.substr(0,3) == "S2S") {
-        conns->setTopoFlowsSomeToSomeRandom(top, conn_matrix, simtime_ms);
-        //conns->setTopoFlowsSomeToSome(conn_matrix, simtime_ms);
-    }
-    else if (conn_matrix.substr(0,3) == "F2F") {
-        conns->setTopoFlowsSomeToSomeFlat(conn_matrix, simtime_ms);
-        //conns->tempGenerateSwitchServerMapping(top);
-        //exit(1);
-    }
-    else if (conn_matrix.substr(0,3) == "V2V") {
-        conns->setTopoFlowsSomeToSomeServer(conn_matrix, simtime_ms);
-    }
-    else if (conn_matrix.substr(0,3) == "SVR") {
-        conns->setTopoFlowsServerFile(conn_matrix, simtime_ms);
-    }
-    else if (conn_matrix.substr(0,3) == "C2C") {
-        conns->setTopoFlowsC2C(conn_matrix, simtime_ms);
-    }
-    else if (conn_matrix.substr(0,3) == "C2S") {
-        conns->setTopoFlowsC2S(conn_matrix, simtime_ms);
-    }
-    else if (conn_matrix.substr(0,8) == "KCLUSTER") {
-        conns->setTopoFlowsKCluster(top, paramstring, conn_matrix, simtime_ms, multiplier, numerator, denominator);
-    }
-    else if (conn_matrix.substr(0,8) == "ML") {
-        conns->setTopoFlowsML(paramstring, simtime_ms);
-    }
-    else if (conn_matrix == "CLUSTERX" || conn_matrix == "CLUSTERT") {
-        // conns->setFlowsFromClusterXSmallInterval(top, paramstring, multiplier, numerator, denominator, solvestart, solveend, solveinterval, simtime_ms);
-        conns->setTopoFlowsClusterX(top, paramstring, solvestart, solveend, solveinterval, simtime_ms, multiplier, numerator, denominator);
-    }
-    else if(conn_matrix == "PERM") {
-        //conns->setRackLevelPermutationFlowsHardCoding(multiplier, simtime_ms);
-        conns->setTopoFlowsPermutation(top, simtime_ms);
-    }
-    else if(conn_matrix == "MIX"){
-        conns->setMixFlows(top, param, multiplier, numerator, denominator);
-    }
-    else if (conn_matrix == "TESTCOR") {
-        conns->setTopoFlowsTestCor();
+    if (conn_matrix == "NEW_FILE"){
+        conns->setTopoFlowsNewFromFile(top,paramstring,simtime_ms);
     }
     else {
         cout << "***Error: traffic pattern " << conn_matrix << " no longer supported." << endl;
         exit(1);
+
+        if (conn_matrix == "A2A"){
+            conns->setTopoFlowsAllToAll(simtime_ms);
+        }
+        else if (conn_matrix.substr(0,3) == "S2S") {
+            conns->setTopoFlowsSomeToSomeRandom(top, conn_matrix, simtime_ms);
+            //conns->setTopoFlowsSomeToSome(conn_matrix, simtime_ms);
+        }
+        else if (conn_matrix.substr(0,3) == "F2F") {
+            conns->setTopoFlowsSomeToSomeFlat(conn_matrix, simtime_ms);
+            //conns->tempGenerateSwitchServerMapping(top);
+            //exit(1);
+        }
+        else if (conn_matrix.substr(0,3) == "V2V") {
+            conns->setTopoFlowsSomeToSomeServer(conn_matrix, simtime_ms);
+        }
+        else if (conn_matrix.substr(0,3) == "SVR") {
+            conns->setTopoFlowsServerFile(conn_matrix, simtime_ms);
+        }
+        else if (conn_matrix.substr(0,3) == "C2C") {
+            conns->setTopoFlowsC2C(conn_matrix, simtime_ms);
+        }
+        else if (conn_matrix.substr(0,3) == "C2S") {
+            conns->setTopoFlowsC2S(conn_matrix, simtime_ms);
+        }
+        else if (conn_matrix.substr(0,8) == "KCLUSTER") {
+            conns->setTopoFlowsKCluster(top, paramstring, conn_matrix, simtime_ms, multiplier, numerator, denominator);
+        }
+        else if (conn_matrix.substr(0,8) == "ML") {
+            conns->setTopoFlowsML(paramstring, simtime_ms);
+        }
+        else if (conn_matrix == "CLUSTERX" || conn_matrix == "CLUSTERT") {
+            // conns->setFlowsFromClusterXSmallInterval(top, paramstring, multiplier, numerator, denominator, solvestart, solveend, solveinterval, simtime_ms);
+            conns->setTopoFlowsClusterX(top, paramstring, solvestart, solveend, solveinterval, simtime_ms, multiplier, numerator, denominator);
+        }
+        else if(conn_matrix == "PERM") {
+            //conns->setRackLevelPermutationFlowsHardCoding(multiplier, simtime_ms);
+            conns->setTopoFlowsPermutation(top, simtime_ms);
+        }
+        else if(conn_matrix == "MIX"){
+            conns->setMixFlows(top, param, multiplier, numerator, denominator);
+        }
+        else if (conn_matrix == "TESTCOR") {
+            conns->setTopoFlowsTestCor();
+        }
 
         if(conn_matrix == "SAMPLED_PERM"){
             cout << "Running perm with " << param << " connections" << endl;
@@ -557,11 +561,11 @@ int main(int argc, char **argv) {
     }
 
     //conns->multiplyFlows(multiplier,numerator,denominator);
-    if (conn_matrix!="CLUSTERX" && conn_matrix!="CLUSTERT" && conn_matrix.substr(0,8) != "KCLUSTER" && conn_matrix!="TESTCOR") {
-      conns->multiplyFlowsRandomize(multiplier,numerator,denominator,simtime_ms);
-    } else {
-      conns->simplyCopyFlows();
-    }
+    // if (conn_matrix!="CLUSTERX" && conn_matrix!="CLUSTERT" && conn_matrix.substr(0,8) != "KCLUSTER" && conn_matrix!="TESTCOR") {
+    //   conns->multiplyFlowsRandomize(multiplier,numerator,denominator,simtime_ms);
+    // } else {
+    //   conns->simplyCopyFlows();
+    // }
 
     // conns->printTopoFlows(top, "topoflowsfiles/topoflows_" + conn_matrix + ".txt");
     // map<int,vector<int>*>::iterator it;

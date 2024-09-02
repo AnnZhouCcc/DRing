@@ -3629,3 +3629,33 @@ void ConnectionMatrix::printTopoFlows(Topology *top, string topoflowsfilename) {
   outputFile << "\n";
   outputFile.close();
 }
+
+void ConnectionMatrix::setTopoFlowsNewFromFile(Topology* top, string flowfile, double simtime_ms) {
+  cout << "setTopoFlowsNewFromFile" << endl;
+
+  ifstream file(flowfile.c_str());
+  string line;
+  line.clear();
+  if (file.is_open()){
+    while(file.good()){
+      getline(file, line);
+      //Whitespace line
+      if (line.find_first_not_of(' ') == string::npos) break;
+      stringstream ss(line);
+      string token;
+      vector<string> tokens;
+      while (getline(ss,token,',')) {
+        tokens.push_back(token);
+      }
+      int fromserver = stoi(tokens[0]);
+      int toserver = stoi(tokens[1]);
+      uint64_t bytes = stoi(tokens[2]);
+      if (fromserver>=NHOST || toserver>=NHOST) continue;
+
+      double start_time_ms = drand() * simtime_ms;
+          
+      flows.push_back(Flow(fromserver, toserver, bytes, start_time_ms));
+    }
+    file.close();
+  }
+}

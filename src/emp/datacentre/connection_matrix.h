@@ -109,6 +109,8 @@ class ConnectionMatrix{
   void setTopoFlowsTestCor();
   void printTopoFlows(Topology* top, string topoflowsfilename);
   void tempGenerateSwitchServerMapping(Topology* top);
+
+  void setTopoFlowsNewFromFile(Topology* top, string flowfile, double simtime_ms);
 };
 
 #endif
