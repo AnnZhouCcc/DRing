@@ -68,7 +68,11 @@ whatrouting.ipynb
 python3 run_oblivious_c2s.py --conf experiments/linkfailure2/whatrouting.conf --maxGB 4.2 --waitSec 50
 ```
 
-- 4. Starfish uses xx for DRing 64to4
+- 4. Starfish uses 32disjoint_thisweight for DRing 64to4
 
-4. Run experiments
-- 1. 
+- 5. 30% load is too high, need to reduce
+
+4. Find a good range for load
+```
+test 10%,20% for leafspine + 32disjoint_weight
+```
