@@ -28,14 +28,7 @@ numport = 64 -->
 ```
 
 3. Figure out what routing Starfish would use for 64to4
-- 1. Generate linkfailurefiles
-```
-in linkfailurefiles/makelinkfailurefiles.ipynb:
-DRing: failpercent = 0.02
-Leafspine: failpercent = 0.02
-```
-
-- 2. Generate pathweightfiles 
+- 1. Generate pathweightfiles 
 ```
 use 30% load i.e. 4+5/16
 makepathweightfiles/makepathweightfiles.ipynb, set
@@ -61,18 +54,26 @@ crossover = 0
 factor = 64 -->
 ```
 
-- 3. Set up experiments and run
+- 2. Set up experiments and run
 ```
 no link failure, 1 traffic seed, 3 simulation seeds
 whatrouting.ipynb
 python3 run_oblivious_c2s.py --conf experiments/linkfailure2/whatrouting.conf --maxGB 4.2 --waitSec 50
 ```
 
-- 4. Starfish uses 32disjoint_thisweight for DRing 64to4
+- 3. Starfish uses 32disjoint_thisweight for DRing 64to4
 
-- 5. 30% load is too high, need to reduce
+- 4. 30% load is too high, need to reduce
 
-4. Find a good range for load
+4. Find a good range for load -- 20% max
 ```
 test 10%,20% for leafspine + 32disjoint_weight
+whatload.ipynb
+```
+
+- 1. Generate linkfailurefiles
+```
+in linkfailurefiles/makelinkfailurefiles.ipynb:
+DRing: failpercent = 0.02
+Leafspine: failpercent = 0.02
 ```

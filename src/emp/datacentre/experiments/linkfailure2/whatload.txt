@@ -1,0 +1,4 @@
+m_whatrouting_leafspine_ecmp_nf_equal_10.log	87.51250864647882	0.298097	1071.96	1106.09
+m_whatrouting_dring_32disjoint_nf_thisweight_10.log	0.38793936212583235	0.147572	8.05349	46.6264
+m_whatrouting_leafspine_ecmp_nf_equal_20.log	7880.256590745903	557.622	65644.7	65745.1
+m_whatrouting_dring_32disjoint_nf_thisweight_20.log	23.42815116392724	0.434116	340.192	1083.89
