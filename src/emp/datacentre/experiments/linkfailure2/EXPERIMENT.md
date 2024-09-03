@@ -92,3 +92,18 @@ Leafspine: failpercent = 0.02
 7. Generate pathweightfiles
 
 8. Set up conffiles, untar flowfiles & qvarfiles, run
+```
+python3 run_oblivious_c2s.py --conf experiments/linkfailure2/0_69_160.conf --maxGB 0.5 --waitSec 20
+python3 run_oblivious_c2s.py --conf experiments/linkfailure2/0_69_80.conf --maxGB 1 --waitSec 30
+python3 run_oblivious_c2s.py --conf experiments/linkfailure2/1_47_160.conf --maxGB 1.5 --waitSec 40
+python3 run_oblivious_c2s.py --conf experiments/linkfailure2/1_29_40.conf --maxGB 2 --waitSec 50
+python3 run_oblivious_c2s.py --conf experiments/linkfailure2/2_5_32.conf --maxGB 2.5 --waitSec 60
+python3 run_oblivious_c2s.py --conf experiments/linkfailure2/2_47_80.conf --maxGB 3 --waitSec 70
+```
+```
+python3 run_oblivious_c2s.py --conf experiments/linkfailure2/0_69_320.conf --maxGB 0.5 --waitSec 20
+python3 run_oblivious_c2s.py --conf experiments/linkfailure2/0_207_320.conf --maxGB 1 --waitSec 30
+python3 run_oblivious_c2s.py --conf experiments/linkfailure2/1_5_64.conf --maxGB 1.5 --waitSec 40
+python3 run_oblivious_c2s.py --conf experiments/linkfailure2/1_163_320.conf --maxGB 2 --waitSec 50
+python3 run_oblivious_c2s.py --conf experiments/linkfailure2/1_301_320.conf --maxGB 2.5 --waitSec 60
+```
