@@ -1,0 +1,10 @@
+m_linkfailure2_dring_32disjoint_thisweight_0_0_1_163_320.log	0.5520417121740405	0.154771	9.11312	180.416
+m_linkfailure2_dring_32disjoint_thisweight_1_0_1_163_320.log	1.0349928114267803	0.155611	10.0735	558.493
+m_linkfailure2_dring_32disjoint_thisweight_2_0_1_163_320.log	0.6289383293044034	0.156661	9.60795	189.602
+m_linkfailure2_dring_32disjoint_thisweight_3_0_1_163_320.log	1.0044088759497152	0.151844	9.05994	562.584
+m_linkfailure2_dring_32disjoint_thisweight_4_0_1_163_320.log	1.3315174590381904	0.157384	10.8348	554.683
+m_linkfailure2_dring_32disjoint_thisweight_0_0_1_163_320.log	0.5520417121740405	0.154771	9.11312	180.416
+m_linkfailure2_dring_32disjoint_thisweight_1_1_1_163_320.log	0.38119027592154475	0.156068	7.67185	41.5704
+m_linkfailure2_dring_32disjoint_thisweight_2_2_1_163_320.log	0.4861189603408681	0.156636	8.53185	168.844
+m_linkfailure2_dring_32disjoint_thisweight_3_3_1_163_320.log	0.4037712321563101	0.153782	8.11623	59.79
+m_linkfailure2_dring_32disjoint_thisweight_4_4_1_163_320.log	0.42335727414747304	0.158473	8.50385	57.6511

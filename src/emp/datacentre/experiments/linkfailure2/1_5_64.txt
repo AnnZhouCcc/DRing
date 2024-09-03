@@ -1,0 +1,15 @@
+m_linkfailure2_leafspine_ecmp_equal_0_0_1_5_64.log	30.529013594869973	0.250948	556.095	4169.8
+m_linkfailure2_leafspine_ecmp_equal_1_0_1_5_64.log	16.32978601293944	0.247825	296.097	339.252
+m_linkfailure2_leafspine_ecmp_equal_2_0_1_5_64.log	16.089981496548727	0.248009	295.681	337.529
+m_linkfailure2_leafspine_ecmp_equal_3_0_1_5_64.log	33.64558492817718	0.250991	559.906	4167.12
+m_linkfailure2_leafspine_ecmp_equal_4_0_1_5_64.log	40.000540846050185	0.25236	1075.02	4165.48
+m_linkfailure2_dring_32disjoint_thisweight_0_0_1_5_64.log	0.22830599858622655	0.100954	2.65598	21.2061
+m_linkfailure2_dring_32disjoint_thisweight_1_0_1_5_64.log	0.23131975948475048	0.100332	2.67513	25.7149
+m_linkfailure2_dring_32disjoint_thisweight_2_0_1_5_64.log	0.40779177405918327	0.100616	4.89165	172.72
+m_linkfailure2_dring_32disjoint_thisweight_3_0_1_5_64.log	0.21901572519533294	0.0997131	2.41796	20.1298
+m_linkfailure2_dring_32disjoint_thisweight_4_0_1_5_64.log	0.3053134385633584	0.100961	4.0073	155.077
+m_linkfailure2_dring_32disjoint_thisweight_0_0_1_5_64.log	0.22830599858622655	0.100954	2.65598	21.2061
+m_linkfailure2_dring_32disjoint_thisweight_1_1_1_5_64.log	0.2232257466096267	0.0994681	2.59658	21.5397
+m_linkfailure2_dring_32disjoint_thisweight_2_2_1_5_64.log	0.22203845856742793	0.100211	2.44465	20.5117
+m_linkfailure2_dring_32disjoint_thisweight_3_3_1_5_64.log	0.22080430356301858	0.0995529	2.44521	22.0708
+m_linkfailure2_dring_32disjoint_thisweight_4_4_1_5_64.log	0.2375169438744577	0.101099	2.93483	28.2176
