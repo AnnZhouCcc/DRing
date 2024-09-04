@@ -95,3 +95,6 @@ flowfiles/
 
 qvarfiles/
 !qvarfiles/*.tar.gz
+
+qivarfiles/
+!qivarfiles/*.tar.gz

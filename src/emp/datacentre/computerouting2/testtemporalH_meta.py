@@ -581,7 +581,7 @@ with open(processfile,'a') as fprocess:
         maxpathsused = 0
         final_computeinterval = 0
         final_pathselection = 0
-        for temporal_vote in temporal_votes:
+        for temporal_vote in temporal_votes: # AnnC: not rigorous here
             if temporal_vote>=H*len(spatial_votes):
                 path_selection = temporal_vote-H*len(spatial_votes)
                 base_interval = -1
@@ -602,9 +602,12 @@ with open(processfile,'a') as fprocess:
 
         # write out results
         with open(resultfile,'a') as f:
-            computeqivarfile = f"{homedir}/DRing/src/emp/datacentre/qivarfiles/ivar_{graphname}_{numfaillink}_{fseed}_{routingnamearr[final_pathselection]}_{trafficname}_{final_computeinterval}_{method}_{crossover}"
-            cachefile = f"{homedir}/DRing/src/emp/datacentre/computerouting2/cachefiles/cache_{graphname}_{numfaillink}_{fseed}_{routingnamearr[final_pathselection]}_{trafficname}_{method}_{crossover}"
-            netpathfile = f"{homedir}/DRing/src/emp/datacentre/netpathfiles/netpath_{routingnamearr[final_pathselection]}_{graphname}.txt"
-            mythroughput = solve(final_computeinterval,computeqivarfile,solveinterval,graphfile,numsw,netpathfile,traffic,cachefile,method,crossover)
+            if final_computeinterval == -1:
+                mythroughput = equalthroughput[routingnamearr[final_pathselection]][solveinterval]
+            else:    
+                computeqivarfile = f"{homedir}/DRing/src/emp/datacentre/qivarfiles/ivar_{graphname}_{numfaillink}_{fseed}_{routingnamearr[final_pathselection]}_{trafficname}_{final_computeinterval}_{method}_{crossover}"
+                cachefile = f"{homedir}/DRing/src/emp/datacentre/computerouting2/cachefiles/cache_{graphname}_{numfaillink}_{fseed}_{routingnamearr[final_pathselection]}_{trafficname}_{method}_{crossover}"
+                netpathfile = f"{homedir}/DRing/src/emp/datacentre/netpathfiles/netpath_{routingnamearr[final_pathselection]}_{graphname}.txt"
+                mythroughput = solve(final_computeinterval,computeqivarfile,solveinterval,graphfile,numsw,netpathfile,traffic,cachefile,method,crossover)
             f.write(f"{H},{solveinterval},{mythroughput},{routingnamearr[final_pathselection]},{final_computeinterval}\n")
         fprocess.write(f"{H},{solveinterval},final,{routingnamearr[final_pathselection]},{final_computeinterval},{mythroughput}\n")
