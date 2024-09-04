@@ -317,14 +317,14 @@ def solve(computeinterval,computeqivarfile,solveinterval,graphfile,numsw,netpath
             tokens = line.split(",")
             string = tokens[0]
             stringtokens = string.split("_")
-            fromsvr = int(stringtokens[0])
-            tosvr = int(stringtokens[1])
+            fromsw = int(stringtokens[0])
+            tosw = int(stringtokens[1])
             pid = int(stringtokens[2])
-            weight = tokens[1]
+            weight = float(tokens[1])
             pathweight[fromsw][tosw][pid] = weight
     for fromsw in range(numsw):
         for tosw in range(numsw):
-            if traffic[solveinterval][fromsw][tosw]>0 and len(pathweight[fromsw][tosw])==0:
+            if traffic[solveinterval][fromsw][tosw]>0 and traffic[computeinterval][fromsw][tosw]==0:
                 numnetpath = len(netpath[fromsw][tosw])
                 for i in range(numnetpath):
                     pathweight[fromsw][tosw][i] = 1.0/numnetpath
@@ -416,7 +416,7 @@ def solve(computeinterval,computeqivarfile,solveinterval,graphfile,numsw,netpath
         for tosw in range(numsw):
             if traffic[solveinterval][fromsw][tosw] > 0:
                 for pid in range(len(netpath[fromsw][tosw])):
-                    model.addConstr(vararr[fromsw][tosw][pid]==pathweight[fromsw][tosw][pid]*avararr[fromsw][tosw],f"c2_{fromsw}_{tosw}_{pid}")
+                    model.addConstr(vararr[fromsw][tosw][pid]-pathweight[fromsw][tosw][pid]*avararr[fromsw][tosw]==0,f"c2_{fromsw}_{tosw}_{pid}")
 
     # Optimize model
     model.setParam('Method',-1)
