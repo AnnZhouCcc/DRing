@@ -34,221 +34,7 @@ string itoa(uint64_t n);
 extern int N;
 
 
-RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string graphFile, queue_type qt, string conn_matrix, string alg, int k, string netpathfile, string pathweightfileprefix, string pathweightfilesuffix, int solvestart, int solveend, int solveinterval, int computestart, int computeend, int computeinterval){
-//   logfile = lg;
-//   eventlist = ev;
-//   qtype = qt;
-  
-//   for (int i=0; i < NSW; i++)
-//     adjMatrix[i] = new vector<int>();
-
-//   //< read graph from the graphFile
-//   ifstream myfile(graphFile.c_str());
-//   string line;
-//   if (myfile.is_open()){
-//     while(myfile.good()){
-// 	getline(myfile, line);
-// 	if (line.find("->") == string::npos) break;
-// 	int from = atoi(line.substr(0, line.find("->")).c_str());
-// 	int to = atoi(line.substr(line.find("->") + 2).c_str());
-//     if(from >= NSW || to >= NSW){
-//         cout<<"Graph file has out of bounds nodes, "<<from<<"->"<<to<<", NSW: "<<NSW<<endl;
-//         exit(0);
-//     }
-// 	adjMatrix[from]->push_back(to);
-// 	adjMatrix[to]->push_back(from);
-//     }
-//     myfile.close();
-//   }
-//   //>
-
-//   // Ankit: Check adjacency matrix
-// //   for (unsigned int i = 0; i < NSW; i++){
-// //     cout << "SW " << i << " |NBRS| = "<<adjMatrix[i]->size()<<" NBRS = ";
-// //     for (unsigned int j = 0; j < adjMatrix[i]->size(); j++)
-// //       cout << (*adjMatrix[i])[j] << " ";
-// //     cout << endl;
-// //   }
-
-//   //< initialize a graph data structure for shortest paths algo
-//   string command = "sed 's/->/ /g' " + graphFile + " > temp_graph";
-
-//   cout<<"command: "<<command<<endl;
-
-//   int sysReturn = system(command.c_str());
-//   if (sysReturn != 0) {
-// 	  cout << "ERROR: System command to process graph file failed" << endl;
-//   }
-//   myGraph = new Graph("temp_graph");
-//   //>
- 
-//   cout<<"GraphFile: "<<graphFile<<endl;
-
-//   init_network();
-//   cout<< "RRG Init network finished "<<endl;
-
-// #if PATHWEIGHTS
-// #else
-//   //compute all pair shortest paths
-//   floydWarshall();
-
-// 	if (alg == "fhi") {
-// 		find_path_alg = FIRST_HOP_INDIRECTION; 
-// 	} else if (alg == "kdisjoint") {
-// 		find_path_alg = KDISJOINT; 
-// 	} else if (alg == "ecmp") {
-// 		find_path_alg = ECMP;
-// 	} else if (alg == "kshort") {
-// 		find_path_alg = KSHORT;
-// 	} else if (alg == "su") {
-// 		find_path_alg = SHORTESTN;
-// 	} else if (alg == "racke") { 
-// 	} else {
-// 		cout << "***Error: algorithm is not found, alg=" << alg << endl;
-// 		exit(1);
-// 	}
-// 	korn = k;
-// #endif
-
-// #if IS_DEBUG_ON
-//   	cout << "before net_paths_rack_based" << endl;
-// #endif
-
-// 	net_paths_rack_based = new vector<route_t*>**[NSW];
-// 	for (int i=0;i<NSW;i++){
-// 		net_paths_rack_based[i] = new vector<route_t*>*[NSW];
-// 		for (int j = 0;j<NSW;j++){
-// 			net_paths_rack_based[i][j] = NULL;
-// 		}
-// 	}
-
-// #if PATHWEIGHTS
-// 	// Read netpath from file
-// 	ifstream npfile(netpathfile.c_str());
-//     string npline;
-//     if (npfile.is_open()){
-// 		while(npfile.good()){
-// 			getline(npfile, npline);
-// 			if (npline.find_first_not_of(' ') == string::npos) break;
-// 			stringstream npss(npline);
-// 			int flowSrc,flowDst,num_paths;
-// 			vector<route_t*> *paths_rack_based;
-// 			if (npline.find_first_of("->") == string::npos) {
-// 				npss >> flowSrc >> flowDst >> num_paths;
-// 				paths_rack_based = new vector<route_t*>();
-// 				net_paths_rack_based[flowSrc][flowDst] = paths_rack_based;
-// 			} else {
-// 				string link;
-// 				int linkSrc,linkDst;
-// 				route_t *routeout = new route_t();
-// 				while (npss >> link) {
-// 					size_t found = link.find("->");
-// 					if (found != string::npos) {
-// 						linkSrc = stoi(link.substr(0,found));
-// 						linkDst = stoi(link.substr(found+2));
-// 						routeout->push_back(queues_sw_sw[linkSrc][linkDst]);
-// 						routeout->push_back(pipes_sw_sw[linkSrc][linkDst]);
-// 					}
-// 				}
-// 				paths_rack_based->push_back(routeout);
-// 			}
-// 		}
-// 		npfile.close();
-//     } 
-// 	else {
-//         cout << "***Error opening netpathfile: " << netpathfile << endl;
-//         exit(1);
-//     }
-
-// 	#if IS_DEBUG_ON
-// 		cout << "read netpathfile; before path_weights_rack_based" << endl;
-// 		cout << "conn_matrix=" << conn_matrix << endl;
-// 		cout << "solveend=" << solveend << endl;
-// 		cout << "solvestart=" << solvestart << endl;
-// 		cout << "solveinterval=" << solveinterval << endl;
-// 	#endif
-
-// 	// Initialize path_weights_rack_based
-// 	int numintervals = 1;
-// 	if (conn_matrix == "CLUSTERX") {
-// 		numintervals = (solveend-solvestart) / solveinterval +1;
-// 	} else if (conn_matrix.substr(0,8) == "KCLUSTER") {
-// 		numintervals = 48;
-// 	}
-// 	cout << "numintervals=" << numintervals << endl;
-
-// 	path_weights_rack_based = new vector < pair<int,double> > ***[numintervals];
-// 	for (int k=0; k<numintervals; k++) {
-// 		path_weights_rack_based[k] = new vector < pair<int,double> > **[NSW];
-// 		for (int i=0; i<NSW; i++) {
-// 			path_weights_rack_based[k][i] = new vector < pair<int,double> > *[NSW];
-// 			for (int j=0; j<NSW; j++) {
-// 				path_weights_rack_based[k][i][j] = new vector < pair<int,double> > ();
-// 			}
-// 		}
-// 	}
-
-// 	// Read pathweight from file
-// 	int thiscomputestart, thiscomputeend;
-// 	string pathweightfile;
-// 	for (int i=0; i<numintervals; i++) {
-// 		if (conn_matrix.substr(0,8) == "KCLUSTER") {
-// 			thiscomputestart = i*1800;
-// 			thiscomputeend = (i+1)*1800;
-// 			pathweightfile = pathweightfileprefix + itoa(thiscomputestart) + "_" + itoa(thiscomputeend) + pathweightfilesuffix;
-// 		} else {
-// 			if (conn_matrix == "CLUSTERX") {
-// 				if (computeinterval == 0) { // equal
-// 					pathweightfile = pathweightfileprefix;
-// 				} else { // optimal or delay
-// 					thiscomputestart = computestart + i*solveinterval;
-// 					thiscomputeend = thiscomputestart + computeinterval;
-// 					pathweightfile = pathweightfileprefix + itoa(thiscomputestart) + "_" + itoa(thiscomputeend) + pathweightfilesuffix;
-// 				}
-// 			} else {
-// 				if (pathweightfilesuffix != "") {
-// 					cout << "***Error: pathweightfilesuffix is non-empty when solveinterval==0 and computeinterval==0, pathweightfilesuffix=" << pathweightfilesuffix << endl;
-// 					exit(1);
-// 				}
-// 				pathweightfile = pathweightfileprefix;
-// 			}
-// 		}
-
-// 		ifstream pwfile(pathweightfile.c_str());
-// 		string pwline;
-// 		if (pwfile.is_open()){
-// 			while(pwfile.good()){
-// 				getline(pwfile, pwline);
-// 				if (pwline.find_first_not_of(' ') == string::npos) break;
-// 				stringstream ss(pwline);
-// 				int flowSrc,flowDst,pid,linkSrc,linkDst;
-// 				double weight;
-// 				ss >> flowSrc >> flowDst >> pid >> linkSrc >> linkDst >> weight;
-
-// 				if (flowSrc>=NSW || flowDst>=NSW) {
-// 					cout << "***Error: flowSrc>=NSW || flowDst>=NSW, flowSrc=" << itoa(flowSrc) << ", flowDst=" << itoa(flowDst) << ", NSW=" << itoa(NSW) << endl;
-// 					exit(1);
-// 				}
-// 				// check whether netpathfile and pathweightfile are indeed matching
-// 				PacketSink *firstqueue = net_paths_rack_based[flowSrc][flowDst]->at(pid)->at(0);
-// 				if (firstqueue != queues_sw_sw[linkSrc][linkDst]) {
-// 					cout << "***Error: netpathfile and pathweightfile mismatch, linkSrc=" << itoa(linkSrc) << ", linkDst=" << itoa(linkDst) << ", queue has name " << firstqueue->nodename() << endl;
-// 					exit(1);
-// 				}
-
-// 				path_weights_rack_based[i][flowSrc][flowDst]->push_back(pair<int,double>(pid,weight));
-// 			}
-// 			pwfile.close();
-// 		}
-// 		else {
-// 			cout << "***Error opening pathweightfile: " << pathweightfile << endl;
-// 			exit(1);
-// 		}
-// 	}
-// #endif
-}
-
-RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string graphFile, queue_type qt, string conn_matrix, string alg, int k, int numfaillinks, int failseed, string netpathfile, string pathweightfileprefix, string pathweightfilesuffix, int solvestart, int solveend, int solveinterval, int computestart, int computeend, int computeinterval){
+RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string graphFile, queue_type qt, string conn_matrix, string alg, int k, int numfaillinks, int failseed, string netpathfile, string pathweightfileprefix, string pathweightfilesuffix, int solvestart, int solveend, int solveinterval, int computestart, int computeend, int computeinterval, string trafficname){
   logfile = lg;
   eventlist = ev;
   qtype = qt;
@@ -359,16 +145,217 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
   	cout << "before net_paths_rack_based" << endl;
 #endif
 
-	net_paths_rack_based = new vector<route_t*>**[NSW];
+	ecmp_net_paths = new vector<route_t*>**[NSW];
+	su2_net_paths = new vector<route_t*>**[NSW];
+	su3_net_paths = new vector<route_t*>**[NSW];
+	maxdisj_net_paths = new vector<route_t*>**[NSW];
 	for (int i=0;i<NSW;i++){
-		net_paths_rack_based[i] = new vector<route_t*>*[NSW];
+		ecmp_net_paths[i] = new vector<route_t*>*[NSW];
+		su2_net_paths[i] = new vector<route_t*>*[NSW];
+		su3_net_paths[i] = new vector<route_t*>*[NSW];
+		maxdisj_net_paths[i] = new vector<route_t*>*[NSW];
 		for (int j = 0;j<NSW;j++){
-			net_paths_rack_based[i][j] = NULL;
+			ecmp_net_paths[i][j] = NULL;
+			su2_net_paths[i][j] = NULL;
+			su3_net_paths[i][j] = NULL;
+			maxdisj_net_paths[i][j] = NULL;
 		}
 	}
 
 #if PATHWEIGHTS
 	// Read netpath from file
+	read_netpathfile("netpathfiles/netpath_ecmp_dring.txt",ecmp_net_paths);
+	read_netpathfile("netpathfiles/netpath_su2_dring.txt",su2_net_paths);
+	read_netpathfile("netpathfiles/netpath_su3_dring.txt",su3_net_paths);
+	read_netpathfile("netpathfiles/netpath_32disjoint_dring.txt",maxdisj_net_paths);
+
+	#if IS_DEBUG_ON
+		cout << "read netpathfile; before path_weights_rack_based" << endl;
+		cout << "conn_matrix=" << conn_matrix << endl;
+		cout << "solveend=" << solveend << endl;
+		cout << "solvestart=" << solvestart << endl;
+		cout << "solveinterval=" << solveinterval << endl;
+	#endif
+
+	// Initialize path_weights_rack_based
+	if (conn_matrix == "NEW_WISC") {
+
+		int numintervals = solveend - solvestart;
+		cout << "numintervals=" << numintervals << " (for NEW_WISC)" << endl;
+
+		path_weights_rack_based = new vector < pair<int,double> > ***[numintervals];
+		for (int k=0; k<numintervals; k++) {
+			path_weights_rack_based[k] = new vector < pair<int,double> > **[NSW];
+			for (int i=0; i<NSW; i++) {
+				path_weights_rack_based[k][i] = new vector < pair<int,double> > *[NSW];
+				for (int j=0; j<NSW; j++) {
+					path_weights_rack_based[k][i][j] = new vector < pair<int,double> > ();
+				}
+			}
+		}
+
+		// Read choicefile
+		std::string choicefile = "choicefiles/" + trafficname;
+        ifstream ccfile(choicefile.c_str());
+        string ccline;
+        if (ccfile.is_open()){
+            while(ccfile.good()){
+                getline(ccfile, ccline);
+                if (ccline.find_first_not_of(' ') == string::npos) break;
+                stringstream ss(ccline);
+                int mychoice;
+                ss >> mychoice;
+                net_paths_choice.push_back(mychoice);
+            }
+            ccfile.close();
+        }
+        cout<<"choicefile: "<<choicefile<<endl;
+        if (net_paths_choice.size()!=numintervals) {
+            std::cout << "ERROR: net_paths_choice has " << net_paths_choice.size() << " entries but numinterval=" << numintervals << std::endl;
+        }
+
+		// Read pathweight from file
+		for (int i=0; i<numintervals; i++) {
+			string myroutingname;
+			int myroutingchoice = net_paths_choice.at(i);
+			if (myroutingchoice==0) {
+				myroutingname = "ecmp";
+			} else if (myroutingchoice==1) {
+				myroutingname = "su2";
+			} else if (myroutingchoice==2) {
+				myroutingname = "su3";
+			} else if (myroutingchoice==3) {
+				myroutingname = "32disjoint";
+			}
+			string pathweightfile = "qivarfiles/qivar_dring_0_0_"+trafficname+"_"+to_string(i+solvestart)+"_"+myroutingname+"_2_0";
+			ifstream pwfile(pathweightfile.c_str());
+			string pwline;
+			if (pwfile.is_open()){
+				while(pwfile.good()){
+					getline(pwfile, pwline);
+					if (pwline.find_first_not_of(' ') == string::npos) break;
+					stringstream ss(pwline);
+					string token;
+					vector<string> tokens;
+					while (getline(ss,token,',')) {
+						tokens.push_back(token);
+					}
+					int flowSrc = stoi(tokens[0]);
+					int flowDst = stoi(tokens[1]);
+					int pid = stoi(tokens[2]);
+					double weight = stod(tokens[3]);
+
+					path_weights_rack_based[i][flowSrc][flowDst]->push_back(pair<int,double>(pid,weight));
+				}
+				pwfile.close();
+			}
+			else {
+				cout << "***Error opening pathweightfile: " << pathweightfile << endl;
+				exit(1);
+			}
+		}
+
+	} else {
+
+		int numintervals = 1;
+		if (conn_matrix == "CLUSTERX") {
+			numintervals = (solveend-solvestart) / solveinterval +1;
+		} else if (conn_matrix.substr(0,8) == "KCLUSTER") {
+			numintervals = 48;
+		}
+		cout << "numintervals=" << numintervals << endl;
+
+		path_weights_rack_based = new vector < pair<int,double> > ***[numintervals];
+		for (int k=0; k<numintervals; k++) {
+			path_weights_rack_based[k] = new vector < pair<int,double> > **[NSW];
+			for (int i=0; i<NSW; i++) {
+				path_weights_rack_based[k][i] = new vector < pair<int,double> > *[NSW];
+				for (int j=0; j<NSW; j++) {
+					path_weights_rack_based[k][i][j] = new vector < pair<int,double> > ();
+				}
+			}
+		}
+
+		// Read pathweight from file
+		int thiscomputestart, thiscomputeend;
+		string pathweightfile;
+		for (int i=0; i<numintervals; i++) {
+			if (conn_matrix.substr(0,8) == "KCLUSTER") {
+				thiscomputestart = i*1800;
+				thiscomputeend = (i+1)*1800;
+				pathweightfile = pathweightfileprefix + itoa(thiscomputestart) + "_" + itoa(thiscomputeend) + pathweightfilesuffix;
+			} else {
+				if (conn_matrix == "CLUSTERX") {
+					if (computeinterval == 0) { // equal
+						pathweightfile = pathweightfileprefix;
+					} else { // optimal or delay
+						thiscomputestart = computestart + i*solveinterval;
+						thiscomputeend = thiscomputestart + computeinterval;
+						pathweightfile = pathweightfileprefix + itoa(thiscomputestart) + "_" + itoa(thiscomputeend) + pathweightfilesuffix;
+					}
+				} else {
+					if (pathweightfilesuffix != "") {
+						cout << "***Error: pathweightfilesuffix is non-empty when solveinterval==0 and computeinterval==0, pathweightfilesuffix=" << pathweightfilesuffix << endl;
+						exit(1);
+					}
+					pathweightfile = pathweightfileprefix;
+				}
+			}
+
+			ifstream pwfile(pathweightfile.c_str());
+			string pwline;
+			if (pwfile.is_open()){
+				while(pwfile.good()){
+					getline(pwfile, pwline);
+					if (pwline.find_first_not_of(' ') == string::npos) break;
+					stringstream ss(pwline);
+					string token;
+					vector<string> tokens;
+					while (getline(ss,token,',')) {
+						tokens.push_back(token);
+					}
+					int flowSrc = stoi(tokens[0]);
+					int flowDst = stoi(tokens[1]);
+					int pid = stoi(tokens[2]);
+					double weight = stod(tokens[3]);
+
+					// int flowSrc,flowDst,pid,linkSrc,linkDst;
+					// double weight;
+					// ss >> flowSrc >> flowDst >> pid >> linkSrc >> linkDst >> weight;
+
+					// if (flowSrc>=NSW || flowDst>=NSW) {
+					// 	cout << "***Error: flowSrc>=NSW || flowDst>=NSW, flowSrc=" << itoa(flowSrc) << ", flowDst=" << itoa(flowDst) << ", NSW=" << itoa(NSW) << endl;
+					// 	exit(1);
+					// }
+					// // check whether netpathfile and pathweightfile are indeed matching
+					// PacketSink *firstqueue = net_paths_rack_based[flowSrc][flowDst]->at(pid)->at(0);
+					// if (firstqueue != queues_sw_sw[linkSrc][linkDst]) {
+					// 	cout << "***Error: netpathfile and pathweightfile mismatch, linkSrc=" << itoa(linkSrc) << ", linkDst=" << itoa(linkDst) << ", queue has name " << firstqueue->nodename() << endl;
+					// 	exit(1);
+					// }
+
+					path_weights_rack_based[i][flowSrc][flowDst]->push_back(pair<int,double>(pid,weight));
+				}
+				pwfile.close();
+			}
+			else {
+				cout << "***Error opening pathweightfile: " << pathweightfile << endl;
+				exit(1);
+			}
+		}
+
+	}
+
+	// AnnC: solely for testing purpose
+  	// std::cout << path_weights_rack_based[0][7][6]->at(0).first << ": " << path_weights_rack_based[0][7][6]->at(0).second << std::endl;
+	// std::cout << path_weights_rack_based[0][42][48]->at(0).first << ": " << path_weights_rack_based[0][42][48]->at(0).second << std::endl;
+	// std::cout << path_weights_rack_based[0][14][35]->at(4).first << ": " << path_weights_rack_based[0][14][35]->at(4).second << std::endl;
+
+#endif
+}
+
+
+void RandRegularTopology::read_netpathfile(string netpathfile, vector<route_t *>***net_paths) {
 	ifstream npfile(netpathfile.c_str());
     string npline;
     if (npfile.is_open()){
@@ -381,7 +368,7 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
 			if (npline.find_first_of("->") == string::npos) {
 				npss >> flowSrc >> flowDst >> num_paths;
 				paths_rack_based = new vector<route_t*>();
-				net_paths_rack_based[flowSrc][flowDst] = paths_rack_based;
+				net_paths[flowSrc][flowDst] = paths_rack_based;
 			} else {
 				string link;
 				int linkSrc,linkDst;
@@ -404,110 +391,8 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
         cout << "***Error opening netpathfile: " << netpathfile << endl;
         exit(1);
     }
-
-	#if IS_DEBUG_ON
-		cout << "read netpathfile; before path_weights_rack_based" << endl;
-		cout << "conn_matrix=" << conn_matrix << endl;
-		cout << "solveend=" << solveend << endl;
-		cout << "solvestart=" << solvestart << endl;
-		cout << "solveinterval=" << solveinterval << endl;
-	#endif
-
-	// Initialize path_weights_rack_based
-	int numintervals = 1;
-	if (conn_matrix == "CLUSTERX") {
-		numintervals = (solveend-solvestart) / solveinterval +1;
-	} else if (conn_matrix.substr(0,8) == "KCLUSTER") {
-		numintervals = 48;
-	}
-	cout << "numintervals=" << numintervals << endl;
-
-	path_weights_rack_based = new vector < pair<int,double> > ***[numintervals];
-	for (int k=0; k<numintervals; k++) {
-		path_weights_rack_based[k] = new vector < pair<int,double> > **[NSW];
-		for (int i=0; i<NSW; i++) {
-			path_weights_rack_based[k][i] = new vector < pair<int,double> > *[NSW];
-			for (int j=0; j<NSW; j++) {
-				path_weights_rack_based[k][i][j] = new vector < pair<int,double> > ();
-			}
-		}
-	}
-
-	// Read pathweight from file
-	int thiscomputestart, thiscomputeend;
-	string pathweightfile;
-	for (int i=0; i<numintervals; i++) {
-		if (conn_matrix.substr(0,8) == "KCLUSTER") {
-			thiscomputestart = i*1800;
-			thiscomputeend = (i+1)*1800;
-			pathweightfile = pathweightfileprefix + itoa(thiscomputestart) + "_" + itoa(thiscomputeend) + pathweightfilesuffix;
-		} else {
-			if (conn_matrix == "CLUSTERX") {
-				if (computeinterval == 0) { // equal
-					pathweightfile = pathweightfileprefix;
-				} else { // optimal or delay
-					thiscomputestart = computestart + i*solveinterval;
-					thiscomputeend = thiscomputestart + computeinterval;
-					pathweightfile = pathweightfileprefix + itoa(thiscomputestart) + "_" + itoa(thiscomputeend) + pathweightfilesuffix;
-				}
-			} else {
-				if (pathweightfilesuffix != "") {
-					cout << "***Error: pathweightfilesuffix is non-empty when solveinterval==0 and computeinterval==0, pathweightfilesuffix=" << pathweightfilesuffix << endl;
-					exit(1);
-				}
-				pathweightfile = pathweightfileprefix;
-			}
-		}
-
-		ifstream pwfile(pathweightfile.c_str());
-		string pwline;
-		if (pwfile.is_open()){
-			while(pwfile.good()){
-				getline(pwfile, pwline);
-				if (pwline.find_first_not_of(' ') == string::npos) break;
-				stringstream ss(pwline);
-				string token;
-				vector<string> tokens;
-				while (getline(ss,token,',')) {
-					tokens.push_back(token);
-				}
-				int flowSrc = stoi(tokens[0]);
-				int flowDst = stoi(tokens[1]);
-				int pid = stoi(tokens[2]);
-				double weight = stod(tokens[3]);
-
-				// int flowSrc,flowDst,pid,linkSrc,linkDst;
-				// double weight;
-				// ss >> flowSrc >> flowDst >> pid >> linkSrc >> linkDst >> weight;
-
-				// if (flowSrc>=NSW || flowDst>=NSW) {
-				// 	cout << "***Error: flowSrc>=NSW || flowDst>=NSW, flowSrc=" << itoa(flowSrc) << ", flowDst=" << itoa(flowDst) << ", NSW=" << itoa(NSW) << endl;
-				// 	exit(1);
-				// }
-				// // check whether netpathfile and pathweightfile are indeed matching
-				// PacketSink *firstqueue = net_paths_rack_based[flowSrc][flowDst]->at(pid)->at(0);
-				// if (firstqueue != queues_sw_sw[linkSrc][linkDst]) {
-				// 	cout << "***Error: netpathfile and pathweightfile mismatch, linkSrc=" << itoa(linkSrc) << ", linkDst=" << itoa(linkDst) << ", queue has name " << firstqueue->nodename() << endl;
-				// 	exit(1);
-				// }
-
-				path_weights_rack_based[i][flowSrc][flowDst]->push_back(pair<int,double>(pid,weight));
-			}
-			pwfile.close();
-		}
-		else {
-			cout << "***Error opening pathweightfile: " << pathweightfile << endl;
-			exit(1);
-		}
-	}
-
-	// AnnC: solely for testing purpose
-  	// std::cout << path_weights_rack_based[0][7][6]->at(0).first << ": " << path_weights_rack_based[0][7][6]->at(0).second << std::endl;
-	// std::cout << path_weights_rack_based[0][42][48]->at(0).first << ": " << path_weights_rack_based[0][42][48]->at(0).second << std::endl;
-	// std::cout << path_weights_rack_based[0][14][35]->at(4).first << ": " << path_weights_rack_based[0][14][35]->at(4).second << std::endl;
-
-#endif
 }
+
 
 void RandRegularTopology::init_network(){
   QueueLoggerSampling* queueLogger;
@@ -1463,17 +1348,59 @@ void RandRegularTopology::delete_net_paths_rack_based(int numintervals) {
 
 	for (int i=0; i<NSW; i++) {
 		for (int j=0; j<NSW; j++) {
-			if (net_paths_rack_based[i][j]) {
-				for (auto p : (*net_paths_rack_based[i][j])) {
+			if (ecmp_net_paths[i][j]) {
+				for (auto p : (*ecmp_net_paths[i][j])) {
 					delete p;
 				}
-				net_paths_rack_based[i][j]->clear();
-				delete net_paths_rack_based[i][j];
+				ecmp_net_paths[i][j]->clear();
+				delete ecmp_net_paths[i][j];
 			}
 		}
-		delete [] net_paths_rack_based[i];
+		delete [] ecmp_net_paths[i];
 	}	
-	delete [] net_paths_rack_based;
+	delete [] ecmp_net_paths;
+
+	for (int i=0; i<NSW; i++) {
+		for (int j=0; j<NSW; j++) {
+			if (su2_net_paths[i][j]) {
+				for (auto p : (*su2_net_paths[i][j])) {
+					delete p;
+				}
+				su2_net_paths[i][j]->clear();
+				delete su2_net_paths[i][j];
+			}
+		}
+		delete [] su2_net_paths[i];
+	}	
+	delete [] su2_net_paths;
+
+	for (int i=0; i<NSW; i++) {
+		for (int j=0; j<NSW; j++) {
+			if (su3_net_paths[i][j]) {
+				for (auto p : (*su3_net_paths[i][j])) {
+					delete p;
+				}
+				su3_net_paths[i][j]->clear();
+				delete su3_net_paths[i][j];
+			}
+		}
+		delete [] su3_net_paths[i];
+	}	
+	delete [] su3_net_paths;
+
+	for (int i=0; i<NSW; i++) {
+		for (int j=0; j<NSW; j++) {
+			if (maxdisj_net_paths[i][j]) {
+				for (auto p : (*maxdisj_net_paths[i][j])) {
+					delete p;
+				}
+				maxdisj_net_paths[i][j]->clear();
+				delete maxdisj_net_paths[i][j];
+			}
+		}
+		delete [] maxdisj_net_paths[i];
+	}	
+	delete [] maxdisj_net_paths;
 
 #if IS_DEBUG_ON
 	cout << "done deleting" << endl;
@@ -1822,3 +1749,523 @@ void RandRegularTopology::print_path(std::ofstream &paths,int src,route_t* route
   paths << endl;
 }
 */
+
+
+RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string graphFile, queue_type qt, string conn_matrix, string alg, int k, string netpathfile, string pathweightfileprefix, string pathweightfilesuffix, int solvestart, int solveend, int solveinterval, int computestart, int computeend, int computeinterval){
+//   logfile = lg;
+//   eventlist = ev;
+//   qtype = qt;
+  
+//   for (int i=0; i < NSW; i++)
+//     adjMatrix[i] = new vector<int>();
+
+//   //< read graph from the graphFile
+//   ifstream myfile(graphFile.c_str());
+//   string line;
+//   if (myfile.is_open()){
+//     while(myfile.good()){
+// 	getline(myfile, line);
+// 	if (line.find("->") == string::npos) break;
+// 	int from = atoi(line.substr(0, line.find("->")).c_str());
+// 	int to = atoi(line.substr(line.find("->") + 2).c_str());
+//     if(from >= NSW || to >= NSW){
+//         cout<<"Graph file has out of bounds nodes, "<<from<<"->"<<to<<", NSW: "<<NSW<<endl;
+//         exit(0);
+//     }
+// 	adjMatrix[from]->push_back(to);
+// 	adjMatrix[to]->push_back(from);
+//     }
+//     myfile.close();
+//   }
+//   //>
+
+//   // Ankit: Check adjacency matrix
+// //   for (unsigned int i = 0; i < NSW; i++){
+// //     cout << "SW " << i << " |NBRS| = "<<adjMatrix[i]->size()<<" NBRS = ";
+// //     for (unsigned int j = 0; j < adjMatrix[i]->size(); j++)
+// //       cout << (*adjMatrix[i])[j] << " ";
+// //     cout << endl;
+// //   }
+
+//   //< initialize a graph data structure for shortest paths algo
+//   string command = "sed 's/->/ /g' " + graphFile + " > temp_graph";
+
+//   cout<<"command: "<<command<<endl;
+
+//   int sysReturn = system(command.c_str());
+//   if (sysReturn != 0) {
+// 	  cout << "ERROR: System command to process graph file failed" << endl;
+//   }
+//   myGraph = new Graph("temp_graph");
+//   //>
+ 
+//   cout<<"GraphFile: "<<graphFile<<endl;
+
+//   init_network();
+//   cout<< "RRG Init network finished "<<endl;
+
+// #if PATHWEIGHTS
+// #else
+//   //compute all pair shortest paths
+//   floydWarshall();
+
+// 	if (alg == "fhi") {
+// 		find_path_alg = FIRST_HOP_INDIRECTION; 
+// 	} else if (alg == "kdisjoint") {
+// 		find_path_alg = KDISJOINT; 
+// 	} else if (alg == "ecmp") {
+// 		find_path_alg = ECMP;
+// 	} else if (alg == "kshort") {
+// 		find_path_alg = KSHORT;
+// 	} else if (alg == "su") {
+// 		find_path_alg = SHORTESTN;
+// 	} else if (alg == "racke") { 
+// 	} else {
+// 		cout << "***Error: algorithm is not found, alg=" << alg << endl;
+// 		exit(1);
+// 	}
+// 	korn = k;
+// #endif
+
+// #if IS_DEBUG_ON
+//   	cout << "before net_paths_rack_based" << endl;
+// #endif
+
+// 	net_paths_rack_based = new vector<route_t*>**[NSW];
+// 	for (int i=0;i<NSW;i++){
+// 		net_paths_rack_based[i] = new vector<route_t*>*[NSW];
+// 		for (int j = 0;j<NSW;j++){
+// 			net_paths_rack_based[i][j] = NULL;
+// 		}
+// 	}
+
+// #if PATHWEIGHTS
+// 	// Read netpath from file
+// 	ifstream npfile(netpathfile.c_str());
+//     string npline;
+//     if (npfile.is_open()){
+// 		while(npfile.good()){
+// 			getline(npfile, npline);
+// 			if (npline.find_first_not_of(' ') == string::npos) break;
+// 			stringstream npss(npline);
+// 			int flowSrc,flowDst,num_paths;
+// 			vector<route_t*> *paths_rack_based;
+// 			if (npline.find_first_of("->") == string::npos) {
+// 				npss >> flowSrc >> flowDst >> num_paths;
+// 				paths_rack_based = new vector<route_t*>();
+// 				net_paths_rack_based[flowSrc][flowDst] = paths_rack_based;
+// 			} else {
+// 				string link;
+// 				int linkSrc,linkDst;
+// 				route_t *routeout = new route_t();
+// 				while (npss >> link) {
+// 					size_t found = link.find("->");
+// 					if (found != string::npos) {
+// 						linkSrc = stoi(link.substr(0,found));
+// 						linkDst = stoi(link.substr(found+2));
+// 						routeout->push_back(queues_sw_sw[linkSrc][linkDst]);
+// 						routeout->push_back(pipes_sw_sw[linkSrc][linkDst]);
+// 					}
+// 				}
+// 				paths_rack_based->push_back(routeout);
+// 			}
+// 		}
+// 		npfile.close();
+//     } 
+// 	else {
+//         cout << "***Error opening netpathfile: " << netpathfile << endl;
+//         exit(1);
+//     }
+
+// 	#if IS_DEBUG_ON
+// 		cout << "read netpathfile; before path_weights_rack_based" << endl;
+// 		cout << "conn_matrix=" << conn_matrix << endl;
+// 		cout << "solveend=" << solveend << endl;
+// 		cout << "solvestart=" << solvestart << endl;
+// 		cout << "solveinterval=" << solveinterval << endl;
+// 	#endif
+
+// 	// Initialize path_weights_rack_based
+// 	int numintervals = 1;
+// 	if (conn_matrix == "CLUSTERX") {
+// 		numintervals = (solveend-solvestart) / solveinterval +1;
+// 	} else if (conn_matrix.substr(0,8) == "KCLUSTER") {
+// 		numintervals = 48;
+// 	}
+// 	cout << "numintervals=" << numintervals << endl;
+
+// 	path_weights_rack_based = new vector < pair<int,double> > ***[numintervals];
+// 	for (int k=0; k<numintervals; k++) {
+// 		path_weights_rack_based[k] = new vector < pair<int,double> > **[NSW];
+// 		for (int i=0; i<NSW; i++) {
+// 			path_weights_rack_based[k][i] = new vector < pair<int,double> > *[NSW];
+// 			for (int j=0; j<NSW; j++) {
+// 				path_weights_rack_based[k][i][j] = new vector < pair<int,double> > ();
+// 			}
+// 		}
+// 	}
+
+// 	// Read pathweight from file
+// 	int thiscomputestart, thiscomputeend;
+// 	string pathweightfile;
+// 	for (int i=0; i<numintervals; i++) {
+// 		if (conn_matrix.substr(0,8) == "KCLUSTER") {
+// 			thiscomputestart = i*1800;
+// 			thiscomputeend = (i+1)*1800;
+// 			pathweightfile = pathweightfileprefix + itoa(thiscomputestart) + "_" + itoa(thiscomputeend) + pathweightfilesuffix;
+// 		} else {
+// 			if (conn_matrix == "CLUSTERX") {
+// 				if (computeinterval == 0) { // equal
+// 					pathweightfile = pathweightfileprefix;
+// 				} else { // optimal or delay
+// 					thiscomputestart = computestart + i*solveinterval;
+// 					thiscomputeend = thiscomputestart + computeinterval;
+// 					pathweightfile = pathweightfileprefix + itoa(thiscomputestart) + "_" + itoa(thiscomputeend) + pathweightfilesuffix;
+// 				}
+// 			} else {
+// 				if (pathweightfilesuffix != "") {
+// 					cout << "***Error: pathweightfilesuffix is non-empty when solveinterval==0 and computeinterval==0, pathweightfilesuffix=" << pathweightfilesuffix << endl;
+// 					exit(1);
+// 				}
+// 				pathweightfile = pathweightfileprefix;
+// 			}
+// 		}
+
+// 		ifstream pwfile(pathweightfile.c_str());
+// 		string pwline;
+// 		if (pwfile.is_open()){
+// 			while(pwfile.good()){
+// 				getline(pwfile, pwline);
+// 				if (pwline.find_first_not_of(' ') == string::npos) break;
+// 				stringstream ss(pwline);
+// 				int flowSrc,flowDst,pid,linkSrc,linkDst;
+// 				double weight;
+// 				ss >> flowSrc >> flowDst >> pid >> linkSrc >> linkDst >> weight;
+
+// 				if (flowSrc>=NSW || flowDst>=NSW) {
+// 					cout << "***Error: flowSrc>=NSW || flowDst>=NSW, flowSrc=" << itoa(flowSrc) << ", flowDst=" << itoa(flowDst) << ", NSW=" << itoa(NSW) << endl;
+// 					exit(1);
+// 				}
+// 				// check whether netpathfile and pathweightfile are indeed matching
+// 				PacketSink *firstqueue = net_paths_rack_based[flowSrc][flowDst]->at(pid)->at(0);
+// 				if (firstqueue != queues_sw_sw[linkSrc][linkDst]) {
+// 					cout << "***Error: netpathfile and pathweightfile mismatch, linkSrc=" << itoa(linkSrc) << ", linkDst=" << itoa(linkDst) << ", queue has name " << firstqueue->nodename() << endl;
+// 					exit(1);
+// 				}
+
+// 				path_weights_rack_based[i][flowSrc][flowDst]->push_back(pair<int,double>(pid,weight));
+// 			}
+// 			pwfile.close();
+// 		}
+// 		else {
+// 			cout << "***Error opening pathweightfile: " << pathweightfile << endl;
+// 			exit(1);
+// 		}
+// 	}
+// #endif
+}
+
+
+// RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string graphFile, queue_type qt, string conn_matrix, string alg, int k, int numfaillinks, int failseed, string netpathfile, string pathweightfileprefix, string pathweightfilesuffix, int solvestart, int solveend, int solveinterval, int computestart, int computeend, int computeinterval){
+//   logfile = lg;
+//   eventlist = ev;
+//   qtype = qt;
+  
+//   for (int i=0; i < NSW; i++)
+//     adjMatrix[i] = new vector<int>();
+
+//   for (int i=0; i < NSW; i++) {
+// 	for (int j=0; j<NSW; j++) {
+// 		linkFailure[i][j] = 0;
+// 	}
+//   }
+
+//   //< read graph from the graphFile
+//   ifstream myfile(graphFile.c_str());
+//   string line;
+//   if (myfile.is_open()){
+//     while(myfile.good()){
+// 	getline(myfile, line);
+// 	if (line.find("->") == string::npos) break;
+// 	int from = atoi(line.substr(0, line.find("->")).c_str());
+// 	int to = atoi(line.substr(line.find("->") + 2).c_str());
+//     if(from >= NSW || to >= NSW){
+//         cout<<"Graph file has out of bounds nodes, "<<from<<"->"<<to<<", NSW: "<<NSW<<endl;
+//         exit(0);
+//     }
+// 	adjMatrix[from]->push_back(to);
+// 	adjMatrix[to]->push_back(from);
+//     }
+//     myfile.close();
+//   }
+//   //>
+
+//   // Ankit: Check adjacency matrix
+// //   for (unsigned int i = 0; i < NSW; i++){
+// //     cout << "SW " << i << " |NBRS| = "<<adjMatrix[i]->size()<<" NBRS = ";
+// //     for (unsigned int j = 0; j < adjMatrix[i]->size(); j++)
+// //       cout << (*adjMatrix[i])[j] << " ";
+// //     cout << endl;
+// //   }
+
+//   //< initialize a graph data structure for shortest paths algo
+//   string command = "sed 's/->/ /g' " + graphFile + " > temp_graph";
+
+//   cout<<"command: "<<command<<endl;
+
+//   int sysReturn = system(command.c_str());
+//   if (sysReturn != 0) {
+// 	  cout << "ERROR: System command to process graph file failed" << endl;
+//   }
+//   myGraph = new Graph("temp_graph");
+//   //>
+ 
+//   cout<<"GraphFile: "<<graphFile<<endl;
+
+//   if (numfaillinks == 0) {
+// 	init_network();
+//   } else {
+// 	string linkfailurefile = "linkfailurefiles/dring_2132_"+std::to_string(numfaillinks)+"_"+std::to_string(failseed);
+// 	ifstream lffile(linkfailurefile.c_str());
+// 	string lfline;
+// 	if (lffile.is_open()){
+// 		while(lffile.good()){
+// 		getline(lffile, lfline);
+// 		if (lfline.find_first_not_of(' ') == string::npos) break;
+//         stringstream ss(lfline);
+//         int from, to;
+//         ss >> from >> to;
+// 		if(from >= NSW || to >= NSW){
+// 			cout<<"linkfailurefile has out of bounds nodes, "<<from<<"->"<<to<<", NSW: "<<NSW<<endl;
+// 			exit(0);
+// 		}
+// 		linkFailure[from][to] = 1;
+// 		}
+// 		lffile.close();
+// 	}
+// 	cout<<"linkfailurefile: "<<linkfailurefile<<endl;
+
+// 	init_network_withfaillinks();
+//   }
+
+//   cout<< "RRG Init network finished "<<endl;
+
+// #if PATHWEIGHTS
+// #else
+//   //compute all pair shortest paths
+//   floydWarshall();
+
+// 	if (alg == "fhi") {
+// 		find_path_alg = FIRST_HOP_INDIRECTION; 
+// 	} else if (alg == "kdisjoint") {
+// 		find_path_alg = KDISJOINT; 
+// 	} else if (alg == "ecmp") {
+// 		find_path_alg = ECMP;
+// 	} else if (alg == "kshort") {
+// 		find_path_alg = KSHORT;
+// 	} else if (alg == "su") {
+// 		find_path_alg = SHORTESTN;
+// 	} else if (alg == "racke") { 
+// 	} else {
+// 		cout << "***Error: algorithm is not found, alg=" << alg << endl;
+// 		exit(1);
+// 	}
+// 	korn = k;
+// #endif
+
+// #if IS_DEBUG_ON
+//   	cout << "before net_paths_rack_based" << endl;
+// #endif
+
+// 	net_paths_rack_based = new vector<route_t*>**[NSW];
+// 	for (int i=0;i<NSW;i++){
+// 		net_paths_rack_based[i] = new vector<route_t*>*[NSW];
+// 		for (int j = 0;j<NSW;j++){
+// 			net_paths_rack_based[i][j] = NULL;
+// 		}
+// 	}
+
+// #if PATHWEIGHTS
+// 	// Read netpath from file
+// 	ifstream npfile(netpathfile.c_str());
+//     string npline;
+//     if (npfile.is_open()){
+// 		while(npfile.good()){
+// 			getline(npfile, npline);
+// 			if (npline.find_first_not_of(' ') == string::npos) break;
+// 			stringstream npss(npline);
+// 			int flowSrc,flowDst,num_paths;
+// 			vector<route_t*> *paths_rack_based;
+// 			if (npline.find_first_of("->") == string::npos) {
+// 				npss >> flowSrc >> flowDst >> num_paths;
+// 				paths_rack_based = new vector<route_t*>();
+// 				net_paths_rack_based[flowSrc][flowDst] = paths_rack_based;
+// 			} else {
+// 				string link;
+// 				int linkSrc,linkDst;
+// 				route_t *routeout = new route_t();
+// 				while (npss >> link) {
+// 					size_t found = link.find("->");
+// 					if (found != string::npos) {
+// 						linkSrc = stoi(link.substr(0,found));
+// 						linkDst = stoi(link.substr(found+2));
+// 						routeout->push_back(queues_sw_sw[linkSrc][linkDst]);
+// 						routeout->push_back(pipes_sw_sw[linkSrc][linkDst]);
+// 					}
+// 				}
+// 				paths_rack_based->push_back(routeout);
+// 			}
+// 		}
+// 		npfile.close();
+//     } 
+// 	else {
+//         cout << "***Error opening netpathfile: " << netpathfile << endl;
+//         exit(1);
+//     }
+
+// 	#if IS_DEBUG_ON
+// 		cout << "read netpathfile; before path_weights_rack_based" << endl;
+// 		cout << "conn_matrix=" << conn_matrix << endl;
+// 		cout << "solveend=" << solveend << endl;
+// 		cout << "solvestart=" << solvestart << endl;
+// 		cout << "solveinterval=" << solveinterval << endl;
+// 	#endif
+
+// 	// Initialize path_weights_rack_based
+// 	int numintervals = 1;
+// 	if (conn_matrix == "CLUSTERX") {
+// 		numintervals = (solveend-solvestart) / solveinterval +1;
+// 	} else if (conn_matrix.substr(0,8) == "KCLUSTER") {
+// 		numintervals = 48;
+// 	}
+// 	cout << "numintervals=" << numintervals << endl;
+
+// 	path_weights_rack_based = new vector < pair<int,double> > ***[numintervals];
+// 	for (int k=0; k<numintervals; k++) {
+// 		path_weights_rack_based[k] = new vector < pair<int,double> > **[NSW];
+// 		for (int i=0; i<NSW; i++) {
+// 			path_weights_rack_based[k][i] = new vector < pair<int,double> > *[NSW];
+// 			for (int j=0; j<NSW; j++) {
+// 				path_weights_rack_based[k][i][j] = new vector < pair<int,double> > ();
+// 			}
+// 		}
+// 	}
+
+// 	// Read pathweight from file
+// 	int thiscomputestart, thiscomputeend;
+// 	string pathweightfile;
+// 	for (int i=0; i<numintervals; i++) {
+// 		if (conn_matrix.substr(0,8) == "KCLUSTER") {
+// 			thiscomputestart = i*1800;
+// 			thiscomputeend = (i+1)*1800;
+// 			pathweightfile = pathweightfileprefix + itoa(thiscomputestart) + "_" + itoa(thiscomputeend) + pathweightfilesuffix;
+// 		} else {
+// 			if (conn_matrix == "CLUSTERX") {
+// 				if (computeinterval == 0) { // equal
+// 					pathweightfile = pathweightfileprefix;
+// 				} else { // optimal or delay
+// 					thiscomputestart = computestart + i*solveinterval;
+// 					thiscomputeend = thiscomputestart + computeinterval;
+// 					pathweightfile = pathweightfileprefix + itoa(thiscomputestart) + "_" + itoa(thiscomputeend) + pathweightfilesuffix;
+// 				}
+// 			} else {
+// 				if (pathweightfilesuffix != "") {
+// 					cout << "***Error: pathweightfilesuffix is non-empty when solveinterval==0 and computeinterval==0, pathweightfilesuffix=" << pathweightfilesuffix << endl;
+// 					exit(1);
+// 				}
+// 				pathweightfile = pathweightfileprefix;
+// 			}
+// 		}
+
+// 		ifstream pwfile(pathweightfile.c_str());
+// 		string pwline;
+// 		if (pwfile.is_open()){
+// 			while(pwfile.good()){
+// 				getline(pwfile, pwline);
+// 				if (pwline.find_first_not_of(' ') == string::npos) break;
+// 				stringstream ss(pwline);
+// 				string token;
+// 				vector<string> tokens;
+// 				while (getline(ss,token,',')) {
+// 					tokens.push_back(token);
+// 				}
+// 				int flowSrc = stoi(tokens[0]);
+// 				int flowDst = stoi(tokens[1]);
+// 				int pid = stoi(tokens[2]);
+// 				double weight = stod(tokens[3]);
+
+// 				// int flowSrc,flowDst,pid,linkSrc,linkDst;
+// 				// double weight;
+// 				// ss >> flowSrc >> flowDst >> pid >> linkSrc >> linkDst >> weight;
+
+// 				// if (flowSrc>=NSW || flowDst>=NSW) {
+// 				// 	cout << "***Error: flowSrc>=NSW || flowDst>=NSW, flowSrc=" << itoa(flowSrc) << ", flowDst=" << itoa(flowDst) << ", NSW=" << itoa(NSW) << endl;
+// 				// 	exit(1);
+// 				// }
+// 				// // check whether netpathfile and pathweightfile are indeed matching
+// 				// PacketSink *firstqueue = net_paths_rack_based[flowSrc][flowDst]->at(pid)->at(0);
+// 				// if (firstqueue != queues_sw_sw[linkSrc][linkDst]) {
+// 				// 	cout << "***Error: netpathfile and pathweightfile mismatch, linkSrc=" << itoa(linkSrc) << ", linkDst=" << itoa(linkDst) << ", queue has name " << firstqueue->nodename() << endl;
+// 				// 	exit(1);
+// 				// }
+
+// 				path_weights_rack_based[i][flowSrc][flowDst]->push_back(pair<int,double>(pid,weight));
+// 			}
+// 			pwfile.close();
+// 		}
+// 		else {
+// 			cout << "***Error opening pathweightfile: " << pathweightfile << endl;
+// 			exit(1);
+// 		}
+// 	}
+
+// 	// AnnC: solely for testing purpose
+//   	// std::cout << path_weights_rack_based[0][7][6]->at(0).first << ": " << path_weights_rack_based[0][7][6]->at(0).second << std::endl;
+// 	// std::cout << path_weights_rack_based[0][42][48]->at(0).first << ": " << path_weights_rack_based[0][42][48]->at(0).second << std::endl;
+// 	// std::cout << path_weights_rack_based[0][14][35]->at(4).first << ": " << path_weights_rack_based[0][14][35]->at(4).second << std::endl;
+
+// #endif
+// }
+
+
+// void RandRegularTopology::delete_net_paths_rack_based(int numintervals) {
+
+// #if IS_DEBUG_ON
+// 	cout << "delete_net_paths_rack_based" << endl;
+// #endif
+
+// 	for (int i=0; i<NSW; i++) {
+// 		for (int j=0; j<NSW; j++) {
+// 			if (net_paths_rack_based[i][j]) {
+// 				for (auto p : (*net_paths_rack_based[i][j])) {
+// 					delete p;
+// 				}
+// 				net_paths_rack_based[i][j]->clear();
+// 				delete net_paths_rack_based[i][j];
+// 			}
+// 		}
+// 		delete [] net_paths_rack_based[i];
+// 	}	
+// 	delete [] net_paths_rack_based;
+
+// #if IS_DEBUG_ON
+// 	cout << "done deleting" << endl;
+// #endif 
+
+// #if PATHWEIGHTS
+// 	for (int k=0; k<numintervals; k++) {
+// 		for (int i=0; i<NSW; i++) {
+// 			for (int j=0; j<NSW; j++) {
+// 				if (path_weights_rack_based[k][i][j]) {
+// 					path_weights_rack_based[k][i][j]->clear();
+// 					delete path_weights_rack_based[k][i][j];
+// 				}
+// 			}
+// 			delete [] path_weights_rack_based[k][i];
+// 		}	
+// 		delete [] path_weights_rack_based[k];
+// 	}
+// 	delete [] path_weights_rack_based;
+// #endif
+
+// }
