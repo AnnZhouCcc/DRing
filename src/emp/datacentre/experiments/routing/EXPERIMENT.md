@@ -6,8 +6,12 @@ computerouting2/computerouting2.ipynb
 | ----------- | --- |
 | unv1        | 3   |
 | prv1        | 2   |
+| cluster_a   | 5   |
+| cluster_b   | 3   |
+| cluste_c    | 2   |
 - unv1: H=3 or H=4 yield the same average throughput because they make the same routing choice.
-- prv1: H=3 is worse than H=2 as when considering more historic TMs, more outdated TMs could confuse our routing decision.
+- prv1: H=3 is worse than H=2 as when considering more historic TMs, more outdated TMs could confuse our routing decision. But it's not a huge difference actually, at least in throughput calculation.
+- we do H=2 for all. But I think H should not affect things that much.
 
 2. Generate pathweightfiles to use
 ```
