@@ -36,7 +36,12 @@ total bytes in the trafficfile: computerouting2/computerouting2.ipynb
 | unv1        | 90%    | 1 + 53 / 100               |
 | ----------- | ------ | -------------------------- |
 
-4. Generate conffiles, run experiments
+4. Generate choicefiles
+```
+computerouting2/computerouting2.ipynb
+```
+
+5. Generate conffiles, run experiments
 ```
 testing commands:
 ./run.sh LEAFSPINE MAKE 80 3072 64 leafspine_unv1 NEW_WISC null 0 1 50 4 8 0 0 0 0 ecmp 0 unv1 0 netpathfiles/netpath_ecmp_leafspine.txt qvarfiles/qvar_leafspine_0_0_ecmp_64 64 50 150 200 0 0 > m_leafspine_unv1.log
@@ -53,6 +58,6 @@ python3 run_oblivious_c2s.py --conf experiments/routing/unv1.conf --maxGB 5 --wa
 python3 run_oblivious_c2s.py --conf experiments/routing/unv1.conf --maxGB 3 --waitSec 60
 ```
 
-5. Generate sumfile, picklefile, plot
+6. Generate sumfile, picklefile, plot
 
-6. Delete file
+7. Delete file
