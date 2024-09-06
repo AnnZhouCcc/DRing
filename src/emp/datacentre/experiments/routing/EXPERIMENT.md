@@ -43,4 +43,12 @@ testing commands:
 - rand_regular_topology.cpp when populating the three routing_net_paths arrays, main_flowsize.cpp when populating net_paths_choice, hard-coded for dring
 - need to produce choicefile beforehand
 
-5. 
+```
+python3 run_oblivious_c2s.py --conf experiments/routing/unv1.conf --maxGB 5 --waitSec 60
+10.6->11.3
+python3 run_oblivious_c2s.py --conf experiments/routing/unv1.conf --maxGB 3 --waitSec 60
+```
+
+5. Generate sumfile, picklefile, plot
+
+6. Delete file
