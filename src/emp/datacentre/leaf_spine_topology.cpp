@@ -19,132 +19,6 @@ string itoa(uint64_t n);
 
 // extern int N;
 
-LeafSpineTopology::LeafSpineTopology(Logfile* lg, EventList* ev, queue_type qt, string netpathfile, string pathweightfile){
-//   logfile = lg;
-//   eventlist = ev;
-//   qtype = qt;
-  
-//   // N = NSRV;
-
-//   // int num_links = (N/OVERSUBSCRIPTION) * 2;
-  
-//   //srand ( time(NULL));
-
-//   init_network();
-
-//   net_paths_rack_based = new vector<route_t*>**[NL];
-//   for (int i=0;i<NL;i++){
-//   	net_paths_rack_based[i] = new vector<route_t*>*[NL];
-//   	for (int j = 0;j<NL;j++){
-//   		net_paths_rack_based[i][j] = NULL;
-//   	}
-//   }
-
-// #if PATHWEIGHTS
-// 	// Read netpath from file
-// 	ifstream npfile(netpathfile.c_str());
-//     string npline;
-//     if (npfile.is_open()){
-//       while(npfile.good()){
-//         getline(npfile, npline);
-//         if (npline.find_first_not_of(' ') == string::npos) break;
-//         stringstream npss(npline);
-//         int flowSrc,flowDst,num_paths;
-//         vector<route_t*> *paths_rack_based;
-//         if (npline.find_first_of("->") == string::npos) {
-//           npss >> flowSrc >> flowDst >> num_paths;
-//           paths_rack_based = new vector<route_t*>();
-//           net_paths_rack_based[flowSrc][flowDst] = paths_rack_based;
-//         } else {
-//           string link;
-//           int linkSrc,linkDst;
-//           route_t *routeout = new route_t();
-//           while (npss >> link) {
-//             size_t found = link.find("->");
-//             if (found != string::npos) {
-//               linkSrc = stoi(link.substr(0,found));
-//               linkDst = stoi(link.substr(found+2));
-//               if (linkSrc<NL && linkDst<NL) {
-//                 cout << "***Error: linkSrc<NL and linkDst<NL, linkSrc=" << itoa(linkSrc) << ", linkDst=" << itoa(linkDst) << ", NL=" << itoa(NL) << endl;
-//                 exit(1);
-//               } else if (linkSrc<NL) { // nlp-nup
-//                 linkDst -= NL;
-//                 routeout->push_back(queues_nlp_nup[linkSrc][linkDst]);
-//                 routeout->push_back(pipes_nlp_nup[linkSrc][linkDst]);
-//               } else if (linkDst<NL) { // nup-nlp
-//                 linkSrc -= NL;
-//                 routeout->push_back(queues_nup_nlp[linkSrc][linkDst]);
-//                 routeout->push_back(pipes_nup_nlp[linkSrc][linkDst]);
-//               } else {
-//                 cout << "***Error: linkSrc>NL and linkDst>NL, linkSrc=" << itoa(linkSrc) << ", linkDst=" << itoa(linkDst) << ", NL=" << itoa(NL) << endl;
-//                 exit(1);
-//               }
-//             }
-//           }
-//           paths_rack_based->push_back(routeout);
-//         }
-//       }
-//       npfile.close();
-//     } 
-// 	  else {
-//       cout << "***Error opening netpathfile: " << netpathfile << endl;
-//       exit(1);
-//     }
-
-// 	// Initialize path_weights_rack_based
-// 	int numintervals = 1;
-// 	path_weights_rack_based = new vector < pair<int,double> > ***[numintervals];
-// 	for (int k=0; k<numintervals; k++) {
-// 		path_weights_rack_based[k] = new vector < pair<int,double> > **[NL];
-// 		for (int i=0; i<NL; i++) {
-// 			path_weights_rack_based[k][i] = new vector < pair<int,double> > *[NL];
-// 			for (int j=0; j<NL; j++) {
-// 				path_weights_rack_based[k][i][j] = new vector < pair<int,double> > ();
-// 			}
-// 		}
-// 	}
-
-// 	// Read pathweight from file
-// 	for (int i=0; i<numintervals; i++) {
-// 		ifstream pwfile(pathweightfile.c_str());
-// 		string pwline;
-// 		if (pwfile.is_open()){
-// 			while(pwfile.good()){
-// 				getline(pwfile, pwline);
-// 				if (pwline.find_first_not_of(' ') == string::npos) break;
-// 				stringstream ss(pwline);
-// 				int flowSrc,flowDst,pid,linkSrc,linkDst;
-// 				double weight;
-// 				ss >> flowSrc >> flowDst >> pid >> linkSrc >> linkDst >> weight;
-
-// 				if (flowSrc>=NL || flowDst>=NL) {
-// 					cout << "***Error: flowSrc>=NL || flowDst>=NL, flowSrc=" << itoa(flowSrc) << ", flowDst=" << itoa(flowDst) << ", NL=" << itoa(NL) << endl;
-// 					exit(1);
-// 				}
-//         if (linkSrc>=NL || linkDst<NL) {
-// 					cout << "***Error: linkSrc>=NL || linkDst<NL, linkSrc=" << itoa(linkSrc) << ", linkDst=" << itoa(linkDst) << ", NL=" << itoa(NL) << endl;
-// 					exit(1);
-// 				}
-//         linkDst-=NL;
-// 				// check whether netpathfile and pathweightfile are indeed matching
-// 				PacketSink *firstqueue = net_paths_rack_based[flowSrc][flowDst]->at(pid)->at(0);
-// 				if (firstqueue != queues_nlp_nup[linkSrc][linkDst]) {
-// 					cout << "***Error: netpathfile and pathweightfile mismatch, linkSrc=" << itoa(linkSrc) << ", linkDst=" << itoa(linkDst) << ", queue has name " << firstqueue->nodename() << endl;
-// 					exit(1);
-// 				}
-
-// 				path_weights_rack_based[i][flowSrc][flowDst]->push_back(pair<int,double>(pid,weight));
-// 			}
-// 			pwfile.close();
-// 		}
-// 		else {
-// 			cout << "***Error opening pathweightfile: " << pathweightfile << endl;
-// 			exit(1);
-// 		}
-// 	}
-// #endif
-
-}
 
 LeafSpineTopology::LeafSpineTopology(Logfile* lg, EventList* ev, queue_type qt, int numfaillinks, int failseed, string netpathfile, string pathweightfile){
   logfile = lg;
@@ -191,11 +65,11 @@ LeafSpineTopology::LeafSpineTopology(Logfile* lg, EventList* ev, queue_type qt, 
     init_network_withfaillinks();
   }
 
-  net_paths_rack_based = new vector<route_t*>**[NL];
+  ecmp_net_paths = new vector<route_t*>**[NL];
   for (int i=0;i<NL;i++){
-  	net_paths_rack_based[i] = new vector<route_t*>*[NL];
+  	ecmp_net_paths[i] = new vector<route_t*>*[NL];
   	for (int j = 0;j<NL;j++){
-  		net_paths_rack_based[i][j] = NULL;
+  		ecmp_net_paths[i][j] = NULL;
   	}
   }
 
@@ -213,7 +87,7 @@ LeafSpineTopology::LeafSpineTopology(Logfile* lg, EventList* ev, queue_type qt, 
         if (npline.find_first_of("->") == string::npos) {
           npss >> flowSrc >> flowDst >> num_paths;
           paths_rack_based = new vector<route_t*>();
-          net_paths_rack_based[flowSrc][flowDst] = paths_rack_based;
+          ecmp_net_paths[flowSrc][flowDst] = paths_rack_based;
         } else {
           string link;
           int linkSrc,linkDst;
@@ -634,6 +508,7 @@ void LeafSpineTopology::delete_net_paths_rack_based(int numintervals) {
 	delete [] net_paths_rack_based;
 
 #if PATHWEIGHTS
+  numintervals = 1;
 	for (int k=0; k<numintervals; k++) {
 		for (int i=0; i<NL; i++) {
 			for (int j=0; j<NL; j++) {
@@ -747,3 +622,306 @@ pair<vector<int>, vector<int> > LeafSpineTopology::getcsRacks(int clients, int s
    return pair<vector<int>, vector<int> > (clientracks, serverracks);
 }
 
+
+LeafSpineTopology::LeafSpineTopology(Logfile* lg, EventList* ev, queue_type qt, string netpathfile, string pathweightfile){
+//   logfile = lg;
+//   eventlist = ev;
+//   qtype = qt;
+  
+//   // N = NSRV;
+
+//   // int num_links = (N/OVERSUBSCRIPTION) * 2;
+  
+//   //srand ( time(NULL));
+
+//   init_network();
+
+//   net_paths_rack_based = new vector<route_t*>**[NL];
+//   for (int i=0;i<NL;i++){
+//   	net_paths_rack_based[i] = new vector<route_t*>*[NL];
+//   	for (int j = 0;j<NL;j++){
+//   		net_paths_rack_based[i][j] = NULL;
+//   	}
+//   }
+
+// #if PATHWEIGHTS
+// 	// Read netpath from file
+// 	ifstream npfile(netpathfile.c_str());
+//     string npline;
+//     if (npfile.is_open()){
+//       while(npfile.good()){
+//         getline(npfile, npline);
+//         if (npline.find_first_not_of(' ') == string::npos) break;
+//         stringstream npss(npline);
+//         int flowSrc,flowDst,num_paths;
+//         vector<route_t*> *paths_rack_based;
+//         if (npline.find_first_of("->") == string::npos) {
+//           npss >> flowSrc >> flowDst >> num_paths;
+//           paths_rack_based = new vector<route_t*>();
+//           net_paths_rack_based[flowSrc][flowDst] = paths_rack_based;
+//         } else {
+//           string link;
+//           int linkSrc,linkDst;
+//           route_t *routeout = new route_t();
+//           while (npss >> link) {
+//             size_t found = link.find("->");
+//             if (found != string::npos) {
+//               linkSrc = stoi(link.substr(0,found));
+//               linkDst = stoi(link.substr(found+2));
+//               if (linkSrc<NL && linkDst<NL) {
+//                 cout << "***Error: linkSrc<NL and linkDst<NL, linkSrc=" << itoa(linkSrc) << ", linkDst=" << itoa(linkDst) << ", NL=" << itoa(NL) << endl;
+//                 exit(1);
+//               } else if (linkSrc<NL) { // nlp-nup
+//                 linkDst -= NL;
+//                 routeout->push_back(queues_nlp_nup[linkSrc][linkDst]);
+//                 routeout->push_back(pipes_nlp_nup[linkSrc][linkDst]);
+//               } else if (linkDst<NL) { // nup-nlp
+//                 linkSrc -= NL;
+//                 routeout->push_back(queues_nup_nlp[linkSrc][linkDst]);
+//                 routeout->push_back(pipes_nup_nlp[linkSrc][linkDst]);
+//               } else {
+//                 cout << "***Error: linkSrc>NL and linkDst>NL, linkSrc=" << itoa(linkSrc) << ", linkDst=" << itoa(linkDst) << ", NL=" << itoa(NL) << endl;
+//                 exit(1);
+//               }
+//             }
+//           }
+//           paths_rack_based->push_back(routeout);
+//         }
+//       }
+//       npfile.close();
+//     } 
+// 	  else {
+//       cout << "***Error opening netpathfile: " << netpathfile << endl;
+//       exit(1);
+//     }
+
+// 	// Initialize path_weights_rack_based
+// 	int numintervals = 1;
+// 	path_weights_rack_based = new vector < pair<int,double> > ***[numintervals];
+// 	for (int k=0; k<numintervals; k++) {
+// 		path_weights_rack_based[k] = new vector < pair<int,double> > **[NL];
+// 		for (int i=0; i<NL; i++) {
+// 			path_weights_rack_based[k][i] = new vector < pair<int,double> > *[NL];
+// 			for (int j=0; j<NL; j++) {
+// 				path_weights_rack_based[k][i][j] = new vector < pair<int,double> > ();
+// 			}
+// 		}
+// 	}
+
+// 	// Read pathweight from file
+// 	for (int i=0; i<numintervals; i++) {
+// 		ifstream pwfile(pathweightfile.c_str());
+// 		string pwline;
+// 		if (pwfile.is_open()){
+// 			while(pwfile.good()){
+// 				getline(pwfile, pwline);
+// 				if (pwline.find_first_not_of(' ') == string::npos) break;
+// 				stringstream ss(pwline);
+// 				int flowSrc,flowDst,pid,linkSrc,linkDst;
+// 				double weight;
+// 				ss >> flowSrc >> flowDst >> pid >> linkSrc >> linkDst >> weight;
+
+// 				if (flowSrc>=NL || flowDst>=NL) {
+// 					cout << "***Error: flowSrc>=NL || flowDst>=NL, flowSrc=" << itoa(flowSrc) << ", flowDst=" << itoa(flowDst) << ", NL=" << itoa(NL) << endl;
+// 					exit(1);
+// 				}
+//         if (linkSrc>=NL || linkDst<NL) {
+// 					cout << "***Error: linkSrc>=NL || linkDst<NL, linkSrc=" << itoa(linkSrc) << ", linkDst=" << itoa(linkDst) << ", NL=" << itoa(NL) << endl;
+// 					exit(1);
+// 				}
+//         linkDst-=NL;
+// 				// check whether netpathfile and pathweightfile are indeed matching
+// 				PacketSink *firstqueue = net_paths_rack_based[flowSrc][flowDst]->at(pid)->at(0);
+// 				if (firstqueue != queues_nlp_nup[linkSrc][linkDst]) {
+// 					cout << "***Error: netpathfile and pathweightfile mismatch, linkSrc=" << itoa(linkSrc) << ", linkDst=" << itoa(linkDst) << ", queue has name " << firstqueue->nodename() << endl;
+// 					exit(1);
+// 				}
+
+// 				path_weights_rack_based[i][flowSrc][flowDst]->push_back(pair<int,double>(pid,weight));
+// 			}
+// 			pwfile.close();
+// 		}
+// 		else {
+// 			cout << "***Error opening pathweightfile: " << pathweightfile << endl;
+// 			exit(1);
+// 		}
+// 	}
+// #endif
+
+}
+
+
+// LeafSpineTopology::LeafSpineTopology(Logfile* lg, EventList* ev, queue_type qt, int numfaillinks, int failseed, string netpathfile, string pathweightfile){
+//   logfile = lg;
+//   eventlist = ev;
+//   qtype = qt;
+  
+//   // N = NSRV;
+
+//   // int num_links = (N/OVERSUBSCRIPTION) * 2;
+  
+//   //srand ( time(NULL));
+
+//   for (int i=0; i < NSW; i++) {
+//     for (int j=0; j<NSW; j++) {
+//       for (int k=0; k<2; k++) {
+//         linkFailure[i][j][k] = 0;
+//       }
+//     }
+//   }
+
+//   if (numfaillinks == 0) {
+//     init_network();
+//   } else {
+//     string linkfailurefile = "linkfailurefiles/leafspine_2048_"+std::to_string(numfaillinks)+"_"+std::to_string(failseed);
+//     ifstream lffile(linkfailurefile.c_str());
+//     string lfline;
+//     if (lffile.is_open()){
+//       while(lffile.good()){
+//       getline(lffile, lfline);
+//       if (lfline.find_first_not_of(' ') == string::npos) break;
+//           stringstream ss(lfline);
+//           int lower, upper, direction;
+//           ss >> lower >> upper >> direction;
+//           if(lower >= NL || upper >= NSP){
+//             cout<<"linkfailurefile has out of bounds nodes, "<<lower<<","<<upper<<","<<direction<<endl;
+//             exit(0);
+//           }
+//           linkFailure[lower][upper][direction] = 1;
+//       }
+//       lffile.close();
+//     }
+//     cout<<"linkfailurefile: "<<linkfailurefile<<endl;
+
+//     init_network_withfaillinks();
+//   }
+
+//   net_paths_rack_based = new vector<route_t*>**[NL];
+//   for (int i=0;i<NL;i++){
+//   	net_paths_rack_based[i] = new vector<route_t*>*[NL];
+//   	for (int j = 0;j<NL;j++){
+//   		net_paths_rack_based[i][j] = NULL;
+//   	}
+//   }
+
+// #if PATHWEIGHTS
+// 	// Read netpath from file
+// 	ifstream npfile(netpathfile.c_str());
+//     string npline;
+//     if (npfile.is_open()){
+//       while(npfile.good()){
+//         getline(npfile, npline);
+//         if (npline.find_first_not_of(' ') == string::npos) break;
+//         stringstream npss(npline);
+//         int flowSrc,flowDst,num_paths;
+//         vector<route_t*> *paths_rack_based;
+//         if (npline.find_first_of("->") == string::npos) {
+//           npss >> flowSrc >> flowDst >> num_paths;
+//           paths_rack_based = new vector<route_t*>();
+//           net_paths_rack_based[flowSrc][flowDst] = paths_rack_based;
+//         } else {
+//           string link;
+//           int linkSrc,linkDst;
+//           route_t *routeout = new route_t();
+//           while (npss >> link) {
+//             size_t found = link.find("->");
+//             if (found != string::npos) {
+//               linkSrc = stoi(link.substr(0,found));
+//               linkDst = stoi(link.substr(found+2));
+//               if (linkSrc<NL && linkDst<NL) {
+//                 cout << "***Error: linkSrc<NL and linkDst<NL, linkSrc=" << itoa(linkSrc) << ", linkDst=" << itoa(linkDst) << ", NL=" << itoa(NL) << endl;
+//                 exit(1);
+//               } else if (linkSrc<NL) { // nlp-nup
+//                 linkDst -= NL;
+//                 routeout->push_back(queues_nlp_nup[linkSrc][linkDst]);
+//                 routeout->push_back(pipes_nlp_nup[linkSrc][linkDst]);
+//               } else if (linkDst<NL) { // nup-nlp
+//                 linkSrc -= NL;
+//                 routeout->push_back(queues_nup_nlp[linkSrc][linkDst]);
+//                 routeout->push_back(pipes_nup_nlp[linkSrc][linkDst]);
+//               } else {
+//                 cout << "***Error: linkSrc>NL and linkDst>NL, linkSrc=" << itoa(linkSrc) << ", linkDst=" << itoa(linkDst) << ", NL=" << itoa(NL) << endl;
+//                 exit(1);
+//               }
+//             }
+//           }
+//           paths_rack_based->push_back(routeout);
+//         }
+//       }
+//       npfile.close();
+//     } 
+// 	  else {
+//       cout << "***Error opening netpathfile: " << netpathfile << endl;
+//       exit(1);
+//     }
+
+// 	// Initialize path_weights_rack_based
+// 	int numintervals = 1;
+// 	path_weights_rack_based = new vector < pair<int,double> > ***[numintervals];
+// 	for (int k=0; k<numintervals; k++) {
+// 		path_weights_rack_based[k] = new vector < pair<int,double> > **[NL];
+// 		for (int i=0; i<NL; i++) {
+// 			path_weights_rack_based[k][i] = new vector < pair<int,double> > *[NL];
+// 			for (int j=0; j<NL; j++) {
+// 				path_weights_rack_based[k][i][j] = new vector < pair<int,double> > ();
+// 			}
+// 		}
+// 	}
+
+// 	// Read pathweight from file
+// 	for (int i=0; i<numintervals; i++) {
+// 		ifstream pwfile(pathweightfile.c_str());
+// 		string pwline;
+// 		if (pwfile.is_open()){
+// 			while(pwfile.good()){
+// 				getline(pwfile, pwline);
+// 				if (pwline.find_first_not_of(' ') == string::npos) break;
+// 				stringstream ss(pwline);
+//         string token;
+// 				vector<string> tokens;
+// 				while (getline(ss,token,',')) {
+// 					tokens.push_back(token);
+// 				}
+// 				int flowSrc = stoi(tokens[0]);
+// 				int flowDst = stoi(tokens[1]);
+// 				int pid = stoi(tokens[2]);
+// 				double weight = stod(tokens[3]);
+
+// 				// int flowSrc,flowDst,pid,linkSrc,linkDst;
+// 				// double weight;
+// 				// ss >> flowSrc >> flowDst >> pid >> linkSrc >> linkDst >> weight;
+
+// 				// if (flowSrc>=NL || flowDst>=NL) {
+// 				// 	cout << "***Error: flowSrc>=NL || flowDst>=NL, flowSrc=" << itoa(flowSrc) << ", flowDst=" << itoa(flowDst) << ", NL=" << itoa(NL) << endl;
+// 				// 	exit(1);
+// 				// }
+//         // if (linkSrc>=NL || linkDst<NL) {
+// 				// 	cout << "***Error: linkSrc>=NL || linkDst<NL, linkSrc=" << itoa(linkSrc) << ", linkDst=" << itoa(linkDst) << ", NL=" << itoa(NL) << endl;
+// 				// 	exit(1);
+// 				// }
+//         // linkDst-=NL;
+// 				// // check whether netpathfile and pathweightfile are indeed matching
+// 				// PacketSink *firstqueue = net_paths_rack_based[flowSrc][flowDst]->at(pid)->at(0);
+// 				// if (firstqueue != queues_nlp_nup[linkSrc][linkDst]) {
+// 				// 	cout << "***Error: netpathfile and pathweightfile mismatch, linkSrc=" << itoa(linkSrc) << ", linkDst=" << itoa(linkDst) << ", queue has name " << firstqueue->nodename() << endl;
+// 				// 	exit(1);
+// 				// }
+
+// 				path_weights_rack_based[i][flowSrc][flowDst]->push_back(pair<int,double>(pid,weight));
+// 			}
+// 			pwfile.close();
+// 		}
+// 		else {
+// 			cout << "***Error opening pathweightfile: " << pathweightfile << endl;
+// 			exit(1);
+// 		}
+// 	}
+
+//   // AnnC: solely for testing purpose
+//   // std::cout << path_weights_rack_based[0][7][6]->at(0).first << ": " << path_weights_rack_based[0][7][6]->at(0).second << std::endl;
+// 	// std::cout << path_weights_rack_based[0][42][48]->at(1).first << ": " << path_weights_rack_based[0][42][48]->at(1).second << std::endl;
+// 	// std::cout << path_weights_rack_based[0][14][35]->at(2).first << ": " << path_weights_rack_based[0][14][35]->at(2).second << std::endl;
+  
+// #endif
+
+// }

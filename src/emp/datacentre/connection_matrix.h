@@ -16,10 +16,12 @@ struct connection{
 };
 
 struct Flow{
-  int src, dst, bytes;
+  int src, dst, bytes, interval;
   double start_time_ms;
   Flow (int _src, int _dst, int _bytes, double _start_time_ms):
-    src(_src), dst(_dst), bytes(_bytes), start_time_ms(_start_time_ms) {}
+    src(_src), dst(_dst), bytes(_bytes), start_time_ms(_start_time_ms), interval(0) {}
+  Flow (int _src, int _dst, int _bytes, double _start_time_ms, int _interval):
+    src(_src), dst(_dst), bytes(_bytes), start_time_ms(_start_time_ms), interval(_interval) {}
 };
 
 // bool compareFlow(Flow f1, Flow f2) {
@@ -111,6 +113,7 @@ class ConnectionMatrix{
   void tempGenerateSwitchServerMapping(Topology* top);
 
   void setTopoFlowsNewFromFile(Topology* top, string flowfile, double simtime_ms);
+  void setTopoFlowsNewWisc(string trafficname, int numinterval, double simtime_ms, int multiplier, int numerator, int denominator, int startinterval, int endinterval);
 };
 
 #endif

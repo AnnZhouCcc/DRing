@@ -2581,7 +2581,8 @@ void ConnectionMatrix::setTopoFlowsClusterX(Topology* top, string cluster, int s
           int fromserver = getOneServerFromRack(numservers, numracks, i);
           int toserver = getOneServerFromRack(numservers, numracks, j);
           
-          base_flows.push_back(Flow(fromserver, toserver, bytes, start_time_ms));
+          // base_flows.push_back(Flow(fromserver, toserver, bytes, start_time_ms));
+          flows.push_back(Flow(fromserver, toserver, bytes, start_time_ms));
         }
       }
     }
@@ -3657,5 +3658,48 @@ void ConnectionMatrix::setTopoFlowsNewFromFile(Topology* top, string flowfile, d
       flows.push_back(Flow(fromserver, toserver, bytes, start_time_ms));
     }
     file.close();
+  }
+}
+
+
+void ConnectionMatrix::setTopoFlowsNewWisc(string trafficname, int numinterval, double simtime_ms, int multiplier, int numerator, int denominator, int startinterval, int endinterval) {
+  cout << "setTopoFlowsNewWisc" << endl;
+  
+  double simtime_per_interval_ms = simtime_ms / numinterval;
+  string filename = "trafficfiles/" + trafficname;
+  ifstream TMFile(filename.c_str());
+  string line;
+  line.clear();
+  if (TMFile.is_open()){
+    while(TMFile.good()){
+      getline(TMFile, line);
+      //Whitespace line
+      if (line.find_first_not_of(' ') == string::npos) break;
+      stringstream ss(line);
+      string token;
+      vector<string> tokens;
+      while (getline(ss,token,',')) {
+        tokens.push_back(token);
+      }
+      int interval = stoi(tokens[0]);
+      if (interval<startinterval || interval>=endinterval) continue;
+      int fromserver = stoi(tokens[1]);
+      int toserver = stoi(tokens[2]);
+      uint64_t bytes = stoi(tokens[3]);
+      if (fromserver>=NHOST || toserver>=NHOST) continue;
+
+      for (int m=0; m<multiplier; m++) {
+        double start_time_ms = drand() * simtime_per_interval_ms + (interval-startinterval)*simtime_per_interval_ms;
+        flows.push_back(Flow(fromserver, toserver, bytes, start_time_ms, interval));
+      }
+      if (denominator>0) {
+        int should_add = rand()%denominator;
+        if (should_add<numerator) {
+          double start_time_ms = drand() * simtime_per_interval_ms + (interval-startinterval)*simtime_per_interval_ms;
+          flows.push_back(Flow(fromserver, toserver, bytes, start_time_ms, interval));
+        }
+      }
+    }
+    TMFile.close();
   }
 }

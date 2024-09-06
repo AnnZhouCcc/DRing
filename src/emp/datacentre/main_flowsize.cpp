@@ -434,7 +434,7 @@ int main(int argc, char **argv) {
         top = new RandRegularTopology(&logfile, &eventlist, rfile, RANDOM, conn_matrix, routing, korn, numfaillinks, failseed, npfile, pwfileprefix, pwfilesuffix, solvestart, solveend, solveinterval, computestart, computeend, computeinterval);
     } else {
         // top = new RandRegularTopology(&logfile, &eventlist, rfile, RANDOM, conn_matrix, routing, korn, npfile, pwfile, "", solvestart, solveend, solveinterval, computestart, computeend, computeinterval);
-        top = new RandRegularTopology(&logfile, &eventlist, rfile, RANDOM, conn_matrix, routing, korn, numfaillinks, failseed, npfile, pwfile, "", solvestart, solveend, solveinterval, computestart, computeend, computeinterval);
+        top = new RandRegularTopology(&logfile, &eventlist, rfile, RANDOM, conn_matrix, routing, korn, numfaillinks, failseed, npfile, pwfile, "", solvestart, solveend, solveinterval, computestart, computeend, computeinterval, paramstring);
     }
 #endif
 
@@ -450,6 +450,9 @@ int main(int argc, char **argv) {
 
     if (conn_matrix == "NEW_FILE"){
         conns->setTopoFlowsNewFromFile(top,paramstring,simtime_ms);
+    }
+    else if (conn_matrix == "NEW_WISC") {
+        conns->setTopoFlowsNewWisc(paramstring, solveend-solvestart, simtime_ms, multiplier, numerator, denominator, solvestart, solveend);
     }
     else {
         cout << "***Error: traffic pattern " << conn_matrix << " no longer supported." << endl;
@@ -576,44 +579,69 @@ int main(int argc, char **argv) {
 
     cout << "Starting to produce flow paths" << endl;
     typedef pair<int, int> PII;
-    int flowID = 0, whichinterval=0, numintervals=1;
+    // int flowID = 0, whichinterval=0, numintervals=1;
+    int flowID = 0, whichinterval=0;
     int src_sw, dst_sw, num_paths_srcsw_dstsw, num_paths_dstsw_srcsw;
-    vector<route_t*>*** net_paths = top->net_paths_rack_based;
 
-    int k=0;
-    std::map<int,int> kclustermap;
-    if (conn_matrix.substr(0,8) == "KCLUSTER") {
-        std::string conn_matrix_str = conn_matrix;
-        string delimiter = "_";
-        size_t position = 0;
-        string token;
-        while ((position = conn_matrix_str.find(delimiter)) != string::npos) {
-            token = conn_matrix_str.substr(0, position);
-            conn_matrix_str.erase(0, position+delimiter.length());
+    // vector<route_t*>*** net_paths = top->net_paths_rack_based;
+    vector<route_t*>*** net_paths;
+#if CHOSEN_TOPO == RRG
+    if (conn_matrix.compare("NEW_FILE")==0) {
+        if (routing.compare("ecmp")==0) {
+            net_paths = top->ecmp_net_paths;
+            top->net_paths_rack_based = top->ecmp_net_paths;
+        } else if (routing.compare("su")==0 && korn==2) {
+            net_paths = top->su2_net_paths;
+            top->net_paths_rack_based = top->su2_net_paths;
+        } else if (routing.compare("su")==0 && korn==3) {
+            net_paths = top->su3_net_paths;
+            top->net_paths_rack_based = top->su3_net_paths;
+        } else if (routing.compare("kdisjoint")==0 && korn==32) {
+            net_paths = top->maxdisj_net_paths;
+            top->net_paths_rack_based = top->maxdisj_net_paths;
         }
-        k = stoi(conn_matrix_str);
+    } else {
 
-        // Read kclustermapfile
-        std::cout << "kclustermap: ";
-        string kfilename = "kclustermapfiles/routing_"+paramstring+"_"+std::to_string(k);
-        ifstream kTMFile(kfilename.c_str());
-        string kline;
-        kline.clear();
-        if (kTMFile.is_open()){
-            while(kTMFile.good()){
-            getline(kTMFile, kline);
-            //Whitespace line
-            if (kline.find_first_not_of(' ') == string::npos) break;
-            stringstream ss(kline);
-            int weightstart, bestweight;
-            ss >> weightstart >> bestweight;
-            kclustermap[weightstart] = bestweight;
-            std::cout << weightstart << "->" << bestweight << ", ";
-            }
-            kTMFile.close();
-        }
-        std::cout << std::endl;
     }
+#else
+    net_paths = top->ecmp_net_paths;
+    top->net_paths_rack_based = top->ecmp_net_paths;
+#endif
+
+    // int k=0;
+    // std::map<int,int> kclustermap;
+    // if (conn_matrix.substr(0,8) == "KCLUSTER") {
+    //     std::string conn_matrix_str = conn_matrix;
+    //     string delimiter = "_";
+    //     size_t position = 0;
+    //     string token;
+    //     while ((position = conn_matrix_str.find(delimiter)) != string::npos) {
+    //         token = conn_matrix_str.substr(0, position);
+    //         conn_matrix_str.erase(0, position+delimiter.length());
+    //     }
+    //     k = stoi(conn_matrix_str);
+
+    //     // Read kclustermapfile
+    //     std::cout << "kclustermap: ";
+    //     string kfilename = "kclustermapfiles/routing_"+paramstring+"_"+std::to_string(k);
+    //     ifstream kTMFile(kfilename.c_str());
+    //     string kline;
+    //     kline.clear();
+    //     if (kTMFile.is_open()){
+    //         while(kTMFile.good()){
+    //         getline(kTMFile, kline);
+    //         //Whitespace line
+    //         if (kline.find_first_not_of(' ') == string::npos) break;
+    //         stringstream ss(kline);
+    //         int weightstart, bestweight;
+    //         ss >> weightstart >> bestweight;
+    //         kclustermap[weightstart] = bestweight;
+    //         std::cout << weightstart << "->" << bestweight << ", ";
+    //         }
+    //         kTMFile.close();
+    //     }
+    //     std::cout << std::endl;
+    // }
 
     for (Flow& flow: conns->flows){
         flowID++;
@@ -625,23 +653,43 @@ int main(int argc, char **argv) {
         src_sw = top->ConvertHostToRack(flow.src);
 		dst_sw = top->ConvertHostToRack(flow.dst);
 
+    #if CHOSEN_TOPO == RRG
+        if (conn_matrix.compare("NEW_FILE")!=0) {
+            whichinterval = flow.interval-solvestart;
+            int routingchoice = top->net_paths_choice.at(whichinterval);
+            if (routingchoice==0) {
+                net_paths = top->ecmp_net_paths;
+                top->net_paths_rack_based = top->ecmp_net_paths;
+            } else if (routingchoice==1) {
+                net_paths = top->su2_net_paths;
+                top->net_paths_rack_based = top->su2_net_paths;
+            } else if (routingchoice==2) {
+                net_paths = top->su3_net_paths;
+                top->net_paths_rack_based = top->su3_net_paths;
+            } else if (routingchoice==3) {
+                net_paths = top->maxdisj_net_paths;
+                top->net_paths_rack_based = top->maxdisj_net_paths;
+            }
+        }
+    #endif
+
     #if PATHWEIGHTS
         num_paths_srcsw_dstsw = net_paths[src_sw][dst_sw]->size();
         num_paths_dstsw_srcsw = net_paths[dst_sw][src_sw]->size();
 
-    #if CHOSEN_TOPO == RRG
-        if (conn_matrix == "CLUSTERX") {
-            numintervals = ((solveend-solvestart) / solveinterval) + 1;
-            double intervallen = simtime_ms / numintervals;
-            whichinterval = int(flow.start_time_ms / intervallen);
-        } else if (conn_matrix.substr(0,8) == "KCLUSTER") {
-            numintervals = 48-k;
-            double intervallen = simtime_ms / numintervals;
-            int routeinterval = int(flow.start_time_ms / intervallen)+k;
-            int weightinterval = (int(routeinterval/k)-1)*k;
-            whichinterval = kclustermap[weightinterval];
-        }
-    #endif
+    // #if CHOSEN_TOPO == RRG
+    //     if (conn_matrix == "CLUSTERX") {
+    //         numintervals = ((solveend-solvestart) / solveinterval) + 1;
+    //         double intervallen = simtime_ms / numintervals;
+    //         whichinterval = int(flow.start_time_ms / intervallen);
+    //     } else if (conn_matrix.substr(0,8) == "KCLUSTER") {
+    //         numintervals = 48-k;
+    //         double intervallen = simtime_ms / numintervals;
+    //         int routeinterval = int(flow.start_time_ms / intervallen)+k;
+    //         int weightinterval = (int(routeinterval/k)-1)*k;
+    //         whichinterval = kclustermap[weightinterval];
+    //     }
+    // #endif
     #else
         if (!net_paths[src_sw][dst_sw]){
 
@@ -758,7 +806,8 @@ int main(int argc, char **argv) {
     }
 
     cout << "Set up all flows" << endl;
-    top->delete_net_paths_rack_based(numintervals);
+    // top->delete_net_paths_rack_based(numintervals);
+    top->delete_net_paths_rack_based(solveend-solvestart);
 
     // Record the setup
     int pktsize = Packet::data_packet_size();
