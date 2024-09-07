@@ -3666,7 +3666,12 @@ void ConnectionMatrix::setTopoFlowsNewWisc(string trafficname, int numinterval, 
   cout << "setTopoFlowsNewWisc" << endl;
   
   double simtime_per_interval_ms = simtime_ms / numinterval;
-  string filename = "trafficfiles/" + trafficname;
+  string filename = "";
+  if (trafficname.substr(0,8)=="cluster_") {
+    filename = "flowfiles/" + trafficname;
+  } else {
+    filename = "trafficfiles/" + trafficname;
+  }
   ifstream TMFile(filename.c_str());
   string line;
   line.clear();
