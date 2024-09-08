@@ -275,7 +275,7 @@ int main(int argc, char **argv) {
           paramo = atoi(argv[i+1]);
           i+=2;
       }
-      cout << "Using paramo " << paramo <<endl;
+      cout << "Using paramo " << paramstringo <<endl;
 
       if (argc>i&&!strcmp(argv[i],"-topo")){
           rfile = argv[i+1];
@@ -434,7 +434,7 @@ int main(int argc, char **argv) {
         top = new RandRegularTopology(&logfile, &eventlist, rfile, RANDOM, conn_matrix, routing, korn, numfaillinks, failseed, npfile, pwfileprefix, pwfilesuffix, solvestart, solveend, solveinterval, computestart, computeend, computeinterval);
     } else {
         // top = new RandRegularTopology(&logfile, &eventlist, rfile, RANDOM, conn_matrix, routing, korn, npfile, pwfile, "", solvestart, solveend, solveinterval, computestart, computeend, computeinterval);
-        top = new RandRegularTopology(&logfile, &eventlist, rfile, RANDOM, conn_matrix, routing, korn, numfaillinks, failseed, npfile, pwfile, "", solvestart, solveend, solveinterval, computestart, computeend, computeinterval, paramstring);
+        top = new RandRegularTopology(&logfile, &eventlist, rfile, RANDOM, conn_matrix, routing, korn, numfaillinks, failseed, npfile, pwfile, "", solvestart, solveend, solveinterval, computestart, computeend, computeinterval, paramstring, paramstringo);
     }
 #endif
 
@@ -585,28 +585,28 @@ int main(int argc, char **argv) {
 
     // vector<route_t*>*** net_paths = top->net_paths_rack_based;
     vector<route_t*>*** net_paths;
-#if CHOSEN_TOPO == RRG
-    if (conn_matrix.compare("NEW_FILE")==0) {
-        if (routing.compare("ecmp")==0) {
-            net_paths = top->ecmp_net_paths;
-            top->net_paths_rack_based = top->ecmp_net_paths;
-        } else if (routing.compare("su")==0 && korn==2) {
-            net_paths = top->su2_net_paths;
-            top->net_paths_rack_based = top->su2_net_paths;
-        } else if (routing.compare("su")==0 && korn==3) {
-            net_paths = top->su3_net_paths;
-            top->net_paths_rack_based = top->su3_net_paths;
-        } else if (routing.compare("kdisjoint")==0 && korn==32) {
-            net_paths = top->maxdisj_net_paths;
-            top->net_paths_rack_based = top->maxdisj_net_paths;
-        }
-    } else {
+// #if CHOSEN_TOPO == RRG
+//     if (conn_matrix.compare("NEW_FILE")==0) {
+//         if (routing.compare("ecmp")==0 && korn==0) {
+//             net_paths = top->ecmp_net_paths;
+//             top->net_paths_rack_based = top->ecmp_net_paths;
+//         } else if (routing.compare("su")==0 && korn==2) {
+//             net_paths = top->su2_net_paths;
+//             top->net_paths_rack_based = top->su2_net_paths;
+//         } else if (routing.compare("su")==0 && korn==3) {
+//             net_paths = top->su3_net_paths;
+//             top->net_paths_rack_based = top->su3_net_paths;
+//         } else if (routing.compare("kdisjoint")==0 && korn==32) {
+//             net_paths = top->maxdisj_net_paths;
+//             top->net_paths_rack_based = top->maxdisj_net_paths;
+//         }
+//     } else {
 
-    }
-#else
+//     }
+// #else
     net_paths = top->ecmp_net_paths;
     top->net_paths_rack_based = top->ecmp_net_paths;
-#endif
+// #endif
 
     // int k=0;
     // std::map<int,int> kclustermap;
@@ -769,12 +769,14 @@ int main(int argc, char **argv) {
             routein = top->attach_head_tail(flow.dst, flow.src, false, rchoice);
 
         #if DEBUG_MODE
-            cout << "**debug info** routeout: ";
+            cout << "**debug info** routeout: " << endl;
+            cout << routeout->size() << endl;
             for (unsigned int i=0; i<routeout->size(); i++) {
-                cout << routeout->at(i)->nodename();
+                cout << routeout->at(i) << endl;
+                cout << routeout->at(i)->nodename() << endl;
             }
             cout << endl;
-            cout << "**debug info** routein: ";
+            cout << "**debug info** routein: " << endl;
             for (unsigned int i=0; i<routein->size(); i++) {
                 cout << routein->at(i)->nodename();
             }

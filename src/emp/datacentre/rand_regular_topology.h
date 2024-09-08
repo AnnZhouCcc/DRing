@@ -28,7 +28,7 @@ enum FIND_PATH_ALGORITHM
 
 #define REDUCED_NHOST (NHOST/OVERSUBSCRIPTION)
 
-#define SVRPORTS (OVERSUBSCRIPTION * (REDUCED_NHOST%NSW==0?REDUCED_NHOST/NSW:REDUCED_NHOST/NSW+1))
+#define SVRPORTS (OVERSUBSCRIPTION * (REDUCED_NHOST%NSW==0?REDUCED_NHOST/NSW:REDUCED_NHOST/NSW+2)) // AnnC: change from +1 to +2 for the scalability test
 #define HETERO (REDUCED_NHOST%NSW==0?0:1)
 
 class RandRegularTopology: public Topology{
@@ -53,7 +53,7 @@ class RandRegularTopology: public Topology{
   route_t *attach_head_tail(int src, int dst, bool is_same_switch, int rand_choice);
 
   RandRegularTopology(Logfile* log,EventList* ev, string graphFile, queue_type qt=RANDOM, string conn_matrix="CLUSTERX", string alg="ecmp", int k=0, string netpathFile="none", string pathweightfileprefix="none", string pathweightfilesuffix="none", int solvestart=0, int solveend=0, int solveinterval=0, int computestart=0, int computeend=0, int computeinterval=0);
-  RandRegularTopology(Logfile* log,EventList* ev, string graphFile, queue_type qt=RANDOM, string conn_matrix="CLUSTERX", string alg="ecmp", int k=0, int numfaillinks=0, int failseed=0, string netpathFile="none", string pathweightfileprefix="none", string pathweightfilesuffix="none", int solvestart=0, int solveend=0, int solveinterval=0, int computestart=0, int computeend=0, int computeinterval=0, string trafficname="none");
+  RandRegularTopology(Logfile* log,EventList* ev, string graphFile, queue_type qt=RANDOM, string conn_matrix="CLUSTERX", string alg="ecmp", int k=0, int numfaillinks=0, int failseed=0, string netpathFile="none", string pathweightfileprefix="none", string pathweightfilesuffix="none", int solvestart=0, int solveend=0, int solveinterval=0, int computestart=0, int computeend=0, int computeinterval=0, string trafficname="none", string serverfile="none");
 
   void read_netpathfile(string netpathfile, vector<route_t *>***net_paths);
 
@@ -86,6 +86,7 @@ class RandRegularTopology: public Topology{
   int get_number_of_hosts(int torSwitch);
 
  public:
+  vector<int> hostToSwitchArr;
   int ConvertHostToSwitch(int host);
   int get_part(int sw) {return partitions[sw];}
   map<pair<int, int>, pair<vector<double>*, vector<route_t*>* > > pathcache;

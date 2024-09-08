@@ -23,19 +23,19 @@ COMPUTEINTERVAL=${17} # the above six decides what path weights to be used for c
 ROUTING=${18} 
 KorN=${19} # $routingparam,ecmp,su,kdisjoint,kshort,racke; kornparam; eg, routingparam=su, kornparam=3
 PARAM=${20} # $trafficfilename,a,b,c,null
-SEED=${21}
-NETPATH=${22} # $npfile,netpathfiles/netpath_${routing}_${topology}.txt
-PATHWEIGHT=${23} # $pwfile,refer to discover.sh L94-124
-DP=${24} # $precision,64
-MSTART=${25}
-MEND=${26}
-STIME=${27} # the above three parameters are related to the simulation itself
-NUMFAILLINKS=${28}
-FAILSEED=${29}
+PARAMO=${21} # serverfile
+SEED=${22}
+NETPATH=${23} # $npfile,netpathfiles/netpath_${routing}_${topology}.txt
+PATHWEIGHT=${24} # $pwfile,refer to discover.sh L94-124
+DP=${25} # $precision,64
+MSTART=${26}
+MEND=${27}
+STIME=${28} # the above three parameters are related to the simulation itself
+NUMFAILLINKS=${29}
+FAILSEED=${20}
 
 OVERSUBSCRIPTION=1
 SUBFLOW=1
-PARAMO=0
 
 
 if [[ $TOPO == "LEAFSPINE" ]]; then

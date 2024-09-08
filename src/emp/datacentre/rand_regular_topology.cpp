@@ -34,7 +34,7 @@ string itoa(uint64_t n);
 extern int N;
 
 
-RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string graphFile, queue_type qt, string conn_matrix, string alg, int k, int numfaillinks, int failseed, string netpathfile, string pathweightfileprefix, string pathweightfilesuffix, int solvestart, int solveend, int solveinterval, int computestart, int computeend, int computeinterval, string trafficname){
+RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string graphFile, queue_type qt, string conn_matrix, string alg, int k, int numfaillinks, int failseed, string netpathfile, string pathweightfileprefix, string pathweightfilesuffix, int solvestart, int solveend, int solveinterval, int computestart, int computeend, int computeinterval, string trafficname, string serverfile){
   logfile = lg;
   eventlist = ev;
   qtype = qt;
@@ -164,10 +164,23 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
 
 #if PATHWEIGHTS
 	// Read netpath from file
-	read_netpathfile("netpathfiles/netpath_ecmp_dring.txt",ecmp_net_paths);
-	read_netpathfile("netpathfiles/netpath_su2_dring.txt",su2_net_paths);
-	read_netpathfile("netpathfiles/netpath_su3_dring.txt",su3_net_paths);
-	read_netpathfile("netpathfiles/netpath_32disjoint_dring.txt",maxdisj_net_paths);
+	if (conn_matrix.compare("NEW_FILE")==0) {
+		// if (alg.compare("ecmp")==0 && k==0) {
+		// 	read_netpathfile(netpathfile,ecmp_net_paths);
+		// } else if (alg.compare("su")==0 && k==2) {
+		// 	read_netpathfile(netpathfile,su2_net_paths);
+		// } else if (alg.compare("su")==0 && k==3) {
+		// 	read_netpathfile(netpathfile,su3_net_paths);
+		// } else if (alg.compare("kdisjoint")==0 && k==32) {
+		// 	read_netpathfile(netpathfile,maxdisj_net_paths);
+		// }
+		read_netpathfile(netpathfile,ecmp_net_paths);
+	} else {
+		read_netpathfile("netpathfiles/netpath_ecmp_dring.txt",ecmp_net_paths);
+		read_netpathfile("netpathfiles/netpath_su2_dring.txt",su2_net_paths);
+		read_netpathfile("netpathfiles/netpath_su3_dring.txt",su3_net_paths);
+		read_netpathfile("netpathfiles/netpath_32disjoint_dring.txt",maxdisj_net_paths);
+	}
 
 	#if IS_DEBUG_ON
 		cout << "read netpathfile; before path_weights_rack_based" << endl;
@@ -178,7 +191,7 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
 	#endif
 
 	// Initialize path_weights_rack_based
-	if (conn_matrix == "NEW_WISC") {
+	if (conn_matrix.compare("NEW_WISC")==0) {
 
 		int numintervals = solveend - solvestart;
 		cout << "numintervals=" << numintervals << " (for NEW_WISC)" << endl;
@@ -352,6 +365,32 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
 	// std::cout << path_weights_rack_based[0][14][35]->at(4).first << ": " << path_weights_rack_based[0][14][35]->at(4).second << std::endl;
 
 #endif
+
+	for (int i=0; i<10000; i++) { // AnnC: dummy number. assume we have at most 10000 servers.
+		hostToSwitchArr.push_back(-1);
+	}
+	ifstream svrfile(serverfile.c_str());
+	string svrline;
+	if (svrfile.is_open()){
+		while(svrfile.good()){
+			getline(svrfile, svrline);
+			if (svrline.find_first_not_of(' ') == string::npos) break;
+			stringstream ss(svrline);
+			string token;
+			vector<string> tokens;
+			while (getline(ss,token,',')) {
+				tokens.push_back(token);
+			}
+			int svr = stoi(tokens[0]);
+			int sw = stoi(tokens[1]);
+			hostToSwitchArr.at(svr) = sw;
+		}
+		svrfile.close();
+	}
+	else {
+		cout << "***Error opening serverfile: " << serverfile << endl;
+		exit(1);
+	}
 }
 
 
@@ -423,6 +462,11 @@ void RandRegularTopology::init_network(){
    for (int j = 0; j < NSW; j++) {
 	int nsvrports = K - adjMatrix[j]->size();
         for (int k = 0; k < nsvrports * OVERSUBSCRIPTION; k++) {
+
+		#if IS_DEBUG_ON
+			std::cout << "SW" << j << "->SVR" << k << std::endl;
+		#endif
+
           // Downlink: sw to server = sw-svr
           queueLogger = new QueueLoggerSampling(timeFromMs(logger_period_ms), *eventlist);
           logfile->addLogger(*queueLogger);
@@ -434,6 +478,10 @@ void RandRegularTopology::init_network(){
           pipes_sw_svr[j][k] = new Pipe(timeFromUs(RTT), *eventlist);
           pipes_sw_svr[j][k]->setName("Pipe-sw-svr-" + ntoa(j) + "-" + ntoa(k));
           logfile->writeName(*(pipes_sw_svr[j][k]));
+
+		#if IS_DEBUG_ON
+			std::cout << "SVR" << j << "->SW" << k << std::endl;
+		#endif
 
           // Uplink: server to sw = svr-sw
           queueLogger = new QueueLoggerSampling(timeFromMs(logger_period_ms), *eventlist);
@@ -593,64 +641,77 @@ void check_non_null(route_t* rt){
 
 unsigned int RandRegularTopology::ConvertHostToSwitchPort(int host)
 {
-  //cout<<"ConvertHostToSwitchPort: "<<host<<" : "<<NSW<<" : "<<NHOST<<" : "<< OVERSUBSCRIPTION<<" : "<<SVRPORTS<<endl;
-  int nsw_less_svrport = NSW - (NHOST/OVERSUBSCRIPTION)%NSW;  // The number of switches with less servers than others = (# of hosts % # of switches)
-  unsigned int myportindex;
-  if(HETERO==1){
-	  if(SVRPORTS != 1){
-		 int reducedSvrport = SVRPORTS - OVERSUBSCRIPTION;
-		  if(host < nsw_less_svrport * reducedSvrport)
-			  myportindex = host % reducedSvrport;
-		  else
-			  myportindex = (host - nsw_less_svrport * reducedSvrport) % (SVRPORTS);
-	  }
-	  else {
-                  myportindex = 0;
-	  }
-  }
-  else{
-	  myportindex = host % SVRPORTS;
-  }
-  return myportindex;
+//   //cout<<"ConvertHostToSwitchPort: "<<host<<" : "<<NSW<<" : "<<NHOST<<" : "<< OVERSUBSCRIPTION<<" : "<<SVRPORTS<<endl;
+//   int nsw_less_svrport = NSW - (NHOST/OVERSUBSCRIPTION)%NSW;  // The number of switches with less servers than others = (# of hosts % # of switches)
+//   unsigned int myportindex;
+//   if(HETERO==1){
+// 	  if(SVRPORTS != 1){
+// 		 int reducedSvrport = SVRPORTS - OVERSUBSCRIPTION;
+// 		  if(host < nsw_less_svrport * reducedSvrport)
+// 			  myportindex = host % reducedSvrport;
+// 		  else
+// 			  myportindex = (host - nsw_less_svrport * reducedSvrport) % (SVRPORTS);
+// 	  }
+// 	  else {
+//                   myportindex = 0;
+// 	  }
+//   }
+//   else{
+// 	  myportindex = host % SVRPORTS;
+//   }
+//   return myportindex;
+	int myswitch = hostToSwitchArr.at(host);
+	// vector<int> portToHostArr; // index i stores j: server j has port number i
+	int portCount = 0;
+	for (int i=0; i<hostToSwitchArr.size(); i++) {
+		if (hostToSwitchArr.at(i) == myswitch) {
+			// portToHostArr.push_back(i);
+			if (i == host) return portCount;
+			portCount++;
+		}
+	}
+	return -1;
 }
 
 
 int RandRegularTopology::ConvertHostToSwitch(int host)
 {	
   //cout<<"ConvertHostToSwitch: "<<host<<" : "<<NSW<<" : "<<NHOST<<" : "<< OVERSUBSCRIPTION<<" : "<<SVRPORTS<<endl;
-  int nsw_less_svrport = NSW - (NHOST/OVERSUBSCRIPTION)%NSW;  // The number of switches with less servers than others = (# of hosts % # of switches)
-  int myswitchindex;
-  if(HETERO==1){
-	  if(SVRPORTS != 1){
-		 int reducedSvrport = SVRPORTS - OVERSUBSCRIPTION;
-		  if(host < nsw_less_svrport * reducedSvrport)
-			  myswitchindex = host / reducedSvrport;
-		  else
-			  myswitchindex = (host - nsw_less_svrport * reducedSvrport) / (SVRPORTS) + nsw_less_svrport;
-	  }
-	  else {
-		  myswitchindex =  nsw_less_svrport + host;
-	  }
-  }
-  else{
-	  myswitchindex = host / SVRPORTS;
-  }
-  return myswitchindex;
+//   int nsw_less_svrport = NSW - (NHOST/OVERSUBSCRIPTION)%NSW;  // The number of switches with less servers than others = (# of hosts % # of switches)
+//   int myswitchindex;
+//   if(HETERO==1){
+// 	  if(SVRPORTS != 1){
+// 		 int reducedSvrport = SVRPORTS - OVERSUBSCRIPTION;
+// 		  if(host < nsw_less_svrport * reducedSvrport)
+// 			  myswitchindex = host / reducedSvrport;
+// 		  else
+// 			  myswitchindex = (host - nsw_less_svrport * reducedSvrport) / (SVRPORTS) + nsw_less_svrport;
+// 	  }
+// 	  else {
+// 		  myswitchindex =  nsw_less_svrport + host;
+// 	  }
+//   }
+//   else{
+// 	  myswitchindex = host / SVRPORTS;
+//   }
+//   return myswitchindex;
+	return hostToSwitchArr.at(host);
 }
 
 
+// AnnC: should fix after changing ConvertHostToSwitch(), but seems unused
 int RandRegularTopology::get_number_of_hosts(int torSwitch){
-  int nsw_less_svrport = NSW - (NHOST/OVERSUBSCRIPTION)%NSW;  // The number of switches with less servers than others = (# of hosts % # of switches)
-  if(HETERO==1){
-    int reducedSvrport = SVRPORTS - OVERSUBSCRIPTION;
-    if(torSwitch < nsw_less_svrport)
-	    return reducedSvrport;
-    else
-	    return SVRPORTS;
-  }
-  else{
-      return SVRPORTS;
-  }
+//   int nsw_less_svrport = NSW - (NHOST/OVERSUBSCRIPTION)%NSW;  // The number of switches with less servers than others = (# of hosts % # of switches)
+//   if(HETERO==1){
+//     int reducedSvrport = SVRPORTS - OVERSUBSCRIPTION;
+//     if(torSwitch < nsw_less_svrport)
+// 	    return reducedSvrport;
+//     else
+// 	    return SVRPORTS;
+//   }
+//   else{
+//       return SVRPORTS;
+//   }
 }
 
 int RandRegularTopology::get_distance(int src, int dest){
@@ -1458,12 +1519,13 @@ void RandRegularTopology::floydWarshall(){
 }
 
 
+// AnnC: should fix after changing ConvertHostToSwitch(), but seems unused
 int RandRegularTopology::getHostsInRack(int rack){
-  int nsw_less_svrport = (NSW - ((NHOST/OVERSUBSCRIPTION)%NSW))%NSW;  // The number of switches with less servers than others = (# of hosts % # of switches)
-  //cout<<"getHostsInRack: "<<rack<<" : "<<NSW<<" : "<<NHOST<<" : "<< OVERSUBSCRIPTION<<" : "<<SVRPORTS<<" : " << nsw_less_svrport << endl;
-  int reducedSvrport = SVRPORTS - OVERSUBSCRIPTION;
-  if(rack < nsw_less_svrport) return reducedSvrport;
-  else return SVRPORTS;
+//   int nsw_less_svrport = (NSW - ((NHOST/OVERSUBSCRIPTION)%NSW))%NSW;  // The number of switches with less servers than others = (# of hosts % # of switches)
+//   //cout<<"getHostsInRack: "<<rack<<" : "<<NSW<<" : "<<NHOST<<" : "<< OVERSUBSCRIPTION<<" : "<<SVRPORTS<<" : " << nsw_less_svrport << endl;
+//   int reducedSvrport = SVRPORTS - OVERSUBSCRIPTION;
+//   if(rack < nsw_less_svrport) return reducedSvrport;
+//   else return SVRPORTS;
 }
 
 
