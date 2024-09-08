@@ -12,7 +12,7 @@ factor = 64
 swlist = range(40,121,20)
 svrlist = [752,1680,2992,4672,6720]
 nlinklist = [264,600,1064,1664,2400]
-multstrlist = ["1_5_100","0_47_100","0_26_100","0_17_100","0_12_100"]
+multstrlist = ["1_74_100","0_78_100","0_44_100","0_28_100","0_19_100"]
 
 for inumsw,numsw in enumerate(swlist):
     numport = int(numsw*0.8)
