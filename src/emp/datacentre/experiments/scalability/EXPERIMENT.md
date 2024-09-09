@@ -15,4 +15,5 @@
 6. Set up conf files, run
 ```
 python3 run_oblivious_c2s.py --conf experiments/scalability/test2.conf --maxGB 10 --waitSec 30
+python3 run_oblivious_c2s.py --conf experiments/scalability/fifty.conf --maxGB 12 --waitSec 30
 ```

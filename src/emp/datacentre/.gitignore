@@ -78,6 +78,7 @@ experiments/rerun_sigcomm24/*.pickle
 experiments/linkfailure/*.pickle
 experiments/linkfailure2/*.pickle
 experiments/routing/*.pickle
+experiments/scalability/*.pickle
 
 makepathweightfiles/model.lp
 makepathweightfiles/varfile
