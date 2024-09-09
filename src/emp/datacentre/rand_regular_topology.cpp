@@ -248,7 +248,7 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
 			} else if (myroutingchoice==4) {
 				myroutingname = "fhi";
 			} else if (myroutingchoice==5) {
-				myroutingname = "racke"+k;
+				myroutingname = "racke"+to_string(k);
 			}
 			string pathweightfile = "qivarfiles/qivar_dring_0_0_"+trafficname+"_"+to_string(i+solvestart)+"_"+myroutingname+"_2_0";
 			ifstream pwfile(pathweightfile.c_str());
