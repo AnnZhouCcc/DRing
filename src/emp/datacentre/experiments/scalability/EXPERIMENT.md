@@ -13,3 +13,6 @@
 5. Generate path weight file according to the flow file with makepathweightfiles/makepathweightfiles_scalability_alltoall.py
 
 6. Set up conf files, run
+```
+python3 run_oblivious_c2s.py --conf experiments/scalability/test2.conf --maxGB 10 --waitSec 30
+```
