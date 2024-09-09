@@ -178,6 +178,8 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
 	} else {
 		if (alg.compare("fhi")==0 && k==0) {
 			read_netpathfile("netpathfiles/netpath_fhi_dring.txt",ecmp_net_paths);
+		} else if (alg.compare("racke")==0) { 
+			read_netpathfile("netpathfiles/netpath_racke"+to_string(k)+"_dring.txt",ecmp_net_paths);
 		} else {
 			read_netpathfile("netpathfiles/netpath_ecmp_dring.txt",ecmp_net_paths);
 			read_netpathfile("netpathfiles/netpath_su2_dring.txt",su2_net_paths);
@@ -245,6 +247,8 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
 				myroutingname = "32disjoint";
 			} else if (myroutingchoice==4) {
 				myroutingname = "fhi";
+			} else if (myroutingchoice==5) {
+				myroutingname = "racke"+k;
 			}
 			string pathweightfile = "qivarfiles/qivar_dring_0_0_"+trafficname+"_"+to_string(i+solvestart)+"_"+myroutingname+"_2_0";
 			ifstream pwfile(pathweightfile.c_str());

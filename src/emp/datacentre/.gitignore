@@ -79,6 +79,7 @@ experiments/linkfailure/*.pickle
 experiments/linkfailure2/*.pickle
 experiments/routing/*.pickle
 experiments/routing_fhi/*.pickle
+experiments/routing_racke/*.pickle
 experiments/scalability/*.pickle
 
 makepathweightfiles/model.lp

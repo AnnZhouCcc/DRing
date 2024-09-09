@@ -655,7 +655,7 @@ int main(int argc, char **argv) {
 		dst_sw = top->ConvertHostToRack(flow.dst);
 
     #if CHOSEN_TOPO == RRG
-        if (conn_matrix.compare("NEW_FILE")!=0 && !(routing.compare("fhi")==0 && korn==0)) {
+        if (conn_matrix.compare("NEW_FILE")!=0 && !(routing.compare("fhi")==0 && korn==0) && routing.compare("racke")!=0) {
             whichinterval = flow.interval-solvestart;
             int routingchoice = top->net_paths_choice.at(whichinterval);
             if (routingchoice==0) {
