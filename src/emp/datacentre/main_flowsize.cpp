@@ -98,6 +98,7 @@ int choose_a_path(vector< pair<int,double> >* path_weights, vector<route_t*>* ne
     #if DEBUG_MODE
         cout << "num_paths = " << num_paths << endl;
         cout << "random = " << random << endl;
+        std::cout << "net_paths = " << net_paths->size() << std::endl;
     #endif
 
         double sum = 0;
@@ -654,7 +655,7 @@ int main(int argc, char **argv) {
 		dst_sw = top->ConvertHostToRack(flow.dst);
 
     #if CHOSEN_TOPO == RRG
-        if (conn_matrix.compare("NEW_FILE")!=0) {
+        if (conn_matrix.compare("NEW_FILE")!=0 && !(routing.compare("fhi")==0 && korn==0)) {
             whichinterval = flow.interval-solvestart;
             int routingchoice = top->net_paths_choice.at(whichinterval);
             if (routingchoice==0) {
