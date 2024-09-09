@@ -56,6 +56,10 @@ testing commands:
 python3 run_oblivious_c2s.py --conf experiments/routing/unv1.conf --maxGB 5 --waitSec 60
 10.6->11.3
 python3 run_oblivious_c2s.py --conf experiments/routing/unv1.conf --maxGB 3 --waitSec 60
+
+python3 run_oblivious_c2s.py --conf experiments/routing/cluster_a.conf --maxGB 10 --waitSec 60
+python3 run_oblivious_c2s.py --conf experiments/routing/cluster_b.conf --maxGB 8 --waitSec 60
+python3 run_oblivious_c2s.py --conf experiments/routing/cluster_c.conf --maxGB 6 --waitSec 60
 ```
 
 6. Generate sumfile, picklefile, plot
