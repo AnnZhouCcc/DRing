@@ -1,5 +1,5 @@
 graphname = "dring"
-routingname = "su2"
+routingname = "su3"
 numfaillink = 0
 fseed = 0
 homedir = "/home/annzhou"
@@ -9,7 +9,8 @@ crossover = 0
 factor = 64
 
 
-swlist = range(40,121,20)
+# swlist = range(40,121,20)
+swlist=[40]
 svrlist = [752,1680,2992,4672,6720]
 nlinklist = [264,600,1064,1664,2400]
 multstrlist = ["1_74_100","0_78_100","0_44_100","0_28_100","0_19_100"]
@@ -17,6 +18,7 @@ multstrlist = ["1_74_100","0_78_100","0_44_100","0_28_100","0_19_100"]
 for inumsw,numsw in enumerate(swlist):
     numport = int(numsw*0.8)
     numserver = svrlist[inumsw]
+    # numserver = (numsw//5)*(numsw//5)*12
     numlink = nlinklist[inumsw]
     multstr=multstrlist[inumsw]
     c=int(numsw*0.8)
@@ -33,8 +35,10 @@ for inumsw,numsw in enumerate(swlist):
     else:
         print("ERROR: leafspine does not need to compute path weight")
 
-    if graphname=="dring" or graphname=="rrg":
+    if graphname=="dring":
         graphfile = f"{homedir}/DRing/src/emp/datacentre/scalegraphfiles/{graphname}_deg{int(numsw*0.8)}_sw{numsw}_sn12_i1.edgelist"
+    elif graphname=="rrg":
+        graphfile = f"{homedir}/DRing/src/emp/datacentre/scalegraphfiles/{graphname}_deg{numport}_sw{numsw}_svr{numserver}_os1_i1.edgelist"
     else:
         print("ERROR: leafspine does not need to compute path weight")
 

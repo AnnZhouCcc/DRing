@@ -1,17 +1,21 @@
-korn = 2
-routing = "su2"
+korn = 3
+routing = "su3"
 graphname = "dring"
-swlist = range(40,121,20)
-svrlist = [752,1680,2992,4672,6720]
+# swlist = range(40,121,20)
+swlist = [40]
+# svrlist = [752,1680,2992,4672,6720]
+svrlist = [752]
 
 for inumsw,numsw in enumerate(swlist):
     
     numserver = svrlist[inumsw]
+    # numserver = (numsw//5)*(numsw//5)*12
     numport = int(numsw*0.8)
 
     homedir = "/home/annzhou/"
     # graphfile = f"{homedir}DRing/src/emp/datacentre/graphfiles/ring_supergraph/double_ring/instance1_{numsw}_{numport}.edgelist"
     graphfile = f"{homedir}DRing/src/emp/datacentre/scalegraphfiles/{graphname}_deg{numport}_sw{numsw}_sn12_i1.edgelist"
+    # graphfile = f"{homedir}DRing/src/emp/datacentre/scalegraphfiles/{graphname}_deg{numport}_sw{numsw}_svr{numserver}_os1_i1.edgelist"
     netpathfile = f"{homedir}DRing/src/emp/datacentre/netpathfiles/netpath_{routing}_{graphname}_{numserver}_{numsw}_{numport}"
 
 

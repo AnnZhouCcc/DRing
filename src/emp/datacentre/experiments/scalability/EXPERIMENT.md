@@ -7,13 +7,26 @@
 3. Generate flow file according to the mult with makeflowfiles/makec2s_scalability_alltoall.ipynb
 
 4. Generate net path file (no need to repeat)
+- use su2; but for sw=40, also try su3
 - for DRing: makenetpathfiles/makesuk_scalability_alltoall.py
 - for leafspine: makeecmp_leafspine.ipynb
+- for RRG: makenetpathfiles/makesuk_scalability_alltoall.py
+```
+graphname = "rrg"
+numserver = (numsw//5)*(numsw//5)*12
+graphfile = f"{homedir}DRing/src/emp/datacentre/scalegraphfiles/{graphname}_deg{numport}_sw{numsw}_svr{numserver}_os1_i1.edgelist"
+```
 
 5. Generate path weight file according to the flow file with makepathweightfiles/makepathweightfiles_scalability_alltoall.py
+```
+graphname = "rrg"
+numserver = (numsw//5)*(numsw//5)*12
+```
 
 6. Set up conf files, run
 ```
 python3 run_oblivious_c2s.py --conf experiments/scalability/test2.conf --maxGB 10 --waitSec 30
 python3 run_oblivious_c2s.py --conf experiments/scalability/fifty.conf --maxGB 12 --waitSec 30
 ```
+
+test: 1. rrg-su2 2. rrg-40-su3,dring-40-su3
