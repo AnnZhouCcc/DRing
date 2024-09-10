@@ -83,6 +83,7 @@ experiments/routing_fhi/*.pickle
 experiments/routing_racke/*.pickle
 experiments/scalability/*.pickle
 experiments/controllerfailure/*.pickle
+experiments/torbottleneck/*.pickle
 
 makepathweightfiles/model.lp
 makepathweightfiles/varfile
