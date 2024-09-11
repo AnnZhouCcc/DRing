@@ -16,7 +16,7 @@ numport = 64
 ```
 
 2. Calculate mult in `torbottleneck/torbottleneck.ipynb`
-- load 10%
+- load 10% -> 5%
 | c  | s | load |
 | -- | - | ---- |
 | 64 | 4 | 1.44 |
@@ -24,6 +24,14 @@ numport = 64
 | 32 | 4 | 2.88 |
 | 16 | 4 | 5.76 |
 | 4  | 4 | 23   |
+- load 5%
+| c  | s | load |
+| -- | - | ---- |
+| 64 | 4 | 0.72 |
+| 48 | 4 | 0.96 |
+| 32 | 4 | 1.44 |
+| 16 | 4 | 2.88 |
+| 4  | 4 | 11.5 |
 
 3. Generate trafficfiles in `makeflowfiles/makec2s_torbottleneck.ipynb`
 
