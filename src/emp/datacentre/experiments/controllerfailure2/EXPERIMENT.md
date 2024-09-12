@@ -7,6 +7,7 @@ Want to test with equal path weights to show 1. worst case for handling controll
 
 2. Generate choicefile and qivarfiles
 - choicefiles: all use su3 (2) thoughout
+- makepathweightfiles/makeequal.ipynb
 - qivarfiles
 
 3. Generate conf files, run experiments
