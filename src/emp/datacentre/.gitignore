@@ -83,6 +83,7 @@ experiments/routing_fhi/*.pickle
 experiments/routing_racke/*.pickle
 experiments/scalability/*.pickle
 experiments/controllerfailure/*.pickle
+experiments/controllerfailure2/*.pickle
 experiments/torbottleneck/*.pickle
 experiments/networkbottleneck/*.pickle
 
