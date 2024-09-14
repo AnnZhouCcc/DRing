@@ -1,4 +1,6 @@
 netpathfiles/netpath_fhi_dring.txt
+netpathfiles/scalability2/
+
 compute_fb_skewed/
 some_stats/
 traces/
@@ -82,6 +84,8 @@ experiments/routing2/*.pickle
 experiments/routing_fhi/*.pickle
 experiments/routing_racke/*.pickle
 experiments/scalability/*.pickle
+experiments/scalability2/*.pickle
+experiments/scalability3/*.pickle
 experiments/controllerfailure/*.pickle
 experiments/controllerfailure2/*.pickle
 experiments/torbottleneck/*.pickle
