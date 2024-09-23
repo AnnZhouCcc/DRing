@@ -1,5 +1,16 @@
 # Starfish: A Flat Data Center Network
 
+## Submission Notes for NSDI Fall'25
+
+### Pickle files
+- ocean: linkfailure, linkfailure2, routing, routing_fhi, routing_racke, scalability, scalability2, scalability3
+- fruity01:
+- meaty01:
+- meaty02:
+
+
+--------------------------------------------------------------
+
 ## Experiment 1: (scalability) produce netpathfile for special topology + su3
 - `netpath_produce.sh`
 1. Fix lines 1,2,3
