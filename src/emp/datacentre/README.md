@@ -4,9 +4,9 @@
 
 ### Pickle files
 - ocean: linkfailure, linkfailure2, routing, routing_fhi, routing_racke, scalability, scalability2, scalability3
-- fruity01: linkfailure, routing, routing_fhi, routing_racke, torbottleneck
+- fruity01: controllerfailure, controllerfailure2, networkbottleneck, routing, routing_fhi, routing_racke, scalability
 - meaty01: linkfailure, routing, routing_fhi, routing_racke, routing2, scalability
-- meaty02:
+- meaty02: linkfailure, routing, routing_fhi, routing_racke, torbottleneck
 
 
 --------------------------------------------------------------
