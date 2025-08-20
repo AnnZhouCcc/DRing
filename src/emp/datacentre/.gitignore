@@ -112,3 +112,6 @@ qvarfiles/
 
 qivarfiles/
 !qivarfiles/*.tar.gz
+
+
+rawtrafficfiles/
