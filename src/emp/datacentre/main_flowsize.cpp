@@ -449,7 +449,10 @@ int main(int argc, char **argv) {
 
     ConnectionMatrix* conns = new ConnectionMatrix(NHOST);
 
-    if (conn_matrix == "NEW_FILE"){
+    if (conn_matrix == "EVAL"){
+        conns->setTopoFlowsEval(paramstring);
+    }
+    else if (conn_matrix == "NEW_FILE"){
         conns->setTopoFlowsNewFromFile(top,paramstring,simtime_ms);
     }
     else if (conn_matrix == "NEW_WISC") {

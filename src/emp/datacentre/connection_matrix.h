@@ -114,6 +114,7 @@ class ConnectionMatrix{
 
   void setTopoFlowsNewFromFile(Topology* top, string flowfile, double simtime_ms);
   void setTopoFlowsNewWisc(string trafficname, int numinterval, double simtime_ms, int multiplier, int numerator, int denominator, int startinterval, int endinterval);
+  void setTopoFlowsEval(string cmfile);
 };
 
 #endif
