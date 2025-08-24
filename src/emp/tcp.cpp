@@ -211,10 +211,10 @@ TcpSrc::receivePacket(Packet& pkt)
 			}
 			cout << endl;
 
-			if (timeAsMs(eventlist().now() - _start_time)>1000) {
-				std::cout << "EXIT FCT already too high" << std::endl;
-				exit(EXIT_SUCCESS);
-			}
+			// if (timeAsMs(eventlist().now() - _start_time)>1000) {
+			// 	std::cout << "EXIT FCT already too high" << std::endl;
+			// 	exit(EXIT_SUCCESS);
+			// }
 		}
 		
 		#else

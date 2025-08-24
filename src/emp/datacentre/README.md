@@ -4,13 +4,17 @@
 
 ```
 (no run.sh, discover.sh needed any more)
+cd src/emp/
+make
 cd src/emp/datacentre
 make clean
 make # should expect to see rrg and leafspine executables
 
+set IS_EVAL in main.h
 
 pip3 install tqdm
 pip3 install gurobipy==11.0.3
+pip3 install matplotlib
 ```
 
 

@@ -37,7 +37,7 @@ string itoa(uint64_t n);
 
 //#define SWITCH_BUFFER (SERVICE * RTT / 1000)
 
-const double SIMTIME = 101;
+const double SIMTIME = 10;
 
 EventList eventlist;
 
@@ -85,7 +85,7 @@ int choose_a_path(vector< pair<int,double> >* path_weights, int net_paths_size) 
 
 
 int main(int argc, char **argv) {
-    eventlist.setEndtime(timeFromSec(SIMTIME));
+    eventlist.setEndtime(timeFromMs(SIMTIME));
     Clock c(timeFromSec(50 / 100.), eventlist);
     double simtime_ms = 1;
     int stime = 0, numfaillinks = 0;

@@ -21,13 +21,10 @@ LIB=-L..
 #-Lksp
 
 
-all:	rrg leafspine
+all:	eval
 
-leafspine: main_eval.o ../libhtsim.a leaf_spine_topology.o rand_regular_topology.o connection_matrix_eval.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o
-	$(CC) $(INCLUDE) $(CFLAGS)  main_eval.o leaf_spine_topology.o rand_regular_topology.o connection_matrix_eval.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o $(LIB) -lhtsim -o leafspine
-
-rrg: main_eval.o  ../libhtsim.a connection_matrix_eval.o leaf_spine_topology.o rand_regular_topology.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o
-	$(CC) $(INCLUDE) $(CFLAGS)  main_eval.o connection_matrix_eval.o leaf_spine_topology.o rand_regular_topology.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o $(LIB) -lhtsim -o rrg
+eval: main_eval.o ../libhtsim.a leaf_spine_topology.o rand_regular_topology.o connection_matrix_eval.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o
+	$(CC) $(INCLUDE) $(CFLAGS)  main_eval.o leaf_spine_topology.o rand_regular_topology.o connection_matrix_eval.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o $(LIB) -lhtsim -o eval
 
 
 main_eval.o: main_eval.cpp main.h
@@ -55,4 +52,4 @@ BhandariTopKDisjointPathsAlg.o: BhandariTopKDisjointPathsAlg.cpp BhandariTopKDis
 	$(CC) $(INCLUDE) $(CFLAGS) -c BhandariTopKDisjointPathsAlg.cpp
 
 clean:	
-	rm *.o rrg leafspine
+	rm *.o eval

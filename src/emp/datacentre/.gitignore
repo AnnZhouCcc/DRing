@@ -114,8 +114,8 @@ qivarfiles/
 !qivarfiles/*.tar.gz
 
 
-leafspine
-rrg
+eval
 logout.dat
 rawtrafficfiles/
-
+experiments/nsdi26fall/*/connection_matrices/
+experiments/nsdi26fall/*/outfiles/

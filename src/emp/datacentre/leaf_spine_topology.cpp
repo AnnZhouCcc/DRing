@@ -25,7 +25,6 @@ LeafSpineTopology::LeafSpineTopology(Logfile* lg, EventList* ev, queue_type qt, 
   qtype = qt;
 
   this->os = _os;
-  std::cout << "constructor, os = " << os << std::endl;
   ls_lsx = (3*ls_k/4);
   ls_lsy = (ls_k/4);
   ls_nl = (ls_lsx + ls_lsy);
