@@ -3,6 +3,7 @@
 #include "mtcp.h"
 #include "ecn.h"
 #include <iostream>
+#include "datacentre/main.h"
 
 #define KILL_THRESHOLD 5
 
@@ -200,6 +201,24 @@ TcpSrc::receivePacket(Packet& pkt)
         // FCT output for processing: (bytes fct_ms timestarted_ms packets_sent total_packet_bytes)
         _finished = true;
 
+		#if IS_EVAL
+
+		if (timeAsMs(_start_time) >= eventlist().measurement_start_ms) {
+			cout << "FCT " << _flow_size << " " << timeAsMs(eventlist().now() - _start_time) 
+				<< " " << timeAsMs(_start_time) << " " << endl;
+			for (vector<PacketSink*>::const_iterator it = _route->begin(); it != _route->end(); ++it) {
+			 	cout << (*it)->nodename() << " ";
+			}
+			cout << endl;
+
+			if (timeAsMs(eventlist().now() - _start_time)>1000) {
+				std::cout << "EXIT FCT already too high" << std::endl;
+				exit(EXIT_SUCCESS);
+			}
+		}
+		
+		#else
+
 		bool is_in_measurement = timeAsMs(_start_time) >= eventlist().measurement_start_ms && timeAsMs(_start_time) < eventlist().measurement_end_ms;
 		if (is_in_measurement) {
 			eventlist().num_flows_finished++;
@@ -216,6 +235,8 @@ TcpSrc::receivePacket(Packet& pkt)
 			cout << "Already have " << eventlist().num_flows_threshold << " finished. Program exit." << endl;
 			exit(EXIT_SUCCESS);
 		}
+
+		#endif
     }
   
     if (seqno > _last_acked) { // a brand new ack

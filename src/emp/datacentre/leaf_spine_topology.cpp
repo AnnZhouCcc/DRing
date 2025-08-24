@@ -19,6 +19,170 @@ string itoa(uint64_t n);
 
 // extern int N;
 
+LeafSpineTopology::LeafSpineTopology(Logfile* lg, EventList* ev, queue_type qt, int numfaillinks, string linkfailurefile, string netpathfile, string pathweightfile, uint32_t numswitches, uint32_t ls_k, uint16_t _os){
+  logfile = lg;
+  eventlist = ev;
+  qtype = qt;
+
+  this->os = _os;
+  std::cout << "constructor, os = " << os << std::endl;
+  ls_lsx = (3*ls_k/4);
+  ls_lsy = (ls_k/4);
+  ls_nl = (ls_lsx + ls_lsy);
+  ls_nsp = (ls_lsy);
+  ls_nsrv = (os*(ls_lsx + ls_lsy)*ls_lsx);
+
+  pipes_nup_nlp.resize(ls_nsp, std::vector<Pipe*>(ls_nl, nullptr));
+  pipes_nlp_ns.resize(ls_nl, std::vector<Pipe*>(ls_nsrv, nullptr));
+  queues_nup_nlp.resize(ls_nsp, std::vector<Queue*>(ls_nl, nullptr));
+  queues_nlp_ns.resize(ls_nl, std::vector<Queue*>(ls_nsrv, nullptr));
+
+  pipes_nlp_nup.resize(ls_nl, std::vector<Pipe*>(ls_nsp, nullptr));
+  pipes_ns_nlp.resize(ls_nsrv, std::vector<Pipe*>(ls_nl, nullptr));
+  queues_nlp_nup.resize(ls_nl, std::vector<Queue*>(ls_nsp, nullptr));
+  queues_ns_nlp.resize(ls_nsrv, std::vector<Queue*>(ls_nl, nullptr));
+
+  linkFailure.resize(numswitches, std::vector<std::vector<int>>(numswitches, std::vector<int>(2)));
+  
+  for (int i=0; i < numswitches; i++) {
+    for (int j=0; j<numswitches; j++) {
+      for (int k=0; k<2; k++) {
+        linkFailure[i][j][k] = 0;
+      }
+    }
+  }
+
+  if (numfaillinks == 0) {
+    init_network_eval();
+  } else {
+    ifstream lffile(linkfailurefile.c_str());
+    string lfline;
+    if (lffile.is_open()){
+      while(lffile.good()){
+      getline(lffile, lfline);
+      if (lfline.find_first_not_of(' ') == string::npos) break;
+          stringstream ss(lfline);
+          int lower, upper, direction;
+          ss >> lower >> upper >> direction;
+          if(lower >=ls_nl || upper >= ls_nsp){
+            cout<<"linkfailurefile has out of bounds nodes, "<<lower<<","<<upper<<","<<direction<<endl;
+            exit(0);
+          }
+          linkFailure[lower][upper][direction] = 1;
+      }
+      lffile.close();
+    }
+    cout<<"linkfailurefile: "<<linkfailurefile<<endl;
+
+    init_network_withfaillinks_eval();
+  }
+
+  net_paths_rack_based = new vector<route_t*>**[ls_nl];
+  for (int i=0;i<ls_nl;i++){
+  	net_paths_rack_based[i] = new vector<route_t*>*[ls_nl];
+  	for (int j = 0;j<ls_nl;j++){
+  		net_paths_rack_based[i][j] = NULL;
+  	}
+  }
+
+	// Read netpath from file
+	ifstream npfile(netpathfile.c_str());
+    string npline;
+    if (npfile.is_open()){
+      while(npfile.good()){
+        getline(npfile, npline);
+        if (npline.find_first_not_of(' ') == string::npos) break;
+        stringstream npss(npline);
+        int flowSrc,flowDst,num_paths;
+        vector<route_t*> *paths_rack_based;
+        if (npline.find_first_of("->") == string::npos) {
+          npss >> flowSrc >> flowDst >> num_paths;
+          paths_rack_based = new vector<route_t*>();
+          net_paths_rack_based[flowSrc][flowDst] = paths_rack_based;
+        } else {
+          string link;
+          int linkSrc,linkDst;
+          route_t *routeout = new route_t();
+          while (npss >> link) {
+            size_t found = link.find("->");
+            if (found != string::npos) {
+              linkSrc = stoi(link.substr(0,found));
+              linkDst = stoi(link.substr(found+2));
+              if (linkSrc<ls_nl && linkDst<ls_nl) {
+                cout << "***Error: linkSrc<NL and linkDst<NL, linkSrc=" << itoa(linkSrc) << ", linkDst=" << itoa(linkDst) << ", NL=" << itoa(ls_nl) << endl;
+                exit(1);
+              } else if (linkSrc<ls_nl) { // nlp-nup
+                linkDst -= ls_nl;
+                routeout->push_back(queues_nlp_nup[linkSrc][linkDst]);
+                routeout->push_back(pipes_nlp_nup[linkSrc][linkDst]);
+              } else if (linkDst<ls_nl) { // nup-nlp
+                linkSrc -= ls_nl;
+                routeout->push_back(queues_nup_nlp[linkSrc][linkDst]);
+                routeout->push_back(pipes_nup_nlp[linkSrc][linkDst]);
+              } else {
+                cout << "***Error: linkSrc>NL and linkDst>NL, linkSrc=" << itoa(linkSrc) << ", linkDst=" << itoa(linkDst) << ", NL=" << itoa(ls_nl) << endl;
+                exit(1);
+              }
+            }
+          }
+          paths_rack_based->push_back(routeout);
+        }
+      }
+      npfile.close();
+    } 
+	  else {
+      cout << "***Error opening netpathfile: " << netpathfile << endl;
+      exit(1);
+    }
+
+	// Initialize path_weights_rack_based
+	int numintervals = 1;
+	path_weights_rack_based = new vector < pair<int,double> > ***[numintervals];
+	for (int k=0; k<numintervals; k++) {
+		path_weights_rack_based[k] = new vector < pair<int,double> > **[ls_nl];
+		for (int i=0; i<ls_nl; i++) {
+			path_weights_rack_based[k][i] = new vector < pair<int,double> > *[ls_nl];
+			for (int j=0; j<ls_nl; j++) {
+				path_weights_rack_based[k][i][j] = new vector < pair<int,double> > ();
+			}
+		}
+	}
+
+	// Read pathweight from file
+	for (int i=0; i<numintervals; i++) {
+		ifstream pwfile(pathweightfile.c_str());
+		string pwline;
+		if (pwfile.is_open()){
+			while(pwfile.good()){
+				getline(pwfile, pwline);
+				if (pwline.find_first_not_of(' ') == string::npos) break;
+				stringstream ss(pwline);
+        string token;
+				vector<string> tokens;
+				while (getline(ss,token,'\t')) {
+					tokens.push_back(token);
+				}
+				int flowSrc = stoi(tokens[0]);
+				int flowDst = stoi(tokens[1]);
+				int pid = stoi(tokens[2]);
+				double weight = stod(tokens[5]);
+
+				path_weights_rack_based[i][flowSrc][flowDst]->push_back(pair<int,double>(pid,weight));
+			}
+			pwfile.close();
+		}
+		else {
+			cout << "***Error opening pathweightfile: " << pathweightfile << endl;
+			exit(1);
+		}
+	}
+}
+
+
+uint32_t LeafSpineTopology::eval_host_tor_switch(uint32_t src) {
+  return src/os/ls_lsx;
+}
+
 
 LeafSpineTopology::LeafSpineTopology(Logfile* lg, EventList* ev, queue_type qt, int numfaillinks, int failseed, string netpathfile, string pathweightfile){
   logfile = lg;
@@ -193,6 +357,176 @@ LeafSpineTopology::LeafSpineTopology(Logfile* lg, EventList* ev, queue_type qt, 
   
 #endif
 
+}
+
+void LeafSpineTopology::init_network_eval(){
+  QueueLoggerSampling* queueLogger;
+
+  for (int j=0;j<ls_nsp;j++){
+    for (int k=0;k<ls_nl;k++){
+      queues_nup_nlp[j][k] = NULL;
+      pipes_nup_nlp[j][k] = NULL;
+      queues_nlp_nup[k][j] = NULL;
+      pipes_nlp_nup[k][j] = NULL;
+    }
+  }
+  
+  for (int j=0;j<ls_nl;j++)
+    for (int k=0;k<ls_nsrv;k++){
+      queues_nlp_ns[j][k] = NULL;
+      pipes_nlp_ns[j][k] = NULL;
+      queues_ns_nlp[k][j] = NULL;
+      pipes_ns_nlp[k][j] = NULL;
+    }
+
+    cout<<"Link Speed: "<<speedFromPktps(HOST_NIC)<<endl;
+    mem_b queue_size = SWITCH_BUFFER * Packet::data_packet_size();
+
+    // lower layer switch to server
+    for (int j = 0; j < ls_nl; j++) {
+        for (int l = 0; l < ls_lsx * os; l++) {
+           int k = j * ls_lsx * os + l;
+           int delay = 1000000;
+           // Downlink
+           queueLogger = new QueueLoggerSampling(timeFromMs(delay), *eventlist);
+           //queueLogger = NULL;
+           logfile->addLogger(*queueLogger);
+
+           queues_nlp_ns[j][k] = alloc_queue(queueLogger, HOST_NIC, queue_size); //new RandomQueue(speedFromPktps(HOST_NIC), memFromPkt(SWITCH_BUFFER + RANDOM_BUFFER), *eventlist, queueLogger, memFromPkt(RANDOM_BUFFER));
+           queues_nlp_ns[j][k]->setName("LS_" + ntoa(j) + "-" + "DST_" +ntoa(k));
+           logfile->writeName(*(queues_nlp_ns[j][k]));
+
+           pipes_nlp_ns[j][k] = new Pipe(timeFromUs(RTT), *eventlist);
+           pipes_nlp_ns[j][k]->setName("Pipe-nt-ns-" + ntoa(j) + "-" + ntoa(k));
+           logfile->writeName(*(pipes_nlp_ns[j][k]));
+           
+           // Uplink
+           queueLogger = new QueueLoggerSampling(timeFromMs(delay), *eventlist);
+           logfile->addLogger(*queueLogger);
+           queues_ns_nlp[k][j] = alloc_queue(queueLogger, HOST_NIC, queue_size); //new RandomQueue(speedFromPktps(HOST_NIC), memFromPkt(SWITCH_BUFFER + RANDOM_BUFFER), *eventlist, queueLogger, memFromPkt(RANDOM_BUFFER));
+           queues_ns_nlp[k][j]->setName("SRC_" + ntoa(k) + "-" + "LS_"+ntoa(j));
+           logfile->writeName(*(queues_ns_nlp[k][j]));
+           
+           pipes_ns_nlp[k][j] = new Pipe(timeFromUs(RTT), *eventlist);
+           pipes_ns_nlp[k][j]->setName("Pipe-ns-nt-" + ntoa(k) + "-" + ntoa(j));
+           logfile->writeName(*(pipes_ns_nlp[k][j]));
+        }
+    }
+
+    //Lower layer to upper layer 
+    for (int j = 0; j < ls_nl; j++) {
+      //Connect the lower layer switch to the upper layer switches 
+      for (int k=0; k<ls_nsp;k++){
+         // Downlink
+         queueLogger = new QueueLoggerSampling(timeFromMs(1000), *eventlist);
+         logfile->addLogger(*queueLogger);
+         queues_nup_nlp[k][j] = alloc_queue(queueLogger, HOST_NIC, queue_size); //new RandomQueue(speedFromPktps(HOST_NIC), memFromPkt(SWITCH_BUFFER + RANDOM_BUFFER), *eventlist, queueLogger, memFromPkt(RANDOM_BUFFER));
+         queues_nup_nlp[k][j]->setName("US_" + ntoa(k) + "-" + "LS_"+ntoa(j));
+         logfile->writeName(*(queues_nup_nlp[k][j]));
+         
+         pipes_nup_nlp[k][j] = new Pipe(timeFromUs(RTT), *eventlist);
+         pipes_nup_nlp[k][j]->setName("Pipe-na-nt-" + ntoa(k) + "-" + ntoa(j));
+         logfile->writeName(*(pipes_nup_nlp[k][j]));
+         
+         // Uplink
+         queueLogger = new QueueLoggerSampling(timeFromMs(1000), *eventlist);
+         logfile->addLogger(*queueLogger);
+         queues_nlp_nup[j][k] = alloc_queue(queueLogger, HOST_NIC, queue_size); //new RandomQueue(speedFromPktps(HOST_NIC), memFromPkt(SWITCH_BUFFER + RANDOM_BUFFER), *eventlist, queueLogger, memFromPkt(RANDOM_BUFFER));
+         queues_nlp_nup[j][k]->setName("LS_" + ntoa(j) + "-" + "US_"+ntoa(k));
+         logfile->writeName(*(queues_nlp_nup[j][k]));
+         
+         pipes_nlp_nup[j][k] = new Pipe(timeFromUs(RTT), *eventlist);
+         pipes_nlp_nup[j][k]->setName("Pipe-nt-na-" + ntoa(j) + "-" + ntoa(k));
+         logfile->writeName(*(pipes_nlp_nup[j][k]));
+      }
+    }
+}
+
+void LeafSpineTopology::init_network_withfaillinks_eval(){
+  QueueLoggerSampling* queueLogger;
+
+  for (int j=0;j<ls_nsp;j++){
+    for (int k=0;k<ls_nl;k++){
+      queues_nup_nlp[j][k] = NULL;
+      pipes_nup_nlp[j][k] = NULL;
+      queues_nlp_nup[k][j] = NULL;
+      pipes_nlp_nup[k][j] = NULL;
+    }
+  }
+  
+  for (int j=0;j<ls_nl;j++)
+    for (int k=0;k<ls_nsrv;k++){
+      queues_nlp_ns[j][k] = NULL;
+      pipes_nlp_ns[j][k] = NULL;
+      queues_ns_nlp[k][j] = NULL;
+      pipes_ns_nlp[k][j] = NULL;
+    }
+
+    cout<<"Link Speed: "<<speedFromPktps(HOST_NIC)<<endl;
+    mem_b queue_size = SWITCH_BUFFER * Packet::data_packet_size();
+
+    // lower layer switch to server
+    for (int j = 0; j < ls_nl; j++) {
+        for (int l = 0; l < ls_lsx * os; l++) {
+           int k = j * ls_lsx * os + l;
+           int delay = 1000000;
+           // Downlink
+           queueLogger = new QueueLoggerSampling(timeFromMs(delay), *eventlist);
+           //queueLogger = NULL;
+           logfile->addLogger(*queueLogger);
+
+           queues_nlp_ns[j][k] = alloc_queue(queueLogger, HOST_NIC, queue_size); //new RandomQueue(speedFromPktps(HOST_NIC), memFromPkt(SWITCH_BUFFER + RANDOM_BUFFER), *eventlist, queueLogger, memFromPkt(RANDOM_BUFFER));
+           queues_nlp_ns[j][k]->setName("LS_" + ntoa(j) + "-" + "DST_" +ntoa(k));
+           logfile->writeName(*(queues_nlp_ns[j][k]));
+
+           pipes_nlp_ns[j][k] = new Pipe(timeFromUs(RTT), *eventlist);
+           pipes_nlp_ns[j][k]->setName("Pipe-nt-ns-" + ntoa(j) + "-" + ntoa(k));
+           logfile->writeName(*(pipes_nlp_ns[j][k]));
+           
+           // Uplink
+           queueLogger = new QueueLoggerSampling(timeFromMs(delay), *eventlist);
+           logfile->addLogger(*queueLogger);
+           queues_ns_nlp[k][j] = alloc_queue(queueLogger, HOST_NIC, queue_size); //new RandomQueue(speedFromPktps(HOST_NIC), memFromPkt(SWITCH_BUFFER + RANDOM_BUFFER), *eventlist, queueLogger, memFromPkt(RANDOM_BUFFER));
+           queues_ns_nlp[k][j]->setName("SRC_" + ntoa(k) + "-" + "LS_"+ntoa(j));
+           logfile->writeName(*(queues_ns_nlp[k][j]));
+           
+           pipes_ns_nlp[k][j] = new Pipe(timeFromUs(RTT), *eventlist);
+           pipes_ns_nlp[k][j]->setName("Pipe-ns-nt-" + ntoa(k) + "-" + ntoa(j));
+           logfile->writeName(*(pipes_ns_nlp[k][j]));
+        }
+    }
+
+    //Lower layer to upper layer 
+    for (int j = 0; j < ls_nl; j++) {
+      //Connect the lower layer switch to the upper layer switches 
+      for (int k=0; k<ls_nsp;k++){
+         // Downlink
+         uint64_t downbw = HOST_NIC;
+         if (linkFailure[j][k][1] == 1) downbw /= 2;
+         queueLogger = new QueueLoggerSampling(timeFromMs(1000), *eventlist);
+         logfile->addLogger(*queueLogger);
+         queues_nup_nlp[k][j] = alloc_queue(queueLogger, downbw, queue_size); //new RandomQueue(speedFromPktps(HOST_NIC), memFromPkt(SWITCH_BUFFER + RANDOM_BUFFER), *eventlist, queueLogger, memFromPkt(RANDOM_BUFFER));
+         queues_nup_nlp[k][j]->setName("US_" + ntoa(k) + "-" + "LS_"+ntoa(j));
+         logfile->writeName(*(queues_nup_nlp[k][j]));
+         
+         pipes_nup_nlp[k][j] = new Pipe(timeFromUs(RTT), *eventlist);
+         pipes_nup_nlp[k][j]->setName("Pipe-na-nt-" + ntoa(k) + "-" + ntoa(j));
+         logfile->writeName(*(pipes_nup_nlp[k][j]));
+         
+         // Uplink
+         uint64_t upbw = HOST_NIC;
+         if (linkFailure[j][k][0] == 1) upbw /= 2;
+         queueLogger = new QueueLoggerSampling(timeFromMs(1000), *eventlist);
+         logfile->addLogger(*queueLogger);
+         queues_nlp_nup[j][k] = alloc_queue(queueLogger, upbw, queue_size); //new RandomQueue(speedFromPktps(HOST_NIC), memFromPkt(SWITCH_BUFFER + RANDOM_BUFFER), *eventlist, queueLogger, memFromPkt(RANDOM_BUFFER));
+         queues_nlp_nup[j][k]->setName("LS_" + ntoa(j) + "-" + "US_"+ntoa(k));
+         logfile->writeName(*(queues_nlp_nup[j][k]));
+         
+         pipes_nlp_nup[j][k] = new Pipe(timeFromUs(RTT), *eventlist);
+         pipes_nlp_nup[j][k]->setName("Pipe-nt-na-" + ntoa(j) + "-" + ntoa(k));
+         logfile->writeName(*(pipes_nlp_nup[j][k]));
+      }
+    }
 }
 
 void LeafSpineTopology::init_network(){
@@ -393,7 +727,7 @@ void LeafSpineTopology::init_network_withfaillinks(){
       }*/
 }
 
-void check_non_null(route_t* rt){
+static void check_non_null(route_t* rt){
   int fail = 0;
   for (unsigned int i=1;i<rt->size()-1;i+=2)
     if (rt->at(i)==NULL){
@@ -460,6 +794,40 @@ route_t *LeafSpineTopology::attach_head_tail(int src, int dst, bool is_same_swit
   int dst_sw = ConvertHostToRack(dst);
 	route_t *this_route;
 
+  #if IS_EVAL
+
+  if (is_same_switch) {
+    assert(rand_choice == 0);
+    this_route = new route_t();
+
+		Queue* pqueue = new Queue(speedFromPktps(HOST_NIC), memFromPkt(FEEDER_BUFFER), *eventlist, NULL);
+		pqueue->setName("PQueue_" + ntoa(src) + "_" + ntoa(dst));
+		logfile->writeName(*pqueue);
+
+		this_route->push_back(pqueue);
+		this_route->push_back(queues_ns_nlp[src][eval_host_tor_switch(src)]);
+		this_route->push_back(pipes_ns_nlp[src][eval_host_tor_switch(src)]);
+
+		this_route->push_back(queues_nlp_ns[eval_host_tor_switch(dst)][dst]);
+		this_route->push_back(pipes_nlp_ns[eval_host_tor_switch(dst)][dst]);
+	} 
+  else {
+    this_route = new route_t(*(net_paths_rack_based[src_sw][dst_sw]->at(rand_choice)));
+		assert(this_route->size() > 0);
+
+		Queue* pqueue = new Queue(speedFromPktps(HOST_NIC), memFromPkt(FEEDER_BUFFER), *eventlist, NULL);
+		pqueue->setName("PQueue_" + ntoa(src) + "_" + ntoa(dst));
+		logfile->writeName(*pqueue);
+		this_route->push_front(pipes_ns_nlp[src][eval_host_tor_switch(src)]);
+		this_route->push_front(queues_ns_nlp[src][eval_host_tor_switch(src)]);
+		this_route->push_front(pqueue);
+
+		this_route->push_back(queues_nlp_ns[eval_host_tor_switch(dst)][dst]);
+		this_route->push_back(pipes_nlp_ns[eval_host_tor_switch(dst)][dst]);
+	}
+
+  #else
+
   if (is_same_switch) {
     assert(rand_choice == 0);
     this_route = new route_t();
@@ -489,10 +857,47 @@ route_t *LeafSpineTopology::attach_head_tail(int src, int dst, bool is_same_swit
 		this_route->push_back(queues_nlp_ns[HOST_TOR_SWITCH(dst)][dst]);
 		this_route->push_back(pipes_nlp_ns[HOST_TOR_SWITCH(dst)][dst]);
 	}
+
+  #endif
 	return this_route;
 }
 
 void LeafSpineTopology::delete_net_paths_rack_based(int numintervals) {
+  #if IS_EVAL
+
+  for (int i=0; i<ls_nl; i++) {
+    for (int j=0; j<ls_nl; j++) {
+      if (net_paths_rack_based[i][j]) {
+        for (auto p : (*net_paths_rack_based[i][j])) {
+          delete p;
+        }
+        net_paths_rack_based[i][j]->clear();
+        delete net_paths_rack_based[i][j];
+      }
+    }
+    delete [] net_paths_rack_based[i];
+  }
+	delete [] net_paths_rack_based;
+
+#if PATHWEIGHTS
+  numintervals = 1;
+	for (int k=0; k<numintervals; k++) {
+		for (int i=0; i<ls_nl; i++) {
+			for (int j=0; j<ls_nl; j++) {
+				if (path_weights_rack_based[k][i][j]) {
+					path_weights_rack_based[k][i][j]->clear();
+					delete path_weights_rack_based[k][i][j];
+				}
+			}
+			delete [] path_weights_rack_based[k][i];
+		}	
+		delete [] path_weights_rack_based[k];
+	}
+	delete [] path_weights_rack_based;
+#endif
+  
+  #else
+
   for (int i=0; i<NL; i++) {
     for (int j=0; j<NL; j++) {
       if (net_paths_rack_based[i][j]) {
@@ -523,6 +928,8 @@ void LeafSpineTopology::delete_net_paths_rack_based(int numintervals) {
 	}
 	delete [] path_weights_rack_based;
 #endif
+
+  #endif
 
 }
 
@@ -621,6 +1028,11 @@ pair<vector<int>, vector<int> > LeafSpineTopology::getcsRacks(int clients, int s
 
    return pair<vector<int>, vector<int> > (clientracks, serverracks);
 }
+
+
+int LeafSpineTopology::ConvertHostToRack(int host) { 
+  return eval_host_tor_switch(host);
+};
 
 
 LeafSpineTopology::LeafSpineTopology(Logfile* lg, EventList* ev, queue_type qt, string netpathfile, string pathweightfile){

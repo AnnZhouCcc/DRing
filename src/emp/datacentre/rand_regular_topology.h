@@ -33,6 +33,16 @@ enum FIND_PATH_ALGORITHM
 
 class RandRegularTopology: public Topology{
  public:
+ #if IS_EVAL
+  std::vector<std::vector<Pipe*>> pipes_sw_sw;
+  std::vector<std::vector<Queue*>> queues_sw_sw;
+
+  std::vector<std::vector<Pipe*>> pipes_sw_svr;
+  std::vector<std::vector<Queue*>> queues_sw_svr;
+
+  std::vector<std::vector<Pipe*>> pipes_svr_sw;
+  std::vector<std::vector<Queue*>> queues_svr_sw;
+  #else
   // sw_sw: lower index to higher index = up link etc.
   Pipe * pipes_sw_sw[NSW][NSW];
   Queue * queues_sw_sw[NSW][NSW];
@@ -44,6 +54,7 @@ class RandRegularTopology: public Topology{
   // These are for svr to switch "up" links
   Pipe * pipes_svr_sw[NSW][SVRPORTS];
   Queue * queues_svr_sw[NSW][SVRPORTS];
+  #endif
 
   Logfile* logfile;
 
@@ -54,11 +65,19 @@ class RandRegularTopology: public Topology{
 
   RandRegularTopology(Logfile* log,EventList* ev, string graphFile, queue_type qt=RANDOM, string conn_matrix="CLUSTERX", string alg="ecmp", int k=0, string netpathFile="none", string pathweightfileprefix="none", string pathweightfilesuffix="none", int solvestart=0, int solveend=0, int solveinterval=0, int computestart=0, int computeend=0, int computeinterval=0);
   RandRegularTopology(Logfile* log,EventList* ev, string graphFile, queue_type qt=RANDOM, string conn_matrix="CLUSTERX", string alg="ecmp", int k=0, int numfaillinks=0, int failseed=0, string netpathFile="none", string pathweightfileprefix="none", string pathweightfilesuffix="none", int solvestart=0, int solveend=0, int solveinterval=0, int computestart=0, int computeend=0, int computeinterval=0, string trafficname="none", string serverfile="none");
+  RandRegularTopology(Logfile* log,EventList* ev, string graphFile, queue_type qt=RANDOM, int numfaillinks=0, string linkfailurefile="none", string netpathFile="none", string pathweightfileprefix="none", uint32_t numintervals=0, string serverfile="none", uint32_t _numswitches = 0, uint32_t numhosts = 0, uint16_t _os = 1, uint32_t _ls_k = 0);
+
+  uint32_t numswitches;
+  uint16_t os;
+  uint32_t ls_k;
+  uint32_t numserverports;
 
   void read_netpathfile(string netpathfile, vector<route_t *>***net_paths);
 
   void init_network();
   void init_network_withfaillinks();
+  void init_network_eval();
+  void init_network_withfaillinks_eval();
   virtual pair<vector<double>*, vector<route_t*>*> get_paths(int src, int dest);
   virtual pair<vector<double>*, vector<route_t*>*> get_other_paths(int src, int dest);
   virtual pair<vector<double>*, vector<route_t*>*> get_paths_helper(int src, int dest, FIND_PATH_ALGORITHM find_path_alg);
@@ -73,11 +92,18 @@ class RandRegularTopology: public Topology{
 
   Graph* myGraph;
   map<int, map<int, map<BaseVertex*, double> > > nextHops;
+  #if IS_EVAL
+  std::vector<std::vector<int>> linkFailure;
+  std::vector<std::vector<int>> shortestPathLen;
+  std::vector<int> partitions;
+  std::vector<std::vector<int>*> adjMatrix;
+  #else
   vector<int>* adjMatrix[NSW];
   int linkFailure[NSW][NSW];
   int partitions[NSW];
 
   int shortestPathLen[NSW][NSW];
+  #endif
 
   void populateNextHops(int dest_sw);
   int find_switch(Queue* queue);

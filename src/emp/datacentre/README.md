@@ -1,5 +1,20 @@
 # Starfish: A Flat Data Center Network
 
+## Submission Notes for NSDI'26 Fall
+
+```
+(no run.sh, discover.sh needed any more)
+cd src/emp/datacentre
+make clean
+make # should expect to see rrg and leafspine executables
+
+
+pip3 install tqdm
+pip3 install gurobipy==11.0.3
+```
+
+
+
 ## Submission Notes for NSDI Fall'25
 
 ### Pickle files

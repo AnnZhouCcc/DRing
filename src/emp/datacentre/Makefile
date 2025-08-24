@@ -20,59 +20,24 @@ LIB=-L..
 # LIB=-L.. -L${GRBLIB}
 #-Lksp
 
-all:	fattree rrg clusterrrg leafspine computestore storetm storenetpath
 
-#Leaf spine
-leafspine: main_flowsize.o ../libhtsim.a leaf_spine_topology.o connection_matrix.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o
-	$(CC) $(INCLUDE) $(CFLAGS)  main_flowsize.o leaf_spine_topology.o connection_matrix.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o $(LIB) -lhtsim -o leafspine
+all:	rrg leafspine
 
-fattree: main_flowsize.o  ../libhtsim.a fat_tree_topology.o connection_matrix.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o
-	$(CC) $(INCLUDE) $(CFLAGS)  main_flowsize.o fat_tree_topology.o connection_matrix.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o $(LIB) -lhtsim -o fattree
+leafspine: main_eval.o ../libhtsim.a leaf_spine_topology.o rand_regular_topology.o connection_matrix_eval.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o
+	$(CC) $(INCLUDE) $(CFLAGS)  main_eval.o leaf_spine_topology.o rand_regular_topology.o connection_matrix_eval.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o $(LIB) -lhtsim -o leafspine
 
-rrg: main_flowsize.o  ../libhtsim.a connection_matrix.o rand_regular_topology.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o
-	$(CC) $(INCLUDE) $(CFLAGS)  main_flowsize.o connection_matrix.o rand_regular_topology.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o $(LIB) -lhtsim -o rrg
-# -lgurobi_g++5.2
-# rrg: main_flowsize.o  ../libhtsim.a connection_matrix.o rand_regular_topology.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o
-# 	$(CC) $(INCLUDE) $(CFLAGS)  main_flowsize.o connection_matrix.o rand_regular_topology.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o $(LIB) -lhtsim -lgurobi_g++5.2 -lgurobi91 -o rrg
+rrg: main_eval.o  ../libhtsim.a connection_matrix_eval.o leaf_spine_topology.o rand_regular_topology.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o
+	$(CC) $(INCLUDE) $(CFLAGS)  main_eval.o connection_matrix_eval.o leaf_spine_topology.o rand_regular_topology.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o $(LIB) -lhtsim -o rrg
 
-# clusterrrg: main_flowsize_clusterx_small_interval.o  ../libhtsim.a connection_matrix.o rand_regular_topology.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o
-# 	$(CC) $(INCLUDE) $(CFLAGS)  main_flowsize_clusterx_small_interval.o connection_matrix.o rand_regular_topology.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o $(LIB) -lhtsim -lgurobi_g++5.2 -lgurobi91 -o clusterrrg
 
-# computestore: main_compute.o  ../libhtsim.a compute_store.o connection_matrix.o rand_regular_topology.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o
-# 	$(CC) $(INCLUDE) $(CFLAGS)  main_compute.o compute_store.o connection_matrix.o rand_regular_topology.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o $(LIB) -lhtsim -lgurobi_g++5.2 -lgurobi91 -o computestore
+main_eval.o: main_eval.cpp main.h
+	$(CC) $(INCLUDE) $(CFLAGS) -c main_eval.cpp 
 
-# storetm: main_storetm.o  ../libhtsim.a connection_matrix.o rand_regular_topology.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o
-# 	$(CC) $(INCLUDE) $(CFLAGS)  main_storetm.o connection_matrix.o rand_regular_topology.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o $(LIB) -lhtsim -lgurobi_g++5.2 -lgurobi91 -o storetm
-
-# storenetpath: main_storenetpath.o  ../libhtsim.a connection_matrix.o rand_regular_topology.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o
-# 	$(CC) $(INCLUDE) $(CFLAGS)  main_storenetpath.o connection_matrix.o rand_regular_topology.o Graph.o YenTopKShortestPathsAlg.o BhandariTopKDisjointPathsAlg.o DijkstraShortestPathAlg.o $(LIB) -lhtsim -lgurobi_g++5.2 -lgurobi91 -o storenetpath
-
-main_flowsize.o: main_flowsize.cpp main.h
-	$(CC) $(INCLUDE) $(CFLAGS) -c main_flowsize.cpp 
-
-main_flowsize_clusterx_small_interval.o: main_flowsize_clusterx_small_interval.cpp main.h
-	$(CC) $(INCLUDE) $(CFLAGS) -c main_flowsize_clusterx_small_interval.cpp 
-
-main_compute.o: main_compute.cpp main.h
-	$(CC) $(INCLUDE) $(CFLAGS) -c main_compute.cpp 
-
-main_storetm.o: main_storetm.cpp main.h
-	$(CC) $(INCLUDE) $(CFLAGS) -c main_storetm.cpp
-
-main_storenetpath.o: main_storenetpath.cpp main.h
-	$(CC) $(INCLUDE) $(CFLAGS) -c main_storenetpath.cpp
-
-compute_store.o: compute_store.cpp compute_store.h main.h
-	$(CC) $(INCLUDE) $(CFLAGS) -c compute_store.cpp
-
-connection_matrix.o: connection_matrix.cpp main.h 
-	$(CC) $(INCLUDE) $(CFLAGS) -c connection_matrix.cpp 
+connection_matrix_eval.o: connection_matrix_eval.cpp main.h 
+	$(CC) $(INCLUDE) $(CFLAGS) -c connection_matrix_eval.cpp 
 
 leaf_spine_topology.o: leaf_spine_topology.cpp leaf_spine_topology.h topology.h  main.h
 	$(CC) $(INCLUDE) $(CFLAGS) -c leaf_spine_topology.cpp
-
-fat_tree_topology.o: fat_tree_topology.cpp fat_tree_topology.h topology.h  main.h
-	$(CC) $(INCLUDE) $(CFLAGS) -c fat_tree_topology.cpp
 
 rand_regular_topology.o: rand_regular_topology.cpp rand_regular_topology.h topology.h Graph.h GraphElements.h main.h
 	$(CC) $(INCLUDE) $(CFLAGS) -c rand_regular_topology.cpp
@@ -90,4 +55,4 @@ BhandariTopKDisjointPathsAlg.o: BhandariTopKDisjointPathsAlg.cpp BhandariTopKDis
 	$(CC) $(INCLUDE) $(CFLAGS) -c BhandariTopKDisjointPathsAlg.cpp
 
 clean:	
-	rm *.o htsim_dc rrg clusterrrg fattree leafspine computestore storetm storenetpath
+	rm *.o rrg leafspine

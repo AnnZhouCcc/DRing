@@ -43,5 +43,8 @@ void ConnectionMatrixEval::setTopoFlowsEval(string cmfile) {
       flows.push_back(Flow(fromserver, toserver, bytes, start_time_ms));
     }
     TMFile.close();
+  } else {
+    cout << "***Error opening connection matrix file: " << cmfile << endl;
+    exit(1);
   }
 }

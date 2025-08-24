@@ -34,6 +34,167 @@ string itoa(uint64_t n);
 extern int N;
 
 
+RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string graphFile, queue_type qt, int numfaillinks, string linkfailurefile, string netpathfile, string pathweightfileprefix, uint32_t numintervals, string serverfile, uint32_t _numswitches, uint32_t numhosts, uint16_t _os, uint32_t _ls_k) {
+  logfile = lg;
+  eventlist = ev;
+  qtype = qt;
+
+  this->numswitches = _numswitches;
+  this->os = _os;
+  this->ls_k = _ls_k;
+  uint32_t reduced_numhosts = numhosts / os;
+  this->numserverports = os * (reduced_numhosts % numswitches == 0 ? reduced_numhosts / numswitches : reduced_numhosts / numswitches + 2); // AnnC: +1 or +2?
+
+	pipes_sw_sw.resize(numswitches, std::vector<Pipe*>(numswitches, nullptr));
+	queues_sw_sw.resize(numswitches, std::vector<Queue*>(numswitches, nullptr));
+	pipes_sw_svr.resize(numswitches, std::vector<Pipe*>(numserverports, nullptr));
+	queues_sw_svr.resize(numswitches, std::vector<Queue*>(numserverports, nullptr));
+	pipes_svr_sw.resize(numswitches, std::vector<Pipe*>(numserverports, nullptr));
+	queues_svr_sw.resize(numswitches, std::vector<Queue*>(numserverports, nullptr));
+
+	linkFailure.resize(numswitches, std::vector<int>(numswitches, 0));
+	shortestPathLen.resize(numswitches, std::vector<int>(numswitches, 0));
+	partitions.resize(numswitches, 0);
+	adjMatrix.resize(numswitches, nullptr);
+
+  for (int i=0; i < numswitches; i++)
+    adjMatrix[i] = new vector<int>();
+
+  for (int i=0; i < numswitches; i++) {
+	for (int j=0; j<numswitches; j++) {
+		linkFailure[i][j] = 0;
+	}
+  }
+
+  //< read graph from the graphFile
+  ifstream myfile(graphFile.c_str());
+  string line;
+  if (myfile.is_open()){
+    while(myfile.good()){
+	getline(myfile, line);
+	if (line.find("->") == string::npos) break;
+	int from = atoi(line.substr(0, line.find("->")).c_str());
+	int to = atoi(line.substr(line.find("->") + 2).c_str());
+    if(from >= numswitches || to >= numswitches){
+        cout<<"Graph file has out of bounds nodes, "<<from<<"->"<<to<<", NSW: "<<numswitches<<endl;
+        exit(0);
+    }
+	adjMatrix[from]->push_back(to);
+	adjMatrix[to]->push_back(from);
+    }
+    myfile.close();
+  }
+  cout<<"GraphFile: "<<graphFile<<endl;
+
+  if (numfaillinks == 0) {
+	init_network_eval();
+  } else {
+	ifstream lffile(linkfailurefile.c_str());
+	string lfline;
+	if (lffile.is_open()){
+		while(lffile.good()){
+		getline(lffile, lfline);
+		if (lfline.find_first_not_of(' ') == string::npos) break;
+        stringstream ss(lfline);
+        int from, to;
+        ss >> from >> to;
+		if(from >= numswitches || to >= numswitches){
+			cout<<"linkfailurefile has out of bounds nodes, "<<from<<"->"<<to<<", NSW: "<<numswitches<<endl;
+			exit(0);
+		}
+		linkFailure[from][to] = 1;
+		}
+		lffile.close();
+	}
+	cout<<"linkfailurefile: "<<linkfailurefile<<endl;
+
+	init_network_withfaillinks_eval();
+  }
+
+  cout<< "RRG Init network finished "<<endl;
+
+	// Initialize net_paths_rack_based
+	net_paths_rack_based = new vector<route_t*>**[numswitches];
+	for (int i=0;i<numswitches;i++){
+		net_paths_rack_based[i] = new vector<route_t*>*[numswitches];
+		for (int j = 0;j<numswitches;j++){
+			net_paths_rack_based[i][j] = NULL;
+		}
+	}
+
+	// Read netpath from file
+	read_netpathfile(netpathfile,net_paths_rack_based);
+
+	// Initialize path_weights_rack_based
+	path_weights_rack_based = new vector < pair<int,double> > ***[numintervals];
+	for (int k=0; k<numintervals; k++) {
+		path_weights_rack_based[k] = new vector < pair<int,double> > **[numswitches];
+		for (int i=0; i<numswitches; i++) {
+			path_weights_rack_based[k][i] = new vector < pair<int,double> > *[numswitches];
+			for (int j=0; j<numswitches; j++) {
+				path_weights_rack_based[k][i][j] = new vector < pair<int,double> > ();
+			}
+		}
+	}
+
+	for (int i=0; i<numintervals; i++) {
+		string pathweightfile = pathweightfileprefix + to_string(i) + ".pw";
+		ifstream pwfile(pathweightfile.c_str());
+		string pwline;
+		if (pwfile.is_open()){
+			while(pwfile.good()){
+				getline(pwfile, pwline);
+				if (pwline.find_first_not_of(' ') == string::npos) break;
+				stringstream ss(pwline);
+				string token;
+				vector<string> tokens;
+				while (getline(ss,token,',')) {
+					tokens.push_back(token);
+				}
+				int flowSrc = stoi(tokens[0]);
+				int flowDst = stoi(tokens[1]);
+				int pid = stoi(tokens[2]);
+				double weight = stod(tokens[3]);
+
+				path_weights_rack_based[i][flowSrc][flowDst]->push_back(pair<int,double>(pid,weight));
+			}
+			pwfile.close();
+		}
+		else {
+			cout << "***Error opening pathweightfile: " << pathweightfile << endl;
+			exit(1);
+		}
+	}
+
+
+	for (int i=0; i<10000; i++) { // AnnC: dummy number. assume we have at most 10000 servers.
+		hostToSwitchArr.push_back(-1);
+	}
+	ifstream svrfile(serverfile.c_str());
+	string svrline;
+	if (svrfile.is_open()){
+		while(svrfile.good()){
+			getline(svrfile, svrline);
+			if (svrline.find_first_not_of(' ') == string::npos) break;
+			stringstream ss(svrline);
+			string token;
+			vector<string> tokens;
+			while (getline(ss,token,',')) {
+				tokens.push_back(token);
+			}
+			int svr = stoi(tokens[0]);
+			int sw = stoi(tokens[1]);
+			hostToSwitchArr.at(svr) = sw;
+		}
+		svrfile.close();
+	}
+	else {
+		cout << "***Error opening serverfile: " << serverfile << endl;
+		exit(1);
+	}
+}
+
+
 RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string graphFile, queue_type qt, string conn_matrix, string alg, int k, int numfaillinks, int failseed, string netpathfile, string pathweightfileprefix, string pathweightfilesuffix, int solvestart, int solveend, int solveinterval, int computestart, int computeend, int computeinterval, string trafficname, string serverfile){
   logfile = lg;
   eventlist = ev;
@@ -443,6 +604,194 @@ void RandRegularTopology::read_netpathfile(string netpathfile, vector<route_t *>
 }
 
 
+void RandRegularTopology::init_network_eval(){
+  QueueLoggerSampling* queueLogger;
+
+  cout<<"SVRPORTS: "<<numserverports<<endl;
+
+  // sw-svr
+  for (int j=0;j<numswitches;j++)
+    for (int k=0;k<numserverports;k++){
+      queues_sw_svr[j][k] = NULL;
+      pipes_sw_svr[j][k] = NULL;
+      queues_svr_sw[j][k] = NULL;
+      pipes_svr_sw[j][k] = NULL;
+    }
+  
+  // sw-sw
+  for (int j=0;j<numswitches;j++)
+    for (int k=0;k<numswitches;k++){
+      queues_sw_sw[j][k] = NULL;
+      pipes_sw_sw[j][k] = NULL;
+    }
+
+  cout<<"init_network finished. Link speed: "<<speedFromPktps(HOST_NIC)<<endl;
+
+   int logger_period_ms = 1000000;
+   mem_b queue_size = SWITCH_BUFFER * Packet::data_packet_size();
+   // sw-svr
+   for (int j = 0; j < numswitches; j++) {
+	int nsvrports = ls_k - adjMatrix[j]->size();
+        for (int k = 0; k < nsvrports * os; k++) {
+
+		#if IS_DEBUG_ON
+			std::cout << "SW" << j << "->SVR" << k << std::endl;
+		#endif
+
+          // Downlink: sw to server = sw-svr
+          queueLogger = new QueueLoggerSampling(timeFromMs(logger_period_ms), *eventlist);
+          logfile->addLogger(*queueLogger);
+
+          queues_sw_svr[j][k] = alloc_queue(queueLogger, HOST_NIC, queue_size); //new RandomQueue(speedFromPktps(HOST_NIC), memFromPkt(SWITCH_BUFFER + RANDOM_BUFFER), *eventlist, queueLogger, memFromPkt(RANDOM_BUFFER));
+          queues_sw_svr[j][k]->setName("SW_" + ntoa(j) + "-" + "DST_" +ntoa(k));
+          logfile->writeName(*(queues_sw_svr[j][k]));
+
+          pipes_sw_svr[j][k] = new Pipe(timeFromUs(RTT), *eventlist);
+          pipes_sw_svr[j][k]->setName("Pipe-sw-svr-" + ntoa(j) + "-" + ntoa(k));
+          logfile->writeName(*(pipes_sw_svr[j][k]));
+
+		#if IS_DEBUG_ON
+			std::cout << "SVR" << j << "->SW" << k << std::endl;
+		#endif
+
+          // Uplink: server to sw = svr-sw
+          queueLogger = new QueueLoggerSampling(timeFromMs(logger_period_ms), *eventlist);
+          logfile->addLogger(*queueLogger);
+
+          queues_svr_sw[j][k] = alloc_queue(queueLogger, HOST_NIC, queue_size); //new RandomQueue(speedFromPktps(HOST_NIC), memFromPkt(SWITCH_BUFFER + RANDOM_BUFFER), *eventlist, queueLogger, memFromPkt(RANDOM_BUFFER));
+          queues_svr_sw[j][k]->setName("SRC_" + ntoa(k) + "-" + "SW_" +ntoa(j));
+          logfile->writeName(*(queues_svr_sw[j][k]));
+
+          pipes_svr_sw[j][k] = new Pipe(timeFromUs(RTT), *eventlist);
+          pipes_svr_sw[j][k]->setName("Pipe-svr-sw-" + ntoa(k) + "-" + ntoa(j));
+          logfile->writeName(*(pipes_svr_sw[j][k]));
+        }
+    }
+
+  // Now use adjMatrix to add pipes etc. between switches
+  for (int i = 0; i < numswitches; i++) { // over the adjMatrix i.e. different switches
+    for (unsigned int j = 0; j < adjMatrix[i]->size(); j++) { // over connections from each switch
+	    
+      int k = (*adjMatrix[i])[j];
+      if ( i > k) continue;
+      
+      queueLogger = new QueueLoggerSampling(timeFromMs(logger_period_ms), *eventlist);
+      logfile->addLogger(*queueLogger);
+
+      queues_sw_sw[i][k] = alloc_queue(queueLogger, HOST_NIC, queue_size); //new RandomQueue(speedFromPktps(HOST_NIC), memFromPkt(SWITCH_BUFFER + RANDOM_BUFFER), *eventlist, queueLogger, memFromPkt(RANDOM_BUFFER));
+      queues_sw_sw[i][k]->setName("SW_" + ntoa(i) + "-" + "SW_" +ntoa(k));
+      logfile->writeName(*(queues_sw_sw[i][k]));
+
+      pipes_sw_sw[i][k] = new Pipe(timeFromUs(RTT), *eventlist);
+      pipes_sw_sw[i][k]->setName("Pipe-sw-sw-" + ntoa(i) + "-" + ntoa(k));
+      logfile->writeName(*(pipes_sw_sw[i][k]));
+	  
+      queueLogger = new QueueLoggerSampling(timeFromMs(logger_period_ms), *eventlist);
+      logfile->addLogger(*queueLogger);
+
+      queues_sw_sw[k][i] = alloc_queue(queueLogger, HOST_NIC, queue_size); //new RandomQueue(speedFromPktps(HOST_NIC), memFromPkt(SWITCH_BUFFER + RANDOM_BUFFER), *eventlist, queueLogger, memFromPkt(RANDOM_BUFFER));
+      queues_sw_sw[k][i]->setName("SW_" + ntoa(k) + "-" + "SW_" +ntoa(i));
+      logfile->writeName(*(queues_sw_sw[k][i]));
+	  
+      pipes_sw_sw[k][i] = new Pipe(timeFromUs(RTT), *eventlist);
+      pipes_sw_sw[k][i]->setName("Pipe-sw-sw-" + ntoa(k) + "-" + ntoa(i));
+      logfile->writeName(*(pipes_sw_sw[k][i]));
+    }
+  }
+}
+
+void RandRegularTopology::init_network_withfaillinks_eval(){
+  QueueLoggerSampling* queueLogger;
+
+  cout<<"SVRPORTS: "<<numserverports<<endl;
+
+  // sw-svr
+  for (int j=0;j<numswitches;j++)
+    for (int k=0;k<numserverports;k++){
+      queues_sw_svr[j][k] = NULL;
+      pipes_sw_svr[j][k] = NULL;
+      queues_svr_sw[j][k] = NULL;
+      pipes_svr_sw[j][k] = NULL;
+    }
+  
+  // sw-sw
+  for (int j=0;j<numswitches;j++)
+    for (int k=0;k<numswitches;k++){
+      queues_sw_sw[j][k] = NULL;
+      pipes_sw_sw[j][k] = NULL;
+    }
+
+  cout<<"init_network finished. Link speed: "<<speedFromPktps(HOST_NIC)<<endl;
+
+   int logger_period_ms = 1000000;
+   mem_b queue_size = SWITCH_BUFFER * Packet::data_packet_size();
+   // sw-svr
+   for (int j = 0; j < numswitches; j++) {
+	int nsvrports = ls_k - adjMatrix[j]->size();
+        for (int k = 0; k < nsvrports * os; k++) {
+          // Downlink: sw to server = sw-svr
+          queueLogger = new QueueLoggerSampling(timeFromMs(logger_period_ms), *eventlist);
+          logfile->addLogger(*queueLogger);
+
+          queues_sw_svr[j][k] = alloc_queue(queueLogger, HOST_NIC, queue_size); //new RandomQueue(speedFromPktps(HOST_NIC), memFromPkt(SWITCH_BUFFER + RANDOM_BUFFER), *eventlist, queueLogger, memFromPkt(RANDOM_BUFFER));
+          queues_sw_svr[j][k]->setName("SW_" + ntoa(j) + "-" + "DST_" +ntoa(k));
+          logfile->writeName(*(queues_sw_svr[j][k]));
+
+          pipes_sw_svr[j][k] = new Pipe(timeFromUs(RTT), *eventlist);
+          pipes_sw_svr[j][k]->setName("Pipe-sw-svr-" + ntoa(j) + "-" + ntoa(k));
+          logfile->writeName(*(pipes_sw_svr[j][k]));
+
+          // Uplink: server to sw = svr-sw
+          queueLogger = new QueueLoggerSampling(timeFromMs(logger_period_ms), *eventlist);
+          logfile->addLogger(*queueLogger);
+
+          queues_svr_sw[j][k] = alloc_queue(queueLogger, HOST_NIC, queue_size); //new RandomQueue(speedFromPktps(HOST_NIC), memFromPkt(SWITCH_BUFFER + RANDOM_BUFFER), *eventlist, queueLogger, memFromPkt(RANDOM_BUFFER));
+          queues_svr_sw[j][k]->setName("SRC_" + ntoa(k) + "-" + "SW_" +ntoa(j));
+          logfile->writeName(*(queues_svr_sw[j][k]));
+
+          pipes_svr_sw[j][k] = new Pipe(timeFromUs(RTT), *eventlist);
+          pipes_svr_sw[j][k]->setName("Pipe-svr-sw-" + ntoa(k) + "-" + ntoa(j));
+          logfile->writeName(*(pipes_svr_sw[j][k]));
+        }
+    }
+
+  // Now use adjMatrix to add pipes etc. between switches
+  for (int i = 0; i < numswitches; i++) { // over the adjMatrix i.e. different switches
+    for (unsigned int j = 0; j < adjMatrix[i]->size(); j++) { // over connections from each switch
+	    
+      int k = (*adjMatrix[i])[j];
+      if ( i > k) continue;
+      
+      queueLogger = new QueueLoggerSampling(timeFromMs(logger_period_ms), *eventlist);
+      logfile->addLogger(*queueLogger);
+	
+	uint64_t upbw = HOST_NIC; // AnnC: actually unsure whether this is up or down
+	if (linkFailure[i][k]==1) upbw /= 2;
+      queues_sw_sw[i][k] = alloc_queue(queueLogger, upbw, queue_size); //new RandomQueue(speedFromPktps(HOST_NIC), memFromPkt(SWITCH_BUFFER + RANDOM_BUFFER), *eventlist, queueLogger, memFromPkt(RANDOM_BUFFER));
+      queues_sw_sw[i][k]->setName("SW_" + ntoa(i) + "-" + "SW_" +ntoa(k));
+      logfile->writeName(*(queues_sw_sw[i][k]));
+
+      pipes_sw_sw[i][k] = new Pipe(timeFromUs(RTT), *eventlist);
+      pipes_sw_sw[i][k]->setName("Pipe-sw-sw-" + ntoa(i) + "-" + ntoa(k));
+      logfile->writeName(*(pipes_sw_sw[i][k]));
+	  
+      queueLogger = new QueueLoggerSampling(timeFromMs(logger_period_ms), *eventlist);
+      logfile->addLogger(*queueLogger);
+
+	uint64_t downbw = HOST_NIC;
+	if (linkFailure[i][k]==1) downbw /= 2;
+      queues_sw_sw[k][i] = alloc_queue(queueLogger, downbw, queue_size); //new RandomQueue(speedFromPktps(HOST_NIC), memFromPkt(SWITCH_BUFFER + RANDOM_BUFFER), *eventlist, queueLogger, memFromPkt(RANDOM_BUFFER));
+      queues_sw_sw[k][i]->setName("SW_" + ntoa(k) + "-" + "SW_" +ntoa(i));
+      logfile->writeName(*(queues_sw_sw[k][i]));
+	  
+      pipes_sw_sw[k][i] = new Pipe(timeFromUs(RTT), *eventlist);
+      pipes_sw_sw[k][i]->setName("Pipe-sw-sw-" + ntoa(k) + "-" + ntoa(i));
+      logfile->writeName(*(pipes_sw_sw[k][i]));
+    }
+  }
+}
+
+
 void RandRegularTopology::init_network(){
   QueueLoggerSampling* queueLogger;
 
@@ -630,7 +979,7 @@ void RandRegularTopology::init_network_withfaillinks(){
   }
 }
 
-void check_non_null(route_t* rt){
+static void check_non_null(route_t* rt){
   int fail = 0;
   for (unsigned int i=1;i<rt->size()-1;i+=2)
     if (rt->at(i)==NULL){
@@ -1417,6 +1766,38 @@ void RandRegularTopology::delete_net_paths_rack_based(int numintervals) {
 	cout << "delete_net_paths_rack_based" << endl;
 #endif
 
+	#if IS_EVAL
+
+	for (int i=0; i<numswitches; i++) {
+		for (int j=0; j<numswitches; j++) {
+			if (net_paths_rack_based[i][j]) {
+				for (auto p : (*net_paths_rack_based[i][j])) {
+					delete p;
+				}
+				net_paths_rack_based[i][j]->clear();
+				delete net_paths_rack_based[i][j];
+			}
+		}
+		delete [] net_paths_rack_based[i];
+	}	
+	delete [] net_paths_rack_based;
+
+	for (int k=0; k<numintervals; k++) {
+		for (int i=0; i<numswitches; i++) {
+			for (int j=0; j<numswitches; j++) {
+				if (path_weights_rack_based[k][i][j]) {
+					path_weights_rack_based[k][i][j]->clear();
+					delete path_weights_rack_based[k][i][j];
+				}
+			}
+			delete [] path_weights_rack_based[k][i];
+		}	
+		delete [] path_weights_rack_based[k];
+	}
+	delete [] path_weights_rack_based;
+
+	#else
+
 	for (int i=0; i<NSW; i++) {
 		for (int j=0; j<NSW; j++) {
 			if (ecmp_net_paths[i][j]) {
@@ -1473,10 +1854,6 @@ void RandRegularTopology::delete_net_paths_rack_based(int numintervals) {
 	}	
 	delete [] maxdisj_net_paths;
 
-#if IS_DEBUG_ON
-	cout << "done deleting" << endl;
-#endif 
-
 #if PATHWEIGHTS
 	for (int k=0; k<numintervals; k++) {
 		for (int i=0; i<NSW; i++) {
@@ -1492,6 +1869,8 @@ void RandRegularTopology::delete_net_paths_rack_based(int numintervals) {
 	}
 	delete [] path_weights_rack_based;
 #endif
+
+	#endif
 
 }
 
