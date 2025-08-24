@@ -15,6 +15,8 @@ set IS_EVAL in main.h
 pip3 install tqdm
 pip3 install gurobipy==11.0.3
 pip3 install matplotlib
+
+stime = 192ms
 ```
 
 

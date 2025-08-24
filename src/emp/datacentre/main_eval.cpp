@@ -147,7 +147,7 @@ int main(int argc, char **argv) {
           i++;
 
           simtime_ms = stime;
-        eventlist.measurement_start_ms = stime * 0.1;
+        eventlist.measurement_start_ms = stime * 0.2;
         eventlist.setEndtime(timeFromMs(simtime_ms));
           cout << "stime = " << stime << endl;
       }

@@ -119,3 +119,5 @@ logout.dat
 rawtrafficfiles/
 experiments/nsdi26fall/*/connection_matrices/
 experiments/nsdi26fall/*/outfiles/
+experiments/nsdi26fall/*/*/cmfiles/
+experiments/nsdi26fall/*/*/outfiles/
