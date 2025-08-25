@@ -30,6 +30,9 @@
 uint32_t RTT = 2; // us
 int ssthresh = 43; //65 KB
 
+double warmup_percentage = 0.2;
+uint16_t endtime_extension = 50; // ms
+
 unsigned int subflow_count = 1;
 
 string ntoa(double n);
@@ -147,8 +150,8 @@ int main(int argc, char **argv) {
           i++;
 
           simtime_ms = stime;
-        eventlist.measurement_start_ms = stime * 0.2;
-        eventlist.setEndtime(timeFromMs(simtime_ms));
+        eventlist.measurement_start_ms = stime * warmup_percentage;
+        eventlist.setEndtime(timeFromMs(simtime_ms + endtime_extension));
           cout << "stime = " << stime << endl;
       }
       else if (!strcmp(argv[i],"-numintervals")){
