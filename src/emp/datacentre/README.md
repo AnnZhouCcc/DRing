@@ -15,10 +15,40 @@ set IS_EVAL in main.h
 pip3 install tqdm
 pip3 install gurobipy==11.0.3
 pip3 install matplotlib
+pip3 install numpy
 
-stime = 192ms
+stime = 144ms
+
+(python3 -m venv venv)
+source venv/bin/activate
+deactivate
+
+(current dir: ~/DRing/src/emp/datacentre/)
+tar -xvJf rawtrafficfiles.tar.xz
+
+edit BASEDIR in Makefile under datacentre/
 ```
 
+To install gurobi solver & license:
+```
+(current dir: ~/DRing/)
+wget https://packages.gurobi.com/11.0/gurobi11.0.3_linux64.tar.gz
+tar -xvzf gurobi11.0.3_linux64.tar.gz
+sudo mv gurobi1103 /opt/gurobi1103
+
+(venv) az6922@netsyn-01:~/DRing$ echo $SHELL
+/bin/bash
+# So I should edit ~/.bashrc instead of ~/.zshrc
+
+Added the next three lines to ~/.bashrc:
+export GUROBI_HOME="/opt/gurobi1103/linux64"
+export PATH="${GUROBI_HOME}/bin:${PATH}"
+export LD_LIBRARY_PATH="${GUROBI_HOME}/lib:${LD_LIBRARY_PATH}"
+
+source ~/.bashrc
+
+/opt/gurobi1103/linux64/bin/grbgetkey <license key, from https://portal.gurobi.com/iam/licenses/list/>
+```
 
 
 ## Submission Notes for NSDI Fall'25

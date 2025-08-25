@@ -2,58 +2,40 @@ import multiprocessing as mp
 import subprocess as sp
 import argparse
 from tqdm import tqdm
-import os
 import time
 from psutil import virtual_memory
 
-# Safety margin (1GB) in bytes so that the system doesn't crash or switches to swap
-# SAFETY_MARGIN = 1024**3
-# SAFETY_MARGIN = 1e9
+pbar = tqdm(smoothing=0, ncols=80)
 
-pbar = tqdm (smoothing=0, ncols=80)
+def run_thread(conf, safety_margin):
+    # Wait until enough memory is available
+    while virtual_memory().available <= safety_margin:
+        print(f"[{conf.strip()}] Waiting, insufficient memory {virtual_memory().available}")
+        time.sleep(10)
 
-def run_thread (conf):
-    cmd = conf
-    proc = sp.Popen(cmd, shell=True)
+    print(f"[{conf.strip()}] Starting with {virtual_memory().available} available memory")
+    proc = sp.Popen(conf, shell=True)
     proc.wait()
 
-    # cmd = conf.split (',')[0]
-    # output = conf.split (',')[1].split ('\n')[0]
-    # if not os.path.exists (os.path.split(output)[0]):
-    #     os.makedirs (os.path.split(output)[0])
-    # proc = sp.Popen ("./waf --run-no-build " + cmd + " > " + output + " 2>&1", shell=True)
-    # proc.wait ()
-
-
-def pbar_update (*a):
-    pbar.update ()
-
+def pbar_update(*a):
+    pbar.update()
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument ('--conf')
-    parser.add_argument ('--worker', type=int, default=int (mp.cpu_count () * 0.9))
-    args = parser.parse_args ()
+    parser.add_argument('--conf')
+    parser.add_argument('--worker', type=int, default=(mp.cpu_count()*0.9))
+    parser.add_argument('--safety', type=float, default=10e9)  # 10 GB
+    args = parser.parse_args()
 
-    SAFETY_MARGIN = 10*1e9
+    with open(args.conf, 'r') as f:
+        confs = f.readlines()
 
-    # proc = sp.Popen ("./oblivious_c2s_discover.sh", shell=True)
-    # proc.wait ()
+    pbar.reset(total=len(confs))
 
-    with open (args.conf, 'r') as f:
-        confs = f.readlines ()
-    pbar.reset (total=len (confs))
-    pool = mp.Pool (args.worker)
+    pool = mp.Pool(processes=args.worker)
     for conf in confs:
-        while True:
-            if virtual_memory().available > SAFETY_MARGIN:
-                print(f"Starting {conf}... with {virtual_memory().available} available memory")
-                pool.apply_async (run_thread, (conf, ), callback=pbar_update)
-                time.sleep(1)
-                break
-            else:
-                print(f"Waiting, insufficient memory {virtual_memory().available}")
-                time.sleep(60)
-    pool.close ()
-    pool.join ()
-    pbar.close ()
+        pool.apply_async(run_thread, (conf, args.safety), callback=pbar_update)
+
+    pool.close()
+    pool.join()
+    pbar.close()

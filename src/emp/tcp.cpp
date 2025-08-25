@@ -206,10 +206,10 @@ TcpSrc::receivePacket(Packet& pkt)
 		if (timeAsMs(_start_time) >= eventlist().measurement_start_ms) {
 			cout << "FCT " << _flow_size << " " << timeAsMs(eventlist().now() - _start_time) 
 				<< " " << timeAsMs(_start_time) << " " << endl;
-			for (vector<PacketSink*>::const_iterator it = _route->begin(); it != _route->end(); ++it) {
-			 	cout << (*it)->nodename() << " ";
-			}
-			cout << endl;
+			// for (vector<PacketSink*>::const_iterator it = _route->begin(); it != _route->end(); ++it) {
+			//  	cout << (*it)->nodename() << " ";
+			// }
+			// cout << endl;
 
 			// if (timeAsMs(eventlist().now() - _start_time)>1000) {
 			// 	std::cout << "EXIT FCT already too high" << std::endl;
