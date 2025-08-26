@@ -1,0 +1,22 @@
+stime = 10
+Using seed: 1
+df_p = 2
+df_a = 3
+df_h = 1
+connection matrix file: experiments/nsdi26fall/test_dragonfly/cmfiles/singleflow.cm
+topology_type = 3
+Netpath File: experiments/nsdi26fall/test_dragonfly/npfiles/df_p2_a3_h1_su2.np
+Pathweight File prefix: experiments/nsdi26fall/test_dragonfly/pwfiles/pathweight_df_p2_a3_h1_su2_singleflow.var
+numintervals = 1
+serverfile: experiments/nsdi26fall/test_dragonfly/svfiles/df_p2_a3_h1.sv
+Topology File: experiments/nsdi26fall/test_dragonfly/tpfiles/df_p2_a3_h1.edgelist
+Logging to logout.dat
+DragonFly topology with 2 hosts per router, 3 routers per group and 4 groups, total nodes 24
+Queue type 0
+DragonFly topology with 2 hosts per router, 3 routers per group and 4 groups, total nodes 24
+Queue type 0
+Starting to produce flow paths
+Set up all flows
+topology  2 0 0
+starting simulation 
+FCT 7500 0.0102997 5 

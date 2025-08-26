@@ -22,12 +22,13 @@
 
 #include "leaf_spine_topology.h"
 #include "rand_regular_topology.h"
+#include "dragon_fly_topology.h"
 
 // Simulation params
 #define PERIODIC 0
 #define DEBUG_MODE false
 
-uint32_t RTT = 2; // us
+uint32_t RTT = 2; // us // AnnC: not really RTT, more like link latency
 int ssthresh = 43; //65 KB
 
 double warmup_percentage = 0.2;
@@ -99,6 +100,7 @@ int main(int argc, char **argv) {
     uint16_t os = 1;
     uint32_t ls_k = 64;
     uint32_t numintervals = 1;
+    uint32_t df_p = 2, df_a = 3, df_h = 1; // dragonfly params
     int seed=240;
     stringstream filename(ios_base::out);
     filename << "logout.dat";
@@ -194,6 +196,21 @@ int main(int argc, char **argv) {
         i ++;
         cout << "ls_k = " << ls_k << endl;
     }
+    else if (!strcmp(argv[i], "-df_p")) {
+        df_p = atoi(argv[i+1]);
+        i ++;
+        cout << "df_p = " << df_p << endl;
+    }
+    else if (!strcmp(argv[i], "-df_a")) {
+        df_a = atoi(argv[i+1]);
+        i ++;
+        cout << "df_a = " << df_a << endl;
+    }
+    else if (!strcmp(argv[i], "-df_h")) {
+        df_h = atoi(argv[i+1]);
+        i ++;
+        cout << "df_h = " << df_h << endl;
+    }
     else {
          exit_error(argv[0]);
     }
@@ -231,6 +248,7 @@ int main(int argc, char **argv) {
     } else if (topology_type == RRG) {
         top = new RandRegularTopology(&logfile, &eventlist, topologyfile, RANDOM, numfaillinks, linkfailurefile, npfile, pwfileprefix, numintervals, serverfile, numswitches, numhosts, os, ls_k);
     } else if (topology_type == DRAGONFLY) {
+        top = new DragonFlyTopology(df_p, df_a, df_h, &logfile, &eventlist, RANDOM, npfile, pwfileprefix);
     } else {
         cout << "Unknown topology type: " << topology_type << endl;
         exit(1);
@@ -294,12 +312,10 @@ int main(int argc, char **argv) {
                 cout << routeout->at(i) << endl;
                 cout << routeout->at(i)->nodename() << endl;
             }
-            cout << endl;
-            cout << "**debug info** routein: " << endl;
+            cout << "**debug info** routein: size=" << routein->size() << endl;
             for (unsigned int i=0; i<routein->size(); i++) {
-                cout << routein->at(i)->nodename();
+                cout << routein->at(i)->nodename() << endl;
             }
-            cout << endl; 
         #endif
 
 	    }

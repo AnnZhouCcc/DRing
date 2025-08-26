@@ -11,17 +11,128 @@
 #include "prioqueue.h"
 #include "queue_lossless.h"
 #include "queue_lossless_input.h"
-#include "queue_lossless_output.h"
+// #include "queue_lossless_output.h" // AnnC: conflict with #define K 0
 #include "ecnqueue.h"
 #include "main.h"
+
+extern uint32_t RTT;
 
 string ntoa(double n);
 string itoa(uint64_t n);
 
+bool DEBUGGING = false;
+
+DragonFlyTopology::DragonFlyTopology(uint32_t p, uint32_t a, uint32_t h, Logfile* lg,EventList* ev,queue_type q, string netpathfile, string pathweightfile){
+    _queuesize = SWITCH_BUFFER * Packet::data_packet_size();
+    logfile = lg;
+    eventlist = ev;
+    qt = q;
+    _rtt = RTT;
+ 
+    _p = p;
+    _a = a;
+    _h = h;
+
+    _no_of_nodes = _a*_p*(_a*_h+1); // AnnC: total number of hosts
+
+    cout << "DragonFly topology with " << _p << " hosts per router, " << _a << " routers per group and " << (_a * _h +1) << " groups, total nodes " << _no_of_nodes << endl;
+    cout << "Queue type " << qt << endl;
+
+    set_params();
+    init_network();
+
+    net_paths_rack_based = new vector<route_t*>**[_no_of_switches];
+    for (int i=0;i<_no_of_switches;i++){
+        net_paths_rack_based[i] = new vector<route_t*>*[_no_of_switches];
+        for (int j = 0;j<_no_of_switches;j++){
+            net_paths_rack_based[i][j] = NULL;
+        }
+    }
+
+	// Read netpath from file
+	ifstream npfile(netpathfile.c_str());
+    string npline;
+    if (npfile.is_open()){
+      while(npfile.good()){
+        getline(npfile, npline);
+        if (npline.find_first_not_of(' ') == string::npos) break;
+        stringstream npss(npline);
+        int flowSrc,flowDst,num_paths;
+        vector<route_t*> *paths_rack_based;
+        if (npline.find_first_of("->") == string::npos) {
+          npss >> flowSrc >> flowDst >> num_paths;
+          paths_rack_based = new vector<route_t*>();
+          net_paths_rack_based[flowSrc][flowDst] = paths_rack_based;
+        } else {
+          string link;
+          int linkSrc,linkDst;
+          route_t *routeout = new route_t();
+          while (npss >> link) {
+            size_t found = link.find("->");
+            if (found != string::npos) {
+              linkSrc = stoi(link.substr(0,found));
+              linkDst = stoi(link.substr(found+2));
+                routeout->push_back(queues_switch_switch[linkSrc][linkDst]);
+                routeout->push_back(pipes_switch_switch[linkSrc][linkDst]);
+            }
+          }
+          paths_rack_based->push_back(routeout);
+        }
+      }
+      npfile.close();
+    } 
+	  else {
+      cout << "***Error opening netpathfile: " << netpathfile << endl;
+      exit(1);
+    }
+
+	// Initialize path_weights_rack_based
+	int numintervals = 1;
+	path_weights_rack_based = new vector < pair<int,double> > ***[numintervals];
+	for (int k=0; k<numintervals; k++) {
+		path_weights_rack_based[k] = new vector < pair<int,double> > **[_no_of_switches];
+		for (int i=0; i<_no_of_switches; i++) {
+			path_weights_rack_based[k][i] = new vector < pair<int,double> > *[_no_of_switches];
+			for (int j=0; j<_no_of_switches; j++) {
+				path_weights_rack_based[k][i][j] = new vector < pair<int,double> > ();
+			}
+		}
+	}
+
+	// Read pathweight from file
+	for (int i=0; i<numintervals; i++) {
+		ifstream pwfile(pathweightfile.c_str());
+		string pwline;
+		if (pwfile.is_open()){
+			while(pwfile.good()){
+				getline(pwfile, pwline);
+				if (pwline.find_first_not_of(' ') == string::npos) break;
+				stringstream ss(pwline);
+				string token;
+				vector<string> tokens;
+				while (getline(ss,token,',')) {
+					tokens.push_back(token);
+				}
+				int flowSrc = stoi(tokens[0]);
+				int flowDst = stoi(tokens[1]);
+				int pid = stoi(tokens[2]);
+				double weight = stod(tokens[3]);
+
+				path_weights_rack_based[i][flowSrc][flowDst]->push_back(pair<int,double>(pid,weight));
+			}
+			pwfile.close();
+		}
+		else {
+			cout << "***Error opening pathweightfile: " << pathweightfile << endl;
+			exit(1);
+		}
+	}
+}
+
 DragonFlyTopology::DragonFlyTopology(uint32_t p, uint32_t a, uint32_t h, mem_b queuesize, Logfile* lg,EventList* ev,queue_type q,simtime_picosec rtt){
     _queuesize = queuesize;
     logfile = lg;
-    _eventlist = ev;
+    eventlist = ev;
     qt = q;
     _rtt = rtt;
  
@@ -41,7 +152,7 @@ DragonFlyTopology::DragonFlyTopology(uint32_t p, uint32_t a, uint32_t h, mem_b q
 DragonFlyTopology::DragonFlyTopology(uint32_t no_of_nodes, mem_b queuesize, Logfile* lg,EventList* ev,queue_type q,simtime_picosec rtt){
     _queuesize = queuesize;
     logfile = lg;
-    _eventlist = ev;
+    eventlist = ev;
     qt = q;
     _rtt = rtt;
   
@@ -94,39 +205,57 @@ void DragonFlyTopology::set_params() {
 
 }
 
-Queue* DragonFlyTopology::alloc_src_queue(QueueLogger* queueLogger){
-    // return new FairPriorityQueue(speedFromMbps((uint64_t)HOST_NIC), memFromPkt(FEEDER_BUFFER), *_eventlist, queueLogger);
-    return new PriorityQueue(speedFromMbps((uint64_t)HOST_NIC), memFromPkt(FEEDER_BUFFER), *_eventlist, queueLogger);
-    
-}
-
-Queue* DragonFlyTopology::alloc_queue(QueueLogger* queueLogger, mem_b queuesize, bool tor = false){
-    return alloc_queue(queueLogger, HOST_NIC, queuesize, tor);
-}
-
-Queue* DragonFlyTopology::alloc_queue(QueueLogger* queueLogger, uint64_t speed, mem_b queuesize, bool tor){
-    if (qt==RANDOM)
-        return new RandomQueue(speedFromMbps(speed), queuesize, *_eventlist, queueLogger, memFromPkt(RANDOM_BUFFER));
-    else if (qt==COMPOSITE)
-        return new CompositeQueue(speedFromMbps(speed), queuesize, *_eventlist, queueLogger);
-    else if (qt==CTRL_PRIO)
-        return new CtrlPrioQueue(speedFromMbps(speed), queuesize, *_eventlist, queueLogger);
-    else if (qt==ECN)
-        return new ECNQueue(speedFromMbps(speed), memFromPkt(queuesize), *_eventlist, queueLogger, memFromPkt(15));
-    else if (qt==LOSSLESS)
-        return new LosslessQueue(speedFromMbps(speed), memFromPkt(50), *_eventlist, queueLogger, NULL);
-    else if (qt==LOSSLESS_INPUT)
-        return new LosslessOutputQueue(speedFromMbps(speed), memFromPkt(200), *_eventlist, queueLogger);    
-    else if (qt==LOSSLESS_INPUT_ECN)
-        return new LosslessOutputQueue(speedFromMbps(speed), memFromPkt(10000), *_eventlist, queueLogger,1,memFromPkt(16));
-    else if (qt==COMPOSITE_ECN){
-        if (tor) 
-            return new CompositeQueue(speedFromMbps(speed), queuesize, *_eventlist, queueLogger);
-        else
-            return new ECNQueue(speedFromMbps(speed), memFromPkt(2*SWITCH_BUFFER), *_eventlist, queueLogger, memFromPkt(15));
+static void check_non_null(route_t* rt){
+  int fail = 0;
+  for (unsigned int i=1;i<rt->size()-1;i+=2)
+    if (rt->at(i)==NULL){
+      fail = 1;
+      break;
     }
+  
+  if (fail){
+    //    cout <<"Null queue in route"<<endl;
+    for (unsigned int i=1;i<rt->size()-1;i+=2)
+      printf("%p ",rt->at(i));
+
+    cout<<endl;
     assert(0);
+  }
 }
+
+// Queue* DragonFlyTopology::alloc_src_queue(QueueLogger* queueLogger){
+//     // return new FairPriorityQueue(speedFromMbps((uint64_t)HOST_NIC), memFromPkt(FEEDER_BUFFER), *_eventlist, queueLogger);
+//     return new PriorityQueue(speedFromMbps((uint64_t)HOST_NIC), memFromPkt(FEEDER_BUFFER), *_eventlist, queueLogger);
+    
+// }
+
+// Queue* DragonFlyTopology::alloc_queue(QueueLogger* queueLogger, mem_b queuesize, bool tor = false){
+//     return alloc_queue(queueLogger, HOST_NIC, queuesize, tor);
+// }
+
+// Queue* DragonFlyTopology::alloc_queue(QueueLogger* queueLogger, uint64_t speed, mem_b queuesize, bool tor){
+//     if (qt==RANDOM)
+//         return new RandomQueue(speedFromMbps(speed), queuesize, *_eventlist, queueLogger, memFromPkt(RANDOM_BUFFER));
+//     else if (qt==COMPOSITE)
+//         return new CompositeQueue(speedFromMbps(speed), queuesize, *_eventlist, queueLogger);
+//     else if (qt==CTRL_PRIO)
+//         return new CtrlPrioQueue(speedFromMbps(speed), queuesize, *_eventlist, queueLogger);
+//     else if (qt==ECN)
+//         return new ECNQueue(speedFromMbps(speed), memFromPkt(queuesize), *_eventlist, queueLogger, memFromPkt(15));
+//     else if (qt==LOSSLESS)
+//     //     return new LosslessQueue(speedFromMbps(speed), memFromPkt(50), *_eventlist, queueLogger, NULL);
+//     // else if (qt==LOSSLESS_INPUT)
+//     //     return new LosslessOutputQueue(speedFromMbps(speed), memFromPkt(200), *_eventlist, queueLogger);    
+//     // else if (qt==LOSSLESS_INPUT_ECN)
+//     //     return new LosslessOutputQueue(speedFromMbps(speed), memFromPkt(10000), *_eventlist, queueLogger,1,memFromPkt(16));
+//     // else if (qt==COMPOSITE_ECN){
+//     //     if (tor) 
+//     //         return new CompositeQueue(speedFromMbps(speed), queuesize, *_eventlist, queueLogger);
+//     //     else
+//     //         return new ECNQueue(speedFromMbps(speed), memFromPkt(2*SWITCH_BUFFER), *_eventlist, queueLogger, memFromPkt(15));
+//     // }
+//     assert(0);
+// }
 
 void DragonFlyTopology::init_network(){
     QueueLoggerSampling* queueLogger;
@@ -156,22 +285,22 @@ void DragonFlyTopology::init_network(){
         for (uint32_t l = 0; l < _p; l++) {
             uint32_t k = j * _p + l;
             // Downlink
-            queueLogger = new QueueLoggerSampling(timeFromUs((uint32_t)10), *_eventlist);
+            queueLogger = new QueueLoggerSampling(timeFromUs((uint32_t)10), *eventlist);
             //queueLogger = NULL;
             logfile->addLogger(*queueLogger);
           
-            queues_switch_host[j][k] = alloc_queue(queueLogger, _queuesize,true);
+            queues_switch_host[j][k] = alloc_queue(queueLogger, HOST_NIC, _queuesize); // alloc_queue(queueLogger, _queuesize,true);
             queues_switch_host[j][k]->setName("SW" + ntoa(j) + "->DST" +ntoa(k));
             logfile->writeName(*(queues_switch_host[j][k]));
           
-            pipes_switch_host[j][k] = new Pipe(_rtt, *_eventlist);
+            pipes_switch_host[j][k] = new Pipe(_rtt, *eventlist);
             pipes_switch_host[j][k]->setName("Pipe-SW" + ntoa(j)  + "->DST" + ntoa(k));
             logfile->writeName(*(pipes_switch_host[j][k]));
           
             // Uplink
-            queueLogger = new QueueLoggerSampling(timeFromMs(1000), *_eventlist);
+            queueLogger = new QueueLoggerSampling(timeFromMs(1000), *eventlist);
             logfile->addLogger(*queueLogger);
-            queues_host_switch[k][j] = alloc_src_queue(queueLogger);
+            queues_host_switch[k][j] = alloc_queue(queueLogger, HOST_NIC, _queuesize); // alloc_src_queue(queueLogger);
             queues_host_switch[k][j]->setName("SRC" + ntoa(k) + "->SW" +ntoa(j));
             logfile->writeName(*(queues_host_switch[k][j]));
 
@@ -180,10 +309,10 @@ void DragonFlyTopology::init_network(){
                 ((LosslessQueue*)queues_switch_host[j][k])->setRemoteEndpoint(queues_host_switch[k][j]);
             }else if (qt==LOSSLESS_INPUT || qt == LOSSLESS_INPUT_ECN){
                 //no virtual queue needed at server
-                new LosslessInputQueue(*_eventlist,queues_host_switch[k][j]);
+                new LosslessInputQueue(*eventlist,queues_host_switch[k][j]);
             }
           
-            pipes_host_switch[k][j] = new Pipe(_rtt, *_eventlist);
+            pipes_host_switch[k][j] = new Pipe(_rtt, *eventlist);
             pipes_host_switch[k][j]->setName("Pipe-SRC" + ntoa(k) + "->SW" + ntoa(j));
             logfile->writeName(*(pipes_host_switch[k][j]));
         }
@@ -197,20 +326,20 @@ void DragonFlyTopology::init_network(){
         //Connect the switch to other switches in the same group, with higher IDs (full mesh within group).
         for (uint32_t k=j+1; k<(groupid+1)*_a;k++){
             //Downlink
-            queueLogger = new QueueLoggerSampling(timeFromMs(1000), *_eventlist);
+            queueLogger = new QueueLoggerSampling(timeFromMs(1000), *eventlist);
             logfile->addLogger(*queueLogger);
-            queues_switch_switch[k][j] = alloc_queue(queueLogger, _queuesize);
+            queues_switch_switch[k][j] = alloc_queue(queueLogger, HOST_NIC, _queuesize); // alloc_queue(queueLogger, _queuesize);
             queues_switch_switch[k][j]->setName("SW" + ntoa(k) + "-I->SW" + ntoa(j));
             logfile->writeName(*(queues_switch_switch[k][j]));
         
-            pipes_switch_switch[k][j] = new Pipe(_rtt, *_eventlist);
+            pipes_switch_switch[k][j] = new Pipe(_rtt, *eventlist);
             pipes_switch_switch[k][j]->setName("Pipe-SW" + ntoa(k) + "-I->SW" + ntoa(j));
             logfile->writeName(*(pipes_switch_switch[k][j]));
         
             // Uplink
-            queueLogger = new QueueLoggerSampling(timeFromMs(1000), *_eventlist);
+            queueLogger = new QueueLoggerSampling(timeFromMs(1000), *eventlist);
             logfile->addLogger(*queueLogger);
-            queues_switch_switch[j][k] = alloc_queue(queueLogger, _queuesize,true);
+            queues_switch_switch[j][k] = alloc_queue(queueLogger, HOST_NIC, _queuesize); // alloc_queue(queueLogger, _queuesize,true);
             queues_switch_switch[j][k]->setName("SW" + ntoa(j) + "-I->SW" + ntoa(k));
             logfile->writeName(*(queues_switch_switch[j][k]));
 
@@ -220,11 +349,11 @@ void DragonFlyTopology::init_network(){
                 switches[k]->addPort(queues_switch_switch[k][j]);
                 ((LosslessQueue*)queues_switch_switch[k][j])->setRemoteEndpoint(queues_switch_switch[j][k]);
             }else if (qt==LOSSLESS_INPUT || qt == LOSSLESS_INPUT_ECN){            
-                new LosslessInputQueue(*_eventlist, queues_switch_switch[j][k]);
-                new LosslessInputQueue(*_eventlist, queues_switch_switch[k][j]);
+                new LosslessInputQueue(*eventlist, queues_switch_switch[j][k]);
+                new LosslessInputQueue(*eventlist, queues_switch_switch[k][j]);
             }
         
-            pipes_switch_switch[j][k] = new Pipe(_rtt, *_eventlist);
+            pipes_switch_switch[j][k] = new Pipe(_rtt, *eventlist);
             pipes_switch_switch[j][k]->setName("Pipe-SW" + ntoa(j) + "-I->SW" + ntoa(k));
             logfile->writeName(*(pipes_switch_switch[j][k]));
         }
@@ -244,20 +373,20 @@ void DragonFlyTopology::init_network(){
             uint32_t k  = targetgroupid * _a + groupid/_h;
 
             //Downlink
-            queueLogger = new QueueLoggerSampling(timeFromMs(1000), *_eventlist);
+            queueLogger = new QueueLoggerSampling(timeFromMs(1000), *eventlist);
             logfile->addLogger(*queueLogger);
-            queues_switch_switch[k][j] = alloc_queue(queueLogger, _queuesize);
+            queues_switch_switch[k][j] = alloc_queue(queueLogger, HOST_NIC, _queuesize); // alloc_queue(queueLogger, _queuesize);
             queues_switch_switch[k][j]->setName("SW" + ntoa(k) + "-G->SW" + ntoa(j));
             logfile->writeName(*(queues_switch_switch[k][j]));
         
-            pipes_switch_switch[k][j] = new Pipe(_rtt, *_eventlist);
+            pipes_switch_switch[k][j] = new Pipe(_rtt, *eventlist);
             pipes_switch_switch[k][j]->setName("Pipe-SW" + ntoa(k) + "-G->SW" + ntoa(j));
             logfile->writeName(*(pipes_switch_switch[k][j]));
         
             // Uplink
-            queueLogger = new QueueLoggerSampling(timeFromMs(1000), *_eventlist);
+            queueLogger = new QueueLoggerSampling(timeFromMs(1000), *eventlist);
             logfile->addLogger(*queueLogger);
-            queues_switch_switch[j][k] = alloc_queue(queueLogger, _queuesize,true);
+            queues_switch_switch[j][k] = alloc_queue(queueLogger, HOST_NIC, _queuesize); // alloc_queue(queueLogger, _queuesize,true);
             queues_switch_switch[j][k]->setName("SW" + ntoa(j) + "-G->SW" + ntoa(k));
             logfile->writeName(*(queues_switch_switch[j][k]));
 
@@ -267,11 +396,11 @@ void DragonFlyTopology::init_network(){
                 switches[k]->addPort(queues_switch_switch[k][j]);
                 ((LosslessQueue*)queues_switch_switch[k][j])->setRemoteEndpoint(queues_switch_switch[j][k]);
             }else if (qt==LOSSLESS_INPUT || qt == LOSSLESS_INPUT_ECN){            
-                new LosslessInputQueue(*_eventlist, queues_switch_switch[j][k]);
-                new LosslessInputQueue(*_eventlist, queues_switch_switch[k][j]);
+                new LosslessInputQueue(*eventlist, queues_switch_switch[j][k]);
+                new LosslessInputQueue(*eventlist, queues_switch_switch[k][j]);
             }
         
-            pipes_switch_switch[j][k] = new Pipe(_rtt, *_eventlist);
+            pipes_switch_switch[j][k] = new Pipe(_rtt, *eventlist);
             pipes_switch_switch[j][k]->setName("Pipe-SW" + ntoa(j) + "-G->SW" + ntoa(k));
             logfile->writeName(*(pipes_switch_switch[j][k]));
         }        
@@ -660,21 +789,77 @@ void DragonFlyTopology::print_path(std::ofstream &paths, uint32_t src, const Rou
     paths << endl;
 }
 
+route_t *DragonFlyTopology::attach_head_tail(int src, int dst, bool is_same_switch, int rand_choice) {
+   if (DEBUGGING) std::cout << "Attach head tail " << src << " " << dst << " same switch " << is_same_switch << " rand_choice " << rand_choice << std::endl;
 
-static void check_non_null(route_t* rt){
-  int fail = 0;
-  for (unsigned int i=1;i<rt->size()-1;i+=2)
-    if (rt->at(i)==NULL){
-      fail = 1;
-      break;
+    int src_sw = ConvertHostToRack(src);
+    int dst_sw = ConvertHostToRack(dst);
+	route_t *this_route;
+
+    if (is_same_switch) {
+        assert(rand_choice == 0);
+        this_route = new route_t();
+
+		Queue* pqueue = new Queue(speedFromPktps(HOST_NIC), memFromPkt(FEEDER_BUFFER), *eventlist, NULL);
+        pqueue->setName("PQueue_" + ntoa(src) + "_" + ntoa(dst));
+		logfile->writeName(*pqueue);
+
+		this_route->push_back(pqueue);
+		this_route->push_back(queues_host_switch[src][ConvertHostToRack(src)]);
+		this_route->push_back(pipes_host_switch[src][ConvertHostToRack(src)]);
+
+		this_route->push_back(queues_switch_host[ConvertHostToRack(dst)][dst]);
+		this_route->push_back(pipes_switch_host[ConvertHostToRack(dst)][dst]);
+
+        if (DEBUGGING) std::cout << queues_host_switch[src][ConvertHostToRack(src)] << " " << pipes_host_switch[src][ConvertHostToRack(src)] << " " << queues_switch_host[ConvertHostToRack(dst)][dst] << " " << pipes_switch_host[ConvertHostToRack(dst)][dst] << std::endl;
+	} 
+    else {
+        this_route = new route_t(*(net_paths_rack_based[src_sw][dst_sw]->at(rand_choice)));
+		assert(this_route->size() > 0);
+
+		Queue* pqueue = new Queue(speedFromPktps(HOST_NIC), memFromPkt(FEEDER_BUFFER), *eventlist, NULL);
+		pqueue->setName("PQueue_" + ntoa(src) + "_" + ntoa(dst));
+		logfile->writeName(*pqueue);
+		this_route->push_front(queues_host_switch[src][ConvertHostToRack(src)]);
+		this_route->push_front(pipes_host_switch[src][ConvertHostToRack(src)]);
+		this_route->push_front(pqueue);
+
+		this_route->push_back(queues_switch_host[ConvertHostToRack(dst)][dst]);
+		this_route->push_back(pipes_switch_host[ConvertHostToRack(dst)][dst]);
+
+        if (DEBUGGING) std::cout << queues_host_switch[src][ConvertHostToRack(src)] << " " << pipes_host_switch[src][ConvertHostToRack(src)] << " " << queues_switch_host[ConvertHostToRack(dst)][dst] << " " << pipes_switch_host[ConvertHostToRack(dst)][dst] << std::endl;
+	}
+
+	return this_route;
+}
+
+void DragonFlyTopology::delete_net_paths_rack_based(int numintervals) {
+  for (int i=0; i<_no_of_switches; i++) {
+    for (int j=0; j<_no_of_switches; j++) {
+      if (net_paths_rack_based[i][j]) {
+        for (auto p : (*net_paths_rack_based[i][j])) {
+          delete p;
+        }
+        net_paths_rack_based[i][j]->clear();
+        delete net_paths_rack_based[i][j];
+      }
     }
-  
-  if (fail){
-    //    cout <<"Null queue in route"<<endl;
-    for (unsigned int i=1;i<rt->size()-1;i+=2)
-      printf("%p ",rt->at(i));
-
-    cout<<endl;
-    assert(0);
+    delete [] net_paths_rack_based[i];
   }
+	delete [] net_paths_rack_based;
+
+	for (int k=0; k<numintervals; k++) {
+		for (int i=0; i<_no_of_switches; i++) {
+			for (int j=0; j<_no_of_switches; j++) {
+				if (path_weights_rack_based[k][i][j]) {
+					path_weights_rack_based[k][i][j]->clear();
+					delete path_weights_rack_based[k][i][j];
+				}
+			}
+			delete [] path_weights_rack_based[k][i];
+		}	
+		delete [] path_weights_rack_based[k];
+	}
+	delete [] path_weights_rack_based;
+
 }

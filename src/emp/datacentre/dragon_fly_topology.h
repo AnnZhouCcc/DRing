@@ -1,6 +1,6 @@
 // -*- c-basic-offset: 4; indent-tabs-mode: nil -*-
-#ifndef DRAGONFLY
-#define DRAGONFLY
+#ifndef DRAGONFLY_H
+#define DRAGONFLY_H
 #include "main.h"
 #include "randomqueue.h"
 #include "pipe.h"
@@ -34,10 +34,10 @@
 //#define HOST_GROUP_ID(src) src%NSRV
 #define HOST_GROUP(src) (src/(_a*_p))
 
-#ifndef QT
-#define QT
-typedef enum {RANDOM, ECN, COMPOSITE, CTRL_PRIO, LOSSLESS, LOSSLESS_INPUT, LOSSLESS_INPUT_ECN, COMPOSITE_ECN} queue_type;
-#endif
+// #ifndef QT
+// #define QT
+// typedef enum {RANDOM, ECN, COMPOSITE, CTRL_PRIO, LOSSLESS, LOSSLESS_INPUT, LOSSLESS_INPUT_ECN, COMPOSITE_ECN} queue_type;
+// #endif
 
 class DragonFlyTopology: public Topology{
 public:
@@ -51,24 +51,32 @@ public:
     vector< vector<Queue*> > queues_switch_host;
   
     Logfile* logfile;
-    EventList* _eventlist;
+    // EventList* _eventlist;
     uint32_t failed_links;
     queue_type qt;
 
     DragonFlyTopology(uint32_t p, uint32_t h, uint32_t a, mem_b queuesize, Logfile* log,EventList* ev,queue_type q,simtime_picosec rtt);
+    DragonFlyTopology(uint32_t p, uint32_t h, uint32_t a, Logfile* log,EventList* ev,queue_type q,string netpathfile,string pathweightfile);
     DragonFlyTopology(uint32_t no_of_nodes, mem_b queuesize, Logfile* log,EventList* ev,queue_type q, simtime_picosec rtt);
+
+    int ConvertHostToRack(int host) { return HOST_TOR(host); };
+    route_t *attach_head_tail(int src, int dst, bool is_same_switch, int rand_choice);
+    void delete_net_paths_rack_based(int numintervals);
 
     void init_network();
     virtual vector<const Route*>* get_bidir_paths(uint32_t src, uint32_t dest, bool reverse);
 
-    Queue* alloc_src_queue(QueueLogger* q);
-    Queue* alloc_queue(QueueLogger* q, mem_b queuesize, bool tor);
-    Queue* alloc_queue(QueueLogger* q, uint64_t speed, mem_b queuesize, bool tor);
+    // Queue* alloc_src_queue(QueueLogger* q);
+    // Queue* alloc_queue(QueueLogger* q, mem_b queuesize, bool tor);
+    // Queue* alloc_queue(QueueLogger* q, uint64_t speed, mem_b queuesize, bool tor);
 
     void count_queue(Queue*);
     void print_path(std::ofstream& paths, uint32_t src, const Route* route);
-    vector<uint32_t>* get_neighbours(uint32_t src) { return NULL;};
+    vector<int>* get_neighbours(int src) { return NULL;};
     uint32_t no_of_nodes() const {return _no_of_nodes;}
+
+    pair<vector<double>*, vector<route_t*>*> get_paths(int src, int dest) { return {nullptr, nullptr}; }
+    pair<vector<double>*, vector<route_t*>*> get_other_paths(int src, int dest) { return {nullptr, nullptr}; }
 private:
     int64_t find_switch(Queue* queue);
     int64_t find_destination(Queue* queue);
