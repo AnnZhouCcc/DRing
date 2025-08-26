@@ -248,7 +248,7 @@ int main(int argc, char **argv) {
     } else if (topology_type == RRG) {
         top = new RandRegularTopology(&logfile, &eventlist, topologyfile, RANDOM, numfaillinks, linkfailurefile, npfile, pwfileprefix, numintervals, serverfile, numswitches, numhosts, os, ls_k);
     } else if (topology_type == DRAGONFLY) {
-        top = new DragonFlyTopology(df_p, df_a, df_h, &logfile, &eventlist, RANDOM, npfile, pwfileprefix);
+        top = new DragonFlyTopology(df_p, df_a, df_h, &logfile, &eventlist, RANDOM, npfile, pwfileprefix, numintervals);
     } else {
         cout << "Unknown topology type: " << topology_type << endl;
         exit(1);

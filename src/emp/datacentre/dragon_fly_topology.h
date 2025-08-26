@@ -56,7 +56,7 @@ public:
     queue_type qt;
 
     DragonFlyTopology(uint32_t p, uint32_t h, uint32_t a, mem_b queuesize, Logfile* log,EventList* ev,queue_type q,simtime_picosec rtt);
-    DragonFlyTopology(uint32_t p, uint32_t h, uint32_t a, Logfile* log,EventList* ev,queue_type q,string netpathfile,string pathweightfile);
+    DragonFlyTopology(uint32_t p, uint32_t h, uint32_t a, Logfile* log,EventList* ev,queue_type q,string netpathfile,string pathweightfileprefix, uint32_t numintervals);
     DragonFlyTopology(uint32_t no_of_nodes, mem_b queuesize, Logfile* log,EventList* ev,queue_type q, simtime_picosec rtt);
 
     int ConvertHostToRack(int host) { return HOST_TOR(host); };

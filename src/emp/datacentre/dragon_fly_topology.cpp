@@ -22,7 +22,7 @@ string itoa(uint64_t n);
 
 bool DEBUGGING = false;
 
-DragonFlyTopology::DragonFlyTopology(uint32_t p, uint32_t a, uint32_t h, Logfile* lg,EventList* ev,queue_type q, string netpathfile, string pathweightfile){
+DragonFlyTopology::DragonFlyTopology(uint32_t p, uint32_t a, uint32_t h, Logfile* lg,EventList* ev,queue_type q, string netpathfile, string pathweightfileprefix, uint32_t numintervals){
     _queuesize = SWITCH_BUFFER * Packet::data_packet_size();
     logfile = lg;
     eventlist = ev;
@@ -87,7 +87,6 @@ DragonFlyTopology::DragonFlyTopology(uint32_t p, uint32_t a, uint32_t h, Logfile
     }
 
 	// Initialize path_weights_rack_based
-	int numintervals = 1;
 	path_weights_rack_based = new vector < pair<int,double> > ***[numintervals];
 	for (int k=0; k<numintervals; k++) {
 		path_weights_rack_based[k] = new vector < pair<int,double> > **[_no_of_switches];
@@ -101,6 +100,7 @@ DragonFlyTopology::DragonFlyTopology(uint32_t p, uint32_t a, uint32_t h, Logfile
 
 	// Read pathweight from file
 	for (int i=0; i<numintervals; i++) {
+        string pathweightfile = pathweightfileprefix + to_string(i) + ".pw";
 		ifstream pwfile(pathweightfile.c_str());
 		string pwline;
 		if (pwfile.is_open()){
