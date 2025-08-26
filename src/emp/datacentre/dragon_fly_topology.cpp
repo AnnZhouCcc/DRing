@@ -279,13 +279,14 @@ void DragonFlyTopology::init_network(){
     //     for (uint32_t j=0;j<_no_of_switches;j++){
     //         switches[j] = new Switch(*_eventlist, "Switch_"+ntoa(j));
     //     }
-      
+    
+    int logger_period_ms = 1000000;
     // links from switches to server
     for (uint32_t j = 0; j < _no_of_switches; j++) {
         for (uint32_t l = 0; l < _p; l++) {
             uint32_t k = j * _p + l;
             // Downlink
-            queueLogger = new QueueLoggerSampling(timeFromUs((uint32_t)10), *eventlist);
+            queueLogger = new QueueLoggerSampling(timeFromMs(logger_period_ms), *eventlist);
             //queueLogger = NULL;
             logfile->addLogger(*queueLogger);
           
@@ -298,7 +299,7 @@ void DragonFlyTopology::init_network(){
             logfile->writeName(*(pipes_switch_host[j][k]));
           
             // Uplink
-            queueLogger = new QueueLoggerSampling(timeFromMs(1000), *eventlist);
+            queueLogger = new QueueLoggerSampling(timeFromMs(logger_period_ms), *eventlist);
             logfile->addLogger(*queueLogger);
             queues_host_switch[k][j] = alloc_queue(queueLogger, HOST_NIC, _queuesize); // alloc_src_queue(queueLogger);
             queues_host_switch[k][j]->setName("SRC" + ntoa(k) + "->SW" +ntoa(j));
@@ -326,7 +327,7 @@ void DragonFlyTopology::init_network(){
         //Connect the switch to other switches in the same group, with higher IDs (full mesh within group).
         for (uint32_t k=j+1; k<(groupid+1)*_a;k++){
             //Downlink
-            queueLogger = new QueueLoggerSampling(timeFromMs(1000), *eventlist);
+            queueLogger = new QueueLoggerSampling(timeFromMs(logger_period_ms), *eventlist);
             logfile->addLogger(*queueLogger);
             queues_switch_switch[k][j] = alloc_queue(queueLogger, HOST_NIC, _queuesize); // alloc_queue(queueLogger, _queuesize);
             queues_switch_switch[k][j]->setName("SW" + ntoa(k) + "-I->SW" + ntoa(j));
@@ -337,7 +338,7 @@ void DragonFlyTopology::init_network(){
             logfile->writeName(*(pipes_switch_switch[k][j]));
         
             // Uplink
-            queueLogger = new QueueLoggerSampling(timeFromMs(1000), *eventlist);
+            queueLogger = new QueueLoggerSampling(timeFromMs(logger_period_ms), *eventlist);
             logfile->addLogger(*queueLogger);
             queues_switch_switch[j][k] = alloc_queue(queueLogger, HOST_NIC, _queuesize); // alloc_queue(queueLogger, _queuesize,true);
             queues_switch_switch[j][k]->setName("SW" + ntoa(j) + "-I->SW" + ntoa(k));
@@ -373,7 +374,7 @@ void DragonFlyTopology::init_network(){
             uint32_t k  = targetgroupid * _a + groupid/_h;
 
             //Downlink
-            queueLogger = new QueueLoggerSampling(timeFromMs(1000), *eventlist);
+            queueLogger = new QueueLoggerSampling(timeFromMs(logger_period_ms), *eventlist);
             logfile->addLogger(*queueLogger);
             queues_switch_switch[k][j] = alloc_queue(queueLogger, HOST_NIC, _queuesize); // alloc_queue(queueLogger, _queuesize);
             queues_switch_switch[k][j]->setName("SW" + ntoa(k) + "-G->SW" + ntoa(j));
@@ -384,7 +385,7 @@ void DragonFlyTopology::init_network(){
             logfile->writeName(*(pipes_switch_switch[k][j]));
         
             // Uplink
-            queueLogger = new QueueLoggerSampling(timeFromMs(1000), *eventlist);
+            queueLogger = new QueueLoggerSampling(timeFromMs(logger_period_ms), *eventlist);
             logfile->addLogger(*queueLogger);
             queues_switch_switch[j][k] = alloc_queue(queueLogger, HOST_NIC, _queuesize); // alloc_queue(queueLogger, _queuesize,true);
             queues_switch_switch[j][k]->setName("SW" + ntoa(j) + "-G->SW" + ntoa(k));
