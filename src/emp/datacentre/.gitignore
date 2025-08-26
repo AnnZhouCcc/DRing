@@ -116,7 +116,14 @@ qivarfiles/
 
 eval
 logout.dat
+
 rawtrafficfiles/
+rawpathweightfiles/pathtraffic_dring_2988_80_64_su3_unv1_*
+rawpathweightfiles/pathtraffic_dring_2988_80_64_su3_prv1_*
+rawpathweightfiles/pathtraffic_dring_2988_80_64_su3_cluster_a_*
+rawpathweightfiles_pathtraffic_dring_su3_prv1_unv1.tar.xz
+rawpathweightfiles_pathtraffic_dring_su3_cluster_a.tar.xz
+
 experiments/nsdi26fall/test_general_setup/connection_matrices/
 experiments/nsdi26fall/test_general_setup/outfiles/
 experiments/nsdi26fall/*/*/cmfiles/

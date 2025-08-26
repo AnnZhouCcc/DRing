@@ -48,6 +48,11 @@ export LD_LIBRARY_PATH="${GUROBI_HOME}/lib:${LD_LIBRARY_PATH}"
 source ~/.bashrc
 
 /opt/gurobi1103/linux64/bin/grbgetkey <license key, from https://portal.gurobi.com/iam/licenses/list/>
+
+
+tar -cvJf rawpathweightfiles_pathtraffic_dring_su3_prv1_unv1_cluster_a.tar.xz rawpathweightfiles/pathtraffic_dring_2988_80_64_su3_*
+tar -cvJf rawpathweightfiles_pathtraffic_dring_su3_prv1_unv1.tar.xz rawpathweightfiles/pathtraffic_dring_2988_80_64_su3_*v1_*
+tar -cvJf rawpathweightfiles_pathtraffic_dring_su3_cluster_a.tar.xz rawpathweightfiles/pathtraffic_dring_2988_80_64_su3_*cluster_a_*
 ```
 
 
