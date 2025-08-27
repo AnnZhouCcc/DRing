@@ -49,6 +49,11 @@ source ~/.bashrc
 
 /opt/gurobi1103/linux64/bin/grbgetkey <license key, from https://portal.gurobi.com/iam/licenses/list/>
 
+scp annzhou@ocean0.cs.illinois.edu:./DRing/src/emp/datacentre/netpathfiles/netpath_fhi_dring.txt ./Desktop/
+scp ./Desktop/netpath_fhi_dring.txt az6922@cycles.cs.princeton.edu:./
+scp netpath_fhi_dring.txt az6922@netsyn-01:/mnt/mirabelle/az6922_homedir/DRing/src/emp/datacentre/evalnetpathfiles/
+(current dir: ~/DRing/src/emp/datacentre/evalnetpathfiles/)
+tar -cvJf netpath_fhi_dring.tar.xz netpath_fhi_dring.txt
 
 tar -cvJf rawpathweightfiles_pathtraffic_dring_su3_prv1_unv1_cluster_a.tar.xz rawpathweightfiles/pathtraffic_dring_2988_80_64_su3_*
 tar -cvJf rawpathweightfiles_pathtraffic_dring_su3_prv1_unv1.tar.xz rawpathweightfiles/pathtraffic_dring_2988_80_64_su3_*v1_*
