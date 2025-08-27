@@ -153,7 +153,8 @@ int main(int argc, char **argv) {
 
           simtime_ms = stime;
         eventlist.measurement_start_ms = stime * warmup_percentage;
-        eventlist.setEndtime(timeFromMs(simtime_ms + endtime_extension));
+        // eventlist.setEndtime(timeFromMs(simtime_ms + endtime_extension));
+        eventlist.setEndtime(timeFromMs(simtime_ms * 100));
           cout << "stime = " << stime << endl;
       }
       else if (!strcmp(argv[i],"-numintervals")){
