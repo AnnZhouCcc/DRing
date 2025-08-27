@@ -55,12 +55,18 @@ scp netpath_fhi_dring.txt az6922@netsyn-01:/mnt/mirabelle/az6922_homedir/DRing/s
 (current dir: ~/DRing/src/emp/datacentre/evalnetpathfiles/)
 tar -cvJf netpath_fhi_dring.tar.xz netpath_fhi_dring.txt
 
+tar -cvJf netpath_su4_df2.tar.xz netpath_df_p40_a2_h19_su4.np
+
 tar -cvJf rawpathweightfiles_pathtraffic_dring_su3_prv1_unv1_cluster_a.tar.xz rawpathweightfiles/pathtraffic_dring_2988_80_64_su3_*
 tar -cvJf rawpathweightfiles_pathtraffic_dring_su3_prv1_unv1.tar.xz rawpathweightfiles/pathtraffic_dring_2988_80_64_su3_*v1_*
 tar -cvJf rawpathweightfiles_pathtraffic_dring_su3_cluster_a.tar.xz rawpathweightfiles/pathtraffic_dring_2988_80_64_su3_*cluster_a_*
 tar -cvJf rawpathweightfiles_pathtraffic_df2_su3_unv1.tar.xz rawpathweightfiles/pathtraffic_df2_3120_78_60_su3_unv1_*
 tar -cvJf rawpathweightfiles_pathtraffic_df2_su3_prv1.tar.xz rawpathweightfiles/pathtraffic_df2_3120_78_60_su3_prv1_*
 tar -cvJf rawpathweightfiles_pathtraffic_df2_su2_su3_cluster_a.tar.xz rawpathweightfiles/pathtraffic_df2_3120_78_60_su*_cluster_a_*
+tar -cvJf rawpathweightfiles_pathtraffic_dring_fhi_unv1.tar.xz rawpathweightfiles/pathtraffic_dring_2988_80_64_fhi_unv1_load*
+tar -cvJf rawpathweightfiles_pathtraffic_dring_racke1_unv1.tar.xz rawpathweightfiles/pathtraffic_dring_2988_80_64_racke1_unv1_load*
+tar -cvJf rawpathweightfiles_pathtraffic_df2_su4_unv1.tar.xz rawpathweightfiles/pathtraffic_df2_3120_78_60_su4_unv1_load*
+tar -cvJf rawpathweightfiles_pathtraffic_rrg_su3_unv1.tar.xz rawpathweightfiles/pathtraffic_rrg_3072_80_64_su3_unv1_load*
 ```
 
 
