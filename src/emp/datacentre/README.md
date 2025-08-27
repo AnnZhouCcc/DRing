@@ -53,6 +53,7 @@ source ~/.bashrc
 tar -cvJf rawpathweightfiles_pathtraffic_dring_su3_prv1_unv1_cluster_a.tar.xz rawpathweightfiles/pathtraffic_dring_2988_80_64_su3_*
 tar -cvJf rawpathweightfiles_pathtraffic_dring_su3_prv1_unv1.tar.xz rawpathweightfiles/pathtraffic_dring_2988_80_64_su3_*v1_*
 tar -cvJf rawpathweightfiles_pathtraffic_dring_su3_cluster_a.tar.xz rawpathweightfiles/pathtraffic_dring_2988_80_64_su3_*cluster_a_*
+tar -cvJf rawpathweightfiles_pathtraffic_df2_su3_unv1.tar.xz rawpathweightfiles/pathtraffic_df2_3120_78_60_su3_unv1_*
 ```
 
 
