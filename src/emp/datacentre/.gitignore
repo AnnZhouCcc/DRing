@@ -118,6 +118,7 @@ eval
 logout.dat
 
 rawtrafficfiles/
+rawpathweightfiles/pathtraffic_*prv1_*
 rawpathweightfiles/pathtraffic_dring_2988_80_64_su3_unv1_*
 rawpathweightfiles/pathtraffic_dring_2988_80_64_su3_prv1_*
 rawpathweightfiles/pathtraffic_dring_2988_80_64_su3_cluster_a_*
