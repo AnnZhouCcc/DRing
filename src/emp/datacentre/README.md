@@ -67,6 +67,7 @@ tar -cvJf rawpathweightfiles_pathtraffic_dring_fhi_unv1.tar.xz rawpathweightfile
 tar -cvJf rawpathweightfiles_pathtraffic_dring_racke1_unv1.tar.xz rawpathweightfiles/pathtraffic_dring_2988_80_64_racke1_unv1_load*
 tar -cvJf rawpathweightfiles_pathtraffic_df2_su4_unv1.tar.xz rawpathweightfiles/pathtraffic_df2_3120_78_60_su4_unv1_load*
 tar -cvJf rawpathweightfiles_pathtraffic_rrg_su3_unv1.tar.xz rawpathweightfiles/pathtraffic_rrg_3072_80_64_su3_unv1_load*
+tar -cvJf rawpathweightfiles_pathtraffic_others_prv1.tar.xz rawpathweightfiles/pathtraffic_*_prv1_*
 ```
 
 
