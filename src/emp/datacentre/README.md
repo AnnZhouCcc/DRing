@@ -70,6 +70,7 @@ tar -cvJf rawpathweightfiles_pathtraffic_rrg_su3_unv1.tar.xz rawpathweightfiles/
 tar -cvJf rawpathweightfiles_pathtraffic_others_prv1.tar.xz rawpathweightfiles/pathtraffic_*_prv1_*
 tar -cvJf rawpathweightfiles_pathtraffic_others_cluster_a.tar.xz rawpathweightfiles/pathtraffic_*cluster_a*
 tar -cvJf rawpathweightfiles_pathtraffic_cluster_b.tar.xz rawpathweightfiles/pathtraffic_*cluster_b*
+tar -cvJf rawpathweightfiles_pathtraffic_cluster_c.tar.xz rawpathweightfiles/pathtraffic_*cluster_c*
 ```
 
 
