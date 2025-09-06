@@ -138,7 +138,12 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
 	}
 
 	for (int i=0; i<numintervals; i++) {
-		string pathweightfile = pathweightfileprefix + to_string(i) + ".pw";
+		string pathweightfile = "";
+		if (numintervals == 1) {
+			pathweightfile = pathweightfileprefix;
+		} else {
+			pathweightfile = pathweightfileprefix + to_string(i) + ".pw";
+		}
 		ifstream pwfile(pathweightfile.c_str());
 		string pwline;
 		if (pwfile.is_open()){
