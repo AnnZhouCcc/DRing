@@ -135,6 +135,10 @@ rawpathweightfiles_pathtraffic_others_prv1.tar.xz
 rawpathweightfiles_pathtraffic_others_cluster_a.tar.xz
 rawpathweightfiles_pathtraffic_cluster_b.tar.xz
 rawpathweightfiles_pathtraffic_cluster_c.tar.xz
+rawpathweightfiles_pathtraffic_racke1four.tar.xz
+
+rawrackepathfiles/dring80/
+!rawrackepathfiles/dring.tar.gz
 
 evalnetpathfiles/netpath_dring_80_64_fhi.np
 evalnetpathfiles/netpath_df_p40_a2_h19_su4.np
