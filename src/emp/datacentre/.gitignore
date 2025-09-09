@@ -148,3 +148,6 @@ experiments/nsdi26fall/test_general_setup/outfiles/
 experiments/nsdi26fall/*/*/cmfiles/
 experiments/nsdi26fall/*/*/outfiles/
 experiments/nsdi26fall/*/*/pwfiles/
+experiments/nsdi26fall/*/cmfiles/
+experiments/nsdi26fall/*/outfiles/
+experiments/nsdi26fall/*/pwfiles/
