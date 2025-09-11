@@ -172,7 +172,7 @@ RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string grap
 	}
 
 
-	for (int i=0; i<10000; i++) { // AnnC: dummy number. assume we have at most 10000 servers.
+	for (int i=0; i<15000; i++) { // AnnC: dummy number. assume we have at most 15000 servers.
 		hostToSwitchArr.push_back(-1);
 	}
 	ifstream svrfile(serverfile.c_str());

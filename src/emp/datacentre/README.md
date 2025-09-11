@@ -72,6 +72,10 @@ tar -cvJf rawpathweightfiles_pathtraffic_others_cluster_a.tar.xz rawpathweightfi
 tar -cvJf rawpathweightfiles_pathtraffic_cluster_b.tar.xz rawpathweightfiles/pathtraffic_*cluster_b*
 tar -cvJf rawpathweightfiles_pathtraffic_cluster_c.tar.xz rawpathweightfiles/pathtraffic_*cluster_c*
 tar -cvJf rawpathweightfiles_pathtraffic_racke1four.tar.xz rawpathweightfiles/pathtraffic_*racke1four*
+
+az6922@netsyn-01:/mnt/mirabelle/az6922_homedir/DRing/src/emp/datacentre/evalscalenetpathfiles$ tar -cJvf dring140160.tar.xz netpath_dring_140_96_su2.np netpath_dring_160_96_su2.np
+
+tar -cvJf rawpathweightfiles_pathtraffic_dringrrg140160.tar.xz rawpathweightfiles/pathtraffic_dring_sw140* rawpathweightfiles/pathtraffic_dring_sw160* rawpathweightfiles/pathtraffic_rrg_sw140* rawpathweightfiles/pathtraffic_rrg_sw160* rawpathweightfiles/pathtraffic_rrg_sw180* rawpathweightfiles/pathtraffic_rrg_sw200*
 ```
 
 
