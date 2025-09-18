@@ -154,3 +154,5 @@ experiments/nsdi26fall/*/*/pwfiles/
 experiments/nsdi26fall/*/cmfiles/
 experiments/nsdi26fall/*/outfiles/
 experiments/nsdi26fall/*/pwfiles/
+experiments/nsdi26fall/*/*.pdf
+experiments/nsdi26fall/*/*.pkl
