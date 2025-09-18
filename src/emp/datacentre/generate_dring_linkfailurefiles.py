@@ -7,16 +7,20 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--numfaillinks", type=int, default=0, help="")
 parser.add_argument("--rseed", type=int, default=0, help="")
 parser.add_argument("--linkfailurefile", type=str, default="", help="")
+parser.add_argument("--graphfile", type=str, default="../../../evaltopologyfiles/dring_80_64.edgelist", help="")
+parser.add_argument("--numtotalbilinks", type=int, default=1066, help="") # 1066 for dring_80_64
 
 args = parser.parse_args()
 
 numfaillinks = args.numfaillinks
 rseed = args.rseed
 linkfailurefile = args.linkfailurefile
+graphfile = args.graphfile
+numtotalbilinks = args.numtotalbilinks
 
 
-numtotalbilinks = 1066
-graphfile = "../../../evaltopologyfiles/dring_80_64.edgelist"
+# numtotalbilinks = 1066
+# graphfile = "../../../evaltopologyfiles/dring_80_64.edgelist"
 
 
 
