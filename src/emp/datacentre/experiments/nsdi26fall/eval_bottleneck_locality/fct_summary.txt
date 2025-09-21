@@ -1,0 +1,15 @@
+outfiles/dringsu2_load5_localratio10_seed1.out	0.2783061626878614	0.0882981	5.21663	29.8229
+outfiles/dringsu2_load5_localratio10_seed2.out	0.28434160347413084	0.088488	5.50547	30.9884
+outfiles/dringsu2_load5_localratio10_seed3.out	0.27997485746791895	0.0884901	5.40469	29.3307
+outfiles/dringsu2_load5_localratio10_seed4.out	0.27602544347473457	0.0882128	5.26848	28.1756
+outfiles/dringsu2_load5_localratio10_seed5.out	0.2755912186977509	0.0882916	5.07918	29.2669
+outfiles/dringsu2_load5_localratio20_seed1.out	0.2974454130119494	0.0800908	6.0685	44.2585
+outfiles/dringsu2_load5_localratio20_seed2.out	0.292061090287719	0.0798275	5.81711	40.7436
+outfiles/dringsu2_load5_localratio20_seed3.out	0.2928760450114832	0.0798785	5.82761	42.2644
+outfiles/dringsu2_load5_localratio20_seed4.out	0.2921945012121101	0.079977	6.05472	39.2613
+outfiles/dringsu2_load5_localratio20_seed5.out	0.2928929355153263	0.079916	5.96398	40.1959
+outfiles/dringsu2_load5_localratio30_seed1.out	0.2610365002300908	0.0736027	4.66452	32.0103
+outfiles/dringsu2_load5_localratio30_seed2.out	0.2587242938548791	0.0735936	4.96356	31.2702
+outfiles/dringsu2_load5_localratio30_seed3.out	0.2595353211868513	0.0736012	4.7765	32.0845
+outfiles/dringsu2_load5_localratio30_seed4.out	0.2592859276173859	0.0733711	4.83616	32.7895
+outfiles/dringsu2_load5_localratio30_seed5.out	0.25905251159112724	0.0734524	5.00123	31.7978
