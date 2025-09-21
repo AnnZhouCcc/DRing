@@ -102,6 +102,7 @@ int main(int argc, char **argv) {
     uint32_t numintervals = 1;
     uint32_t df_p = 2, df_a = 3, df_h = 1; // dragonfly params
     int seed=240;
+    double os_ratio = 1;
     stringstream filename(ios_base::out);
     filename << "logout.dat";
 
@@ -212,6 +213,11 @@ int main(int argc, char **argv) {
         i ++;
         cout << "df_h = " << df_h << endl;
     }
+    else if (!strcmp(argv[i], "-os_ratio")) {
+        os_ratio = atof(argv[i+1]);
+        i ++;
+        cout << "os_ratio = " << os_ratio << endl;
+    }
     else {
          exit_error(argv[0]);
     }
@@ -245,9 +251,9 @@ int main(int argc, char **argv) {
     if (topology_type == FAT) {
         // top = new FatTreeTopology(&logfile, &eventlist, RANDOM);
     } else if (topology_type == LEAFSPINE) {
-        top = new LeafSpineTopology(&logfile, &eventlist, RANDOM, numfaillinks, linkfailurefile, npfile, pwfileprefix, numswitches, ls_k, os);
+        top = new LeafSpineTopology(&logfile, &eventlist, RANDOM, numfaillinks, linkfailurefile, npfile, pwfileprefix, numswitches, ls_k, os, os_ratio);
     } else if (topology_type == RRG) {
-        top = new RandRegularTopology(&logfile, &eventlist, topologyfile, RANDOM, numfaillinks, linkfailurefile, npfile, pwfileprefix, numintervals, serverfile, numswitches, numhosts, os, ls_k);
+        top = new RandRegularTopology(&logfile, &eventlist, topologyfile, RANDOM, numfaillinks, linkfailurefile, npfile, pwfileprefix, numintervals, serverfile, numswitches, numhosts, os, ls_k, os_ratio);
     } else if (topology_type == DRAGONFLY) {
         top = new DragonFlyTopology(df_p, df_a, df_h, &logfile, &eventlist, RANDOM, npfile, pwfileprefix, numintervals);
     } else {

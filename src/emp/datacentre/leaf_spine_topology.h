@@ -53,7 +53,7 @@ class LeafSpineTopology: public Topology{
 
   LeafSpineTopology(Logfile* log,EventList* ev, queue_type qt, string netpathfile, string pathweightfile);
   LeafSpineTopology(Logfile* log,EventList* ev, queue_type qt, int numfaillinks, int failseed, string netpathfile, string pathweightfile);
-  LeafSpineTopology(Logfile* log,EventList* ev, queue_type qt, int numfaillinks, string linkfailurefile, string netpathfile, string pathweightfile, uint32_t numswitches, uint32_t ls_k, uint16_t _os);
+  LeafSpineTopology(Logfile* log,EventList* ev, queue_type qt, int numfaillinks, string linkfailurefile, string netpathfile, string pathweightfile, uint32_t numswitches, uint32_t ls_k, uint16_t _os, double os_ratio=1.0);
 
   uint32_t ls_lsx;
   uint32_t ls_lsy;

@@ -65,7 +65,7 @@ class RandRegularTopology: public Topology{
 
   RandRegularTopology(Logfile* log,EventList* ev, string graphFile, queue_type qt=RANDOM, string conn_matrix="CLUSTERX", string alg="ecmp", int k=0, string netpathFile="none", string pathweightfileprefix="none", string pathweightfilesuffix="none", int solvestart=0, int solveend=0, int solveinterval=0, int computestart=0, int computeend=0, int computeinterval=0);
   RandRegularTopology(Logfile* log,EventList* ev, string graphFile, queue_type qt=RANDOM, string conn_matrix="CLUSTERX", string alg="ecmp", int k=0, int numfaillinks=0, int failseed=0, string netpathFile="none", string pathweightfileprefix="none", string pathweightfilesuffix="none", int solvestart=0, int solveend=0, int solveinterval=0, int computestart=0, int computeend=0, int computeinterval=0, string trafficname="none", string serverfile="none");
-  RandRegularTopology(Logfile* log,EventList* ev, string graphFile, queue_type qt=RANDOM, int numfaillinks=0, string linkfailurefile="none", string netpathFile="none", string pathweightfileprefix="none", uint32_t numintervals=0, string serverfile="none", uint32_t _numswitches = 0, uint32_t numhosts = 0, uint16_t _os = 1, uint32_t _ls_k = 0);
+  RandRegularTopology(Logfile* log,EventList* ev, string graphFile, queue_type qt=RANDOM, int numfaillinks=0, string linkfailurefile="none", string netpathFile="none", string pathweightfileprefix="none", uint32_t numintervals=0, string serverfile="none", uint32_t _numswitches = 0, uint32_t numhosts = 0, uint16_t _os = 1, uint32_t _ls_k = 0, double os_ratio = 1.0);
 
   uint32_t numswitches;
   uint16_t os;

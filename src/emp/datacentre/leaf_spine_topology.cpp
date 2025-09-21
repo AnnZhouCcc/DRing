@@ -19,10 +19,14 @@ string itoa(uint64_t n);
 
 // extern int N;
 
-LeafSpineTopology::LeafSpineTopology(Logfile* lg, EventList* ev, queue_type qt, int numfaillinks, string linkfailurefile, string netpathfile, string pathweightfile, uint32_t numswitches, uint32_t ls_k, uint16_t _os){
+double my_ls_os_ratio = 1.0;
+
+LeafSpineTopology::LeafSpineTopology(Logfile* lg, EventList* ev, queue_type qt, int numfaillinks, string linkfailurefile, string netpathfile, string pathweightfile, uint32_t numswitches, uint32_t ls_k, uint16_t _os, double os_ratio){
   logfile = lg;
   eventlist = ev;
   qtype = qt;
+
+  my_ls_os_ratio = os_ratio;
 
   this->os = _os;
   ls_lsx = (3*ls_k/4);
@@ -391,7 +395,7 @@ void LeafSpineTopology::init_network_eval(){
            //queueLogger = NULL;
            logfile->addLogger(*queueLogger);
 
-           queues_nlp_ns[j][k] = alloc_queue(queueLogger, HOST_NIC, queue_size); //new RandomQueue(speedFromPktps(HOST_NIC), memFromPkt(SWITCH_BUFFER + RANDOM_BUFFER), *eventlist, queueLogger, memFromPkt(RANDOM_BUFFER));
+           queues_nlp_ns[j][k] = alloc_queue(queueLogger, HOST_NIC*my_ls_os_ratio, queue_size); //new RandomQueue(speedFromPktps(HOST_NIC), memFromPkt(SWITCH_BUFFER + RANDOM_BUFFER), *eventlist, queueLogger, memFromPkt(RANDOM_BUFFER));
            queues_nlp_ns[j][k]->setName("LS_" + ntoa(j) + "-" + "DST_" +ntoa(k));
            logfile->writeName(*(queues_nlp_ns[j][k]));
 
@@ -402,7 +406,7 @@ void LeafSpineTopology::init_network_eval(){
            // Uplink
            queueLogger = new QueueLoggerSampling(timeFromMs(delay), *eventlist);
            logfile->addLogger(*queueLogger);
-           queues_ns_nlp[k][j] = alloc_queue(queueLogger, HOST_NIC, queue_size); //new RandomQueue(speedFromPktps(HOST_NIC), memFromPkt(SWITCH_BUFFER + RANDOM_BUFFER), *eventlist, queueLogger, memFromPkt(RANDOM_BUFFER));
+           queues_ns_nlp[k][j] = alloc_queue(queueLogger, HOST_NIC*my_ls_os_ratio, queue_size); //new RandomQueue(speedFromPktps(HOST_NIC), memFromPkt(SWITCH_BUFFER + RANDOM_BUFFER), *eventlist, queueLogger, memFromPkt(RANDOM_BUFFER));
            queues_ns_nlp[k][j]->setName("SRC_" + ntoa(k) + "-" + "LS_"+ntoa(j));
            logfile->writeName(*(queues_ns_nlp[k][j]));
            

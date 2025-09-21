@@ -33,11 +33,14 @@ string itoa(uint64_t n);
 
 extern int N;
 
+double my_os_ratio = 1.0;
 
-RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string graphFile, queue_type qt, int numfaillinks, string linkfailurefile, string netpathfile, string pathweightfileprefix, uint32_t numintervals, string serverfile, uint32_t _numswitches, uint32_t numhosts, uint16_t _os, uint32_t _ls_k) {
+RandRegularTopology::RandRegularTopology(Logfile* lg, EventList* ev, string graphFile, queue_type qt, int numfaillinks, string linkfailurefile, string netpathfile, string pathweightfileprefix, uint32_t numintervals, string serverfile, uint32_t _numswitches, uint32_t numhosts, uint16_t _os, uint32_t _ls_k, double os_ratio) {
   logfile = lg;
   eventlist = ev;
   qtype = qt;
+
+  my_os_ratio = os_ratio;
 
   this->numswitches = _numswitches;
   this->os = _os;
@@ -631,6 +634,7 @@ void RandRegularTopology::init_network_eval(){
     }
 
   cout<<"init_network finished. Link speed: "<<speedFromPktps(HOST_NIC)<<endl;
+  std::cout << "sw<=>svr bw: " << HOST_NIC*my_os_ratio << " pkt/s" << std::endl;
 
    int logger_period_ms = 1000000;
    mem_b queue_size = SWITCH_BUFFER * Packet::data_packet_size();
@@ -647,7 +651,7 @@ void RandRegularTopology::init_network_eval(){
           queueLogger = new QueueLoggerSampling(timeFromMs(logger_period_ms), *eventlist);
           logfile->addLogger(*queueLogger);
 
-          queues_sw_svr[j][k] = alloc_queue(queueLogger, HOST_NIC, queue_size); //new RandomQueue(speedFromPktps(HOST_NIC), memFromPkt(SWITCH_BUFFER + RANDOM_BUFFER), *eventlist, queueLogger, memFromPkt(RANDOM_BUFFER));
+          queues_sw_svr[j][k] = alloc_queue(queueLogger, HOST_NIC*my_os_ratio, queue_size); //new RandomQueue(speedFromPktps(HOST_NIC), memFromPkt(SWITCH_BUFFER + RANDOM_BUFFER), *eventlist, queueLogger, memFromPkt(RANDOM_BUFFER));
           queues_sw_svr[j][k]->setName("SW_" + ntoa(j) + "-" + "DST_" +ntoa(k));
           logfile->writeName(*(queues_sw_svr[j][k]));
 
@@ -663,7 +667,7 @@ void RandRegularTopology::init_network_eval(){
           queueLogger = new QueueLoggerSampling(timeFromMs(logger_period_ms), *eventlist);
           logfile->addLogger(*queueLogger);
 
-          queues_svr_sw[j][k] = alloc_queue(queueLogger, HOST_NIC, queue_size); //new RandomQueue(speedFromPktps(HOST_NIC), memFromPkt(SWITCH_BUFFER + RANDOM_BUFFER), *eventlist, queueLogger, memFromPkt(RANDOM_BUFFER));
+          queues_svr_sw[j][k] = alloc_queue(queueLogger, HOST_NIC*my_os_ratio, queue_size); //new RandomQueue(speedFromPktps(HOST_NIC), memFromPkt(SWITCH_BUFFER + RANDOM_BUFFER), *eventlist, queueLogger, memFromPkt(RANDOM_BUFFER));
           queues_svr_sw[j][k]->setName("SRC_" + ntoa(k) + "-" + "SW_" +ntoa(j));
           logfile->writeName(*(queues_svr_sw[j][k]));
 
