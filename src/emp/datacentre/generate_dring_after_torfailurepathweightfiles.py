@@ -352,6 +352,8 @@ for fromsw in range(numsw):
             valuesum = 0
             for _,value in valuearr[fromsw][tosw]:
                 valuesum += value
+            if valuesum==0:
+                print(f"{qvarfile}: {fromsw}->{tosw}")
             valuetoweight = 1.0/valuesum
             for ipv,pv in enumerate(weightarr[fromsw][tosw]):
                 weightarr[fromsw][tosw][ipv][1] = pv[1] * valuetoweight

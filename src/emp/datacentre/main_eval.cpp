@@ -109,6 +109,7 @@ int main(int argc, char **argv) {
     int i = 1;
     while (i<argc) {
       if (!strcmp(argv[i],"-o")){
+        filename.str(std::string());
           filename << argv[i+1];
           i++;
       }
